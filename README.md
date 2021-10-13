@@ -2,8 +2,8 @@
 
 Here you can find
 
+-   [Publications](./publications)
 -   [Slides](./slides)
 -   [Posters](./posters)
--   [Publications](./publications)
 
 about _miaverse_.
