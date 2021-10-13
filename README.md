@@ -4,6 +4,6 @@ Here you can find
 
 -   [Slides](./slides)
 -   [Posters](./posters)
--   [Publications](./publications¨)
+-   [Publications](./publications)
 
 about _miaverse_.
