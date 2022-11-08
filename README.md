@@ -1,4 +1,4 @@
-# Outreach
+# Outreach <img src="figures/mia_logo.png" align="right" width="120" />
 
 Here you can find
 
