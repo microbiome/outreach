@@ -1,0 +1,15 @@
+---
+title: "Quarto Presentations"
+format: html
+editor: visual
+---
+
+## Overview
+
+This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:
+
+-   [HintikkaXOData](https://microbiome.github.io/outreach/hintikkaxo_presentation.html)
+
+## Contributions
+
+You are welcome to add new presentations or improve the current ones. The workflow for contributors is explained [here](https://github.com/microbiome/OMA#development-and-contributions). The presentations are deployed from [this directory](https://github.com/microbiome/outreach/blob/main/quarto/), so you need to make the respective changes there and run `cd quarto/; quarto render`. [This documentation](https://quarto.org/docs/publishing/github-pages.html#publish-command) provides more details about publishing quarto presentations with GitHub Pages.

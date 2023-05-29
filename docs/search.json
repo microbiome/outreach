@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Quarto Presentations",
+    "section": "",
+    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\nHintikkaXOData"
+  },
+  {
+    "objectID": "index.html#contributions",
+    "href": "index.html#contributions",
+    "title": "Quarto Presentations",
+    "section": "Contributions",
+    "text": "Contributions\nYou are welcome to add new presentations or improve the current ones. The workflow for contributors is explained here. The presentations are deployed from this directory, so you need to make the respective changes there and run cd quarto/; quarto render. This documentation provides more details about publishing quarto presentations with GitHub Pages."
+  },
+  {
+    "objectID": "hintikkaxo_presentation.html#study-design",
+    "href": "hintikkaxo_presentation.html#study-design",
+    "title": "A brief introduction to HintikkaXOData",
+    "section": "Study design",
+    "text": "Study design\n\nHintikkaXOData is a MultiAssayExperiment containing microbiome, metabolome and biomarker data from a study on the effects of diet and prebiotics on fatty-liver disease in rats.\n\n\nExperimentList class object of length 3:\n [1] microbiota: TreeSummarizedExperiment with 12706 rows and 40 columns\n [2] metabolites: TreeSummarizedExperiment with 38 rows and 40 columns\n [3] biomarkers: TreeSummarizedExperiment with 39 rows and 40 columns\n\n\n\n\nThe rat population (N = 40) was divided into 4 groups (n = 10), which underwent different diets over a period of 12 weeks. The 4 groups included:\n\n\n\nhigh-fat diet without prebiotics\nhigh-fat diet with prebiotics\nlow-fat diet without prebiotics\nlow-fat diet with prebiotics\n\n\n\n\n\n\n\n\nXOS+\nXOS-\n\n\n\n\nLow Fat\n10\n10\n\n\nHigh Fat\n10\n10\n\n\n\n\n\n\n\n\nXOS: xylooligosaccharide"
+  },
+  {
+    "objectID": "hintikkaxo_presentation.html#microbiota",
+    "href": "hintikkaxo_presentation.html#microbiota",
+    "title": "A brief introduction to HintikkaXOData",
+    "section": "Microbiota",
+    "text": "Microbiota\n\nMicrobiome data was obtained by 16S rRNA gene sequencing of bacterial DNA sampled from the cecum of terminated rats. Then, sequence reads were assembled into operational taxonomic units (OTUs).\n\n\n\n\n\n\n\n\n\n\n\n\n\nRelative Abundance (%)\n\n\n\n\nBacteroidetes\n0.5127085\n\n\nFirmicutes\n0.3946292\n\n\nVerrucomicrobia\n0.0382245\n\n\nCyanobacteria\n0.0260305\n\n\nProteobacteria\n0.0224238\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 1: ?(caption)"
+  },
+  {
+    "objectID": "hintikkaxo_presentation.html#metabolites",
+    "href": "hintikkaxo_presentation.html#metabolites",
+    "title": "A brief introduction to HintikkaXOData",
+    "section": "Metabolites",
+    "text": "Metabolites\nMetabolome data was obtained from the same cecal samples by nuclear magnetic resonance (NMR) spectroscopy. There is a total of 38 features, corresponding to the different metabolites."
+  },
+  {
+    "objectID": "hintikkaxo_presentation.html#biomarkers",
+    "href": "hintikkaxo_presentation.html#biomarkers",
+    "title": "A brief introduction to HintikkaXOData",
+    "section": "Biomarkers",
+    "text": "Biomarkers\n\nBiomarkers data were obtained by Western blot from protein homogenates of rat tissues. There is a total of 39 features, corresponding to the biomarkers/site combinations.\n\n\n\n\n\n\n\n\n\n\n\n\nBiomarker\nFunction\n\n\n\n\nCS\ncitrate synthase\n\n\nAST\naspartate aminotransferase\n\n\nALT\nalanine aminotransferase\n\n\nERK\nextracellular signal-regulated kinase\n\n\nIRS1\ninsulin receptor substrate 1\n\n\nAKT\nprotein kinase B\n\n\nIL1b\ninterleukin 1 beta\n\n\nHAD\n3-hydroxyacyl-CoA dehydrogenase 8\n\n\nCD45\nprotein tyrosine phosphatase\n\n\n\n\n\n\n\n\n\n\n\nName\nSite\n\n\n\n\nepi\nepididymal adipose tissue\n\n\nSCfat\nmesenteric adopose tissue\n\n\nmese\nsubcutaneous adipose tissue\n\n\nliver\nliver\n\n\ngastro\ngastrocnemius muscle\n\n\nserum\nserum"
+  }
+]

@@ -5,5 +5,6 @@ Here you can find
 -   [Publications](./publications)
 -   [Slides](./slides)
 -   [Posters](./posters)
+-   [Quarto Presentations](https://microbiome.github.io/outreach/index.html)
 
 about _miaverse_.
