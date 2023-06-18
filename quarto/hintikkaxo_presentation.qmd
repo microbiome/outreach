@@ -60,7 +60,7 @@ XOS: xylooligosaccharide
 
 . . .
 
-Microbiome data was obtained by 16S rRNA gene sequencing of bacterial DNA sampled from the cecum of terminated rats. Then, sequence reads were assembled into operational taxonomic units (OTUs).
+Microbiome data was obtained by 16S rRNA gene sequencing of bacterial DNA sampled from the cecum of terminated rats. Then, sequence reads were assembled into Operational Taxonomic Units (OTUs).
 
 . . .
 
@@ -81,7 +81,7 @@ microbiota <- agglomerateByRank(microbiota,
 ```{r}
 #| label: tab-top
 tse <- agglomerateByRank(microbiota, rank = "Phylum")
-top_tab <- rowMeans(assay(tse, "relabundance")[getTopTaxa(tse), ])
+top_tab <- round(rowMeans(assay(tse, "relabundance")[getTopTaxa(tse), ]) * 100, 1)
 names(top_tab) <- gsub("D_1__", "", names(top_tab))
 knitr::kable(top_tab,
              col.names = "Relative Abundance (%)")

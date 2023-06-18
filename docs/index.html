@@ -98,7 +98,16 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="contributions" class="level2">
 <h2 class="anchored" data-anchor-id="contributions">Contributions</h2>
-<p>You are welcome to add new presentations or improve the current ones. The workflow for contributors is explained <a href="https://github.com/microbiome/OMA#development-and-contributions">here</a>. The presentations are deployed from <a href="https://github.com/microbiome/outreach/blob/main/quarto/">this directory</a>, so you need to make the respective changes there and run <code>cd quarto/; quarto render</code>. <a href="https://quarto.org/docs/publishing/github-pages.html#publish-command">This documentation</a> provides more details about publishing quarto presentations with GitHub Pages.</p>
+<p>You are welcome to add new presentations or improve the current ones. The guidelines for contributors are explained <a href="https://github.com/microbiome/OMA#development-and-contributions">here</a>. The presentations are deployed from the <a href="https://github.com/microbiome/outreach/blob/main/quarto/">quarto sub-directory</a>, so you need to make the respective changes there and run <code>cd quarto/; quarto render</code>.</p>
+<p>The following is a quick workflow for contributions:</p>
+<ol type="1">
+<li><p>fork the repository</p></li>
+<li><p>add your qmd file(s) to the <a href="https://github.com/microbiome/outreach/blob/main/quarto/">quarto sub-directory</a></p></li>
+<li><p>update the <a href="https://github.com/microbiome/outreach/blob/main/quarto/_quarto.yml">_quarto.yml file</a> and the list of presentations in the <a href="https://github.com/microbiome/outreach/blob/main/quarto/index.qmd">website</a> with the name of the qmd file(s) with your presentation(s)</p></li>
+<li><p>run <code>quarto render</code> from your terminal from within the quarto sub-directory</p></li>
+<li><p>and make a pull request to the master branch</p></li>
+</ol>
+<p><a href="https://quarto.org/docs/publishing/github-pages.html#publish-command">This documentation</a> provides more details about publishing quarto presentations with GitHub Pages.</p>
 
 
 </section>

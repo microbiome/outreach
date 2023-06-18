@@ -11,7 +11,7 @@
     "href": "index.html#contributions",
     "title": "Quarto Presentations",
     "section": "Contributions",
-    "text": "Contributions\nYou are welcome to add new presentations or improve the current ones. The workflow for contributors is explained here. The presentations are deployed from this directory, so you need to make the respective changes there and run cd quarto/; quarto render. This documentation provides more details about publishing quarto presentations with GitHub Pages."
+    "text": "Contributions\nYou are welcome to add new presentations or improve the current ones. The guidelines for contributors are explained here. The presentations are deployed from the quarto sub-directory, so you need to make the respective changes there and run cd quarto/; quarto render.\nThe following is a quick workflow for contributions:\n\nfork the repository\nadd your qmd file(s) to the quarto sub-directory\nupdate the _quarto.yml file and the list of presentations in the website with the name of the qmd file(s) with your presentation(s)\nrun quarto render from your terminal from within the quarto sub-directory\nand make a pull request to the master branch\n\nThis documentation provides more details about publishing quarto presentations with GitHub Pages."
   },
   {
     "objectID": "hintikkaxo_presentation.html#study-design",
@@ -25,7 +25,7 @@
     "href": "hintikkaxo_presentation.html#microbiota",
     "title": "A brief introduction to HintikkaXOData",
     "section": "Microbiota",
-    "text": "Microbiota\n\nMicrobiome data was obtained by 16S rRNA gene sequencing of bacterial DNA sampled from the cecum of terminated rats. Then, sequence reads were assembled into operational taxonomic units (OTUs).\n\n\n\n\n\n\n\n\n\n\n\n\n\nRelative Abundance (%)\n\n\n\n\nBacteroidetes\n0.5127085\n\n\nFirmicutes\n0.3946292\n\n\nVerrucomicrobia\n0.0382245\n\n\nCyanobacteria\n0.0260305\n\n\nProteobacteria\n0.0224238\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 1: ?(caption)"
+    "text": "Microbiota\n\nMicrobiome data was obtained by 16S rRNA gene sequencing of bacterial DNA sampled from the cecum of terminated rats. Then, sequence reads were assembled into Operational Taxonomic Units (OTUs).\n\n\n\n\n\n\n\n\n\n\n\n\n\nRelative Abundance (%)\n\n\n\n\nBacteroidetes\n51.3\n\n\nFirmicutes\n39.5\n\n\nVerrucomicrobia\n3.8\n\n\nCyanobacteria\n2.6\n\n\nProteobacteria\n2.2\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 1: ?(caption)"
   },
   {
     "objectID": "hintikkaxo_presentation.html#metabolites",
