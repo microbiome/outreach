@@ -4,3 +4,9 @@ project:
   render:
     - index.qmd
     - hintikkaxo_presentation.qmd
+    - intro.qmd
+    - bioconductor.qmd
+    - starting.qmd
+    - reproducible_workflow.qmd
+    - datacontainers.qmd
+    - summarizedexperiment.qmd
