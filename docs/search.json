@@ -263,7 +263,7 @@
     "href": "reproducible_workflow.html#reproducible-notebooks",
     "title": "Reproducible data science workflow",
     "section": "Reproducible notebooks",
-    "text": "Reproducible notebooks\n\nWe use Quarto for reproducible documentation.\nNext generation development of Rmarkdown\nLargely compatible with Rmarkdown\nSupported by RStudio\n\nBasic knowledge is already assumed; the preliminary material included a link to Rmarkdown & Quarto tutorial videos."
+    "text": "Reproducible notebooks\n\nWe use Quarto for reproducible documentation.\nNext generation development of Rmarkdown\nLargely compatible with Rmarkdown\nSupported by RStudio\n\nBasic knowledge is already assumed; the preliminary material included a link to Rmarkdown & Quarto tutorial videos.\nQuarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see https://quarto.org/docs/presentations/."
   },
   {
     "objectID": "reproducible_workflow.html#literate-programming",
@@ -280,18 +280,18 @@
     "text": "Literate programming\n\nUsed in scientific computing and in data science for reproducible research and open access purposes.\nLiterate programming tools are used by millions of programmers today."
   },
   {
-    "objectID": "reproducible_workflow.html#quarto",
-    "href": "reproducible_workflow.html#quarto",
-    "title": "Reproducible data science workflow",
-    "section": "Quarto",
-    "text": "Quarto\nNext generation Rmarkdown\nQuarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see https://quarto.org/docs/presentations/."
-  },
-  {
     "objectID": "reproducible_workflow.html#quarto-demo-gb",
     "href": "reproducible_workflow.html#quarto-demo-gb",
     "title": "Reproducible data science workflow",
     "section": "Quarto demo (GB)",
-    "text": "Quarto demo (GB)\nLet us first demonstrate Quarto.\n\nOpen new Quarto file\nCombine text, images, code\nYou can render it easily to create a report\nBasic commands\nChunk, options (it is like R file with text option)\nGood practice is to comment your code (you know what you have done, purpose, someone else knows, transparency, you can use it later easily, someone else can improve and find bug)\nOnline support (gitter)"
+    "text": "Quarto demo (GB)\nLet us first demonstrate Quarto.\n\nOpen new Quarto file\nCombine text, images, code\nYou can render it easily to create a report\nBasic commands\nChunk, options (it is like R file with text option)\nGood practice is to comment your code (you know what you have done, purpose, someone else knows, transparency, you can use it later easily, someone else can improve and find bug)"
+  },
+  {
+    "objectID": "reproducible_workflow.html#quarto-exercise",
+    "href": "reproducible_workflow.html#quarto-exercise",
+    "title": "Reproducible data science workflow",
+    "section": "Quarto exercise",
+    "text": "Quarto exercise\nOMA Exercise:\n17.1.1 Reproducible reporting with Quarto"
   },
   {
     "objectID": "reproducible_workflow.html#task-1-reproducible-reporting",
@@ -308,13 +308,6 @@
     "text": "Fast track\n\nIf you complete the task fast, spend a moment exploring further capabilities of Quarto\nSee OMA Exercises for Quarto."
   },
   {
-    "objectID": "reproducible_workflow.html#troubleshooting",
-    "href": "reproducible_workflow.html#troubleshooting",
-    "title": "Reproducible data science workflow",
-    "section": "Troubleshooting",
-    "text": "Troubleshooting"
-  },
-  {
     "objectID": "reproducible_workflow.html#coding-tips",
     "href": "reproducible_workflow.html#coding-tips",
     "title": "Reproducible data science workflow",
@@ -329,11 +322,60 @@
     "text": "Tips, tricks & hacks\n\nQuarto tips & tricks & hacks?\nInstalling new packages\nimporting new data sets to R for interactive data analysis: read.csv, read.biom etc. where to find examples (see OMA section on data import)"
   },
   {
+    "objectID": "reproducible_workflow.html#exercises-17.3-prepare-the-data-in-quarto",
+    "href": "reproducible_workflow.html#exercises-17.3-prepare-the-data-in-quarto",
+    "title": "Reproducible data science workflow",
+    "section": "Exercises 17.3: prepare the data in Quarto",
+    "text": "Exercises 17.3: prepare the data in Quarto\n\nLoad HintikkaXOData and extract the microbiota data element\nAdd colData from mae to the microbiota experiment\nExtra: create the data from source files in the shared data folder (ask Giulio for support; OMA section 3.4)."
+  },
+  {
+    "objectID": "reproducible_workflow.html#subsetting",
+    "href": "reproducible_workflow.html#subsetting",
+    "title": "Reproducible data science workflow",
+    "section": "Subsetting",
+    "text": "Subsetting\n\nShow how to subset microbiota data (ex. 17.3.1)\nSubset to the most prevalent taxa (17.3.3) (tip: subsetByPrevalentFeatures)\n\nfor count assay; how many features remain?\nfor relative abundance assay; how many features remain?"
+  },
+  {
+    "objectID": "reproducible_workflow.html#agglomeration",
+    "href": "reproducible_workflow.html#agglomeration",
+    "title": "Reproducible data science workflow",
+    "section": "Agglomeration",
+    "text": "Agglomeration\nAgglomerate the microbiota data to higher taxonomic levels:\n\nchapter 6.3\nagglomerateByRank"
+  },
+  {
+    "objectID": "reproducible_workflow.html#extra-exercises-17.3",
+    "href": "reproducible_workflow.html#extra-exercises-17.3",
+    "title": "Reproducible data science workflow",
+    "section": "Extra exercises 17.3",
+    "text": "Extra exercises 17.3\n\nlibrary sizes & rarification (17.3.2)"
+  },
+  {
+    "objectID": "reproducible_workflow.html#exercises-17.5.1-17.5.2-coldata-diversity",
+    "href": "reproducible_workflow.html#exercises-17.5.1-17.5.2-coldata-diversity",
+    "title": "Reproducible data science workflow",
+    "section": "Exercises 17.5.1-17.5.2: colData & diversity",
+    "text": "Exercises 17.5.1-17.5.2: colData & diversity\n\nAdd Shannon diversity in colData\nVisualize diversity differences between sample groups"
+  },
+  {
+    "objectID": "reproducible_workflow.html#transformations",
+    "href": "reproducible_workflow.html#transformations",
+    "title": "Reproducible data science workflow",
+    "section": "Transformations",
+    "text": "Transformations\n\ntransform to alternative assays and show histograms for the whole assay\ntransform to alternative assays; boxplots for selected feature"
+  },
+  {
     "objectID": "datacontainers.html#getting-started",
     "href": "datacontainers.html#getting-started",
     "title": "Data containers in R/Bioconductor",
     "section": "Getting started",
     "text": "Getting started\n\nCSC notebook access OK?\nR, Rstudio, R packages installation OK?\nFirst task: reproducible workflow & Quarto documents (in a moment)"
+  },
+  {
+    "objectID": "datacontainers.html#data-containers-support-collaborative-workflow-development",
+    "href": "datacontainers.html#data-containers-support-collaborative-workflow-development",
+    "title": "Data containers in R/Bioconductor",
+    "section": "Data containers support collaborative workflow development",
+    "text": "Data containers support collaborative workflow development"
   },
   {
     "objectID": "datacontainers.html#standardized-data-containers",
@@ -378,8 +420,8 @@
     "text": "Benefits\n\nReduce overlapping efforts\nImprove interoperability\nEnsure sustainability\nTransparency\nReproducibility\nCollaboration"
   },
   {
-    "objectID": "datacontainers.html#section-1",
-    "href": "datacontainers.html#section-1",
+    "objectID": "datacontainers.html#section",
+    "href": "datacontainers.html#section",
     "title": "Data containers in R/Bioconductor",
     "section": "",
     "text": "Orchestrating Microbiome Analysis with R and Bioconductor – online book: beta version\n\n\n\n\n\nFigure source: Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology 12:11."
@@ -497,11 +539,25 @@
     "text": "Task: explore the data\nUse OMA to find out how to pick up the following from your example data, and explain what each of these elements represents.\n\ncolData\nrowData\nassays"
   },
   {
+    "objectID": "summarizedexperiment.html#adding-new-assays-extracting-assays",
+    "href": "summarizedexperiment.html#adding-new-assays-extracting-assays",
+    "title": "SummarizedExperiment",
+    "section": "Adding new assays & extracting assays",
+    "text": "Adding new assays & extracting assays\n\nAdd log10 or CLR transformation for the data (hint: transformCounts)\nVisualize abundance of a selected feature w.r.t. sample metadata"
+  },
+  {
+    "objectID": "summarizedexperiment.html#adding-elements-to-coldata",
+    "href": "summarizedexperiment.html#adding-elements-to-coldata",
+    "title": "SummarizedExperiment",
+    "section": "Adding elements to colData",
+    "text": "Adding elements to colData\n\nCalculate Shannon diversity and add to colData (hint: estimateDiversity)\nVisualize diversity w.r.t. sample metadata"
+  },
+  {
     "objectID": "summarizedexperiment.html#further-tasks",
     "href": "summarizedexperiment.html#further-tasks",
     "title": "SummarizedExperiment",
     "section": "Further tasks",
-    "text": "Further tasks\n\nAdding elements to rowData / colData\nAdding new assays & extracting assays\nVisualizing the data\nConstructing TreeSE\nOther OMA Exercises on data containers."
+    "text": "Further tasks\n\nImporting your own data\nConstructing TreeSE from scracth\nOther OMA Exercises on data containers."
   },
   {
     "objectID": "summarizedexperiment.html#overview-so-far",
@@ -509,12 +565,5 @@
     "title": "SummarizedExperiment",
     "section": "Overview so far",
     "text": "Overview so far\nBy now, you are supposed to be able to:\n\nunderstand the basic structure of the TreeSE data container\nextract specific components from the object (assays, sample & feature info, trees)\n\n-> How to manipulate & operate with this data object?"
-  },
-  {
-    "objectID": "summarizedexperiment.html#workflow",
-    "href": "summarizedexperiment.html#workflow",
-    "title": "SummarizedExperiment",
-    "section": "Workflow",
-    "text": "Workflow\nData containers support collaborative development of analysis methods & workflows\n\n\n\nDomenick Braccia, EuroBioc 2020 (microbiome.github.io)"
   }
 ]
