@@ -10,3 +10,5 @@ project:
     - reproducible_workflow.qmd
     - datacontainers.qmd
     - summarizedexperiment.qmd
+    - day2.qmd
+    - treese.qmd
