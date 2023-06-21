@@ -7,26 +7,23 @@ execute:
   cache: true
 ---
 
-
-## Recap of Day 1
+## Recap of Day 1 
 
 -   **Data**: *SummarizedExperiment*: rowData, colData, assays
 -   **Methods**: subsetting, transformations
 
 ![](images/paste-AA8BAE15.png){width="402"}
 
-
 ## Day 1: Basic data wrangling
 
 -   reproducible data science workflow
 -   data import
--   data containers 
+-   data containers
 -   data manipulation (subsetting, transformations)
-
 
 ## Today's learning goals
 
-Expanding multi-assay analyses:   
+Expanding multi-assay analyses:\
 **TreeSummarizedExperiment**
 
 -   augmenting the data (add diversities)
@@ -39,14 +36,11 @@ Morning: data wrangling
 
 Afternoon: data visualizations
 
-
-
 # Data enrichment
 
 ## Visualizing colData
 
 Task: visualize the abundance of a specific microbial Species against the measurement Site
-
 
 ## Alpha diversity task
 
@@ -62,7 +56,7 @@ Healthy & normal obese subjects.
 
 ![](images/paste-CC6290A9.png)
 
-## Alpha diversity and diet
+## Alpha diversity and diet {.scrollable}
 
 ![](images/paste-C67E84BB.png)
 
@@ -110,7 +104,7 @@ Healthy & normal obese subjects.
 
 ![https://github.com/mblstamps/stamps2019/blob/master/STAMPS2019_overview_Pop.pdf](images/paste-178A9470.png){alt="https://github.com/mblstamps/stamps2019/blob/master/STAMPS2019_overview_Pop.pdf"}
 
-## 
+## {.scrollable}
 
 ![](images/paste-B5BEB852.png)
 
@@ -124,7 +118,7 @@ Healthy & normal obese subjects.
 :::
 :::
 
-## {.smaller}
+##  {.smaller}
 
 High-quality reference genomes are required for functional characterization and taxonomic assignment of the human gut microbiota.
 
@@ -144,7 +138,7 @@ UHGP more than doubles the number of gut proteins in comparison to those present
 
 The UHGG and UHGP collections enable studies linking genotypes to phenotypes in the human gut microbiome.
 
-## Estimating species content
+## Estimating species content {.scrollable}
 
 ::: columns
 ::: {.column width="50%"}
@@ -190,8 +184,6 @@ The UHGG and UHGP collections enable studies linking genotypes to phenotypes in 
 :::
 :::
 
-
-
 ## Common alpha diversity indices
 
 **Phylogenetically neutral diversities:**
@@ -210,7 +202,7 @@ The UHGG and UHGP collections enable studies linking genotypes to phenotypes in 
 
 ![](images/paste-DD6C75BB.png)
 
-## Inverse Simpson
+## Inverse Simpson {.scrollable}
 
 ![](images/paste-1B870B03.png)
 
@@ -228,7 +220,7 @@ How likely it is to pick two members of the same species at random?
 
 -   inverse Simpson ($\frac{1}{\lambda}$)
 
-## Shannon diversity
+## Shannon diversity {.scrollable}
 
 Shannon Index:
 
@@ -283,12 +275,9 @@ Order of diversity:
 :::
 :::
 
-
-
-
-
 # Data wrangling
 
+```{=html}
 <!--
 ## Overview so far
 
@@ -303,8 +292,7 @@ By now, you are supposed to be able to:
 -\> How to manipulate & operate with this data object?
 
 -->
-
-
+```
 ## Basic data operations
 
 -   Transform
@@ -313,7 +301,7 @@ By now, you are supposed to be able to:
 
 -   Merge
 
--   **Aggregate** 
+-   **Aggregate**
 
 -   Split
 
@@ -358,8 +346,6 @@ Task: Alternative assays
 -   visualize transformed data; histograms, boxplots
 -   compare different transformations (scatterplot?)
 
-
-
 ## Agglomeration
 
 -   taxonomic units
@@ -373,7 +359,6 @@ Agglomerate microbiota data to higher taxonomic levels:
 -   agglomerateByRank
 -   compare diversity or prevalent features between levels
 
-
 ## Alternative experiments
 
 Alternative assays vs. alternative experiments?
@@ -381,17 +366,12 @@ Alternative assays vs. alternative experiments?
 -   Store agglomerated data: *altExp*
 -   Do all levels at once: *splitByRanks*
 
-
-
-
 ## Splits
 
 Splitting by:
 
 -   taxonomic units
 -   sample or feature groups
-
-
 
 ## Taxonomic ranks & *altExp* {.smaller}
 
@@ -403,20 +383,16 @@ The alternative experiments (*altExp*) mechanism allows us to include multiple a
 | **altExp** | free            | match          | Alternative experiments |
 | MultiAssay | free            | free (mapping) | Multi-omic experiments  |
 
-
 ## Alternative experiments and assays?
 
-- Pick clr assay from Genus-level data table?
-- Compare Shannon diversity from Genus and Species levels?
-
+-   Pick clr assay from Genus-level data table?
+-   Compare Shannon diversity from Genus and Species levels?
 
 ## TreeSummarizedExperiment
 
 Huang et al. F1000, 2021
 
 ![](images/paste-14DB8F76.png)
-
-
 
 # Visualization
 
@@ -425,21 +401,10 @@ Huang et al. F1000, 2021
 -   Visualize example data with PCoA using Bray-Curtis dissimilarity
 -   Visualize example data with PCA using Aitchison distance (CLR + Euclid)
 
-
 ## Heatmaps
 
-- Visualize abundance variation for selected taxa on a heatmap
-
+-   Visualize abundance variation for selected taxa on a heatmap
 
 ## Trees
 
-- Visualize phylogenetic tree using the examples 
-
-
-
-
-
-
-
-
-
+-   Visualize phylogenetic tree using the examples

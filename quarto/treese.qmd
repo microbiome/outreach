@@ -104,7 +104,7 @@ Construct a new TreeSE object from scratch, starting from original data files.
 
 -   2-3 simple examples to summarize & visualize data from TreeSE container
 
-# Assays & transformations
+# Assays & transformations {.scrollable}
 
 ![](images/paste-092DD78B.png)
 
@@ -168,7 +168,7 @@ Create and add new assays in the data:
 
 -   [OMA exercise 18.5](https://microbiome.github.io/OMA/exercises.html#transformations-1)
 
-## Phylogenetic transformations {.smaller}
+## Phylogenetic transformations {.scrollable}
 
 ::: {layout="[[1,1], [1]]"}
 *- - there exists no single taxonomic resolution at which taxonomic variation unambiguously reflects functional variation, and at which environmental selection of certain functions - - unambiguously translates to a selection of specific taxa (Louca et al. 2018).*
@@ -178,7 +178,7 @@ Create and add new assays in the data:
 ![](images/paste-8DB25B71.png)
 :::
 
-## Phylogenetic balances: phILR transformation
+## Phylogenetic balances: phILR transformation {.scrollable}
 
 ::: columns
 ::: {.column width="50%"}
