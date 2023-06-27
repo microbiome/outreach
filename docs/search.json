@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Quarto Presentations",
     "section": "",
-    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\nHintikkaXOData"
+    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\nBioconductor project\nData containers\nHintikkaXOData\nReproducible workflow with Quarto\nSummarizedExperiment\nTreeSummarizedExperiment"
   },
   {
     "objectID": "index.html#contributions",
