@@ -459,274 +459,35 @@ colTree: NULL</code></pre>
 <p>Microbiome data was obtained by 16S rRNA gene sequencing of bacterial DNA sampled from faecal pellet on a weekly basis. Then, sequence reads were assembled into Operational Taxonomic Units (OTUs) with an NG-Tax pipeline.</p>
 </div>
 </section>
-<section id="community-composition" class="slide level2">
-<h2>Community composition</h2>
-<div class="fragment">
-<h3 id="assay-transformation-and-agglomeration">Assay transformation and agglomeration</h3>
-<div class="fragment">
-<p>First off, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">transformCounts</span>(tse, <span class="at">method =</span> <span class="st">"relabundance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<p>Relative abundances are useful because they are not affected by compositionality, which is present in the counts assay due to sequencing bias (the unequal amplification of DNA from two different samples due to random effects).</p>
-<div class="cell">
-<div class="cell-output-display">
-<div id="tbl-top">
-<table>
-<caption>Table&nbsp;1: Relative abundance (%) of bacterial phyla grouped by patient status.</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">ADHD</th>
-<th style="text-align: right;">Control</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Bacteroidetes</td>
-<td style="text-align: right;">69.2</td>
-<td style="text-align: right;">61.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Firmicutes</td>
-<td style="text-align: right;">23.7</td>
-<td style="text-align: right;">30.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Verrucomicrobia</td>
-<td style="text-align: right;">4.7</td>
-<td style="text-align: right;">6.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Proteobacteria</td>
-<td style="text-align: right;">2.4</td>
-<td style="text-align: right;">1.8</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>Next, we agglomerate the experiment to the Order level, so that information is more condensed and therefore easier to visualise and interpret.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">agglomerateByRank</span>(tse, <span class="at">rank =</span> <span class="st">"Order"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<h3 id="compositional-heatmap">Compositional heatmap</h3>
-<div class="fragment">
-<p>We then perform a CLR transformation sample-wise and a Z transformation feature-wise. The former creates a more homogeneous (logarithmic) scale for the usually very skewed microbiome data, whereas the latter normalises the features across samples for better comparisons between samples.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># transform relative abundance to clr</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">transformCounts</span>(tse_order,</span>
-<span id="cb5-3"><a href="#cb5-3"></a>                             <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
-<span id="cb5-4"><a href="#cb5-4"></a>                             <span class="at">method =</span> <span class="st">"clr"</span>,</span>
-<span id="cb5-5"><a href="#cb5-5"></a>                             <span class="at">pseudocount =</span> <span class="dv">1</span>,</span>
-<span id="cb5-6"><a href="#cb5-6"></a>                             <span class="at">MARGIN =</span> <span class="st">"samples"</span>)</span>
-<span id="cb5-7"><a href="#cb5-7"></a></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co"># transform clr to z</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">transformCounts</span>(tse_order,</span>
-<span id="cb5-10"><a href="#cb5-10"></a>                             <span class="at">assay.type =</span> <span class="st">"clr"</span>, </span>
-<span id="cb5-11"><a href="#cb5-11"></a>                             <span class="at">method =</span> <span class="st">"z"</span>,</span>
-<span id="cb5-12"><a href="#cb5-12"></a>                             <span class="at">name =</span> <span class="st">"clr_z"</span>,</span>
-<span id="cb5-13"><a href="#cb5-13"></a>                             <span class="at">MARGIN =</span> <span class="st">"features"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<p>Finally, we plot the compositional heatmap with the ComplexHeatmap package and illustrate it in <a href="#/fig-compheat">Figure&nbsp;1</a>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">Heatmap</span>(<span class="fu">assay</span>(tse_order, <span class="st">"clr_z"</span>),</span>
-<span id="cb6-2"><a href="#cb6-2"></a>        <span class="at">name =</span> <span class="st">"clr-z"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-compheat" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="tengeler2020_presentation_files/figure-revealjs/fig-compheat-1.png" width="960"></p>
-<p></p><figcaption>Figure&nbsp;1: Heatmap of CLR-Z transformed microbiome assay where columns correspond to samples and rows to taxa agglomerated by order.</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
+<section id="tutorials" class="slide level2">
+<h2>Tutorials</h2>
+<ul>
+<li><p><a href="https://microbiome.github.io/outreach/tengeler_alpha_diversity.html">Alpha diversity</a></p></li>
+<li><p><a href="https://microbiome.github.io/outreach/tengeler_beta_diversity.html">Beta diversity</a></p></li>
+<li><p><a href="https://microbiome.github.io/outreach/tengeler_community_composition.html">Community composition</a></p></li>
+</ul>
 </section>
-<section id="alpha-diversity" class="slide level2 scrollable">
-<h2>Alpha diversity</h2>
-<div class="fragment">
-<p>We calculate alpha diversity in terms of coverage, Shannon and inverse Simpson indices based on the counts assay. These three indices differ from one another in how much weight they give to rare taxa: coverage considers all taxa equally important, whereas Shannon and - even more - Simpson give more importance to abundant taxa.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">estimateDiversity</span>(tse,</span>
-<span id="cb7-2"><a href="#cb7-2"></a>                         <span class="at">assay.type =</span> <span class="st">"counts"</span>,</span>
-<span id="cb7-3"><a href="#cb7-3"></a>                         <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"coverage"</span>, <span class="st">"shannon"</span>, <span class="st">"inverse_simpson"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<p>Next, we plot the three indices, with patient status on the x axis and alpha diversity on the y axis. We can also colour by cohort to control for batch effects.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>p_coverage <span class="ot">&lt;-</span> <span class="fu">plotColData</span>(tse, <span class="st">"coverage"</span>, <span class="st">"patient_status"</span>,</span>
-<span id="cb8-2"><a href="#cb8-2"></a>                          <span class="at">colour_by =</span> <span class="st">"cohort"</span>, <span class="at">show_median =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb8-3"><a href="#cb8-3"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Patient Status"</span>)</span>
-<span id="cb8-4"><a href="#cb8-4"></a></span>
-<span id="cb8-5"><a href="#cb8-5"></a>p_shannon <span class="ot">&lt;-</span> <span class="fu">plotColData</span>(tse, <span class="st">"shannon"</span>, <span class="st">"patient_status"</span>,</span>
-<span id="cb8-6"><a href="#cb8-6"></a>                         <span class="at">colour_by =</span> <span class="st">"cohort"</span>, <span class="at">show_median =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb8-7"><a href="#cb8-7"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Patient Status"</span>)</span>
-<span id="cb8-8"><a href="#cb8-8"></a></span>
-<span id="cb8-9"><a href="#cb8-9"></a>p_simpson <span class="ot">&lt;-</span> <span class="fu">plotColData</span>(tse, <span class="st">"inverse_simpson"</span>, <span class="st">"patient_status"</span>,</span>
-<span id="cb8-10"><a href="#cb8-10"></a>                         <span class="at">colour_by =</span> <span class="st">"cohort"</span>, <span class="at">show_median =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
-<span id="cb8-11"><a href="#cb8-11"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Patient Status"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<p>The three metrics for alpha diversity follow different scales, but they seem to agree when comparing the distributions of the two patient groups (see <a href="#/fig-alpha">Figure&nbsp;2</a>).</p>
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-alpha" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="tengeler2020_presentation_files/figure-revealjs/fig-alpha-1.png" width="960"></p>
-<p></p><figcaption>Figure&nbsp;2: Box plots of (A) coverage (B) Shannon and (C) inverse Simpson indices grouped by patient status and coloured by cohort.</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="beta-diversity" class="slide level2 scrollable">
-<h2>Beta diversity</h2>
-<div class="fragment">
-<h3 id="principal-coordinate-analysis-pcoa">Principal Coordinate Analysis (PCoA)</h3>
-<div class="fragment">
-<p>PCoA is a method to choose the dimensions of the data that explain most of the variance in the data. Distances between samples can be expressed by several ecological indices, such as Bray-Curtis and Aitchison dissimilarities.</p>
-</div>
-<div class="fragment">
-<p>Here, we run multi-dimensional scaling (a type of PCoA) with Bray-Curtis dissimilarity and based on the relabundance assay.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">runMDS</span>(tse,</span>
-<span id="cb9-2"><a href="#cb9-2"></a>              <span class="at">FUN =</span> vegan<span class="sc">::</span>vegdist,</span>
-<span id="cb9-3"><a href="#cb9-3"></a>              <span class="at">method =</span> <span class="st">"bray"</span>,</span>
-<span id="cb9-4"><a href="#cb9-4"></a>              <span class="at">name =</span> <span class="st">"Bray"</span>,</span>
-<span id="cb9-5"><a href="#cb9-5"></a>              <span class="at">assay.type =</span> <span class="st">"relabundance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<p>We then visualise the first two dimensions.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">plotReducedDim</span>(tse, <span class="st">"Bray"</span>,</span>
-<span id="cb10-2"><a href="#cb10-2"></a>                     <span class="at">colour_by =</span> <span class="st">"patient_status"</span>,</span>
-<span id="cb10-3"><a href="#cb10-3"></a>                     <span class="at">shape_by =</span> <span class="st">"cohort"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-
-</div>
-</div>
-<div class="fragment">
-<div class="cell" data-layout-align="center" data-fig.asp="0.7">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="tengeler2020_presentation_files/figure-revealjs/fg-bray-1.png" width="576"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">runMDS</span>(tse,</span>
-<span id="cb11-2"><a href="#cb11-2"></a>              <span class="at">FUN =</span> mia<span class="sc">::</span>calculateUnifrac,</span>
-<span id="cb11-3"><a href="#cb11-3"></a>              <span class="at">name =</span> <span class="st">"Unifrac"</span>,</span>
-<span id="cb11-4"><a href="#cb11-4"></a>              <span class="at">tree =</span> <span class="fu">rowTree</span>(tse),</span>
-<span id="cb11-5"><a href="#cb11-5"></a>              <span class="at">ntop =</span> <span class="fu">nrow</span>(tse),</span>
-<span id="cb11-6"><a href="#cb11-6"></a>              <span class="at">assay.type =</span> <span class="st">"counts"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">plotReducedDim</span>(tse, <span class="st">"Unifrac"</span>,</span>
-<span id="cb12-2"><a href="#cb12-2"></a>                     <span class="at">colour_by =</span> <span class="st">"patient_status"</span>,</span>
-<span id="cb12-3"><a href="#cb12-3"></a>                     <span class="at">shape_by =</span> <span class="st">"cohort"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell">
-
-</div>
-</div>
-<div class="fragment">
-<div class="cell" data-layout-align="center" data-fig.asp="0.7">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="tengeler2020_presentation_files/figure-revealjs/fg-unifrac-1.png" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>Finally, we combine the two plots with the patchwork syntax and compare them in <a href="#/fig-beta">Figure&nbsp;3</a>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>(p1 <span class="sc">|</span> p2) <span class="sc">+</span></span>
-<span id="cb13-2"><a href="#cb13-2"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"A"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-beta" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="tengeler2020_presentation_files/figure-revealjs/fig-beta-1.png" width="960"></p>
-<p></p><figcaption>Figure&nbsp;3: Ordination plots based on (A) Bray-Curtis or (B) Unifrac index. Samples are coloured by patient status and shaped by cohort.</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>It is also possible to specify the number of output dimensions with the argument <code>ncomponents</code>. Here, we show it with the UMAP ordination method.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">runUMAP</span>(tse,</span>
-<span id="cb14-2"><a href="#cb14-2"></a>               <span class="at">assay.type =</span> <span class="st">"counts"</span>,</span>
-<span id="cb14-3"><a href="#cb14-3"></a>               <span class="at">ncomponents =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<p>We then plot all three dimensions, but you could also plot a pair of dimensions (1 and 3, 2 and 3 or 1 and 2) with the argument <code>ncomponents</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>p <span class="ot">&lt;-</span> <span class="fu">plotReducedDim</span>(tse, <span class="st">"UMAP"</span>,</span>
-<span id="cb15-2"><a href="#cb15-2"></a>                    <span class="at">ncomponents =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
-<span id="cb15-3"><a href="#cb15-3"></a>                    <span class="at">colour_by =</span> <span class="st">"patient_status"</span>,</span>
-<span id="cb15-4"><a href="#cb15-4"></a>                    <span class="at">shape_by =</span> <span class="st">"cohort"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-umap" class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="tengeler2020_presentation_files/figure-revealjs/fig-umap-1.png" width="960"></p>
-<p></p><figcaption>Figure&nbsp;4: UMAP plot of the first three dimensions.</figcaption><p></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="beta-diversity-1" class="slide level2 scrollable">
+<section id="beta-diversity" class="slide level2">
 <h2>Beta diversity</h2>
 <div class="fragment">
 <h3 id="distance-based-redundance-analysis-dbrda">distance-based Redundance Analysis (dbRDA)</h3>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">runRDA</span>(tse,</span>
-<span id="cb16-2"><a href="#cb16-2"></a>              <span class="at">formula =</span> assay <span class="sc">~</span> patient_status <span class="sc">+</span> cohort,</span>
-<span id="cb16-3"><a href="#cb16-3"></a>              <span class="at">FUN =</span> vegan<span class="sc">::</span>vegdist,</span>
-<span id="cb16-4"><a href="#cb16-4"></a>              <span class="at">method =</span> <span class="st">"bray"</span>,</span>
-<span id="cb16-5"><a href="#cb16-5"></a>              <span class="at">assay.type =</span> <span class="st">"relabundance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">transformCounts</span>(tse, <span class="at">method =</span> <span class="st">"relabundance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">runRDA</span>(tse,</span>
+<span id="cb4-2"><a href="#cb4-2"></a>              <span class="at">formula =</span> assay <span class="sc">~</span> patient_status <span class="sc">+</span> cohort,</span>
+<span id="cb4-3"><a href="#cb4-3"></a>              <span class="at">FUN =</span> vegan<span class="sc">::</span>vegdist,</span>
+<span id="cb4-4"><a href="#cb4-4"></a>              <span class="at">method =</span> <span class="st">"bray"</span>,</span>
+<span id="cb4-5"><a href="#cb4-5"></a>              <span class="at">assay.type =</span> <span class="st">"relabundance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>p <span class="ot">&lt;-</span> <span class="fu">plotReducedDim</span>(tse, <span class="st">"RDA"</span>,</span>
-<span id="cb17-2"><a href="#cb17-2"></a>                    <span class="at">colour_by =</span> <span class="st">"patient_status"</span>,</span>
-<span id="cb17-3"><a href="#cb17-3"></a>                    <span class="at">shape_by =</span> <span class="st">"cohort"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>p <span class="ot">&lt;-</span> <span class="fu">plotReducedDim</span>(tse, <span class="st">"RDA"</span>,</span>
+<span id="cb5-2"><a href="#cb5-2"></a>                    <span class="at">colour_by =</span> <span class="st">"patient_status"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3"></a>                    <span class="at">shape_by =</span> <span class="st">"cohort"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
@@ -735,7 +496,7 @@ colTree: NULL</code></pre>
 <div id="fig-brayrda" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="tengeler2020_presentation_files/figure-revealjs/fig-brayrda-1.png" width="672"></p>
-<p></p><figcaption>Figure&nbsp;5: RDA plot with Bray-Curtis dissimilarity.</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;1: RDA plot with Bray-Curtis dissimilarity.</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -743,24 +504,24 @@ colTree: NULL</code></pre>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="co"># perform clr transformation</span></span>
-<span id="cb18-2"><a href="#cb18-2"></a>tse <span class="ot">&lt;-</span> <span class="fu">transformCounts</span>(tse,</span>
-<span id="cb18-3"><a href="#cb18-3"></a>                       <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
-<span id="cb18-4"><a href="#cb18-4"></a>                       <span class="at">method =</span> <span class="st">"clr"</span>,</span>
-<span id="cb18-5"><a href="#cb18-5"></a>                       <span class="at">pseudocount =</span> <span class="dv">1</span>)</span>
-<span id="cb18-6"><a href="#cb18-6"></a></span>
-<span id="cb18-7"><a href="#cb18-7"></a><span class="co"># run RDA</span></span>
-<span id="cb18-8"><a href="#cb18-8"></a>tse <span class="ot">&lt;-</span> <span class="fu">runRDA</span>(tse,</span>
-<span id="cb18-9"><a href="#cb18-9"></a>              <span class="at">formula =</span> assay <span class="sc">~</span> patient_status <span class="sc">+</span> cohort,</span>
-<span id="cb18-10"><a href="#cb18-10"></a>              <span class="at">FUN =</span> vegan<span class="sc">::</span>vegdist,</span>
-<span id="cb18-11"><a href="#cb18-11"></a>              <span class="at">method =</span> <span class="st">"euclidean"</span>,</span>
-<span id="cb18-12"><a href="#cb18-12"></a>              <span class="at">assay.type =</span> <span class="st">"clr"</span>,</span>
-<span id="cb18-13"><a href="#cb18-13"></a>              <span class="at">name =</span> <span class="st">"Aitchison"</span>)</span>
-<span id="cb18-14"><a href="#cb18-14"></a></span>
-<span id="cb18-15"><a href="#cb18-15"></a><span class="co"># plot RDA</span></span>
-<span id="cb18-16"><a href="#cb18-16"></a>p <span class="ot">&lt;-</span> <span class="fu">plotReducedDim</span>(tse, <span class="st">"Aitchison"</span>,</span>
-<span id="cb18-17"><a href="#cb18-17"></a>                    <span class="at">colour_by =</span> <span class="st">"patient_status"</span>,</span>
-<span id="cb18-18"><a href="#cb18-18"></a>                    <span class="at">shape_by =</span> <span class="st">"cohort"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># perform clr transformation</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>tse <span class="ot">&lt;-</span> <span class="fu">transformCounts</span>(tse,</span>
+<span id="cb6-3"><a href="#cb6-3"></a>                       <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>                       <span class="at">method =</span> <span class="st">"clr"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>                       <span class="at">pseudocount =</span> <span class="dv">1</span>)</span>
+<span id="cb6-6"><a href="#cb6-6"></a></span>
+<span id="cb6-7"><a href="#cb6-7"></a><span class="co"># run RDA</span></span>
+<span id="cb6-8"><a href="#cb6-8"></a>tse <span class="ot">&lt;-</span> <span class="fu">runRDA</span>(tse,</span>
+<span id="cb6-9"><a href="#cb6-9"></a>              <span class="at">formula =</span> assay <span class="sc">~</span> patient_status <span class="sc">+</span> cohort,</span>
+<span id="cb6-10"><a href="#cb6-10"></a>              <span class="at">FUN =</span> vegan<span class="sc">::</span>vegdist,</span>
+<span id="cb6-11"><a href="#cb6-11"></a>              <span class="at">method =</span> <span class="st">"euclidean"</span>,</span>
+<span id="cb6-12"><a href="#cb6-12"></a>              <span class="at">assay.type =</span> <span class="st">"clr"</span>,</span>
+<span id="cb6-13"><a href="#cb6-13"></a>              <span class="at">name =</span> <span class="st">"Aitchison"</span>)</span>
+<span id="cb6-14"><a href="#cb6-14"></a></span>
+<span id="cb6-15"><a href="#cb6-15"></a><span class="co"># plot RDA</span></span>
+<span id="cb6-16"><a href="#cb6-16"></a>p <span class="ot">&lt;-</span> <span class="fu">plotReducedDim</span>(tse, <span class="st">"Aitchison"</span>,</span>
+<span id="cb6-17"><a href="#cb6-17"></a>                    <span class="at">colour_by =</span> <span class="st">"patient_status"</span>,</span>
+<span id="cb6-18"><a href="#cb6-18"></a>                    <span class="at">shape_by =</span> <span class="st">"cohort"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
@@ -769,7 +530,7 @@ colTree: NULL</code></pre>
 <div id="fig-aitchirda" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="tengeler2020_presentation_files/figure-revealjs/fig-aitchirda-1.png" width="672"></p>
-<p></p><figcaption>Figure&nbsp;6: RDA plot with Aitchison distance (CLR assay + Euclidian distance).</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;2: RDA plot with Aitchison distance (CLR assay + Euclidian distance).</figcaption><p></p>
 </figure>
 </div>
 </div>
@@ -777,16 +538,16 @@ colTree: NULL</code></pre>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>rda <span class="ot">&lt;-</span> <span class="fu">attr</span>(<span class="fu">reducedDim</span>(tse, <span class="st">"RDA"</span>), <span class="st">"rda"</span>)</span>
-<span id="cb19-2"><a href="#cb19-2"></a></span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb19-4"><a href="#cb19-4"></a>terms_permanova <span class="ot">&lt;-</span> <span class="fu">anova.cca</span>(rda,</span>
-<span id="cb19-5"><a href="#cb19-5"></a>                             <span class="at">permutations =</span> <span class="dv">99</span>)</span>
-<span id="cb19-6"><a href="#cb19-6"></a></span>
-<span id="cb19-7"><a href="#cb19-7"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb19-8"><a href="#cb19-8"></a>margin_permanova <span class="ot">&lt;-</span> <span class="fu">anova.cca</span>(rda,</span>
-<span id="cb19-9"><a href="#cb19-9"></a>                              <span class="at">by =</span> <span class="st">"margin"</span>,</span>
-<span id="cb19-10"><a href="#cb19-10"></a>                              <span class="at">permutations =</span> <span class="dv">99</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>rda <span class="ot">&lt;-</span> <span class="fu">attr</span>(<span class="fu">reducedDim</span>(tse, <span class="st">"RDA"</span>), <span class="st">"rda"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2"></a></span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb7-4"><a href="#cb7-4"></a>terms_permanova <span class="ot">&lt;-</span> <span class="fu">anova.cca</span>(rda,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>                             <span class="at">permutations =</span> <span class="dv">99</span>)</span>
+<span id="cb7-6"><a href="#cb7-6"></a></span>
+<span id="cb7-7"><a href="#cb7-7"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb7-8"><a href="#cb7-8"></a>margin_permanova <span class="ot">&lt;-</span> <span class="fu">anova.cca</span>(rda,</span>
+<span id="cb7-9"><a href="#cb7-9"></a>                              <span class="at">by =</span> <span class="st">"margin"</span>,</span>
+<span id="cb7-10"><a href="#cb7-10"></a>                              <span class="at">permutations =</span> <span class="dv">99</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
@@ -794,7 +555,7 @@ colTree: NULL</code></pre>
 <div class="cell-output-display">
 <div id="tbl-permanova">
 <table>
-<caption>Table&nbsp;2: Results of PERMANOVA on patient_status and cohort groups.</caption>
+<caption>Table&nbsp;1: Results of PERMANOVA on patient_status and cohort groups.</caption>
 <colgroup>
 <col style="width: 18%">
 <col style="width: 3%">
@@ -860,8 +621,8 @@ colTree: NULL</code></pre>
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>homo1 <span class="ot">&lt;-</span> <span class="fu">anova</span>(<span class="fu">betadisper</span>(<span class="fu">vegdist</span>(<span class="fu">t</span>(<span class="fu">assay</span>(tse, <span class="st">"relabundance"</span>))), tse<span class="sc">$</span>patient_status))</span>
-<span id="cb20-2"><a href="#cb20-2"></a>homo2 <span class="ot">&lt;-</span> <span class="fu">anova</span>(<span class="fu">betadisper</span>(<span class="fu">vegdist</span>(<span class="fu">t</span>(<span class="fu">assay</span>(tse, <span class="st">"relabundance"</span>))), tse<span class="sc">$</span>cohort))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>homo1 <span class="ot">&lt;-</span> <span class="fu">anova</span>(<span class="fu">betadisper</span>(<span class="fu">vegdist</span>(<span class="fu">t</span>(<span class="fu">assay</span>(tse, <span class="st">"relabundance"</span>))), tse<span class="sc">$</span>patient_status))</span>
+<span id="cb8-2"><a href="#cb8-2"></a>homo2 <span class="ot">&lt;-</span> <span class="fu">anova</span>(<span class="fu">betadisper</span>(<span class="fu">vegdist</span>(<span class="fu">t</span>(<span class="fu">assay</span>(tse, <span class="st">"relabundance"</span>))), tse<span class="sc">$</span>cohort))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="fragment">
@@ -869,7 +630,7 @@ colTree: NULL</code></pre>
 <div class="cell-output-display">
 <div id="tbl-homogeneity">
 <table>
-<caption>Table&nbsp;3: Results of betadisper test on homogeneity.</caption>
+<caption>Table&nbsp;2: Results of betadisper test on homogeneity.</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
@@ -912,7 +673,7 @@ colTree: NULL</code></pre>
 <div id="fig-arrows" class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="tengeler2020_presentation_files/figure-revealjs/fig-arrows-1.png" width="1152"></p>
-<p></p><figcaption>Figure&nbsp;7: RDA plot of samples coloured by patient status. The arrows indicate the percentage of variance in beta diversity explained by the patient status or cohort and the respective p-value.</figcaption><p></p>
+<p></p><figcaption>Figure&nbsp;3: RDA plot of samples coloured by patient status. The arrows indicate the percentage of variance in beta diversity explained by the patient status or cohort and the respective p-value.</figcaption><p></p>
 </figure>
 </div>
 </div>

@@ -1,0 +1,97 @@
+---
+title: "Community Composition"
+format: html
+editor: visual
+---
+
+## Overview
+
+The following packages are needed to succesfully run the examples in this notebook:
+
+-   mia: tools for microbiome data analysis
+
+-   ComplexHeatmap: plotting heatmaps
+
+```{r}
+#| label: setup
+#| include: false
+library(mia)
+library(ComplexHeatmap)
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+First of all, we import Tengeler2020 from the mia package and store it into a variable.
+
+```{r}
+#| label: import-tengeler
+
+# load dataset and store it into tse
+data("Tengeler2020", package = "mia")
+tse <- Tengeler2020
+```
+
+## Assay transformation and agglomeration
+
+First off, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.
+
+```{r}
+#| label: transform-relabundance
+#| echo: true
+tse <- transformCounts(tse,
+                       method = "relabundance")
+```
+
+Relative abundances are useful because they are not affected by compositionality, which is present in the counts assay due to sequencing bias (the unequal amplification of DNA from two different samples due to random effects).
+
+```{r}
+#| label: tbl-top
+#| tbl-cap: Relative abundance (%) of bacterial phyla grouped by patient status.
+#| echo: false
+tse_phylum <- agglomerateByRank(tse, rank = "Phylum")
+
+tse_list <- splitOn(tse_phylum, f = "patient_status")
+
+top_tab_list <- lapply(tse_list, function(tse) round(rowMeans(assay(tse, "relabundance")[getTopTaxa(tse, top = 4L), ]) * 100, 1))
+
+knitr::kable(cbind(top_tab_list[[1]], top_tab_list[[2]]), col.names = c("ADHD", "Control"))
+```
+
+Next, we agglomerate the experiment to the Order level, so that information is more condensed and therefore easier to visualise and interpret.
+
+```{r}
+#| label: agglomerate-order
+#| echo: true
+tse_order <- agglomerateByRank(tse, rank = "Order")
+```
+
+## Compositional heatmap
+
+We then perform a CLR transformation sample-wise and a Z transformation feature-wise. The former creates a more homogeneous (logarithmic) scale for the usually very skewed microbiome data, whereas the latter normalises the features across samples for better comparisons between samples.
+
+```{r}
+#| label: transform-clrz
+
+# transform relative abundance to clr
+tse_order <- transformCounts(tse_order,
+                             assay.type = "relabundance",
+                             method = "clr",
+                             pseudocount = 1,
+                             MARGIN = "samples")
+
+# transform clr to z
+tse_order <- transformCounts(tse_order,
+                             assay.type = "clr", 
+                             method = "z",
+                             name = "clr_z",
+                             MARGIN = "features")
+```
+
+Finally, we plot the compositional heatmap with the ComplexHeatmap package and illustrate it in @fig-compheat.
+
+```{r}
+#| label: fig-compheat
+#| fig-cap: Heatmap of CLR-Z transformed microbiome assay where columns correspond to samples and rows to taxa agglomerated by order.
+Heatmap(assay(tse_order, "clr_z"),
+        name = "clr-z")
+```

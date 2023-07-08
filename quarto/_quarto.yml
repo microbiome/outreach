@@ -13,3 +13,6 @@ project:
     - day2.qmd
     - treese.qmd
     - tengeler2020_presentation.qmd
+    - tengeler_alpha_diversity.qmd
+    - tengeler_beta_diversity.qmd
+    - tengeler_community_composition.qmd

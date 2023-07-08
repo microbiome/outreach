@@ -1,0 +1,157 @@
+---
+title: "Beta Diversity"
+format: html
+editor: visual
+---
+
+## Overview
+
+The following packages are needed to succesfully run the examples in this notebook:
+
+-   mia: tools for microbiome data analysis
+
+-   scater: plotting data from TreeSummarizedExperiments
+
+-   patchwork: combining plots
+
+```{r}
+#| label: setup
+#| include: false
+library(mia)
+library(scater)
+library(patchwork)
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+First of all, we import Tengeler2020 from the mia package and store it into a variable.
+
+```{r}
+#| label: import-tengeler
+
+# load dataset and store it into tse
+data("Tengeler2020", package = "mia")
+tse <- Tengeler2020
+```
+
+After that, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.
+
+```{r}
+#| label: transform-relabundance
+tse <- transformCounts(tse,
+                       method = "relabundance")
+```
+
+## Principal Coordinate Analysis (PCoA)
+
+PCoA is a method to choose the dimensions of the data that explain most of the variance in the data. Distances between samples can be expressed by several ecological indices, such as Bray-Curtis and Aitchison dissimilarities.
+
+Here, we run multi-dimensional scaling (a type of PCoA) with Bray-Curtis dissimilarity and based on the relabundance assay.
+
+```{r}
+#| label: run-bray
+tse <- runMDS(tse,
+              FUN = vegan::vegdist,
+              method = "bray",
+              name = "Bray",
+              assay.type = "relabundance")
+```
+
+We then visualise the first two dimensions.
+
+```{r}
+#| label: plot-bray
+p1 <- plotReducedDim(tse, "Bray",
+                     colour_by = "patient_status",
+                     shape_by = "cohort")
+```
+
+```{r}
+#| label: prep-bray
+#| include: false
+e <- attr(reducedDim(tse, "Bray"), "eig")
+rel_eig <- e / sum(e[e > 0])
+
+p1 <- p1 + labs(x = paste("Bray 1 (", round(100 * rel_eig[[1]], 1), "%", ")", sep = ""),
+                y = paste("Bray 2 (", round(100 * rel_eig[[2]], 1), "%", ")", sep = ""))
+```
+
+```{r}
+#| label: fig-bray
+#| fig-cap: Ordination plots based on Bray-Curtis index. Samples are coloured by patient status and shaped by cohort.
+#| fig-width: 7
+#| fig-asp: 0.7
+p1
+```
+
+```{r}
+#| label: run-unifrac
+tse <- runMDS(tse,
+              FUN = mia::calculateUnifrac,
+              name = "Unifrac",
+              tree = rowTree(tse),
+              ntop = nrow(tse),
+              assay.type = "counts")
+```
+
+```{r}
+#| label: plot-unifrac
+p2 <- plotReducedDim(tse, "Unifrac",
+                     colour_by = "patient_status",
+                     shape_by = "cohort")
+```
+
+```{r}
+#| label: prep-unifrac
+#| include: false
+e <- attr(reducedDim(tse, "Unifrac"), "eig")
+rel_eig <- e / sum(e[e > 0])
+
+p2 <- p2 + labs(x = paste("Unifrac 1 (", round(100 * rel_eig[[1]], 1), "%", ")", sep = ""),
+                y = paste("Unifrac 2 (", round(100 * rel_eig[[2]], 1), "%", ")", sep = ""))
+```
+
+```{r}
+#| label: fig-unifrac
+#| fig-cap: Ordination plot based on Unifrac index. Samples are coloured by patient status and shaped by cohort.
+#| fig-width: 7
+#| fig-asp: 0.7
+p2
+```
+
+Finally, we combine the two plots with the patchwork syntax and compare them in @fig-beta. (Add another 2 plots?)
+
+```{r}
+#| label: fig-beta
+#| fig-cap: Ordination plots based on (A) Bray-Curtis or (B) Unifrac index. Samples are coloured by patient status and shaped by cohort.
+#| fig-asp: 1.4
+(p1 / p2) +
+  plot_layout(guides = "collect") +
+  plot_annotation(tag_levels = "A")
+```
+
+It is also possible to specify the number of output dimensions with the argument `ncomponents`. Here, we show it with the UMAP ordination method.
+
+```{r}
+#| label: run-umap
+tse <- runUMAP(tse,
+               assay.type = "counts",
+               ncomponents = 3)
+```
+
+We then plot all three dimensions, but you could also plot a pair of dimensions (1 and 3, 2 and 3 or 1 and 2) with the argument `ncomponents`.
+
+```{r}
+#| label: plot-umap
+p <- plotReducedDim(tse, "UMAP",
+                    ncomponents = 1:3,
+                    colour_by = "patient_status",
+                    shape_by = "cohort")
+```
+
+```{r}
+#| label: fig-umap
+#| fig-cap: UMAP plot of the first three dimensions.
+#| echo: false
+p
+```
