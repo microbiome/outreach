@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Community Composition</title>
+<title>Basic Exploration</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -86,58 +86,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
-<script src="site_libs/quarto-search/fuse.min.js"></script>
-<script src="site_libs/quarto-search/quarto-search.js"></script>
-<meta name="quarto:offset" content="./">
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script id="quarto-search-options" type="application/json">{
-  "location": "sidebar",
-  "copy-button": false,
-  "collapse-after": 3,
-  "panel-placement": "start",
-  "type": "textbox",
-  "limit": 20,
-  "language": {
-    "search-no-results-text": "No results",
-    "search-matching-documents-text": "matching documents",
-    "search-copy-link-title": "Copy link to search",
-    "search-hide-matches-text": "Hide additional matches",
-    "search-more-match-text": "more match in this document",
-    "search-more-matches-text": "more matches in this document",
-    "search-clear-button-title": "Clear",
-    "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
-  }
-}</script>
+<script src="basic_exploration_files/libs/clipboard/clipboard.min.js"></script>
+<script src="basic_exploration_files/libs/quarto-html/quarto.js"></script>
+<script src="basic_exploration_files/libs/quarto-html/popper.min.js"></script>
+<script src="basic_exploration_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="basic_exploration_files/libs/quarto-html/anchor.min.js"></script>
+<link href="basic_exploration_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="basic_exploration_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="basic_exploration_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="basic_exploration_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="basic_exploration_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
 
 <body class="fullcontent">
 
-<div id="quarto-search-results"></div>
-<!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
-<!-- sidebar -->
-<!-- margin-sidebar -->
-    
-<!-- main -->
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Community Composition</h1>
+<h1 class="title">Basic Exploration</h1>
 </div>
 
 
@@ -157,102 +128,130 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The following packages are needed to succesfully run the examples in this notebook:</p>
 <ul>
 <li><p>mia: tools for microbiome data analysis</p></li>
-<li><p>ComplexHeatmap: plotting heatmaps</p></li>
+<li><p>scater: plotting data from TreeSummarizedExperiments</p></li>
 </ul>
-<p>To begin with, we import Tengeler2020 from the mia package and store it into a variable.</p>
+<p>To get started, we import Tengeler2020 from the mia package and store it into a variable, on which we will work for the rest of the tutorial.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load dataset and store it into tse</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Tengeler2020"</span>, <span class="at">package =</span> <span class="st">"mia"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tse <span class="ot">&lt;-</span> Tengeler2020</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="assay-transformation-and-agglomeration" class="level2">
-<h2 class="anchored" data-anchor-id="assay-transformation-and-agglomeration">Assay transformation and agglomeration</h2>
-<p>First of all, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.</p>
+<section id="treesummarizedexperiment" class="level2">
+<h2 class="anchored" data-anchor-id="treesummarizedexperiment">TreeSummarizedExperiment</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">transformCounts</span>(tse,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">method =</span> <span class="st">"relabundance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 151  27</code></pre>
 </div>
-<p>Relative abundances are useful because they are not affected by compositionality, which is present in the counts assay due to sequencing bias (the unequal amplification of DNA from two different samples due to random effects).</p>
+</div>
 <div class="cell">
-<div class="cell-output-display">
-<div id="tbl-top" class="anchored">
-<table class="table table-sm table-striped">
-<caption>Table&nbsp;1: Relative abundance (%) of bacterial phyla grouped by patient status.</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">ADHD</th>
-<th style="text-align: right;">Control</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Bacteroidetes</td>
-<td style="text-align: right;">69.2</td>
-<td style="text-align: right;">61.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Firmicutes</td>
-<td style="text-align: right;">23.7</td>
-<td style="text-align: right;">30.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Verrucomicrobia</td>
-<td style="text-align: right;">4.7</td>
-<td style="text-align: right;">6.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Proteobacteria</td>
-<td style="text-align: right;">2.4</td>
-<td style="text-align: right;">1.8</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>class: TreeSummarizedExperiment 
+dim: 151 27 
+metadata(0):
+assays(1): counts
+rownames(151): 1726470 1726471 ... 17264756 17264757
+rowData names(6): Kingdom Phylum ... Family Genus
+colnames(27): A110 A12 ... A35 A38
+colData names(4): patient_status cohort patient_status_vs_cohort
+  sample_name
+reducedDimNames(0):
+mainExpName: NULL
+altExpNames(0):
+rowLinks: a LinkDataFrame (151 rows)
+rowTree: 1 phylo tree(s) (151 leaves)
+colLinks: NULL
+colTree: NULL</code></pre>
 </div>
-</div>
-</div>
-<p>Next, we agglomerate the experiment to the Order level, so that information is more condensed and therefore easier to visualise and interpret.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">agglomerateByRank</span>(tse, <span class="at">rank =</span> <span class="st">"Order"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="compositional-heatmap" class="level2">
-<h2 class="anchored" data-anchor-id="compositional-heatmap">Compositional heatmap</h2>
-<p>We then perform a CLR transformation sample-wise and a Z transformation feature-wise. The former creates a more homogeneous (logarithmic) scale for the usually very skewed microbiome data, whereas the latter normalises the features across samples for better comparisons between samples.</p>
+<section id="assays" class="level2">
+<h2 class="anchored" data-anchor-id="assays">Assays</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transform relative abundance to clr</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">transformCounts</span>(tse_order,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">method =</span> <span class="st">"clr"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">pseudocount =</span> <span class="dv">1</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                             <span class="at">MARGIN =</span> <span class="st">"samples"</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># transform clr to z</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">transformCounts</span>(tse_order,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                             <span class="at">assay.type =</span> <span class="st">"clr"</span>, </span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>                             <span class="at">method =</span> <span class="st">"z"</span>,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                             <span class="at">name =</span> <span class="st">"clr_z"</span>,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                             <span class="at">MARGIN =</span> <span class="st">"features"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assays</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of length 1
+names(1): counts</code></pre>
 </div>
-<p>Finally, we plot the compositional heatmap with the ComplexHeatmap package and illustrate it in <a href="#fig-compheat">Figure&nbsp;1</a>.</p>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Heatmap</span>(<span class="fu">assay</span>(tse_order, <span class="st">"clr_z"</span>),</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">"clr-z"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-compheat" class="quarto-figure quarto-figure-center anchored">
-<figure class="figure">
-<p><img src="tengeler_community_composition_files/figure-html/fig-compheat-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: Heatmap of CLR-Z transformed microbiome assay where columns correspond to samples and rows to taxa agglomerated by order.</figcaption><p></p>
-</figure>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">assay</span>(tse, <span class="st">"counts"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          A110   A12  A15  A19  A21  A23  A25  A28 A29  A34  A36   A37  A39
+1726470  17722 11630    0 8806 1740 1791 2368 1316 252 5702 2889 12036    0
+1726471  12052     0 2679 2776  540  229    0    0   0 6347 2977     0    0
+17264731     0   970    0  549  145    0  109  119  31    0    0  3326 9477
+17264726     0  1911    0 5497  659    0  588  542 141    0  219 10430    0
+1726472   1143  1891 1212  584   84  700  440  244  25 1611  399   835 1178
+17264724     0  6498    0 4455  610    0  522  511 352    0    0     0    0
+         A111  A13  A14  A16  A17  A18 A210  A22  A24  A26  A27  A33  A35  A38
+1726470  9933 1217 3478 5351 4738 8425 4052 1838 3085 1570 3621 4464  719 3250
+1726471  7871    0  876    0    0 4879 1762    0 2190    0 1480  599    0 2606
+17264731    0 7454    0 2321 1426    0    0 5415    0 3531    0    0 3421    0
+17264726  560  449    0 2106 2304    0    0  796   84  135  293  580  314  557
+1726472   278 1159 1422 2069 2231  626 2456  976  316 2420 1129  337  931  726
+17264724    0    0    0    0    0    0    0    0   70    0  322  435    0  252</code></pre>
 </div>
 </div>
+</section>
+<section id="coldata" class="level2">
+<h2 class="anchored" data-anchor-id="coldata">colData</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">colData</span>(tse))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "patient_status"           "cohort"                  
+[3] "patient_status_vs_cohort" "sample_name"             </code></pre>
 </div>
+</div>
+</section>
+<section id="rowdata" class="level2">
+<h2 class="anchored" data-anchor-id="rowdata">rowData</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(<span class="fu">colData</span>(tse))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "patient_status"           "cohort"                  
+[3] "patient_status_vs_cohort" "sample_name"             </code></pre>
+</div>
+</div>
+<div class="cell">
 
+</div>
+</section>
+<section id="other-elements" class="level2">
+<h2 class="anchored" data-anchor-id="other-elements">Other elements</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rowTree</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Phylogenetic tree with 151 tips and 149 internal nodes.
 
+Tip labels:
+  172647198, 1726478, 1726479, 172647201, 172647222, 17264798, ...
+Node labels:
+  , 0.789, 0.810, 0.844, 0.973, 0.685, ...
+
+Unrooted; includes branch lengths.</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">reducedDims</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of length 0
+names(0): </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">metadata</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>list()</code></pre>
+</div>
+</div>
 </section>
 
-</main> <!-- /main -->
+</main>
+<!-- /main column -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

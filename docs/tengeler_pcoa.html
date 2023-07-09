@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Community Composition</title>
+<title>Beta Diversity</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -137,7 +137,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Community Composition</h1>
+<h1 class="title">Beta Diversity</h1>
 </div>
 
 
@@ -157,93 +157,106 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The following packages are needed to succesfully run the examples in this notebook:</p>
 <ul>
 <li><p>mia: tools for microbiome data analysis</p></li>
-<li><p>ComplexHeatmap: plotting heatmaps</p></li>
+<li><p>scater: plotting data from TreeSummarizedExperiments</p></li>
+<li><p>patchwork: combining plots</p></li>
 </ul>
-<p>To begin with, we import Tengeler2020 from the mia package and store it into a variable.</p>
+<p>To get started, we import Tengeler2020 from the mia package and store it into a variable.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load dataset and store it into tse</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Tengeler2020"</span>, <span class="at">package =</span> <span class="st">"mia"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tse <span class="ot">&lt;-</span> Tengeler2020</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section>
-<section id="assay-transformation-and-agglomeration" class="level2">
-<h2 class="anchored" data-anchor-id="assay-transformation-and-agglomeration">Assay transformation and agglomeration</h2>
-<p>First of all, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.</p>
+<p>After that, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">transformCounts</span>(tse,</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                       <span class="at">method =</span> <span class="st">"relabundance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Relative abundances are useful because they are not affected by compositionality, which is present in the counts assay due to sequencing bias (the unequal amplification of DNA from two different samples due to random effects).</p>
-<div class="cell">
-<div class="cell-output-display">
-<div id="tbl-top" class="anchored">
-<table class="table table-sm table-striped">
-<caption>Table&nbsp;1: Relative abundance (%) of bacterial phyla grouped by patient status.</caption>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">ADHD</th>
-<th style="text-align: right;">Control</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Bacteroidetes</td>
-<td style="text-align: right;">69.2</td>
-<td style="text-align: right;">61.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Firmicutes</td>
-<td style="text-align: right;">23.7</td>
-<td style="text-align: right;">30.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Verrucomicrobia</td>
-<td style="text-align: right;">4.7</td>
-<td style="text-align: right;">6.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Proteobacteria</td>
-<td style="text-align: right;">2.4</td>
-<td style="text-align: right;">1.8</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-<p>Next, we agglomerate the experiment to the Order level, so that information is more condensed and therefore easier to visualise and interpret.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">agglomerateByRank</span>(tse, <span class="at">rank =</span> <span class="st">"Order"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 </section>
-<section id="compositional-heatmap" class="level2">
-<h2 class="anchored" data-anchor-id="compositional-heatmap">Compositional heatmap</h2>
-<p>We then perform a CLR transformation sample-wise and a Z transformation feature-wise. The former creates a more homogeneous (logarithmic) scale for the usually very skewed microbiome data, whereas the latter normalises the features across samples for better comparisons between samples.</p>
+<section id="principal-coordinate-analysis-pcoa" class="level2">
+<h2 class="anchored" data-anchor-id="principal-coordinate-analysis-pcoa">Principal Coordinate Analysis (PCoA)</h2>
+<p>PCoA is a method to choose the dimensions of the data that explain most of the variance in the data. Distances between samples can be expressed by several ecological indices, such as Bray-Curtis and Aitchison dissimilarities.</p>
+<p>Here, we run multi-dimensional scaling (a type of PCoA) with Bray-Curtis dissimilarity and based on the relabundance assay.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transform relative abundance to clr</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">transformCounts</span>(tse_order,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                             <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                             <span class="at">method =</span> <span class="st">"clr"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                             <span class="at">pseudocount =</span> <span class="dv">1</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                             <span class="at">MARGIN =</span> <span class="st">"samples"</span>)</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># transform clr to z</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">transformCounts</span>(tse_order,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>                             <span class="at">assay.type =</span> <span class="st">"clr"</span>, </span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>                             <span class="at">method =</span> <span class="st">"z"</span>,</span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>                             <span class="at">name =</span> <span class="st">"clr_z"</span>,</span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                             <span class="at">MARGIN =</span> <span class="st">"features"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">runMDS</span>(tse,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">FUN =</span> vegan<span class="sc">::</span>vegdist,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">method =</span> <span class="st">"bray"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">name =</span> <span class="st">"Bray"</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">assay.type =</span> <span class="st">"relabundance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Finally, we plot the compositional heatmap with the ComplexHeatmap package and illustrate it in <a href="#fig-compheat">Figure&nbsp;1</a>.</p>
+<p>We then visualise the first two dimensions.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Heatmap</span>(<span class="fu">assay</span>(tse_order, <span class="st">"clr_z"</span>),</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>        <span class="at">name =</span> <span class="st">"clr-z"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">plotReducedDim</span>(tse, <span class="st">"Bray"</span>,</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">colour_by =</span> <span class="st">"patient_status"</span>,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">shape_by =</span> <span class="st">"cohort"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-fig.asp="0.7">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>p1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-compheat" class="quarto-figure quarto-figure-center anchored">
+<div id="fig-bray" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="tengeler_community_composition_files/figure-html/fig-compheat-1.png" class="img-fluid figure-img" width="672"></p>
-<p></p><figcaption class="figure-caption">Figure&nbsp;1: Heatmap of CLR-Z transformed microbiome assay where columns correspond to samples and rows to taxa agglomerated by order.</figcaption><p></p>
+<p><img src="tengeler_pcoa_files/figure-html/fig-bray-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;1: Ordination plots based on Bray-Curtis index. Samples are coloured by patient status and shaped by cohort.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">runMDS</span>(tse,</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">FUN =</span> mia<span class="sc">::</span>calculateUnifrac,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">name =</span> <span class="st">"Unifrac"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">tree =</span> <span class="fu">rowTree</span>(tse),</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">ntop =</span> <span class="fu">nrow</span>(tse),</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">assay.type =</span> <span class="st">"counts"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">plotReducedDim</span>(tse, <span class="st">"Unifrac"</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">colour_by =</span> <span class="st">"patient_status"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>                     <span class="at">shape_by =</span> <span class="st">"cohort"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-fig.asp="0.7">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-unifrac" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="tengeler_pcoa_files/figure-html/fig-unifrac-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;2: Ordination plot based on Unifrac index. Samples are coloured by patient status and shaped by cohort.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Finally, we combine the two plots with the patchwork syntax and compare them in <a href="#fig-beta">Figure&nbsp;3</a>. (Add another 2 plots?)</p>
+<div class="cell" data-fig.asp="1.4">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">/</span> p2) <span class="sc">+</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">+</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"A"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div id="fig-beta" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="tengeler_pcoa_files/figure-html/fig-beta-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;3: Ordination plots based on (A) Bray-Curtis or (B) Unifrac index. Samples are coloured by patient status and shaped by cohort.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+<p>It is also possible to specify the number of output dimensions with the argument <code>ncomponents</code>. Here, we show it with the UMAP ordination method.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">runUMAP</span>(tse,</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">assay.type =</span> <span class="st">"counts"</span>,</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">ncomponents =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We then plot all three dimensions, but you could also plot a pair of dimensions (1 and 3, 2 and 3 or 1 and 2) with the argument <code>ncomponents</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">plotReducedDim</span>(tse, <span class="st">"UMAP"</span>,</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ncomponents =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>,</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">colour_by =</span> <span class="st">"patient_status"</span>,</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">shape_by =</span> <span class="st">"cohort"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-umap" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="tengeler_pcoa_files/figure-html/fig-umap-1.png" class="img-fluid figure-img" width="672"></p>
+<p></p><figcaption class="figure-caption">Figure&nbsp;4: UMAP plot of the first three dimensions.</figcaption><p></p>
 </figure>
 </div>
 </div>

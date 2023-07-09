@@ -21,7 +21,7 @@ library(ComplexHeatmap)
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-First of all, we import Tengeler2020 from the mia package and store it into a variable.
+To begin with, we import Tengeler2020 from the mia package and store it into a variable.
 
 ```{r}
 #| label: import-tengeler
@@ -33,7 +33,7 @@ tse <- Tengeler2020
 
 ## Assay transformation and agglomeration
 
-First off, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.
+First of all, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.
 
 ```{r}
 #| label: transform-relabundance
