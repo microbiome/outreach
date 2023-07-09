@@ -987,11 +987,32 @@
     "text": "Further tasks\nIf you complete the task fast, check out other OMA Exercises on data containers."
   },
   {
+    "objectID": "tengeler2020_presentation.html#tengeler2020",
+    "href": "tengeler2020_presentation.html#tengeler2020",
+    "title": "A Brief Introduction to Tengeler2020",
+    "section": "Tengeler2020",
+    "text": "Tengeler2020\nTengeler2020 is a randomised blinded study on the effects of gut microbiome on Attention-deficit/hyperactivity disorder (ADHD) in humanised mice (Tengeler et al. 2020).\n\nYoung, male, germ-free C57BL/6JOlaHsd mice (n = 27) were humanised with gut microbiome from either ADHD patients (n = 3) or healthy controls (n = 3) of matched age. Notably, the mice belonged to three different cohorts.\n\n\n\n\n\n\nCohort1\nCohort2\nCohort3\n\n\n\n\nADHD\n4\n5\n4\n\n\nControl\n6\n5\n3"
+  },
+  {
     "objectID": "tengeler2020_presentation.html#study-design",
     "href": "tengeler2020_presentation.html#study-design",
     "title": "A Brief Introduction to Tengeler2020",
-    "section": "Study design",
-    "text": "Study design\n\nTengeler2020 is a TreeSummarizedExperiment from a study on the effects of gut microbiome on Attention-deficit/hyperactivity disorder (ADHD) in humanised mice.\n\n\n\n\nYoung, male, germ-free C57BL/6JOlaHsd mice (n = 27) were humanised with gut microbiome from either ADHD patients (n = 3) or healthy controls (n = 3) of matched age. Notably, the mice belonged to three different cohorts.\n\n\n\n\n\n\n\nCohort1\nCohort2\nCohort3\n\n\n\n\nADHD\n4\n5\n4\n\n\nControl\n6\n5\n3\n\n\n\n\n\n\n\nMicrobiome data was obtained by 16S rRNA gene sequencing of bacterial DNA sampled from faecal pellet on a weekly basis. Then, sequence reads were assembled into Operational Taxonomic Units (OTUs) with an NG-Tax pipeline."
+    "section": "Study Design",
+    "text": "Study Design\nMicrobiome data was obtained by 16S rRNA gene sequencing of bacterial DNA sampled from faecal pellet on a weekly basis. Then, sequence reads were assembled into Operational Taxonomic Units (OTUs) with an NG-Tax pipeline."
+  },
+  {
+    "objectID": "tengeler2020_presentation.html#community-diversity",
+    "href": "tengeler2020_presentation.html#community-diversity",
+    "title": "A Brief Introduction to Tengeler2020",
+    "section": "Community Diversity",
+    "text": "Community Diversity\nThe profile of the ADHD-related microbiome community showed minor differences from the control in terms of alpha diversity, but the two groups could be distinguished in terms of beta diversity.\n\n\n\n\n\nComparison of diversity between microbiota samples from ADHD mice and control mice using alpha diversity measures Observed OTUs (richness), Shannon Index, InvSimpson Index, and Phylogenetic Diversity.\n\n\n\n\n\n\nPCoA plot of weighted UniFrac distances showing a clear separation in microbial composition between ADHD mice and control mice."
+  },
+  {
+    "objectID": "tengeler2020_presentation.html#correlation-analysis",
+    "href": "tengeler2020_presentation.html#correlation-analysis",
+    "title": "A Brief Introduction to Tengeler2020",
+    "section": "Correlation Analysis",
+    "text": "Correlation Analysis\nSome taxa were significantly correlated with neurobiological features.\n\n\n\n\n\nCircular representation of the different bacterial genera between miceADHD and micecontrol using LEfSe analysis (LDA score > 2.0, p < .05 unadjusted)."
   },
   {
     "objectID": "tengeler2020_presentation.html#tutorials",
@@ -999,6 +1020,13 @@
     "title": "A Brief Introduction to Tengeler2020",
     "section": "Tutorials",
     "text": "Tutorials\n\nAlpha Diversity\nBeta Diversity with Principal Coordinate Analysis\nBeta Diversity with Redundance Analysis\nCommunity Composition"
+  },
+  {
+    "objectID": "tengeler2020_presentation.html#references",
+    "href": "tengeler2020_presentation.html#references",
+    "title": "A Brief Introduction to Tengeler2020",
+    "section": "References",
+    "text": "References\n\n\n\n\n\n\nTengeler, Anouk C, Sarita A Dam, Maximilian Wiesmann, Jilly Naaijen, Miranda Van Bodegom, Clara Belzer, Pieter J Dederen, et al. 2020. “Gut Microbiota from Persons with Attention-Deficit/Hyperactivity Disorder Affects the Brain in Mice.” Microbiome 8: 1–14."
   },
   {
     "objectID": "tengeler_alpha_diversity.html",

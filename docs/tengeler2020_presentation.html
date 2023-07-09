@@ -27,6 +27,25 @@
       margin: 0 0.8em 0.2em -1.6em;
       vertical-align: middle;
     }
+    div.csl-bib-body { }
+    div.csl-entry {
+      clear: both;
+    }
+    .hanging div.csl-entry {
+      margin-left:2em;
+      text-indent:-2em;
+    }
+    div.csl-left-margin {
+      min-width:2em;
+      float:left;
+    }
+    div.csl-right-inline {
+      margin-left:2em;
+      padding-left:1em;
+    }
+    div.csl-indent {
+      margin-left: 2em;
+    }
   </style>
   <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -329,16 +348,11 @@
 </div>
 
 </section>
-<section id="study-design" class="slide level2 scrollable">
-<h2>Study design</h2>
-<div class="fragment">
-<p>Tengeler2020 is a TreeSummarizedExperiment from a study on the effects of gut microbiome on Attention-deficit/hyperactivity disorder (ADHD) in humanised mice.</p>
-</div>
-<div class="fragment">
-<div class="columns">
-<div class="column" style="width:48%;">
-<p>Young, male, germ-free C57BL/6JOlaHsd mice (n = 27) were humanised with gut microbiome from either ADHD patients (n = 3) or healthy controls (n = 3) of matched age. Notably, the mice belonged to three different cohorts.</p>
-</div><div class="column" style="width:52%;">
+<section id="tengeler2020" class="slide level2 scrollable">
+<h2>Tengeler2020</h2>
+<p>Tengeler2020 is a randomised blinded study on the effects of gut microbiome on Attention-deficit/hyperactivity disorder (ADHD) in humanised mice <span class="citation" data-cites="tengeler2020gut">(<a href="#/references" role="doc-biblioref" onclick="">Tengeler et al. 2020</a>)</span>.</p>
+
+<img data-src="images/tengeler_paper.png" class="r-stretch quarto-figure-center"><p>Young, male, germ-free C57BL/6JOlaHsd mice (n = 27) were humanised with gut microbiome from either ADHD patients (n = 3) or healthy controls (n = 3) of matched age. Notably, the mice belonged to three different cohorts.</p>
 <div class="cell">
 <div class="cell-output-display">
 <table>
@@ -367,9 +381,51 @@
 </table>
 </div>
 </div>
-</div>
-</div>
+</section>
+<section id="study-design" class="slide level2">
+<h2>Study Design</h2>
 <p>Microbiome data was obtained by 16S rRNA gene sequencing of bacterial DNA sampled from faecal pellet on a weekly basis. Then, sequence reads were assembled into Operational Taxonomic Units (OTUs) with an NG-Tax pipeline.</p>
+
+<img data-src="images/tengeler_timeline.png" class="r-stretch"></section>
+<section id="community-diversity" class="slide level2">
+<h2>Community Diversity</h2>
+<p>The profile of the ADHD-related microbiome community showed minor differences from the control in terms of alpha diversity, but the two groups could be distinguished in terms of beta diversity.</p>
+<div class="columns">
+<div class="column" style="width:65%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/tengeler_alpha.png" width="618"></p>
+<p></p><figcaption>Comparison of diversity between microbiota samples from ADHD mice and control mice using alpha diversity measures Observed OTUs (richness), Shannon Index, InvSimpson Index, and Phylogenetic Diversity.</figcaption><p></p>
+</figure>
+</div>
+</div><div class="column" style="width:35%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/tengeler_beta.png" width="330"></p>
+<p></p><figcaption>PCoA plot of weighted UniFrac distances showing a clear separation in microbial composition between ADHD mice and control mice.</figcaption><p></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="correlation-analysis" class="slide level2">
+<h2>Correlation Analysis</h2>
+<p>Some taxa were significantly correlated with neurobiological features.</p>
+<div class="columns">
+<div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/tengeler_phylotree.png" width="693"></p>
+<p></p><figcaption>Circular representation of the different bacterial genera between miceADHD and micecontrol using LEfSe analysis (LDA score &gt; 2.0, p &lt; .05 unadjusted).</figcaption><p></p>
+</figure>
+</div>
+</div><div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/tengeler_cor.png" width="702"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="tutorials" class="slide level2">
@@ -381,11 +437,16 @@
 <li><p><a href="https://microbiome.github.io/outreach/tengeler_community_composition.html">Community Composition</a></p></li>
 </ul>
 </section>
-<section id="the-end" class="title-slide slide level1 center">
-<h1>The end</h1>
+<section id="references" class="slide level2 smaller scrollable">
+<h2>References</h2>
 
 <div class="footer footer-default">
 
+</div>
+<div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-tengeler2020gut" class="csl-entry" role="doc-biblioentry">
+Tengeler, Anouk C, Sarita A Dam, Maximilian Wiesmann, Jilly Naaijen, Miranda Van Bodegom, Clara Belzer, Pieter J Dederen, et al. 2020. <span>“Gut Microbiota from Persons with Attention-Deficit/Hyperactivity Disorder Affects the Brain in Mice.”</span> <em>Microbiome</em> 8: 1–14.
+</div>
 </div>
 </section>
     </div>
