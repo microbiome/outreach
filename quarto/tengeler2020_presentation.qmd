@@ -69,6 +69,7 @@ Some taxa were significantly correlated with neurobiological features.
 
 ::: nonincremental
 -   [Reproducible Reporting with Quarto](https://microbiome.github.io/outreach/tengeler_quarto.html)
+-   [Data Import and Basic Exploration](https://microbiome.github.io/outreach/tengeler_basic_exploration.html)
 -   [Alpha Diversity](https://microbiome.github.io/outreach/tengeler_alpha_diversity.html)
 -   [Beta Diversity with Principal Coordinate Analysis](https://microbiome.github.io/outreach/tengeler_pcoa.html)
 -   [Beta Diversity with Redundance Analysis](https://microbiome.github.io/outreach/tengeler_dbrda.html)

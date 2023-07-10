@@ -1019,7 +1019,7 @@
     "href": "tengeler2020_presentation.html#tutorials",
     "title": "A Brief Introduction to Tengeler2020",
     "section": "Tutorials",
-    "text": "Tutorials\n\n\nReproducible Reporting with Quarto\nAlpha Diversity\nBeta Diversity with Principal Coordinate Analysis\nBeta Diversity with Redundance Analysis\nCommunity Composition"
+    "text": "Tutorials\n\n\nReproducible Reporting with Quarto\nData Import and Basic Exploration\nAlpha Diversity\nBeta Diversity with Principal Coordinate Analysis\nBeta Diversity with Redundance Analysis\nCommunity Composition"
   },
   {
     "objectID": "tengeler2020_presentation.html#references",
@@ -1055,6 +1055,55 @@
     "title": "Reproducible Reporting with Quarto",
     "section": "Useful Resources",
     "text": "Useful Resources\nWe have gathered learning material about Quarto in this chapter of the OMA book. We encourage you to look into it.\nWhen you feel ready for challenge, go have a look at our exercises about Quarto in the OMA book. Feel free to ask if you’d like to discuss the solution strategy."
+  },
+  {
+    "objectID": "tengeler_basic_exploration.html",
+    "href": "tengeler_basic_exploration.html",
+    "title": "Basic Exploration",
+    "section": "",
+    "text": "The following packages are needed to succesfully run the examples in this notebook:\n\nmia: tools for microbiome data analysis\nscater: plotting data from TreeSummarizedExperiments"
+  },
+  {
+    "objectID": "tengeler_basic_exploration.html#exploring-treese",
+    "href": "tengeler_basic_exploration.html#exploring-treese",
+    "title": "Basic Exploration",
+    "section": "Exploring TreeSE",
+    "text": "Exploring TreeSE\nTo get started, we import Tengeler2020 from the mia package and store it into a variable, on which we will work for the rest of the tutorial.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse <- Tengeler2020\n\n\ntse\n\nclass: TreeSummarizedExperiment \ndim: 151 27 \nmetadata(0):\nassays(1): counts\nrownames(151): 1726470 1726471 ... 17264756 17264757\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (151 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL\n\n\n\ndim(tse)\n\n[1] 151  27\n\n\n\ncolnames(tse)\n\n [1] \"A110\" \"A12\"  \"A15\"  \"A19\"  \"A21\"  \"A23\"  \"A25\"  \"A28\"  \"A29\"  \"A34\" \n[11] \"A36\"  \"A37\"  \"A39\"  \"A111\" \"A13\"  \"A14\"  \"A16\"  \"A17\"  \"A18\"  \"A210\"\n[21] \"A22\"  \"A24\"  \"A26\"  \"A27\"  \"A33\"  \"A35\"  \"A38\" \n\n\n\nrownames(tse)\n\n  [1] \"1726470\"   \"1726471\"   \"17264731\"  \"17264726\"  \"1726472\"   \"17264724\" \n  [7] \"17264747\"  \"17264725\"  \"17264727\"  \"17264748\"  \"17264729\"  \"172647189\"\n [13] \"17264753\"  \"172647167\" \"172647166\" \"17264734\"  \"172647190\" \"17264719\" \n [19] \"1726478\"   \"172647145\" \"17264761\"  \"17264722\"  \"17264740\"  \"172647132\"\n [25] \"17264718\"  \"172647213\" \"1726479\"   \"17264715\"  \"172647170\" \"17264738\" \n [31] \"172647108\" \"1726475\"   \"17264728\"  \"17264771\"  \"17264710\"  \"17264733\" \n [37] \"17264744\"  \"1726476\"   \"172647169\" \"172647171\" \"172647113\" \"17264766\" \n [43] \"17264732\"  \"172647156\" \"17264723\"  \"172647172\" \"17264769\"  \"17264745\" \n [49] \"172647111\" \"17264730\"  \"17264741\"  \"172647230\" \"17264759\"  \"17264772\" \n [55] \"17264770\"  \"17264762\"  \"17264784\"  \"1726473\"   \"172647157\" \"17264746\" \n [61] \"172647147\" \"17264778\"  \"17264788\"  \"172647173\" \"17264750\"  \"17264767\" \n [67] \"172647220\" \"17264775\"  \"172647117\" \"17264735\"  \"17264737\"  \"17264749\" \n [73] \"17264736\"  \"17264711\"  \"17264712\"  \"17264743\"  \"17264780\"  \"1726474\"  \n [79] \"172647180\" \"172647133\" \"172647211\" \"172647192\" \"17264751\"  \"172647201\"\n [85] \"172647168\" \"172647128\" \"17264768\"  \"172647204\" \"17264782\"  \"172647208\"\n [91] \"172647214\" \"172647177\" \"172647142\" \"172647120\" \"17264781\"  \"172647219\"\n [97] \"172647195\" \"172647114\" \"1726477\"   \"172647100\" \"17264779\"  \"172647267\"\n[103] \"172647216\" \"172647126\" \"17264798\"  \"172647228\" \"17264777\"  \"172647175\"\n[109] \"172647139\" \"17264739\"  \"17264752\"  \"172647215\" \"172647223\" \"17264721\" \n[115] \"17264799\"  \"17264717\"  \"172647137\" \"172647146\" \"17264792\"  \"172647116\"\n[121] \"17264786\"  \"172647136\" \"172647222\" \"17264774\"  \"17264760\"  \"172647412\"\n[127] \"17264794\"  \"172647181\" \"172647176\" \"172647243\" \"172647138\" \"172647206\"\n[133] \"172647266\" \"172647140\" \"172647198\" \"172647179\" \"17264754\"  \"17264716\" \n[139] \"17264720\"  \"172647289\" \"172647135\" \"172647283\" \"172647303\" \"17264755\" \n[145] \"17264714\"  \"172647217\" \"17264742\"  \"172647407\" \"172647186\" \"17264756\" \n[151] \"17264757\""
+  },
+  {
+    "objectID": "tengeler_basic_exploration.html#assays",
+    "href": "tengeler_basic_exploration.html#assays",
+    "title": "Basic Exploration",
+    "section": "Assays",
+    "text": "Assays\n\nassays(tse)\n\nList of length 1\nnames(1): counts\n\n\n\nhead(assay(tse, \"counts\"))\n\n          A110   A12  A15  A19  A21  A23  A25  A28 A29  A34  A36   A37  A39\n1726470  17722 11630    0 8806 1740 1791 2368 1316 252 5702 2889 12036    0\n1726471  12052     0 2679 2776  540  229    0    0   0 6347 2977     0    0\n17264731     0   970    0  549  145    0  109  119  31    0    0  3326 9477\n17264726     0  1911    0 5497  659    0  588  542 141    0  219 10430    0\n1726472   1143  1891 1212  584   84  700  440  244  25 1611  399   835 1178\n17264724     0  6498    0 4455  610    0  522  511 352    0    0     0    0\n         A111  A13  A14  A16  A17  A18 A210  A22  A24  A26  A27  A33  A35  A38\n1726470  9933 1217 3478 5351 4738 8425 4052 1838 3085 1570 3621 4464  719 3250\n1726471  7871    0  876    0    0 4879 1762    0 2190    0 1480  599    0 2606\n17264731    0 7454    0 2321 1426    0    0 5415    0 3531    0    0 3421    0\n17264726  560  449    0 2106 2304    0    0  796   84  135  293  580  314  557\n1726472   278 1159 1422 2069 2231  626 2456  976  316 2420 1129  337  931  726\n17264724    0    0    0    0    0    0    0    0   70    0  322  435    0  252"
+  },
+  {
+    "objectID": "tengeler_basic_exploration.html#coldata",
+    "href": "tengeler_basic_exploration.html#coldata",
+    "title": "Basic Exploration",
+    "section": "colData",
+    "text": "colData\n\nnames(colData(tse))\n\n[1] \"patient_status\"           \"cohort\"                  \n[3] \"patient_status_vs_cohort\" \"sample_name\"             \n\n\n\nhead(colData(tse)$patient_status)\n\n[1] \"ADHD\" \"ADHD\" \"ADHD\" \"ADHD\" \"ADHD\" \"ADHD\""
+  },
+  {
+    "objectID": "tengeler_basic_exploration.html#rowdata",
+    "href": "tengeler_basic_exploration.html#rowdata",
+    "title": "Basic Exploration",
+    "section": "rowData",
+    "text": "rowData\n\nnames(rowData(tse))\n\n[1] \"Kingdom\" \"Phylum\"  \"Class\"   \"Order\"   \"Family\"  \"Genus\"  \n\n\n\nhead(rowData(tse)$Genus)\n\n[1] \"Bacteroides\"     \"Bacteroides\"     \"Parabacteroides\" \"Bacteroides\"    \n[5] \"Akkermansia\"     \"Bacteroides\""
+  },
+  {
+    "objectID": "tengeler_basic_exploration.html#other-elements",
+    "href": "tengeler_basic_exploration.html#other-elements",
+    "title": "Basic Exploration",
+    "section": "Other elements",
+    "text": "Other elements\n\naltExp(tse, \"my_alt_exp\") <- tse[1:10, ]\naltExps(tse)\n\nList of length 1\nnames(1): my_alt_exp\n\n\n\nrowTree(tse)\n\n\nPhylogenetic tree with 151 tips and 149 internal nodes.\n\nTip labels:\n  172647198, 1726478, 1726479, 172647201, 172647222, 17264798, ...\nNode labels:\n  , 0.789, 0.810, 0.844, 0.973, 0.685, ...\n\nUnrooted; includes branch lengths.\n\n\n\nreducedDims(tse)\n\nList of length 0\nnames(0): \n\n\n\nmetadata(tse)\n\nlist()"
+  },
+  {
+    "objectID": "tengeler_basic_exploration.html#importing-data-as-treese",
+    "href": "tengeler_basic_exploration.html#importing-data-as-treese",
+    "title": "Basic Exploration",
+    "section": "Importing Data as TreeSE",
+    "text": "Importing Data as TreeSE\n\nMia datasets\nThe mia package comes with several pre-installed datasets. In this course, we will be using Tengeler2020, a study on gut microbiome effects on ADHD in humanised mice (check this presentation for further details about this study).\nAvailable datasets can be loaded as follows:\n\ndata(\"Tengeler2020\", package = \"mia\")"
   },
   {
     "objectID": "tengeler_alpha_diversity.html",
