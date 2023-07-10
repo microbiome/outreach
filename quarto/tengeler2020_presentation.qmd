@@ -14,9 +14,9 @@ data("Tengeler2020", package = "mia")
 tse <- Tengeler2020
 ```
 
-## Tengeler2020 {.scrollable}
+## Tengeler2020
 
-Tengeler2020 is a randomised blinded study on the effects of gut microbiome on Attention-deficit/hyperactivity disorder (ADHD) in humanised mice [@tengeler2020gut].
+Tengeler2020 is a randomised blinded study on the effects of gut microbiome on attention-deficit/hyperactivity disorder (ADHD) in humanised mice [@tengeler2020gut].
 
 ![](images/tengeler_paper.png){fig-align="center"}
 
@@ -32,6 +32,8 @@ knitr::kable(tab)
 ## Study Design
 
 Microbiome data was obtained by 16S rRNA gene sequencing of bacterial DNA sampled from faecal pellet on a weekly basis. Then, sequence reads were assembled into Operational Taxonomic Units (OTUs) with an NG-Tax pipeline.
+
+In addition to microbiome analysis, during the experimental period mice underwent multiple behavioural tests (OFT, MBT and NOR) and neurological measurements (MRI and perfusion), creating the opportunity to perform analyses across omics (multiomics).
 
 ![](images/tengeler_timeline.png)
 
@@ -65,12 +67,12 @@ Some taxa were significantly correlated with neurobiological features.
 
 ## Tutorials
 
+::: nonincremental
+-   [Reproducible Reporting with Quarto](https://microbiome.github.io/outreach/tengeler_quarto.html)
 -   [Alpha Diversity](https://microbiome.github.io/outreach/tengeler_alpha_diversity.html)
-
 -   [Beta Diversity with Principal Coordinate Analysis](https://microbiome.github.io/outreach/tengeler_pcoa.html)
-
 -   [Beta Diversity with Redundance Analysis](https://microbiome.github.io/outreach/tengeler_dbrda.html)
-
 -   [Community Composition](https://microbiome.github.io/outreach/tengeler_community_composition.html)
+:::
 
 ## References

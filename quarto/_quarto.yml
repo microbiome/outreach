@@ -13,6 +13,7 @@ project:
     - day2.qmd
     - treese.qmd
     - tengeler2020_presentation.qmd
+    - tengeler_quarto.qmd
     - tengeler_basic_exploration.qmd
     - tengeler_alpha_diversity.qmd
     - tengeler_pcoa.qmd

@@ -21,7 +21,7 @@ library(scater)
 knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-## TreeSummarizedExperiment
+## Exploring TreeSE
 
 To get started, we import Tengeler2020 from the mia package and store it into a variable, on which we will work for the rest of the tutorial.
 
@@ -65,14 +65,18 @@ head(assay(tse, "counts"))
 names(colData(tse))
 ```
 
+```{r}
+head(colData(tse)$patient_status)
+```
+
 ## rowData
 
 ```{r}
-names(colData(tse))
+names(rowData(tse))
 ```
 
 ```{r}
-
+head(rowData(tse)$Genus)
 ```
 
 ## Other elements
@@ -92,4 +96,16 @@ reducedDims(tse)
 
 ```{r}
 metadata(tse)
+```
+
+## Importing Data as TreeSE
+
+### Mia datasets
+
+The mia package comes with several pre-installed datasets. In this course, we will be using Tengeler2020, a study on gut microbiome effects on ADHD in humanised mice (check [this presentation](https://microbiome.github.io/outreach/tengeler2020_presentation.html) for further details about this study).
+
+Available datasets can be loaded as follows:
+
+```{r}
+data("Tengeler2020", package = "mia")
 ```
