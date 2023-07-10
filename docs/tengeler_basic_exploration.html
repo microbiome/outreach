@@ -160,14 +160,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p>scater: plotting data from TreeSummarizedExperiments</p></li>
 </ul>
 </section>
-<section id="exploring-treese" class="level2">
-<h2 class="anchored" data-anchor-id="exploring-treese">Exploring TreeSE</h2>
+<section id="importing-data-as-treese" class="level2">
+<h2 class="anchored" data-anchor-id="importing-data-as-treese">Importing Data as TreeSE</h2>
+<section id="mia-datasets" class="level3">
+<h3 class="anchored" data-anchor-id="mia-datasets">Mia datasets</h3>
+<p>The mia package comes with several pre-installed datasets. In this course, we will be using Tengeler2020, a study on gut microbiome effects on ADHD in humanised mice (check <a href="https://microbiome.github.io/outreach/tengeler2020_presentation.html">this presentation</a> for further details about this study).</p>
 <p>To get started, we import Tengeler2020 from the mia package and store it into a variable, on which we will work for the rest of the tutorial.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># load dataset and store it into tse</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Tengeler2020"</span>, <span class="at">package =</span> <span class="st">"mia"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>tse <span class="ot">&lt;-</span> Tengeler2020</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
+</section>
+</section>
+<section id="exploring-treese" class="level2">
+<h2 class="anchored" data-anchor-id="exploring-treese">Exploring TreeSE</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>tse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -333,19 +340,8 @@ names(0): </code></pre>
 <pre><code>list()</code></pre>
 </div>
 </div>
-</section>
-<section id="importing-data-as-treese" class="level2">
-<h2 class="anchored" data-anchor-id="importing-data-as-treese">Importing Data as TreeSE</h2>
-<section id="mia-datasets" class="level3">
-<h3 class="anchored" data-anchor-id="mia-datasets">Mia datasets</h3>
-<p>The mia package comes with several pre-installed datasets. In this course, we will be using Tengeler2020, a study on gut microbiome effects on ADHD in humanised mice (check <a href="https://microbiome.github.io/outreach/tengeler2020_presentation.html">this presentation</a> for further details about this study).</p>
-<p>Available datasets can be loaded as follows:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Tengeler2020"</span>, <span class="at">package =</span> <span class="st">"mia"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 
 
-</section>
 </section>
 
 </main> <!-- /main -->
