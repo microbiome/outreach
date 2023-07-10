@@ -44,6 +44,8 @@ Below is a boxplot of flower sepal length by species (see @fig-example). You can
 boxplot(Sepal.Length ~ Species, data = iris)
 ```
 
+Similarly, tables can also be included and cross-referenced, demonstrated with @tbl-example where the number of observations per flower species are shown.
+
 ```{r}
 #| label: tbl-example
 #| tbl-cap: This is a table caption.
