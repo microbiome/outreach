@@ -73,6 +73,7 @@ Some taxa were significantly correlated with neurobiological features.
 -   [Alpha Diversity](https://microbiome.github.io/outreach/tengeler_alpha_diversity.html)
 -   [Beta Diversity with Principal Coordinate Analysis](https://microbiome.github.io/outreach/tengeler_pcoa.html)
 -   [Beta Diversity with Redundance Analysis](https://microbiome.github.io/outreach/tengeler_dbrda.html)
+-   [Differential Abundance Analysis](https://microbiome.github.io/outreach/tengeler_differential_abundance.html)
 -   [Community Composition](https://microbiome.github.io/outreach/tengeler_community_composition.html)
 :::
 

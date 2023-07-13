@@ -1,0 +1,97 @@
+---
+title: "Differential Abundance"
+format: html
+editor: visual
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(mia)
+library(MicrobiomeStat)
+library(tidyverse)
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+```
+
+## Overview
+
+Differential Abundance Analysis (DAA) is used to identify taxa that are significantly more or less abundant in the condition compared to control. For more details, read [this chapter](https://microbiome.github.io/OMA/differential-abundance.html#differential-abundance) of the OMA book.
+
+Many methods are available including:
+
+-   ALDEx2
+
+-   ANCOMBC
+
+-   LinDA
+
+A few things to keep in minds when performing DAA involve:
+
+-   DAA software normally takes the counts assay as input, because they apply normalisation suitable for count data
+
+-   DAA results will be more reproducible if the extremely rare taxa and singletons are removed in advance
+
+-   It is recommended to run different methods on the same data and compare the results
+
+## Preparing for DAA
+
+Before performing DAA, it is important to agglomerate to a meaningful taxonomic rank and select only taxa above a certain prevalence and detection threshold, as this has been shown to make results more reproducible.
+
+```{r}
+data("Tengeler2020", package = "mia")
+tse <- Tengeler2020
+```
+
+```{r}
+tse_genus <- agglomerateByPrevalence(tse,
+                                     rank = "Genus",
+                                     detection = 0.001,
+                                     prevalence = 0.1)
+```
+
+## Performing DAA
+
+For this tutorial, we run the LinDA method. We first extract the counts assay and convert it into a data frame.
+
+```{r}
+otu.tab <- assay(tse_genus, "counts") |>
+  as.data.frame()
+```
+
+We also need to select the columns of the colData which contain the independent variables you want to include in the model.
+
+```{r}
+meta <- colData(tse) |>
+  as.data.frame() |>
+  select(patient_status, cohort)
+```
+
+We are ready to run LinDA, which takes the assay count (`otu.tab`) and the variable arrays (`meta`). A formula for the model with main independent variable + covariates should be defined. The other arguments are optional but good to know.
+
+```{r}
+res <- linda(otu.tab,
+             meta,
+             formula = "~ patient_status + cohort", 
+             alpha = 0.05, 
+             prev.filter = 0, 
+             mean.abund.filter = 0,
+             feature.dat.type = "count")
+```
+
+## Interpreting results
+
+Finally, we select significantly DA taxa and list it in @tbl-daa.
+
+```{r}
+#| label: tbl-daa
+#| tbl-cap: DA bacterial genera. If stat > 0, abundance is higher in control, otherwise it is higher in ADHD.
+signif_res <- res$output$patient_statusControl |>
+  filter(reject) |>
+  select(stat, padj) |>
+  arrange(padj)
+
+knitr::kable(signif_res)
+```
+
+Good job reading this tutorial. Now go [this chapter](https://microbiome.github.io/OMA/differential-abundance.html#differential-abundance) of the OMA book and try out other DAA methods on Tengeler2020.

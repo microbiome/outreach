@@ -1019,7 +1019,7 @@
     "href": "tengeler2020_presentation.html#tutorials",
     "title": "A Brief Introduction to Tengeler2020",
     "section": "Tutorials",
-    "text": "Tutorials\n\n\nReproducible Reporting with Quarto\nData Import and Basic Exploration\nAlpha Diversity\nBeta Diversity with Principal Coordinate Analysis\nBeta Diversity with Redundance Analysis\nCommunity Composition"
+    "text": "Tutorials\n\n\nReproducible Reporting with Quarto\nData Import and Basic Exploration\nAlpha Diversity\nBeta Diversity with Principal Coordinate Analysis\nBeta Diversity with Redundance Analysis\nDifferential Abundance Analysis\nCommunity Composition"
   },
   {
     "objectID": "tengeler2020_presentation.html#references",
@@ -1064,6 +1064,13 @@
     "text": "The following packages are needed to succesfully run the examples in this notebook:\n\nmia: tools for microbiome data analysis\nscater: plotting data from TreeSummarizedExperiments"
   },
   {
+    "objectID": "tengeler_basic_exploration.html#importing-data-as-treese",
+    "href": "tengeler_basic_exploration.html#importing-data-as-treese",
+    "title": "Basic Exploration",
+    "section": "Importing Data as TreeSE",
+    "text": "Importing Data as TreeSE\n\nMia datasets\nThe mia package comes with several pre-installed datasets. In this course, we will be using Tengeler2020, a study on gut microbiome effects on ADHD in humanised mice (check this presentation for further details about this study).\nTo get started, we import Tengeler2020 from the mia package and store it into a variable, on which we will work for the rest of the tutorial.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse <- Tengeler2020"
+  },
+  {
     "objectID": "tengeler_basic_exploration.html#exploring-treese",
     "href": "tengeler_basic_exploration.html#exploring-treese",
     "title": "Basic Exploration",
@@ -1097,13 +1104,6 @@
     "title": "Basic Exploration",
     "section": "Other elements",
     "text": "Other elements\n\naltExp(tse, \"my_alt_exp\") <- tse[1:10, ]\naltExps(tse)\n\nList of length 1\nnames(1): my_alt_exp\n\n\n\nrowTree(tse)\n\n\nPhylogenetic tree with 151 tips and 149 internal nodes.\n\nTip labels:\n  172647198, 1726478, 1726479, 172647201, 172647222, 17264798, ...\nNode labels:\n  , 0.789, 0.810, 0.844, 0.973, 0.685, ...\n\nUnrooted; includes branch lengths.\n\n\n\nreducedDims(tse)\n\nList of length 0\nnames(0): \n\n\n\nmetadata(tse)\n\nlist()"
-  },
-  {
-    "objectID": "tengeler_basic_exploration.html#importing-data-as-treese",
-    "href": "tengeler_basic_exploration.html#importing-data-as-treese",
-    "title": "Basic Exploration",
-    "section": "Importing Data as TreeSE",
-    "text": "Importing Data as TreeSE\n\nMia datasets\nThe mia package comes with several pre-installed datasets. In this course, we will be using Tengeler2020, a study on gut microbiome effects on ADHD in humanised mice (check this presentation for further details about this study).\nTo get started, we import Tengeler2020 from the mia package and store it into a variable, on which we will work for the rest of the tutorial.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse <- Tengeler2020"
   },
   {
     "objectID": "tengeler_alpha_diversity.html",
@@ -1190,10 +1190,31 @@
     "text": "Compositional heatmap\nWe then perform a CLR transformation sample-wise and a Z transformation feature-wise. The former creates a more homogeneous (logarithmic) scale for the usually very skewed microbiome data, whereas the latter normalises the features across samples for better comparisons between samples.\n\n# transform relative abundance to clr\ntse_order <- transformCounts(tse_order,\n                             assay.type = \"relabundance\",\n                             method = \"clr\",\n                             pseudocount = 1,\n                             MARGIN = \"samples\")\n\n# transform clr to z\ntse_order <- transformCounts(tse_order,\n                             assay.type = \"clr\", \n                             method = \"z\",\n                             name = \"clr_z\",\n                             MARGIN = \"features\")\n\nFinally, we plot the compositional heatmap with the ComplexHeatmap package and illustrate it in Figure 1.\n\nHeatmap(assay(tse_order, \"clr_z\"),\n        name = \"clr-z\")\n\n\n\n\nFigure 1: Heatmap of CLR-Z transformed microbiome assay where columns correspond to samples and rows to taxa agglomerated by order."
   },
   {
-    "objectID": "tengeler2020_presentation.html",
-    "href": "tengeler2020_presentation.html",
-    "title": "A Brief Introduction to Tengeler2020",
+    "objectID": "tengeler_differential_abundance.html",
+    "href": "tengeler_differential_abundance.html",
+    "title": "Differential Abundance",
     "section": "",
-    "text": "Tengeler2020 is a randomised blinded study on the effects of gut microbiome on attention-deficit/hyperactivity disorder (ADHD) in humanised mice (Tengeler et al. 2020).\nTengeler et al. (2020)\n\n\n\n\n\nYoung, male, germ-free C57BL/6JOlaHsd mice (n = 27) were humanised with gut microbiome from either ADHD patients (n = 3) or healthy controls (n = 3) of matched age. Notably, the mice belonged to three different cohorts.\n\ntab <- table(colData(tse)$patient_status, colData(tse)$cohort)\ncolnames(tab) <- c(\"Cohort1\", \"Cohort2\", \"Cohort3\")\nknitr::kable(tab)\n\n\n\n\n\nCohort1\nCohort2\nCohort3\n\n\n\n\nADHD\n4\n5\n4\n\n\nControl\n6\n5\n3"
+    "text": "Differential Abundance Analysis (DAA) is used to identify taxa that are significantly more or less abundant in the condition compared to control. For more details, read this chapter of the OMA book.\nMany methods are available including:\n\nALDEx2\nANCOMBC\nLinDA\n\nA few things to keep in minds when performing DAA involve:\n\nDAA software normally takes the counts assay as input, because they apply normalisation suitable for count data\nDAA results will be more reproducible if the extremely rare taxa and singletons are removed in advance\nIt is recommended to run different methods on the same data and compare the results"
+  },
+  {
+    "objectID": "tengeler_differential_abundance.html#preparing-for-daa",
+    "href": "tengeler_differential_abundance.html#preparing-for-daa",
+    "title": "Differential Abundance",
+    "section": "Preparing for DAA",
+    "text": "Preparing for DAA\nBefore performing DAA, it is important to agglomerate to a meaningful taxonomic rank and select only taxa above a certain prevalence and detection threshold, as this has been shown to make results more reproducible.\n\ndata(\"Tengeler2020\", package = \"mia\")\ntse <- Tengeler2020\n\n\ntse_genus <- agglomerateByPrevalence(tse,\n                                     rank = \"Genus\",\n                                     detection = 0.001,\n                                     prevalence = 0.1)"
+  },
+  {
+    "objectID": "tengeler_differential_abundance.html#performing-daa",
+    "href": "tengeler_differential_abundance.html#performing-daa",
+    "title": "Differential Abundance",
+    "section": "Performing DAA",
+    "text": "Performing DAA\nFor this tutorial, we run the LinDA method. We first extract the counts assay and convert it into a data frame.\n\notu.tab <- assay(tse_genus, \"counts\") |>\n  as.data.frame()\n\nWe also need to select the columns of the colData which contain the independent variables you want to include in the model.\n\nmeta <- colData(tse) |>\n  as.data.frame() |>\n  select(patient_status, cohort)\n\nWe are ready to run LinDA, which takes the assay count (otu.tab) and the variable arrays (meta). A formula for the model with main independent variable + covariates should be defined. The other arguments are optional but good to know.\n\nres <- linda(otu.tab,\n             meta,\n             formula = \"~ patient_status + cohort\", \n             alpha = 0.05, \n             prev.filter = 0, \n             mean.abund.filter = 0,\n             feature.dat.type = \"count\")\n\n0  features are filtered!\nThe filtered data has  27  samples and  48  features will be tested!\nImputation approach is used.\nFit linear models ...\nCompleted."
+  },
+  {
+    "objectID": "tengeler_differential_abundance.html#interpreting-results",
+    "href": "tengeler_differential_abundance.html#interpreting-results",
+    "title": "Differential Abundance",
+    "section": "Interpreting results",
+    "text": "Interpreting results\nFinally, we select significantly DA taxa and list it in Table 1.\n\nsignif_res <- res$output$patient_statusControl |>\n  filter(reject) |>\n  select(stat, padj) |>\n  arrange(padj)\n\nknitr::kable(signif_res)\n\n\n\nTable 1: DA bacterial genera. If stat > 0, abundance is higher in control, otherwise it is higher in ADHD.\n\n\n\nstat\npadj\n\n\n\n\nFaecalibacterium\n-4.667132\n0.0025610\n\n\n[Ruminococcus]_gauvreauii_group\n4.939783\n0.0025610\n\n\nCatabacter\n-3.552544\n0.0271358\n\n\nErysipelatoclostridium\n3.395901\n0.0297967\n\n\nRuminococcaceae_UCG-014\n-3.155159\n0.0425067\n\n\n\n\n\n\nGood job reading this tutorial. Now go this chapter of the OMA book and try out other DAA methods on Tengeler2020."
   }
 ]

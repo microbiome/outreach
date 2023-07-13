@@ -19,3 +19,4 @@ project:
     - tengeler_pcoa.qmd
     - tengeler_dbrda.qmd
     - tengeler_community_composition.qmd
+    - tengeler_differential_abundance.qmd
