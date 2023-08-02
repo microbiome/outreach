@@ -9,6 +9,7 @@ editor: visual
 This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:
 
 -   [Bioconductor project](https://microbiome.github.io/outreach/bioconductor.html)
+-   [Bioconductor 2023: Orchestrating microbiome multi-omics with R & Bioconductor](https://microbiome.github.io/outreach/lahti_bioc2023.html)
 -   [Data containers](https://microbiome.github.io/outreach/datacontainers.html)
 -   [HintikkaXOData](https://microbiome.github.io/outreach/hintikkaxo_presentation.html)
 -   [Reproducible workflow with Quarto](https://microbiome.github.io/outreach/reproducible_workflow.html)
@@ -28,7 +29,7 @@ The following is a quick workflow for contributions:
 
 3.  update the [\_quarto.yml file](https://github.com/microbiome/outreach/blob/main/quarto/_quarto.yml) and the list of presentations in the [website](https://github.com/microbiome/outreach/blob/main/quarto/index.qmd) with the name of the qmd file(s) with your presentation(s)
 
-4.  run `quarto render` from your terminal from within the quarto sub-directory
+4.  run `quarto render`, or in R `quarto::render(myfilename)` from your terminal from within the quarto sub-directory
 
 5.  and make a pull request to the master branch
 

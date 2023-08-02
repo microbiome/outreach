@@ -1216,5 +1216,145 @@
     "title": "Differential Abundance",
     "section": "Interpreting results",
     "text": "Interpreting results\nFinally, we select significantly DA taxa and list it in Table 1.\n\nsignif_res <- res$output$patient_statusControl |>\n  filter(reject) |>\n  select(stat, padj) |>\n  arrange(padj)\n\nknitr::kable(signif_res)\n\n\n\nTable 1: DA bacterial genera. If stat > 0, abundance is higher in control, otherwise it is higher in ADHD.\n\n\n\nstat\npadj\n\n\n\n\nFaecalibacterium\n-4.667132\n0.0025610\n\n\n[Ruminococcus]_gauvreauii_group\n4.939783\n0.0025610\n\n\nCatabacter\n-3.552544\n0.0271358\n\n\nErysipelatoclostridium\n3.395901\n0.0297967\n\n\nRuminococcaceae_UCG-014\n-3.155159\n0.0425067\n\n\n\n\n\n\nGood job reading this tutorial. Now go this chapter of the OMA book and try out other DAA methods on Tengeler2020."
+  },
+  {
+    "objectID": "lahti_bioc2023.html#orchestrating-microbiome-multi-omics-with-r-and-bioconductor",
+    "href": "lahti_bioc2023.html#orchestrating-microbiome-multi-omics-with-r-and-bioconductor",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Orchestrating microbiome multi-omics with R and Bioconductor",
+    "text": "Orchestrating microbiome multi-omics with R and Bioconductor\n\nLeo Lahti @antagomir | Department of Computing, University of Turku, Finland"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#organizing-microbiome-data",
+    "href": "lahti_bioc2023.html#organizing-microbiome-data",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Organizing microbiome data",
+    "text": "Organizing microbiome data\n\n\n\nSide information\nsample & feature metadata\nMultiple assays\ncounts, relabundance, phILR..\nAlternative experiments \n16S, metagenome, phylogenetic microarrays; pipelines\nCross-kingdom analyses  bacteriome, archaeome, virome, mykobiome, eukaryome\nHierarchical data\ntaxonomic levels, nested designs, sample & feature trees"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#section",
+    "href": "lahti_bioc2023.html#section",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "",
+    "text": "Fig. by Domenick Braccia (EuroBioC 2020)"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#integrating-multiple-experiments",
+    "href": "lahti_bioc2023.html#integrating-multiple-experiments",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Integrating multiple experiments",
+    "text": "Integrating multiple experiments\nCombine taxonomic, metagenomic & functional profiling, and host measurements \nby extending the Bioconductor MultiAssayExperiment class."
+  },
+  {
+    "objectID": "lahti_bioc2023.html#benefits-for-microbiome-data-science",
+    "href": "lahti_bioc2023.html#benefits-for-microbiome-data-science",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Benefits for microbiome data science",
+    "text": "Benefits for microbiome data science\n\n\n\n\nExtended\nenhances multi-assay analyses in microbiome studies\nOptimized\nspeed, memory & scale (sample sizes, datasets, cohorts)\nIntegrated\nwith other applications & frameworks (e.g. Single Cell, Spatial transcriptomics)"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#package-and-data-ecosystem",
+    "href": "lahti_bioc2023.html#package-and-data-ecosystem",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Package and data ecosystem",
+    "text": "Package and data ecosystem\nBioconductor methods & packages supporting the framework.\n\n\n\n\n\nBasic wrangling: transformations, agglomeration, split/merge etc.\nAlpha & beta diversity\nDimension reduction (scater)\nDifferential abundance (ANCOMBC, ALDEx2, benchdamic)\nVisualization (miaViz)\nTime series manipulation (miaTime)\nEcological simulations (miaSim)"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#section-1",
+    "href": "lahti_bioc2023.html#section-1",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "",
+    "text": "Importers for other common formats\nLinking with other common formats and microbiome data science frameworks.\n   \nOpen data resources\nOpen microbiome data sets readily available in TreeSummarizedExperiment format via curatedMetagenomicData, EBI MGnify, Bioconductor ExperimentHub, and packages."
+  },
+  {
+    "objectID": "lahti_bioc2023.html#minimal-example",
+    "href": "lahti_bioc2023.html#minimal-example",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Minimal example",
+    "text": "Minimal example\nCross-correlating taxonomic and metabolomic profiles from a dietary intervention study in mice (Hintikka et al. 2021).\n\nlibrary(mia)\n\n# Import data from ExperimentHub\nmae <- microbiomeDataSets::HintikkaXOData() \n\n# Agglomerate rare taxa by prevalence at the Family level & log10-transform read  counts\nmae[[\"microbiota\"]] <- agglomerateByPrevalence(mae[[\"microbiota\"]], rank = \"Family\")\nmae[[\"microbiota\"]] <- transformAssay(mae[[\"microbiota\"]], method = \"clr\", pseudocount = 1)\n\n# Get cross-correlation between taxa & metabolites\nx <- testExperimentCrossAssociation(mae, experiment1 = \"microbiota\", experiment2 = \"metabolites\",\n                                               assay.type1 = \"clr\", assay.type2 = \"nmr\",\n                                               mode = \"matrix\", sort = TRUE)$cor\n\n# Visualize taxa-metabolite associations on heatmap\nComplexHeatmap::Heatmap(x)"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#documentation-oma-gitbook-beta",
+    "href": "lahti_bioc2023.html#documentation-oma-gitbook-beta",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Documentation: OMA Gitbook (beta)",
+    "text": "Documentation: OMA Gitbook (beta)\nComplements other Bioconductor Gitbooks; overlapping methods and analysis strategies: microbiome.github.io/OMA"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#community",
+    "href": "lahti_bioc2023.html#community",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Community",
+    "text": "Community\n\n\nCoordination: Tuomas Borman, Leo Lahti\nGiulio Benedetti, Yağmur Şimşek, Basil Courbayre, Jeba Akewak, Daena Rys, Henrik Eckermann, Chouaib Benchraka, Rajesh Shigdel, Artur Sannikov, Lu Yang, Renuka Potbhare, S. A. Shetty, R. Huang, F. G.M. Ernst, D. J. Braccia, H. C. Bravo; 20+ contributors, 10+ countries. Welcome to join!\nAcknowledgments: TreeSummarizedExperiment, SingleCellExperiment, MultiAssayExperiment, curatedMetagenomicData, MGnifyR, phILR, ANCOMBC, ALDEx2, benchdamic, scater, scuttle authors..\nCourses in 2023: Pune (IND) | Turku & Oulu (FIN) | Utrecht, Wageningen & Radboud (NLD) | Norwich (UK) |Bergen (NO)"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#bioconductor-books",
+    "href": "lahti_bioc2023.html#bioconductor-books",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Bioconductor books",
+    "text": "Bioconductor books"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#resources",
+    "href": "lahti_bioc2023.html#resources",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Resources",
+    "text": "Resources\nMicrobiome R package listing:\ngithub.com/microsud/Tools-Microbiome-Analysis"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#microbiome-data-science-workflow",
+    "href": "lahti_bioc2023.html#microbiome-data-science-workflow",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Microbiome data science workflow",
+    "text": "Microbiome data science workflow\n\n\nData containers:\n\nTreeSummarizedExperiment\nMultiAssayExperiment\n\nR/Bioc packages:\nmia, miaViz\n\n\n\n\nFigure by Domenick Braccia (EuroBioC 2020)"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#misc",
+    "href": "lahti_bioc2023.html#misc",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Misc",
+    "text": "Misc\n\nFigure source: Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology 12:11."
+  },
+  {
+    "objectID": "lahti_bioc2023.html#treesummarizedexperiment",
+    "href": "lahti_bioc2023.html#treesummarizedexperiment",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "TreeSummarizedExperiment",
+    "text": "TreeSummarizedExperiment"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#optimal-container-for-microbiome-data-integration",
+    "href": "lahti_bioc2023.html#optimal-container-for-microbiome-data-integration",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Optimal container for microbiome data integration?",
+    "text": "Optimal container for microbiome data integration?\nImprove interoperability, ensure sustainability.\n\n\nMultiple assays\nseamless interlinking\nSide information\nextended capabilities & data types\nHierarchical data\nboth samples & features\nOptimized\nspeed & memory\nIntegrated\nother applications & frameworks"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#data-integration-in-microbiomics",
+    "href": "lahti_bioc2023.html#data-integration-in-microbiomics",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Data integration in microbiomics",
+    "text": "Data integration in microbiomics\n\nScaling up sample size (cohorts & meta-analyses)\nComplementary pipelines\nAlternative experiments (e.g. 16S, metagenome, phylogenetic microarrays)\nMultiple assays (e.g. counts, relative abundances, clr, phILR)\nHierarchies in feature & sample space (phylogenies, nested designs)\nCross-kingdom analyses (bacteriome, virome, mykobiome, eukaryome)\nMulti-omics (taxonomy, function, host)"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#optimal-container-for-microbiome-data-integration-1",
+    "href": "lahti_bioc2023.html#optimal-container-for-microbiome-data-integration-1",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Optimal container for microbiome data integration?",
+    "text": "Optimal container for microbiome data integration?\nImprove interoperability, ensure sustainability.\n\n\nMultiple assays\nseamless interlinking\nSide information\nextended capabilities & data types\nHierarchical data\nboth samples & features\nOptimized\nspeed & memory\nIntegrated\nother applications & frameworks"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#linking-multiple-omics",
+    "href": "lahti_bioc2023.html#linking-multiple-omics",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Linking multiple omics",
+    "text": "Linking multiple omics\nTaxonomic, metagenomic & functional profiling, host measurements"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#open-data-resources-1",
+    "href": "lahti_bioc2023.html#open-data-resources-1",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Open data resources",
+    "text": "Open data resources\n\ncuratedMetagenomicData (Pasolli et al. 2017)\nEBI MGnify (Mitchell et al. 2020)\nmicrobiomeDataSets (Ernst et al. 2020);\nR package demo data sets\nImport functions for common formats (Biom, QIIME2, Mothur, phyloseq)"
   }
 ]
