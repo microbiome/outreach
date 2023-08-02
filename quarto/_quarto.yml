@@ -3,6 +3,7 @@ project:
   output-dir: ../docs
   render:
     - index.qmd
+    - lahti_bioc2023.qmd
     - hintikkaxo_presentation.qmd
     - intro.qmd
     - bioconductor.qmd
