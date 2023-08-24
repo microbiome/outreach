@@ -19,7 +19,7 @@ data("HintikkaXOData", package = "mia")
 
 . . .
 
-HintikkaXOData is a MultiAssayExperiment containing microbiome, metabolome and biomarker data from a study on the effects of diet and prebiotics on fatty-liver disease in rats.
+[HintikkaXOData](https://microbiome.github.io/mia/reference/mia-datasets.html) is a MultiAssayExperiment containing microbiome, metabolome and biomarker data from a study on the effects of diet and prebiotics on fatty-liver disease in rats [@Hintikka2021].
 
 ```{r}
 mae <- HintikkaXOData
@@ -71,8 +71,8 @@ microbiota <- experiments(mae)[["microbiota"]]
 colData(microbiota)$Diet <- mae$Diet
 colData(microbiota)$Site <- mae$Site
 
-microbiota <- transformCounts(microbiota,
-                              method = "relabundance")
+microbiota <- transformAssay(microbiota,
+                             method = "relabundance")
 
 microbiota <- agglomerateByRank(microbiota,
                                 rank = "Genus")
@@ -207,4 +207,4 @@ knitr::kable(df2)
 :::
 :::
 
-# The end
+## References

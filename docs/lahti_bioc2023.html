@@ -7,7 +7,7 @@
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.0.38">
+  <meta name="generator" content="quarto-1.2.475">
 
   <meta name="author" content="Leo Lahti @antagomir">
   <title>Orchestrating microbiome multi-omics</title>
@@ -19,10 +19,15 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    span.underline{text-decoration: underline;}
-    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1.6em;
+      vertical-align: middle;
+    }
     pre > code.sourceCode { white-space: pre; position: relative; }
     pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
@@ -384,12 +389,19 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="center">
+<section id="title-slide" class="quarto-title-block center">
   <h1 class="title">Orchestrating microbiome multi-omics</h1>
   <p class="subtitle">Bioconductor conference, 2023</p>
-  <p class="author">Leo Lahti <span class="citation" data-cites="antagomir">@antagomir</span></p>
-</section>
 
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+Leo Lahti <span class="citation" data-cites="antagomir">@antagomir</span> 
+</div>
+</div>
+</div>
+
+</section>
 <section id="orchestrating-microbiome-multi-omics-with-r-and-bioconductor" class="slide level2 smaller">
 <h2>Orchestrating microbiome multi-omics with R and Bioconductor</h2>
 <!--
@@ -407,7 +419,7 @@ https://quarto.org/docs/presentations/revealjs/presenting.html
 -->
 <p><strong>Leo Lahti @antagomir</strong> | Department of Computing, University of Turku, Finland</p>
 
-<img data-src="images/Screenshot%20from%202023-07-27%2017-47-04.png" style="width:29.0%" class="r-stretch"></section>
+<img data-src="images/Screenshot from 2023-07-27 17-47-04.png" style="width:29.0%" class="r-stretch"></section>
 <section id="organizing-microbiome-data" class="slide level2 smaller">
 <h2>Organizing microbiome data</h2>
 <div class="r-hstack">
@@ -423,7 +435,7 @@ counts, relabundance, phILR..</p>
 <p><strong>Hierarchical data</strong><br>
 taxonomic levels, nested designs, sample &amp; feature trees</p>
 </div><div class="column" style="width:60%;">
-<p><img data-src="images/Screenshot%20from%202023-07-27%2017-54-40.png"></p>
+<p><img data-src="images/Screenshot from 2023-07-27 17-54-40.png"></p>
 </div>
 </div>
 </div>
@@ -432,7 +444,7 @@ taxonomic levels, nested designs, sample &amp; feature trees</p>
 <h2></h2>
 <!-- Analysis workflow with *mia* {.smaller} -->
 
-<img data-src="images/Screenshot%20from%202023-07-31%2000-25-49.png" class="r-stretch quarto-figure-center"><p class="caption">Fig. by Domenick Braccia (EuroBioC 2020)</p></section>
+<img data-src="images/Screenshot from 2023-07-31 00-25-49.png" class="r-stretch quarto-figure-center"><p class="caption">Fig. by Domenick Braccia (EuroBioC 2020)</p></section>
 <section id="integrating-multiple-experiments" class="slide level2 smaller">
 <h2>Integrating multiple experiments</h2>
 <p>Combine <strong>taxonomic, metagenomic &amp; functional profiling, and host measurements</strong>&nbsp;</p>
@@ -440,12 +452,12 @@ taxonomic levels, nested designs, sample &amp; feature trees</p>
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
-<p><img data-src="images/Screenshot%20from%202023-07-30%2015-12-18.png"></p>
+<p><img data-src="images/Screenshot from 2023-07-30 15-12-18.png"></p>
 </div>
 <div class="quarto-layout-panel quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
-<p><img data-src="images/Screenshot%20from%202023-07-31%2000-08-19.png"> <img data-src="images/Screenshot%20from%202023-07-31%2000-14-46.png"></p>
+<p><img data-src="images/Screenshot from 2023-07-31 00-08-19.png"> <img data-src="images/Screenshot from 2023-07-31 00-14-46.png"></p>
 </div>
 </div>
 </div>
@@ -457,7 +469,7 @@ taxonomic levels, nested designs, sample &amp; feature trees</p>
 <h2>Benefits for microbiome data science</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
-<p><img data-src="images/Screenshot%20from%202023-07-30%2015-12-18.png"></p>
+<p><img data-src="images/Screenshot from 2023-07-30 15-12-18.png"></p>
 </div><div class="column" style="width:40%;">
 <p><strong>Extended</strong><br>
 enhances multi-assay analyses in microbiome studies</p>
@@ -474,7 +486,7 @@ with other applications &amp; frameworks (e.g.&nbsp;Single Cell, Spatial transcr
 <p>Bioconductor methods &amp; packages supporting the framework.</p>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="images/Screenshot%20from%202023-07-31%2021-45-05.png"></p>
+<p><img data-src="images/Screenshot from 2023-07-31 21-45-05.png"></p>
 </div><div class="column" style="width:50%;">
 <ul>
 <li><p>Basic wrangling: transformations, agglomeration, split/merge etc.</p></li>
@@ -493,19 +505,19 @@ with other applications &amp; frameworks (e.g.&nbsp;Single Cell, Spatial transcr
 <h2></h2>
 <h3 id="importers-for-other-common-formats">Importers for other common formats</h3>
 <p>Linking with other common formats and microbiome data science frameworks.</p>
-<p><img data-src="images/Screenshot%20from%202023-07-31%2022-04-20.png" height="120"> <img data-src="images/Screenshot%20from%202023-07-31%2022-04-41.png" height="120"> <img data-src="images/Screenshot%20from%202023-07-31%2022-03-35.png" height="120"> <img data-src="images/Screenshot%20from%202023-07-31%2022-12-25.png" height="120"></p>
+<p><img data-src="images/Screenshot from 2023-07-31 22-04-20.png" height="120"> <img data-src="images/Screenshot from 2023-07-31 22-04-41.png" height="120"> <img data-src="images/Screenshot from 2023-07-31 22-03-35.png" height="120"> <img data-src="images/Screenshot from 2023-07-31 22-12-25.png" height="120"></p>
 <h3 id="open-data-resources">Open data resources</h3>
 <p>Open microbiome data sets readily available in <em>TreeSummarizedExperiment</em> format via <em>curatedMetagenomicData</em>, <em>EBI MGnify</em>, Bioconductor <em>ExperimentHub</em>, and packages.</p>
 <div class="quarto-layout-panel">
 <div class="quarto-layout-row quarto-layout-valign-top">
 <div class="quarto-layout-cell" style="flex-basis: 38.8%;justify-content: center;">
-<p><img data-src="images/Screenshot%20from%202023-07-31%2022-00-40.png" width="350"></p>
+<p><img data-src="images/Screenshot from 2023-07-31 22-00-40.png" width="350"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 29.1%;justify-content: center;">
-<p><img data-src="images/Screenshot%20from%202023-07-31%2022-01-31.png" width="303"></p>
+<p><img data-src="images/Screenshot from 2023-07-31 22-01-31.png" width="303"></p>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 32.0%;justify-content: center;">
-<p><img data-src="images/Screenshot%20from%202023-07-31%2022-02-16.png" width="420"></p>
+<p><img data-src="images/Screenshot from 2023-07-31 22-02-16.png" width="420"></p>
 </div>
 </div>
 </div>
@@ -538,10 +550,10 @@ with other applications &amp; frameworks (e.g.&nbsp;Single Cell, Spatial transcr
 <p>Complements other Bioconductor Gitbooks; overlapping methods and analysis strategies: <u>microbiome.github.io/OMA</u></p>
 <div class="columns">
 <div class="column" style="width:65%;">
-<p><img data-src="images/Screenshot%20from%202023-07-30%2019-15-10.png"></p>
+<p><img data-src="images/Screenshot from 2023-07-30 19-15-10.png"></p>
 </div><div class="column" style="width:35%;">
-<p><img data-src="images/Screenshot%20from%202023-07-29%2017-13-06.png" width="350"><br>
-<img data-src="images/Screenshot%20from%202023-07-29%2017-11-27-01.png" width="350"></p>
+<p><img data-src="images/Screenshot from 2023-07-29 17-13-06.png" width="350"><br>
+<img data-src="images/Screenshot from 2023-07-29 17-11-27-01.png" width="350"></p>
 </div>
 </div>
 </section>
@@ -554,7 +566,7 @@ with other applications &amp; frameworks (e.g.&nbsp;Single Cell, Spatial transcr
 <p><strong>Acknowledgments:</strong> TreeSummarizedExperiment, SingleCellExperiment, MultiAssayExperiment, curatedMetagenomicData, MGnifyR, phILR, ANCOMBC, ALDEx2, benchdamic, scater, scuttle authors..</p>
 <p><strong>Courses in 2023:</strong> Pune (IND) | Turku &amp; Oulu (FIN) | Utrecht, Wageningen &amp; Radboud (NLD) | Norwich (UK) |Bergen (NO)</p>
 </div><div class="column" style="width:30%;">
-<p><img data-src="images/Screenshot%20from%202023-07-27%2018-03-25.png" class="absolute" style="top: 0px; left: 720px; width: 300px; "><br>
+<p><img data-src="images/Screenshot from 2023-07-27 18-03-25.png" class="absolute" style="top: 0px; left: 720px; width: 300px; "><br>
 <img data-src="images/renuka.png" class="absolute" style="top: 265px; left: 760px; width: 180px; "><br>
 <img data-src="images/ccby.png" class="absolute" style="top: 535px; left: 800px; width: 120px; "></p>
 </div>
@@ -584,10 +596,10 @@ with other applications &amp; frameworks (e.g.&nbsp;Single Cell, Spatial transcr
 <h2>Bioconductor books</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
-<p><img data-src="images/Screenshot%20from%202023-07-29%2017-13-06.png" width="350"><br>
-<img data-src="images/Screenshot%20from%202023-07-29%2017-11-27-01.png" width="350"></p>
+<p><img data-src="images/Screenshot from 2023-07-29 17-13-06.png" width="350"><br>
+<img data-src="images/Screenshot from 2023-07-29 17-11-27-01.png" width="350"></p>
 </div><div class="column" style="width:50%;">
-<p><img data-src="images/Screenshot%20from%202023-07-29%2017-48-58.png"></p>
+<p><img data-src="images/Screenshot from 2023-07-29 17-48-58.png"></p>
 </div>
 </div>
 </section>
@@ -599,7 +611,7 @@ with other applications &amp; frameworks (e.g.&nbsp;Single Cell, Spatial transcr
 <div class="column" style="width:20%;">
 <p><img data-src="images/mia_logo.png"></p>
 </div><div class="column" style="width:80%;">
-<p><img data-src="images/Screenshot%20from%202023-07-27%2018-02-19.png"></p>
+<p><img data-src="images/Screenshot from 2023-07-27 18-02-19.png"></p>
 </div>
 </div>
 <!--Link to Shetty pkg listing-->
@@ -619,7 +631,7 @@ mia, miaViz</p>
 </div><div class="column" style="width:68%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="images/Screenshot%20from%202023-07-27%2017-58-09.png"></p>
+<p><img data-src="images/Screenshot from 2023-07-27 17-58-09.png"></p>
 <p></p><figcaption>Figure by Domenick Braccia (EuroBioC 2020)</figcaption><p></p>
 </figure>
 </div>
@@ -633,7 +645,7 @@ mia, miaViz</p>
 <section id="treesummarizedexperiment" class="slide level2">
 <h2>TreeSummarizedExperiment</h2>
 
-<img data-src="images/Screenshot%20from%202023-07-27%2017-54-40.png" class="r-stretch"></section>
+<img data-src="images/Screenshot from 2023-07-27 17-54-40.png" class="r-stretch"></section>
 <section id="optimal-container-for-microbiome-data-integration" class="slide level2 smaller">
 <h2>Optimal container for microbiome data integration?</h2>
 <p>Improve interoperability, ensure sustainability.</p>
@@ -690,7 +702,7 @@ other applications &amp; frameworks</p>
 <h2>Linking multiple omics</h2>
 <p>Taxonomic, metagenomic &amp; functional profiling, host measurements</p>
 
-<img data-src="images/Screenshot%20from%202023-07-30%2015-12-18.png" class="r-stretch"></section>
+<img data-src="images/Screenshot from 2023-07-30 15-12-18.png" class="r-stretch"></section>
 <section id="open-data-resources-1" class="slide level2 smaller">
 <h2>Open data resources</h2>
 <ul>
@@ -924,12 +936,15 @@ other applications &amp; frameworks</p>
       // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
       // slide changes (different for each slide format).
       (function () {
-        function fireSlideChanged(previousSlide, currentSlide) {
-
-          // dispatch for htmlwidgets
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
           const event = window.document.createEvent("Event");
           event.initEvent("slideenter", true, true);
           window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
 
           // dispatch for shiny
           if (window.jQuery) {
@@ -940,13 +955,6 @@ other applications &amp; frameworks</p>
               window.jQuery(currentSlide).trigger("shown");
             }
           }
-        }
-
-        // hookup for reveal
-        if (window.Reveal) {
-          window.Reveal.addEventListener("slidechanged", function(event) {
-            fireSlideChanged(event.previousSlide, event.currentSlide);
-          });
         }
 
         // hookup for slidy
@@ -998,7 +1006,24 @@ other applications &amp; frameworks</p>
         button.classList.add('code-copy-button-checked');
         var currentTitle = button.getAttribute("title");
         button.setAttribute("title", "Copied!");
+        let tooltip;
+        if (window.bootstrap) {
+          button.setAttribute("data-bs-toggle", "tooltip");
+          button.setAttribute("data-bs-placement", "left");
+          button.setAttribute("data-bs-title", "Copied!");
+          tooltip = new bootstrap.Tooltip(button, 
+            { trigger: "manual", 
+              customClass: "code-copy-button-tooltip",
+              offset: [0, -8]});
+          tooltip.show();    
+        }
         setTimeout(function() {
+          if (tooltip) {
+            tooltip.hide();
+            button.removeAttribute("data-bs-title");
+            button.removeAttribute("data-bs-toggle");
+            button.removeAttribute("data-bs-placement");
+          }
           button.setAttribute("title", currentTitle);
           button.classList.remove('code-copy-button-checked');
         }, 1000);
@@ -1028,31 +1053,50 @@ other applications &amp; frameworks</p>
       for (var i=0; i<noterefs.length; i++) {
         const ref = noterefs[i];
         tippyHover(ref, function() {
-          let href = ref.getAttribute('href');
+          // use id or data attribute instead here
+          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
           return note.innerHTML;
         });
       }
+      const findCites = (el) => {
+        const parentEl = el.parentElement;
+        if (parentEl) {
+          const cites = parentEl.dataset.cites;
+          if (cites) {
+            return {
+              el,
+              cites: cites.split(' ')
+            };
+          } else {
+            return findCites(el.parentElement)
+          }
+        } else {
+          return undefined;
+        }
+      };
       var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
       for (var i=0; i<bibliorefs.length; i++) {
         const ref = bibliorefs[i];
-        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-        tippyHover(ref, function() {
-          var popup = window.document.createElement('div');
-          cites.forEach(function(cite) {
-            var citeDiv = window.document.createElement('div');
-            citeDiv.classList.add('hanging-indent');
-            citeDiv.classList.add('csl-entry');
-            var biblioDiv = window.document.getElementById('ref-' + cite);
-            if (biblioDiv) {
-              citeDiv.innerHTML = biblioDiv.innerHTML;
-            }
-            popup.appendChild(citeDiv);
+        const citeInfo = findCites(ref);
+        if (citeInfo) {
+          tippyHover(citeInfo.el, function() {
+            var popup = window.document.createElement('div');
+            citeInfo.cites.forEach(function(cite) {
+              var citeDiv = window.document.createElement('div');
+              citeDiv.classList.add('hanging-indent');
+              citeDiv.classList.add('csl-entry');
+              var biblioDiv = window.document.getElementById('ref-' + cite);
+              if (biblioDiv) {
+                citeDiv.innerHTML = biblioDiv.innerHTML;
+              }
+              popup.appendChild(citeDiv);
+            });
+            return popup.innerHTML;
           });
-          return popup.innerHTML;
-        });
+        }
       }
     });
     </script>

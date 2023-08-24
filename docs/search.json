@@ -4,21 +4,161 @@
     "href": "index.html",
     "title": "Quarto Presentations",
     "section": "",
-    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\nBioconductor project\nData containers\nHintikkaXOData\nReproducible workflow with Quarto\nSummarizedExperiment\nTengeler2020\nTreeSummarizedExperiment"
+    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\nBioconductor project\nBioconductor 2023: Orchestrating microbiome multi-omics with R & Bioconductor\nData containers\nHintikkaXOData\nReproducible workflow with Quarto\nSummarizedExperiment\nTengeler2020\nTreeSummarizedExperiment"
   },
   {
     "objectID": "index.html#contributions",
     "href": "index.html#contributions",
     "title": "Quarto Presentations",
     "section": "Contributions",
-    "text": "Contributions\nYou are welcome to add new presentations or improve the current ones. The guidelines for contributors are explained here. The presentations are deployed from the quarto sub-directory, so you need to make the respective changes there and run cd quarto/; quarto render.\nThe following is a quick workflow for contributions:\n\nfork the repository\nadd your qmd file(s) to the quarto sub-directory\nupdate the _quarto.yml file and the list of presentations in the website with the name of the qmd file(s) with your presentation(s)\nrun quarto render from your terminal from within the quarto sub-directory\nand make a pull request to the master branch\n\nThis documentation provides more details about publishing quarto presentations with GitHub Pages."
+    "text": "Contributions\nYou are welcome to add new presentations or improve the current ones. The guidelines for contributors are explained here. The presentations are deployed from the quarto sub-directory, so you need to make the respective changes there and run cd quarto/; quarto render.\nThe following is a quick workflow for contributions:\n\nfork the repository\nadd your qmd file(s) to the quarto sub-directory\nupdate the _quarto.yml file and the list of presentations in the website with the name of the qmd file(s) with your presentation(s)\nrun quarto render, or in R quarto::render(myfilename) from your terminal from within the quarto sub-directory\nand make a pull request to the master branch\n\nThis documentation provides more details about publishing quarto presentations with GitHub Pages."
+  },
+  {
+    "objectID": "lahti_bioc2023.html#orchestrating-microbiome-multi-omics-with-r-and-bioconductor",
+    "href": "lahti_bioc2023.html#orchestrating-microbiome-multi-omics-with-r-and-bioconductor",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Orchestrating microbiome multi-omics with R and Bioconductor",
+    "text": "Orchestrating microbiome multi-omics with R and Bioconductor\n\nLeo Lahti @antagomir | Department of Computing, University of Turku, Finland"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#organizing-microbiome-data",
+    "href": "lahti_bioc2023.html#organizing-microbiome-data",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Organizing microbiome data",
+    "text": "Organizing microbiome data\n\n\n\nSide information\nsample & feature metadata\nMultiple assays\ncounts, relabundance, phILR..\nAlternative experiments \n16S, metagenome, phylogenetic microarrays; pipelines\nCross-kingdom analyses  bacteriome, archaeome, virome, mykobiome, eukaryome\nHierarchical data\ntaxonomic levels, nested designs, sample & feature trees"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#section",
+    "href": "lahti_bioc2023.html#section",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "",
+    "text": "Fig. by Domenick Braccia (EuroBioC 2020)"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#integrating-multiple-experiments",
+    "href": "lahti_bioc2023.html#integrating-multiple-experiments",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Integrating multiple experiments",
+    "text": "Integrating multiple experiments\nCombine taxonomic, metagenomic & functional profiling, and host measurements \nby extending the Bioconductor MultiAssayExperiment class."
+  },
+  {
+    "objectID": "lahti_bioc2023.html#benefits-for-microbiome-data-science",
+    "href": "lahti_bioc2023.html#benefits-for-microbiome-data-science",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Benefits for microbiome data science",
+    "text": "Benefits for microbiome data science\n\n\n\n\nExtended\nenhances multi-assay analyses in microbiome studies\nOptimized\nspeed, memory & scale (sample sizes, datasets, cohorts)\nIntegrated\nwith other applications & frameworks (e.g. Single Cell, Spatial transcriptomics)"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#package-and-data-ecosystem",
+    "href": "lahti_bioc2023.html#package-and-data-ecosystem",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Package and data ecosystem",
+    "text": "Package and data ecosystem\nBioconductor methods & packages supporting the framework.\n\n\n\n\n\nBasic wrangling: transformations, agglomeration, split/merge etc.\nAlpha & beta diversity\nDimension reduction (scater)\nDifferential abundance (ANCOMBC, ALDEx2, benchdamic)\nVisualization (miaViz)\nTime series manipulation (miaTime)\nEcological simulations (miaSim)"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#section-1",
+    "href": "lahti_bioc2023.html#section-1",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "",
+    "text": "Importers for other common formats\nLinking with other common formats and microbiome data science frameworks.\n   \nOpen data resources\nOpen microbiome data sets readily available in TreeSummarizedExperiment format via curatedMetagenomicData, EBI MGnify, Bioconductor ExperimentHub, and packages."
+  },
+  {
+    "objectID": "lahti_bioc2023.html#minimal-example",
+    "href": "lahti_bioc2023.html#minimal-example",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Minimal example",
+    "text": "Minimal example\nCross-correlating taxonomic and metabolomic profiles from a dietary intervention study in mice (Hintikka et al. 2021).\n\nlibrary(mia)\n\n# Import data from ExperimentHub\nmae <- microbiomeDataSets::HintikkaXOData() \n\n# Agglomerate rare taxa by prevalence at the Family level & log10-transform read  counts\nmae[[\"microbiota\"]] <- agglomerateByPrevalence(mae[[\"microbiota\"]], rank = \"Family\")\nmae[[\"microbiota\"]] <- transformAssay(mae[[\"microbiota\"]], method = \"clr\", pseudocount = 1)\n\n# Get cross-correlation between taxa & metabolites\nx <- testExperimentCrossAssociation(mae, experiment1 = \"microbiota\", experiment2 = \"metabolites\",\n                                               assay.type1 = \"clr\", assay.type2 = \"nmr\",\n                                               mode = \"matrix\", sort = TRUE)$cor\n\n# Visualize taxa-metabolite associations on heatmap\nComplexHeatmap::Heatmap(x)"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#documentation-oma-gitbook-beta",
+    "href": "lahti_bioc2023.html#documentation-oma-gitbook-beta",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Documentation: OMA Gitbook (beta)",
+    "text": "Documentation: OMA Gitbook (beta)\nComplements other Bioconductor Gitbooks; overlapping methods and analysis strategies: microbiome.github.io/OMA"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#community",
+    "href": "lahti_bioc2023.html#community",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Community",
+    "text": "Community\n\n\nCoordination: Tuomas Borman, Leo Lahti\nGiulio Benedetti, Yağmur Şimşek, Basil Courbayre, Jeba Akewak, Daena Rys, Henrik Eckermann, Chouaib Benchraka, Rajesh Shigdel, Artur Sannikov, Lu Yang, Renuka Potbhare, S. A. Shetty, R. Huang, F. G.M. Ernst, D. J. Braccia, H. C. Bravo; 20+ contributors, 10+ countries. Welcome to join!\nAcknowledgments: TreeSummarizedExperiment, SingleCellExperiment, MultiAssayExperiment, curatedMetagenomicData, MGnifyR, phILR, ANCOMBC, ALDEx2, benchdamic, scater, scuttle authors..\nCourses in 2023: Pune (IND) | Turku & Oulu (FIN) | Utrecht, Wageningen & Radboud (NLD) | Norwich (UK) |Bergen (NO)"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#bioconductor-books",
+    "href": "lahti_bioc2023.html#bioconductor-books",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Bioconductor books",
+    "text": "Bioconductor books"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#resources",
+    "href": "lahti_bioc2023.html#resources",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Resources",
+    "text": "Resources\nMicrobiome R package listing:\ngithub.com/microsud/Tools-Microbiome-Analysis"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#microbiome-data-science-workflow",
+    "href": "lahti_bioc2023.html#microbiome-data-science-workflow",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Microbiome data science workflow",
+    "text": "Microbiome data science workflow\n\n\nData containers:\n\nTreeSummarizedExperiment\nMultiAssayExperiment\n\nR/Bioc packages:\nmia, miaViz\n\n\n\n\nFigure by Domenick Braccia (EuroBioC 2020)"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#misc",
+    "href": "lahti_bioc2023.html#misc",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Misc",
+    "text": "Misc\n\nFigure source: Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology 12:11."
+  },
+  {
+    "objectID": "lahti_bioc2023.html#treesummarizedexperiment",
+    "href": "lahti_bioc2023.html#treesummarizedexperiment",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "TreeSummarizedExperiment",
+    "text": "TreeSummarizedExperiment"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#optimal-container-for-microbiome-data-integration",
+    "href": "lahti_bioc2023.html#optimal-container-for-microbiome-data-integration",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Optimal container for microbiome data integration?",
+    "text": "Optimal container for microbiome data integration?\nImprove interoperability, ensure sustainability.\n\n\nMultiple assays\nseamless interlinking\nSide information\nextended capabilities & data types\nHierarchical data\nboth samples & features\nOptimized\nspeed & memory\nIntegrated\nother applications & frameworks"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#data-integration-in-microbiomics",
+    "href": "lahti_bioc2023.html#data-integration-in-microbiomics",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Data integration in microbiomics",
+    "text": "Data integration in microbiomics\n\nScaling up sample size (cohorts & meta-analyses)\nComplementary pipelines\nAlternative experiments (e.g. 16S, metagenome, phylogenetic microarrays)\nMultiple assays (e.g. counts, relative abundances, clr, phILR)\nHierarchies in feature & sample space (phylogenies, nested designs)\nCross-kingdom analyses (bacteriome, virome, mykobiome, eukaryome)\nMulti-omics (taxonomy, function, host)"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#optimal-container-for-microbiome-data-integration-1",
+    "href": "lahti_bioc2023.html#optimal-container-for-microbiome-data-integration-1",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Optimal container for microbiome data integration?",
+    "text": "Optimal container for microbiome data integration?\nImprove interoperability, ensure sustainability.\n\n\nMultiple assays\nseamless interlinking\nSide information\nextended capabilities & data types\nHierarchical data\nboth samples & features\nOptimized\nspeed & memory\nIntegrated\nother applications & frameworks"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#linking-multiple-omics",
+    "href": "lahti_bioc2023.html#linking-multiple-omics",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Linking multiple omics",
+    "text": "Linking multiple omics\nTaxonomic, metagenomic & functional profiling, host measurements"
+  },
+  {
+    "objectID": "lahti_bioc2023.html#open-data-resources-1",
+    "href": "lahti_bioc2023.html#open-data-resources-1",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Open data resources",
+    "text": "Open data resources\n\ncuratedMetagenomicData (Pasolli et al. 2017)\nEBI MGnify (Mitchell et al. 2020)\nmicrobiomeDataSets (Ernst et al. 2020);\nR package demo data sets\nImport functions for common formats (Biom, QIIME2, Mothur, phyloseq)"
   },
   {
     "objectID": "hintikkaxo_presentation.html#study-design",
     "href": "hintikkaxo_presentation.html#study-design",
     "title": "A brief introduction to HintikkaXOData",
     "section": "Study design",
-    "text": "Study design\n\nHintikkaXOData is a MultiAssayExperiment containing microbiome, metabolome and biomarker data from a study on the effects of diet and prebiotics on fatty-liver disease in rats.\n\n\nExperimentList class object of length 3:\n [1] microbiota: TreeSummarizedExperiment with 12706 rows and 40 columns\n [2] metabolites: TreeSummarizedExperiment with 38 rows and 40 columns\n [3] biomarkers: TreeSummarizedExperiment with 39 rows and 40 columns\n\n\n\n\nThe rat population (N = 40) was divided into 4 groups (n = 10), which underwent different diets over a period of 12 weeks. The 4 groups included:\n\n\n\nhigh-fat diet without prebiotics\nhigh-fat diet with prebiotics\nlow-fat diet without prebiotics\nlow-fat diet with prebiotics\n\n\n\n\n\n\n\n\nXOS+\nXOS-\n\n\n\n\nLow Fat\n10\n10\n\n\nHigh Fat\n10\n10\n\n\n\n\n\n\n\n\nXOS: xylooligosaccharide"
+    "text": "Study design\n\nHintikkaXOData is a MultiAssayExperiment containing microbiome, metabolome and biomarker data from a study on the effects of diet and prebiotics on fatty-liver disease in rats [@Hintikka2021].\n\n\nExperimentList class object of length 3:\n [1] microbiota: TreeSummarizedExperiment with 12706 rows and 40 columns\n [2] metabolites: TreeSummarizedExperiment with 38 rows and 40 columns\n [3] biomarkers: TreeSummarizedExperiment with 39 rows and 40 columns\n\n\n\n\nThe rat population (N = 40) was divided into 4 groups (n = 10), which underwent different diets over a period of 12 weeks. The 4 groups included:\n\n\n\nhigh-fat diet without prebiotics\nhigh-fat diet with prebiotics\nlow-fat diet without prebiotics\nlow-fat diet with prebiotics\n\n\n\n\n\n\n\n\nXOS+\nXOS-\n\n\n\n\nLow Fat\n10\n10\n\n\nHigh Fat\n10\n10\n\n\n\n\n\n\n\n\nXOS: xylooligosaccharide"
   },
   {
     "objectID": "hintikkaxo_presentation.html#microbiota",
@@ -40,6 +180,13 @@
     "title": "A brief introduction to HintikkaXOData",
     "section": "Biomarkers",
     "text": "Biomarkers\n\nBiomarkers data were obtained by Western blot from protein homogenates of rat tissues. There is a total of 39 features, corresponding to the biomarkers/site combinations.\n\n\n\n\n\n\n\n\n\n\n\n\nBiomarker\nFunction\n\n\n\n\nCS\ncitrate synthase\n\n\nAST\naspartate aminotransferase\n\n\nALT\nalanine aminotransferase\n\n\nERK\nextracellular signal-regulated kinase\n\n\nIRS1\ninsulin receptor substrate 1\n\n\nAKT\nprotein kinase B\n\n\nIL1b\ninterleukin 1 beta\n\n\nHAD\n3-hydroxyacyl-CoA dehydrogenase 8\n\n\nCD45\nprotein tyrosine phosphatase\n\n\n\n\n\n\n\n\n\n\n\nName\nSite\n\n\n\n\nepi\nepididymal adipose tissue\n\n\nSCfat\nmesenteric adopose tissue\n\n\nmese\nsubcutaneous adipose tissue\n\n\nliver\nliver\n\n\ngastro\ngastrocnemius muscle\n\n\nserum\nserum"
+  },
+  {
+    "objectID": "hintikkaxo_presentation.html#references",
+    "href": "hintikkaxo_presentation.html#references",
+    "title": "A brief introduction to HintikkaXOData",
+    "section": "References",
+    "text": "References"
   },
   {
     "objectID": "intro.html#section",
@@ -543,7 +690,7 @@
     "href": "summarizedexperiment.html#adding-new-assays-extracting-assays",
     "title": "SummarizedExperiment",
     "section": "Adding new assays & extracting assays",
-    "text": "Adding new assays & extracting assays\n\nAdd log10 or CLR transformation for the data (hint: transformCounts)\nVisualize abundance of a selected feature w.r.t. sample metadata"
+    "text": "Adding new assays & extracting assays\n\nAdd log10 or CLR transformation for the data (hint: transformAssay)\nVisualize abundance of a selected feature w.r.t. sample metadata"
   },
   {
     "objectID": "summarizedexperiment.html#adding-elements-to-coldata",
@@ -991,7 +1138,7 @@
     "href": "tengeler2020_presentation.html#tengeler2020",
     "title": "A Brief Introduction to Tengeler2020",
     "section": "Tengeler2020",
-    "text": "Tengeler2020\nTengeler2020 is a randomised blinded study on the effects of gut microbiome on attention-deficit/hyperactivity disorder (ADHD) in humanised mice (Tengeler et al. 2020).\n\nYoung, male, germ-free C57BL/6JOlaHsd mice (n = 27) were humanised with gut microbiome from either ADHD patients (n = 3) or healthy controls (n = 3) of matched age. Notably, the mice belonged to three different cohorts.\n\n\n\n\n\n\nCohort1\nCohort2\nCohort3\n\n\n\n\nADHD\n4\n5\n4\n\n\nControl\n6\n5\n3"
+    "text": "Tengeler2020\nTengeler2020 is a randomised blinded study on the effects of gut microbiome on attention-deficit/hyperactivity disorder (ADHD) in humanised mice (C Tengeler et al. 2020).\n\nYoung, male, germ-free C57BL/6JOlaHsd mice (n = 27) were humanised with gut microbiome from either ADHD patients (n = 3) or healthy controls (n = 3) of matched age. Notably, the mice belonged to three different cohorts.\n\n\n\n\n\n\nCohort1\nCohort2\nCohort3\n\n\n\n\nADHD\n4\n5\n4\n\n\nControl\n6\n5\n3"
   },
   {
     "objectID": "tengeler2020_presentation.html#study-design",
@@ -1026,7 +1173,7 @@
     "href": "tengeler2020_presentation.html#references",
     "title": "A Brief Introduction to Tengeler2020",
     "section": "References",
-    "text": "References\n\n\n\n\n\n\nTengeler, Anouk C, Sarita A Dam, Maximilian Wiesmann, Jilly Naaijen, Miranda Van Bodegom, Clara Belzer, Pieter J Dederen, et al. 2020. “Gut Microbiota from Persons with Attention-Deficit/Hyperactivity Disorder Affects the Brain in Mice.” Microbiome 8: 1–14."
+    "text": "References\n\n\n\n\n\n\nC Tengeler, Anouk, Sarita A Dam, Maximilian Wiesmann, Jilly Naaijen, Miranda van Bodegom, Clara Belzer, Pieter J Dederen, et al. 2020. “Gut Microbiota from Persons with Attention-Deficit/Hyperactivity Disorder Affects the Brain in Mice.” Microbiome 8: 1–14. https://doi.org/10.1186/s40168-020-00816-x."
   },
   {
     "objectID": "tengeler_quarto.html",
@@ -1131,7 +1278,7 @@
     "href": "tengeler_pcoa.html",
     "title": "Beta Diversity",
     "section": "",
-    "text": "The following packages are needed to succesfully run the examples in this notebook:\n\nmia: tools for microbiome data analysis\nscater: plotting data from TreeSummarizedExperiments\npatchwork: combining plots\n\nTo get started, we import Tengeler2020 from the mia package and store it into a variable.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse <- Tengeler2020\n\nAfter that, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.\n\ntse <- transformCounts(tse,\n                       method = \"relabundance\")"
+    "text": "The following packages are needed to succesfully run the examples in this notebook:\n\nmia: tools for microbiome data analysis\nscater: plotting data from TreeSummarizedExperiments\npatchwork: combining plots\n\nTo get started, we import Tengeler2020 from the mia package and store it into a variable.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse <- Tengeler2020\n\nAfter that, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.\n\ntse <- transformAssay(tse,\n                       method = \"relabundance\")"
   },
   {
     "objectID": "tengeler_pcoa.html#principal-coordinate-analysis-pcoa",
@@ -1145,14 +1292,14 @@
     "href": "tengeler_dbrda.html",
     "title": "distance-based Redundance Analysis (dbRDA)",
     "section": "",
-    "text": "To get started, we import Tengeler2020 from the mia package and store it into a variable.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse <- Tengeler2020\n\nFirst off, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.\n\ntse <- transformCounts(tse, method = \"relabundance\")"
+    "text": "To get started, we import Tengeler2020 from the mia package and store it into a variable.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse <- Tengeler2020\n\nFirst off, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.\n\ntse <- transformAssay(tse, method = \"relabundance\")"
   },
   {
     "objectID": "tengeler_dbrda.html#ordination",
     "href": "tengeler_dbrda.html#ordination",
     "title": "distance-based Redundance Analysis (dbRDA)",
     "section": "Ordination",
-    "text": "Ordination\n\nRDA with Bray-Curtis index\n\ntse <- runRDA(tse,\n              formula = assay ~ patient_status + cohort,\n              FUN = vegan::vegdist,\n              method = \"bray\",\n              assay.type = \"relabundance\")\n\n\np <- plotReducedDim(tse, \"RDA\",\n                    colour_by = \"patient_status\",\n                    shape_by = \"cohort\")\n\n\n\n\n\n\nFigure 1: RDA plot with Bray-Curtis dissimilarity.\n\n\n\n\n\n\nRDA with Aitchison distance\n\n# perform clr transformation\ntse <- transformCounts(tse,\n                       assay.type = \"relabundance\",\n                       method = \"clr\",\n                       pseudocount = 1)\n\n# run RDA\ntse <- runRDA(tse,\n              formula = assay ~ patient_status + cohort,\n              FUN = vegan::vegdist,\n              method = \"euclidean\",\n              assay.type = \"clr\",\n              name = \"Aitchison\")\n\n# plot RDA\np <- plotReducedDim(tse, \"Aitchison\",\n                    colour_by = \"patient_status\",\n                    shape_by = \"cohort\")\n\n\np\n\n\n\n\nFigure 2: RDA plot with Aitchison distance (CLR assay + Euclidian distance)."
+    "text": "Ordination\n\nRDA with Bray-Curtis index\n\ntse <- runRDA(tse,\n              formula = assay ~ patient_status + cohort,\n              FUN = vegan::vegdist,\n              method = \"bray\",\n              assay.type = \"relabundance\")\n\n\np <- plotReducedDim(tse, \"RDA\",\n                    colour_by = \"patient_status\",\n                    shape_by = \"cohort\")\n\n\n\n\n\n\nFigure 1: RDA plot with Bray-Curtis dissimilarity.\n\n\n\n\n\n\nRDA with Aitchison distance\n\n# perform clr transformation\ntse <- transformAssay(tse,\n                       assay.type = \"relabundance\",\n                       method = \"clr\",\n                       pseudocount = 1)\n\n# run RDA\ntse <- runRDA(tse,\n              formula = assay ~ patient_status + cohort,\n              FUN = vegan::vegdist,\n              method = \"euclidean\",\n              assay.type = \"clr\",\n              name = \"Aitchison\")\n\n# plot RDA\np <- plotReducedDim(tse, \"Aitchison\",\n                    colour_by = \"patient_status\",\n                    shape_by = \"cohort\")\n\n\np\n\n\n\n\nFigure 2: RDA plot with Aitchison distance (CLR assay + Euclidian distance)."
   },
   {
     "objectID": "tengeler_dbrda.html#significance-testing",
@@ -1180,14 +1327,14 @@
     "href": "tengeler_community_composition.html#assay-transformation-and-agglomeration",
     "title": "Community Composition",
     "section": "Assay transformation and agglomeration",
-    "text": "Assay transformation and agglomeration\nFirst of all, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.\n\ntse <- transformCounts(tse,\n                       method = \"relabundance\")\n\nRelative abundances are useful because they are not affected by compositionality, which is present in the counts assay due to sequencing bias (the unequal amplification of DNA from two different samples due to random effects).\n\n\n\n\nTable 1: Relative abundance (%) of bacterial phyla grouped by patient status.\n\n\n\nADHD\nControl\n\n\n\n\nBacteroidetes\n69.2\n61.1\n\n\nFirmicutes\n23.7\n30.1\n\n\nVerrucomicrobia\n4.7\n6.9\n\n\nProteobacteria\n2.4\n1.8\n\n\n\n\n\n\nNext, we agglomerate the experiment to the Order level, so that information is more condensed and therefore easier to visualise and interpret.\n\ntse_order <- agglomerateByRank(tse, rank = \"Order\")"
+    "text": "Assay transformation and agglomeration\nFirst of all, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.\n\ntse <- transformAssay(tse,\n                       method = \"relabundance\")\n\nRelative abundances are useful because they are not affected by compositionality, which is present in the counts assay due to sequencing bias (the unequal amplification of DNA from two different samples due to random effects).\n\n\n\n\nTable 1: Relative abundance (%) of bacterial phyla grouped by patient status.\n\n\n\nADHD\nControl\n\n\n\n\nBacteroidetes\n69.2\n61.1\n\n\nFirmicutes\n23.7\n30.1\n\n\nVerrucomicrobia\n4.7\n6.9\n\n\nProteobacteria\n2.4\n1.8\n\n\n\n\n\n\nNext, we agglomerate the experiment to the Order level, so that information is more condensed and therefore easier to visualise and interpret.\n\ntse_order <- agglomerateByRank(tse, rank = \"Order\")"
   },
   {
     "objectID": "tengeler_community_composition.html#compositional-heatmap",
     "href": "tengeler_community_composition.html#compositional-heatmap",
     "title": "Community Composition",
     "section": "Compositional heatmap",
-    "text": "Compositional heatmap\nWe then perform a CLR transformation sample-wise and a Z transformation feature-wise. The former creates a more homogeneous (logarithmic) scale for the usually very skewed microbiome data, whereas the latter normalises the features across samples for better comparisons between samples.\n\n# transform relative abundance to clr\ntse_order <- transformCounts(tse_order,\n                             assay.type = \"relabundance\",\n                             method = \"clr\",\n                             pseudocount = 1,\n                             MARGIN = \"samples\")\n\n# transform clr to z\ntse_order <- transformCounts(tse_order,\n                             assay.type = \"clr\", \n                             method = \"z\",\n                             name = \"clr_z\",\n                             MARGIN = \"features\")\n\nFinally, we plot the compositional heatmap with the ComplexHeatmap package and illustrate it in Figure 1.\n\nHeatmap(assay(tse_order, \"clr_z\"),\n        name = \"clr-z\")\n\n\n\n\nFigure 1: Heatmap of CLR-Z transformed microbiome assay where columns correspond to samples and rows to taxa agglomerated by order."
+    "text": "Compositional heatmap\nWe then perform a CLR transformation sample-wise and a Z transformation feature-wise. The former creates a more homogeneous (logarithmic) scale for the usually very skewed microbiome data, whereas the latter normalises the features across samples for better comparisons between samples.\n\n# transform relative abundance to clr\ntse_order <- transformAssay(tse_order,\n                             assay.type = \"relabundance\",\n                             method = \"clr\",\n                             pseudocount = 1,\n                             MARGIN = \"samples\")\n\n# transform clr to z\ntse_order <- transformAssay(tse_order,\n                             assay.type = \"clr\", \n                             method = \"z\",\n                             name = \"clr_z\",\n                             MARGIN = \"features\")\n\nFinally, we plot the compositional heatmap with the ComplexHeatmap package and illustrate it in Figure 1.\n\nHeatmap(assay(tse_order, \"clr_z\"),\n        name = \"clr-z\")\n\n\n\n\nFigure 1: Heatmap of CLR-Z transformed microbiome assay where columns correspond to samples and rows to taxa agglomerated by order."
   },
   {
     "objectID": "tengeler_differential_abundance.html",
@@ -1216,145 +1363,5 @@
     "title": "Differential Abundance",
     "section": "Interpreting results",
     "text": "Interpreting results\nFinally, we select significantly DA taxa and list it in Table 1.\n\nsignif_res <- res$output$patient_statusControl |>\n  filter(reject) |>\n  select(stat, padj) |>\n  arrange(padj)\n\nknitr::kable(signif_res)\n\n\n\nTable 1: DA bacterial genera. If stat > 0, abundance is higher in control, otherwise it is higher in ADHD.\n\n\n\nstat\npadj\n\n\n\n\nFaecalibacterium\n-4.667132\n0.0025610\n\n\n[Ruminococcus]_gauvreauii_group\n4.939783\n0.0025610\n\n\nCatabacter\n-3.552544\n0.0271358\n\n\nErysipelatoclostridium\n3.395901\n0.0297967\n\n\nRuminococcaceae_UCG-014\n-3.155159\n0.0425067\n\n\n\n\n\n\nGood job reading this tutorial. Now go this chapter of the OMA book and try out other DAA methods on Tengeler2020."
-  },
-  {
-    "objectID": "lahti_bioc2023.html#orchestrating-microbiome-multi-omics-with-r-and-bioconductor",
-    "href": "lahti_bioc2023.html#orchestrating-microbiome-multi-omics-with-r-and-bioconductor",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Orchestrating microbiome multi-omics with R and Bioconductor",
-    "text": "Orchestrating microbiome multi-omics with R and Bioconductor\n\nLeo Lahti @antagomir | Department of Computing, University of Turku, Finland"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#organizing-microbiome-data",
-    "href": "lahti_bioc2023.html#organizing-microbiome-data",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Organizing microbiome data",
-    "text": "Organizing microbiome data\n\n\n\nSide information\nsample & feature metadata\nMultiple assays\ncounts, relabundance, phILR..\nAlternative experiments \n16S, metagenome, phylogenetic microarrays; pipelines\nCross-kingdom analyses  bacteriome, archaeome, virome, mykobiome, eukaryome\nHierarchical data\ntaxonomic levels, nested designs, sample & feature trees"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#section",
-    "href": "lahti_bioc2023.html#section",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "",
-    "text": "Fig. by Domenick Braccia (EuroBioC 2020)"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#integrating-multiple-experiments",
-    "href": "lahti_bioc2023.html#integrating-multiple-experiments",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Integrating multiple experiments",
-    "text": "Integrating multiple experiments\nCombine taxonomic, metagenomic & functional profiling, and host measurements \nby extending the Bioconductor MultiAssayExperiment class."
-  },
-  {
-    "objectID": "lahti_bioc2023.html#benefits-for-microbiome-data-science",
-    "href": "lahti_bioc2023.html#benefits-for-microbiome-data-science",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Benefits for microbiome data science",
-    "text": "Benefits for microbiome data science\n\n\n\n\nExtended\nenhances multi-assay analyses in microbiome studies\nOptimized\nspeed, memory & scale (sample sizes, datasets, cohorts)\nIntegrated\nwith other applications & frameworks (e.g. Single Cell, Spatial transcriptomics)"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#package-and-data-ecosystem",
-    "href": "lahti_bioc2023.html#package-and-data-ecosystem",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Package and data ecosystem",
-    "text": "Package and data ecosystem\nBioconductor methods & packages supporting the framework.\n\n\n\n\n\nBasic wrangling: transformations, agglomeration, split/merge etc.\nAlpha & beta diversity\nDimension reduction (scater)\nDifferential abundance (ANCOMBC, ALDEx2, benchdamic)\nVisualization (miaViz)\nTime series manipulation (miaTime)\nEcological simulations (miaSim)"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#section-1",
-    "href": "lahti_bioc2023.html#section-1",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "",
-    "text": "Importers for other common formats\nLinking with other common formats and microbiome data science frameworks.\n   \nOpen data resources\nOpen microbiome data sets readily available in TreeSummarizedExperiment format via curatedMetagenomicData, EBI MGnify, Bioconductor ExperimentHub, and packages."
-  },
-  {
-    "objectID": "lahti_bioc2023.html#minimal-example",
-    "href": "lahti_bioc2023.html#minimal-example",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Minimal example",
-    "text": "Minimal example\nCross-correlating taxonomic and metabolomic profiles from a dietary intervention study in mice (Hintikka et al. 2021).\n\nlibrary(mia)\n\n# Import data from ExperimentHub\nmae <- microbiomeDataSets::HintikkaXOData() \n\n# Agglomerate rare taxa by prevalence at the Family level & log10-transform read  counts\nmae[[\"microbiota\"]] <- agglomerateByPrevalence(mae[[\"microbiota\"]], rank = \"Family\")\nmae[[\"microbiota\"]] <- transformAssay(mae[[\"microbiota\"]], method = \"clr\", pseudocount = 1)\n\n# Get cross-correlation between taxa & metabolites\nx <- testExperimentCrossAssociation(mae, experiment1 = \"microbiota\", experiment2 = \"metabolites\",\n                                               assay.type1 = \"clr\", assay.type2 = \"nmr\",\n                                               mode = \"matrix\", sort = TRUE)$cor\n\n# Visualize taxa-metabolite associations on heatmap\nComplexHeatmap::Heatmap(x)"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#documentation-oma-gitbook-beta",
-    "href": "lahti_bioc2023.html#documentation-oma-gitbook-beta",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Documentation: OMA Gitbook (beta)",
-    "text": "Documentation: OMA Gitbook (beta)\nComplements other Bioconductor Gitbooks; overlapping methods and analysis strategies: microbiome.github.io/OMA"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#community",
-    "href": "lahti_bioc2023.html#community",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Community",
-    "text": "Community\n\n\nCoordination: Tuomas Borman, Leo Lahti\nGiulio Benedetti, Yağmur Şimşek, Basil Courbayre, Jeba Akewak, Daena Rys, Henrik Eckermann, Chouaib Benchraka, Rajesh Shigdel, Artur Sannikov, Lu Yang, Renuka Potbhare, S. A. Shetty, R. Huang, F. G.M. Ernst, D. J. Braccia, H. C. Bravo; 20+ contributors, 10+ countries. Welcome to join!\nAcknowledgments: TreeSummarizedExperiment, SingleCellExperiment, MultiAssayExperiment, curatedMetagenomicData, MGnifyR, phILR, ANCOMBC, ALDEx2, benchdamic, scater, scuttle authors..\nCourses in 2023: Pune (IND) | Turku & Oulu (FIN) | Utrecht, Wageningen & Radboud (NLD) | Norwich (UK) |Bergen (NO)"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#bioconductor-books",
-    "href": "lahti_bioc2023.html#bioconductor-books",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Bioconductor books",
-    "text": "Bioconductor books"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#resources",
-    "href": "lahti_bioc2023.html#resources",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Resources",
-    "text": "Resources\nMicrobiome R package listing:\ngithub.com/microsud/Tools-Microbiome-Analysis"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#microbiome-data-science-workflow",
-    "href": "lahti_bioc2023.html#microbiome-data-science-workflow",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Microbiome data science workflow",
-    "text": "Microbiome data science workflow\n\n\nData containers:\n\nTreeSummarizedExperiment\nMultiAssayExperiment\n\nR/Bioc packages:\nmia, miaViz\n\n\n\n\nFigure by Domenick Braccia (EuroBioC 2020)"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#misc",
-    "href": "lahti_bioc2023.html#misc",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Misc",
-    "text": "Misc\n\nFigure source: Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology 12:11."
-  },
-  {
-    "objectID": "lahti_bioc2023.html#treesummarizedexperiment",
-    "href": "lahti_bioc2023.html#treesummarizedexperiment",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "TreeSummarizedExperiment",
-    "text": "TreeSummarizedExperiment"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#optimal-container-for-microbiome-data-integration",
-    "href": "lahti_bioc2023.html#optimal-container-for-microbiome-data-integration",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Optimal container for microbiome data integration?",
-    "text": "Optimal container for microbiome data integration?\nImprove interoperability, ensure sustainability.\n\n\nMultiple assays\nseamless interlinking\nSide information\nextended capabilities & data types\nHierarchical data\nboth samples & features\nOptimized\nspeed & memory\nIntegrated\nother applications & frameworks"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#data-integration-in-microbiomics",
-    "href": "lahti_bioc2023.html#data-integration-in-microbiomics",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Data integration in microbiomics",
-    "text": "Data integration in microbiomics\n\nScaling up sample size (cohorts & meta-analyses)\nComplementary pipelines\nAlternative experiments (e.g. 16S, metagenome, phylogenetic microarrays)\nMultiple assays (e.g. counts, relative abundances, clr, phILR)\nHierarchies in feature & sample space (phylogenies, nested designs)\nCross-kingdom analyses (bacteriome, virome, mykobiome, eukaryome)\nMulti-omics (taxonomy, function, host)"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#optimal-container-for-microbiome-data-integration-1",
-    "href": "lahti_bioc2023.html#optimal-container-for-microbiome-data-integration-1",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Optimal container for microbiome data integration?",
-    "text": "Optimal container for microbiome data integration?\nImprove interoperability, ensure sustainability.\n\n\nMultiple assays\nseamless interlinking\nSide information\nextended capabilities & data types\nHierarchical data\nboth samples & features\nOptimized\nspeed & memory\nIntegrated\nother applications & frameworks"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#linking-multiple-omics",
-    "href": "lahti_bioc2023.html#linking-multiple-omics",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Linking multiple omics",
-    "text": "Linking multiple omics\nTaxonomic, metagenomic & functional profiling, host measurements"
-  },
-  {
-    "objectID": "lahti_bioc2023.html#open-data-resources-1",
-    "href": "lahti_bioc2023.html#open-data-resources-1",
-    "title": "Orchestrating microbiome multi-omics",
-    "section": "Open data resources",
-    "text": "Open data resources\n\ncuratedMetagenomicData (Pasolli et al. 2017)\nEBI MGnify (Mitchell et al. 2020)\nmicrobiomeDataSets (Ernst et al. 2020);\nR package demo data sets\nImport functions for common formats (Biom, QIIME2, Mothur, phyloseq)"
   }
 ]
