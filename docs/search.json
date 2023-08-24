@@ -158,7 +158,7 @@
     "href": "hintikkaxo_presentation.html#study-design",
     "title": "A brief introduction to HintikkaXOData",
     "section": "Study design",
-    "text": "Study design\n\nHintikkaXOData is a MultiAssayExperiment containing microbiome, metabolome and biomarker data from a study on the effects of diet and prebiotics on fatty-liver disease in rats [@Hintikka2021].\n\n\nExperimentList class object of length 3:\n [1] microbiota: TreeSummarizedExperiment with 12706 rows and 40 columns\n [2] metabolites: TreeSummarizedExperiment with 38 rows and 40 columns\n [3] biomarkers: TreeSummarizedExperiment with 39 rows and 40 columns\n\n\n\n\nThe rat population (N = 40) was divided into 4 groups (n = 10), which underwent different diets over a period of 12 weeks. The 4 groups included:\n\n\n\nhigh-fat diet without prebiotics\nhigh-fat diet with prebiotics\nlow-fat diet without prebiotics\nlow-fat diet with prebiotics\n\n\n\n\n\n\n\n\nXOS+\nXOS-\n\n\n\n\nLow Fat\n10\n10\n\n\nHigh Fat\n10\n10\n\n\n\n\n\n\n\n\nXOS: xylooligosaccharide"
+    "text": "Study design\n\nHintikkaXOData is a MultiAssayExperiment containing microbiome, metabolome and biomarker data from a study on the effects of diet and prebiotics on fatty-liver disease in rats (Hintikka et al. 2021).\n\n\nExperimentList class object of length 3:\n [1] microbiota: TreeSummarizedExperiment with 12706 rows and 40 columns\n [2] metabolites: TreeSummarizedExperiment with 38 rows and 40 columns\n [3] biomarkers: TreeSummarizedExperiment with 39 rows and 40 columns\n\n\n\n\nThe rat population (N = 40) was divided into 4 groups (n = 10), which underwent different diets over a period of 12 weeks. The 4 groups included:\n\n\n\nhigh-fat diet without prebiotics\nhigh-fat diet with prebiotics\nlow-fat diet without prebiotics\nlow-fat diet with prebiotics\n\n\n\n\n\n\n\n\nXOS+\nXOS-\n\n\n\n\nLow Fat\n10\n10\n\n\nHigh Fat\n10\n10\n\n\n\n\n\n\n\n\nXOS: xylooligosaccharide"
   },
   {
     "objectID": "hintikkaxo_presentation.html#microbiota",
@@ -186,7 +186,7 @@
     "href": "hintikkaxo_presentation.html#references",
     "title": "A brief introduction to HintikkaXOData",
     "section": "References",
-    "text": "References"
+    "text": "References\n\n\n\n\n\n\nHintikka, Jukka, Sanna Lensu, Elina Mäkinen, Sira Karvinen, Marjaana Honkanen, Jere Lindén, Tim Garrels, Satu Pekkala, and Leo Lahti. 2021. “Xylo-Oligosaccharides in Prevention of Hepatic Steatosis and Adipose Tissue Inflammation: Associating Taxonomic and Metabolomic Patterns in Fecal Microbiomes with Biclustering.” International Journal of Environmental Research and Public Health 18 (8): 4049. https://doi.org/10.3390/ijerph18084049."
   },
   {
     "objectID": "intro.html#section",
