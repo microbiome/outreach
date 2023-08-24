@@ -3,6 +3,7 @@ title: "A brief introduction to HintikkaXOData"
 format: revealjs
 editor: visual
 smaller: true
+bibliography: references.bib
 ---
 
 ```{r}
