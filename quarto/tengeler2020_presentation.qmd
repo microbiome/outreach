@@ -16,7 +16,7 @@ tse <- Tengeler2020
 
 ## Tengeler2020
 
-Tengeler2020 is a randomised blinded study on the effects of gut microbiome on attention-deficit/hyperactivity disorder (ADHD) in humanised mice [@tengeler2020gut].
+[Tengeler2020](https://microbiome.github.io/mia/reference/mia-datasets.html) is a randomised blinded study on the effects of gut microbiome on attention-deficit/hyperactivity disorder (ADHD) in humanised mice [@Tengeler2020].
 
 ![](images/tengeler_paper.png){fig-align="center"}
 

@@ -37,7 +37,7 @@ First of all, we transform the counts assay to relative abundances and store the
 
 ```{r}
 #| label: transform-relabundance
-tse <- transformCounts(tse,
+tse <- transformAssay(tse,
                        method = "relabundance")
 ```
 
@@ -72,14 +72,14 @@ We then perform a CLR transformation sample-wise and a Z transformation feature-
 #| label: transform-clrz
 
 # transform relative abundance to clr
-tse_order <- transformCounts(tse_order,
+tse_order <- transformAssay(tse_order,
                              assay.type = "relabundance",
                              method = "clr",
                              pseudocount = 1,
                              MARGIN = "samples")
 
 # transform clr to z
-tse_order <- transformCounts(tse_order,
+tse_order <- transformAssay(tse_order,
                              assay.type = "clr", 
                              method = "z",
                              name = "clr_z",

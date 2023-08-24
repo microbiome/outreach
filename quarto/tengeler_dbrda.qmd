@@ -33,7 +33,7 @@ First off, we transform the counts assay to relative abundances and store the ne
 
 ```{r}
 #| label: transform-relabundance
-tse <- transformCounts(tse, method = "relabundance")
+tse <- transformAssay(tse, method = "relabundance")
 ```
 
 ## Ordination
@@ -71,7 +71,7 @@ p
 #| label: aitchison-workflow
 
 # perform clr transformation
-tse <- transformCounts(tse,
+tse <- transformAssay(tse,
                        assay.type = "relabundance",
                        method = "clr",
                        pseudocount = 1)

@@ -73,7 +73,7 @@ assay(tse)
 
 ## Adding new assays & extracting assays
 
--   Add log10 or CLR transformation for the data (hint: transformCounts)
+-   Add log10 or CLR transformation for the data (hint: transformAssay)
 
 -   Visualize abundance of a selected feature w.r.t. sample metadata
 

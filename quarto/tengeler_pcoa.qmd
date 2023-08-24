@@ -38,7 +38,7 @@ After that, we transform the counts assay to relative abundances and store the n
 
 ```{r}
 #| label: transform-relabundance
-tse <- transformCounts(tse,
+tse <- transformAssay(tse,
                        method = "relabundance")
 ```
 
