@@ -1,0 +1,128 @@
+---
+title: |
+  ![](figures/mia_logo.png){width="125"} ![](figures/heart.png){width="100"} ![](figures/logo_bioconductor.gif){width="350"} \
+  Microbiome data integration workflow for population cohort studies
+subtitle: Package demo
+---
+
+<img style="float: right;" src="figures/EuroBioC2023.png" width="140">
+
+#### EuroBioC2023
+
+- European Bioconductor Conference 2023
+- Ghent, Belgium
+- September 21, 2023; 13:30 (CEST)
+- **See the poster also (miaverse – microbiome analytics framework in SummarizedExperiment family)!**
+
+#### Presenter information
+
+All authors are affiliated to Turku Data Science Group in University of Turku, Finland.
+<img style="float: right;" src="figures/university_turku.png" width="250">
+
+- **Tuomas Borman -- doctoral researcher**
+- Chouaib Benchraka -- doctoral researcher
+- Leo Lahti -- group leader
+
+---
+
+## Learning goals
+
+1.  Microbiome research studies interactions between microbes (and human, environment...)
+2.  Big data requires efficient tools to manipulate the data
+3.  miaverse is a SummarizedExperiment framework for microbiome analytics
+
+![Figure source: Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology 12:11.](figures/microbiome.png){width="400"}
+
+## Motivation
+
+### Microbiome research
+
+- Microbiome is a composition of microbes in well-defined area (gut, skin, mouth...)
+- Bilateral interaction between human and microbiome --> affects both health and disease.
+- The research is based on sequencing (characterization of genes and species).
+- Nowadays, multiomics approach is more common (integration of taxonomy information with metabolite data, for example)
+- Computational methods are the new microscope
+- The research has expanded rapidly in previous years
+
+```{r pubmed_fig, fig.width=6, fig.cap="PubMed publications per year with a search term 'microbiome' (fetched: Sep 5, 2023)", echo=FALSE}
+# Plot publication graph
+path <- "data/PubMed_Timeline_Results_by_Year.csv"
+df <- read.csv(path, skip = 1)
+
+library(ggplot2)
+x <- "Year"
+y <- "Count"
+
+plot <- ggplot(df, aes(x = .data[[x]], y = .data[[y]])) +
+    geom_bar(stat="identity")
+plot
+```
+
+### Big data
+
+- Add here something about cohort studies, big data, how analysis is done with big data, requirements...
+
+## miaverse (MIcrobiome Analysis) ![](figures/mia_logo.png){width="50"}
+
+- A framework for microbiome analytics
+    - [mia (analysis)](https://bioconductor.org/packages/release/bioc/html/mia.html)
+    - [miaViz (visualization)](https://bioconductor.org/packages/release/bioc/html/miaViz.html)
+    - [miaSim (simulation)](https://bioconductor.org/packages/release/bioc/html/miaSim.html)
+    - [Orchestrating Microbiome Analysis, OMA (tutorial book)](https://microbiome.github.io/OMA/)
+- Based on _TreeSummarizedExperiment (TreeSE)_ class
+    - Supports hierarchical data
+    - _phyloseq_ class is a subset of _TreeSE_
+    - Extension of _SingleCellExperiment_ class
+    - miaverse is compatible with other _SummarizedExperiment_ frameworks
+- Purpose to offer tools and tips for microbiome data analysis
+- Enables development of versatile analytical workflows in microbiome data science
+    - Supports multiomics (_MultiAssayExperiment_ class)
+    - Scalable
+    - Standardized
+
+![The structure of the TreeSummarizedExperiment (TreeSE) class.](figures/treese.png){width="700"}
+
+## The workflow
+
+### Importing the dataset
+
+We get the data from [MGnify database](https://www.ebi.ac.uk/metagenomics). It
+is a EMBL-EBI's database for metagenomic data. This large microbiome database
+can be accessed with _MGnifyR_ package which nowadays support _TreeSE_. The
+package will be submitted to Bioconductor's next release.
+
+We chose this dataset...
+
+As loading takes some time, the dataset is already loaded.
+
+For other available datasets and importing methods, check [OMA](https://microbiome.github.io/OMA/containers.html#example-data).
+
+```{r}
+# library(MGnifyR)
+# mg <- MgnifyClient()
+# 
+# analyses <- searchAnalysis(mg, "studies", "MGYS00005128")
+# analyses <- searchAnalysis(mg, "studies", "MGYS00000596")
+```
+
+```{r}
+# mae <- getResult(mg, analyses)
+```
+
+### Thanks!
+
+<img style="float: right;" src="figures/mia_logo.png" width="140">
+
+- more material in OMA
+- miaverse logo
+- project website and QR also.
+- Contact info
+- Poster info
+
+
+
+## Session info
+
+```{r sessioninfo}
+sessionInfo()
+```
