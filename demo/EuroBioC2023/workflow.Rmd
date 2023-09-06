@@ -3,7 +3,54 @@ title: |
   ![](figures/mia_logo.png){width="125"} ![](figures/heart.png){width="100"} ![](figures/logo_bioconductor.gif){width="350"} \
   Microbiome data integration workflow for population cohort studies
 subtitle: Package demo
+output:
+    html_document:
+        code_folding: show
 ---
+
+```{r setup, message=FALSE, class.source = 'fold-hide'}
+# Get starting time
+starting_time <- Sys.time()
+
+################################################################################
+# List of packages that we need
+packages <- c("ggplot2", "mia", "miaViz")
+
+# Get packages that are already installed installed
+packages_already_installed <- packages[ packages %in% installed.packages() ]
+
+# Get packages that need to be installed
+packages_need_to_install <- setdiff( packages, packages_already_installed )
+
+# Loads BiocManager into the session. Install it if it not already installed.
+if( !require("BiocManager") ){
+    install.packages("BiocManager")
+    library("BiocManager")
+}
+
+# If there are packages that need to be installed, installs them with BiocManager
+# Updates old packages.
+if( length(packages_need_to_install) > 0 ) {
+   install(packages_need_to_install, ask = FALSE)
+}
+
+# Load all packages into session. Stop if there are packages that were not
+# successfully loaded
+if( any(!sapply(packages, require, character.only = TRUE)) ){
+    stop("Error in loading packages into the session.")
+}
+
+################################################################################
+# Additional setup
+
+# Set black and white theme for figures, and Arial font
+theme <- theme_bw() + theme(text = element_text(family = "Arial"), 
+                            panel.border = element_blank(), 
+                            panel.grid.major = element_blank(),
+                            panel.grid.minor = element_blank(), 
+                            axis.line = element_line(colour = "black"))
+theme_set(theme)
+```
 
 <img style="float: right;" src="figures/EuroBioC2023.png" width="140">
 
@@ -16,7 +63,7 @@ subtitle: Package demo
 
 #### Presenter information
 
-All authors are affiliated to Turku Data Science Group in University of Turku, Finland.
+All authors are affiliated to [Turku Data Science Group in University of Turku, Finland.](https://datascience.utu.fi/)
 <img style="float: right;" src="figures/university_turku.png" width="250">
 
 - **Tuomas Borman -- doctoral researcher**
@@ -44,12 +91,11 @@ All authors are affiliated to Turku Data Science Group in University of Turku, F
 - Computational methods are the new microscope
 - The research has expanded rapidly in previous years
 
-```{r pubmed_fig, fig.width=6, fig.cap="PubMed publications per year with a search term 'microbiome' (fetched: Sep 5, 2023)", echo=FALSE}
+```{r pubmed_fig, fig.width=6, fig.cap="PubMed publications per year with a search term 'microbiome' (fetched: Sep 5, 2023)", class.source = 'fold-hide'}
 # Plot publication graph
 path <- "data/PubMed_Timeline_Results_by_Year.csv"
 df <- read.csv(path, skip = 1)
 
-library(ggplot2)
 x <- "Year"
 y <- "Count"
 
@@ -123,6 +169,6 @@ For other available datasets and importing methods, check [OMA](https://microbio
 
 ## Session info
 
-```{r sessioninfo}
+```{r sessioninfo, class.source = 'fold-hide'}
 sessionInfo()
 ```
