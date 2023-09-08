@@ -106,7 +106,16 @@ plot
 
 ### Big data
 
-- Add here something about cohort studies, big data, how analysis is done with big data, requirements...
+- Most of the cohort studies require multiple types of data, for instance microbiome, phenotype and other omics data.
+- Linking these types of data could present multiple challenges; to mention:
+  * Different sources the data is coming form, could use different types of key identifier of the samples or subjects of the study; which could poses a problem in some cases for linking the data together.
+  * The choice of the data structure to combine and store these mulitple types of data is critical as well, in terms of the management, handling and wrangling of the data; to be able to perform the analysis.
+- Cohort datasets are large in size, which mostly one cannot conduct an analysis using a normal computer with limited hardware; HPC and cloud computing services are required in this case. 
+- Last but not least, a quality check reporting of the constructed object is substantially important to verify the correctness of the building process.   
+
+Regarding the choice of the data strcuture to handle cohorts with muliple data types or sources [MultiAssayExperiment](https://bioconductor.org/packages/release/bioc/html/MultiAssayExperiment.html),
+is considered to be very liable in such situation, easing-up the management and wrangling of the data; once is construced correctly. Moreover, several R packages frameworks are increasingly integrating 
+[MultiAssayExperiment](https://bioconductor.org/packages/release/bioc/html/MultiAssayExperiment.html) and the [SummarizedExperiment](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html)class, to provide users with a reliable and ease of use data structure.
 
 ## miaverse (MIcrobiome Analysis) ![](figures/mia_logo.png){width="50"}
 
