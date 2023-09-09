@@ -14,7 +14,7 @@ starting_time <- Sys.time()
 
 ################################################################################
 # List of packages that we need
-packages <- c("ggplot2", "mia", "miaViz")
+packages <- c("ggplot2", "mia", "miaViz", "dplyr", "tidyr", "scater")
 
 # Get packages that are already installed installed
 packages_already_installed <- packages[ packages %in% installed.packages() ]
@@ -163,6 +163,153 @@ For other available datasets and importing methods, check [OMA](https://microbio
 ```{r}
 # mae <- getResult(mg, analyses)
 ```
+
+```{r}
+library(mia)
+data("HintikkaXOData")
+MAE <- HintikkaXOData
+MAE
+```
+
+As we can see, our data contains three different types of data: microbiota,
+metabolites and biomarkers; which are all of the TreeSummarizedExperiment class
+combined in ourMultiAssayExperiment object.
+
+Microbiota:
+
+```{r}
+MAE[["microbiota"]] # or MAE[[1]]
+```
+
+Metabolites:
+
+```{r}
+MAE[["metabolites"]] # or MAE[[2]]
+```
+
+Biomarkers:
+
+```{r}
+MAE[["biomarkers"]] # or MAE[[3]]
+```
+
+Additionally, the MAE contains phenotype or metadata about samples or subjects,
+that could be accessed as follows:
+
+```{r}
+colData(MAE)
+```
+
+### Exploring the microbiome data:
+
+#### Taxa Counts
+
+```{r}
+library(dplyr)
+rowData(MAE[[1]]) %>% as_tibble() %>% summarise_all(n_distinct)
+```
+
+#### Top 10 Species
+
+```{r}
+library(miaViz)
+# we agglomerate the data from OTUs to species,
+# and store it at the alternative experiment slot 
+altExp(MAE[[1]], "Species") <- agglomerateByRank(MAE[[1]], rank="Species",
+                                                 onRankOnly=TRUE, na.rm = FALSE)
+# we transform data from counts to relative abundance
+altExp(MAE[[1]], "Species") <- transformAssay(altExp(MAE[[1]], "Species"),
+                                          assay.type = "counts",
+                                          method = "relabundance")
+plotAbundanceDensity(altExp(MAE[[1]], "Species"), assay.type = "relabundance",
+                     n=10L, point_size=0.5, layout="density") +
+    scale_x_log10() +
+    labs(title = "Top 10 Species", x="log10(relabundance) ")+
+    theme(plot.title = element_text(hjust = 0.5, size = 12),
+          text=element_text(size = 8))
+```
+
+#### Top 10 Genera
+
+```{r}
+# we agglomerate the data from OTUs to species,
+# and store it at the alternative experiment slot 
+altExp(MAE[[1]], "Genus") <- agglomerateByRank(MAE[[1]], rank="Genus",
+                                                 onRankOnly=TRUE, na.rm = FALSE)
+# we transform data from counts to relative abundance
+altExp(MAE[[1]], "Genus") <- transformAssay(altExp(MAE[[1]], "Genus"),
+                                          assay.type = "counts",
+                                          method = "relabundance")
+plotAbundanceDensity(altExp(MAE[[1]], "Genus"), assay.type = "relabundance",
+                     n=10L, point_size=0.5, layout="density") +
+    scale_x_log10() +
+    labs(title = "Top 10 Genus", x="log10(relabundance) ")+
+    theme(plot.title = element_text(hjust = 0.5, size = 12),
+          text=element_text(size = 8))
+```
+
+#### Alpha diveristy
+
+Lets look at ShannonIindex and Observed Richness, where the results are stored 
+back automatically at the `colData` of the MAE microbiome Species alternative 
+experiment:
+
+```{r}
+altExp(MAE[[1]], "Species") <- estimateDiversity(altExp(MAE[[1]], "Species"),
+                                                 index="shannon", 
+                                                 assay.type="counts")
+altExp(MAE[[1]], "Species") <- estimateRichness(altExp(MAE[[1]], "Species"),
+                                                index="observed",
+                                                assay.type="counts")
+colData(altExp(MAE[[1]], "Species"))
+```
+
+Let's look at the histogram of both indices:
+
+```{r}
+colData(altExp(MAE[[1]], "Species")) %>% as_tibble() %>%
+    tidyr::pivot_longer(cols=c(shannon,observed), names_to = "alpha_type",
+                        values_to = "estimate") %>% 
+    ggplot(aes(x=estimate)) +
+    geom_histogram(color = "black", fill = "gray", bins = 30)+
+    facet_wrap(~alpha_type, nrow = 1, scales = "free")+
+    labs(title = "Alpha Diversity")+
+    theme(plot.title = element_text(hjust = 0.5))
+```
+
+#### Beta diveristy
+
+Let's look at beta diversity by performing Principal Coordinate Analysis (PCoA)
+using Bray-Curtis as a distance method on the OTU level data:
+
+```{r}
+library(scater)
+MAE[[1]] <- runMDS(MAE[[1]], FUN = vegan::vegdist, name = "PCoA_BC",
+              assay.type = "counts")
+# Calculating explained variance
+e <- attr(reducedDim(MAE[[1]], "PCoA_BC"), "eig");
+rel_eig <- e/sum(e[e>0])
+# Ploting the ordination 
+plotReducedDim(MAE[[1]], "PCoA_BC") + 
+    labs(x = paste("PC1 (", round(100 * rel_eig[[1]],1), "%", ")", sep = ""),
+         y = paste("PC2 (", round(100 * rel_eig[[2]],1), "%", ")", sep = ""),
+         title="PCoA with Bray-Curtis")+
+    theme(plot.title = element_text(hjust = 0.5))
+```
+
+With could visualize the same plot using a metadata varible (from colData), to
+overlay it on our PCoA plot:
+
+```{r}
+# we first assign our colData from MAE to MAE [[1]]
+colData(MAE[[1]]) <- colData(MAE)[colnames(MAE[[1]]),]
+plotReducedDim(MAE[[1]], "PCoA_BC", colour_by="Fat") + 
+    labs(x = paste("PC1 (", round(100 * rel_eig[[1]],1), "%", ")", sep = ""),
+         y = paste("PC2 (", round(100 * rel_eig[[2]],1), "%", ")", sep = ""),
+         title="PCoA with Bray-Curtis")+
+    theme(plot.title = element_text(hjust = 0.5))
+```
+
 
 ### Thanks!
 
