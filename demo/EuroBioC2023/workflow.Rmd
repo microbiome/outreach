@@ -14,7 +14,8 @@ starting_time <- Sys.time()
 
 ################################################################################
 # List of packages that we need
-packages <- c("ggplot2", "mia", "miaViz", "dplyr", "tidyr", "scater")
+packages <- c("ggplot2", "mia", "miaViz", "dplyr", "tidyr", "scater",
+              "ComplexHeatmap", "knitr")
 
 # Get packages that are already installed installed
 packages_already_installed <- packages[ packages %in% installed.packages() ]
@@ -164,6 +165,10 @@ For other available datasets and importing methods, check [OMA](https://microbio
 # mae <- getResult(mg, analyses)
 ```
 
+```{r, include=FALSE}
+knitr::opts_chunk$set(message=FALSE, warning=FALSE)
+```
+
 ```{r}
 library(mia)
 data("HintikkaXOData")
@@ -197,7 +202,7 @@ Additionally, the MAE contains phenotype or metadata about samples or subjects,
 that could be accessed as follows:
 
 ```{r}
-colData(MAE)
+colData(MAE) %>% head %>% knitr::kable()
 ```
 
 ### Exploring the microbiome data:
@@ -206,7 +211,8 @@ colData(MAE)
 
 ```{r}
 library(dplyr)
-rowData(MAE[[1]]) %>% as_tibble() %>% summarise_all(n_distinct)
+rowData(MAE[[1]]) %>% as_tibble() %>% summarise_all(n_distinct) %>% 
+    knitr::kable()
 ```
 
 #### Top 10 Species
@@ -225,8 +231,8 @@ plotAbundanceDensity(altExp(MAE[[1]], "Species"), assay.type = "relabundance",
                      n=10L, point_size=0.5, layout="density") +
     scale_x_log10() +
     labs(title = "Top 10 Species", x="log10(relabundance) ")+
-    theme(plot.title = element_text(hjust = 0.5, size = 12),
-          text=element_text(size = 8))
+    theme(plot.title = element_text(hjust = 0.5, size = 14),
+          text=element_text(size = 12))
 ```
 
 #### Top 10 Genera
@@ -244,8 +250,8 @@ plotAbundanceDensity(altExp(MAE[[1]], "Genus"), assay.type = "relabundance",
                      n=10L, point_size=0.5, layout="density") +
     scale_x_log10() +
     labs(title = "Top 10 Genus", x="log10(relabundance) ")+
-    theme(plot.title = element_text(hjust = 0.5, size = 12),
-          text=element_text(size = 8))
+    theme(plot.title = element_text(hjust = 0.5, size = 14),
+          text=element_text(size = 12))
 ```
 
 #### Alpha diveristy
@@ -261,7 +267,7 @@ altExp(MAE[[1]], "Species") <- estimateDiversity(altExp(MAE[[1]], "Species"),
 altExp(MAE[[1]], "Species") <- estimateRichness(altExp(MAE[[1]], "Species"),
                                                 index="observed",
                                                 assay.type="counts")
-colData(altExp(MAE[[1]], "Species"))
+colData(altExp(MAE[[1]], "Species")) %>% head() %>% knitr::kable()
 ```
 
 Let's look at the histogram of both indices:
@@ -308,6 +314,53 @@ plotReducedDim(MAE[[1]], "PCoA_BC", colour_by="Fat") +
          y = paste("PC2 (", round(100 * rel_eig[[2]],1), "%", ")", sep = ""),
          title="PCoA with Bray-Curtis")+
     theme(plot.title = element_text(hjust = 0.5))
+```
+
+### Exploring the microbiome and metabolites data:
+
+As an example of analyzing different Omics data stored at the MAE, let's look at
+the cross-correlation between microbiome Species and metabolite data:
+
+```{r, warning=FALSE, message=FALSE}
+# First we transform our microbiome Species data with log10
+altExp(MAE[[1]], "Species") <- transformAssay(altExp(MAE[[1]], "Species"),
+                                              assay.type = "counts",
+                                              method = "log10", pseudocount = 1)
+# Then we cross-correlae our microbiome data with the metabolites
+correlations <- testExperimentCrossCorrelation(MAE,
+                                               altexp1="Species",
+                                               experiment2 = 2,
+                                               assay.type1 = "log10", 
+                                               assay.type2 = "nmr",
+                                               method = "spearman", 
+                                               p_adj_threshold = NULL,
+                                               cor_threshold = NULL,
+                                               # Remove when mia is fixed
+                                               mode = "matrix",
+                                               sort = TRUE,
+                                               show_warnings = FALSE)
+```
+
+Then with the help of the "ComplexHeatmap" package we visualize the results as
+a heatmap:
+
+```{r, fig.height=30, fig.width=10, , warning=FALSE, message=FALSE}
+library(ComplexHeatmap) 
+plot <- Heatmap(correlations$cor,
+                # Print values to cells
+                cell_fun = function(j, i, x, y, width, height, fill) {
+                    # If the p-value is under threshold
+                    if( !is.na(correlations$p_adj[i, j]) & correlations$p_adj[i, j] < 0.05 ){
+                        # Print "X"
+                        grid.text(sprintf("%s", "X"), x, y, gp = gpar(fontsize = 8, col = "#1dff00"))
+                        }
+                    },
+                heatmap_legend_param = list(title = "", legend_height = unit(5, "cm")),
+                column_names_gp = grid::gpar(fontsize = 8),
+                row_names_gp = grid::gpar(fontsize = 8),
+                column_names_centered=TRUE
+                )
+plot
 ```
 
 
