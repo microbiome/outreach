@@ -118,6 +118,17 @@ Regarding the choice of the data strcuture to handle cohorts with muliple data t
 is considered to be very liable in such situation, easing-up the management and wrangling of the data; once is construced correctly. Moreover, several R packages frameworks are increasingly integrating 
 [MultiAssayExperiment](https://bioconductor.org/packages/release/bioc/html/MultiAssayExperiment.html) and the [SummarizedExperiment](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html)class, to provide users with a reliable and ease of use data structure.
 
+
+- Cohort datasets are large in size
+    - Data management, handling and wrangling --> data structure
+    - Computational power --> High performance computing (HPC) and cloud computing
+
+- [MultiAssayExperiment (MAE)](https://bioconductor.org/packages/release/bioc/html/MultiAssayExperiment.html) and [SummarizedExperiment (SE)](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html)
+    - Several R packages frameworks are increasingly integrating MAE and SE
+    - MAE enables linking of multiple experiments
+    - SE is an efficient data container to store data from an experiment
+
+
 ## miaverse (MIcrobiome Analysis) ![](figures/mia_logo.png){width="50"}
 
 - A framework for microbiome analytics
