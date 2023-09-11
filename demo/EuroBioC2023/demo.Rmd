@@ -80,7 +80,7 @@ All authors are affiliated to [Turku Data Science Group in University of Turku, 
 
 1.  Microbiome research studies interactions between microbes (and human, environment...)
 2.  Big data requires efficient tools to manipulate the data
-3.  miaverse is a SummarizedExperiment framework for microbiome analytics
+3.  miaverse is a (Tree)SummarizedExperiment framework for microbiome analytics
 
 ![Figure source: Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology 12:11.](figures/microbiome.png){width="400"}
 
@@ -116,7 +116,7 @@ plot
 -   [MultiAssayExperiment (MAE)](https://bioconductor.org/packages/release/bioc/html/MultiAssayExperiment.html) and [SummarizedExperiment (SE)](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html)
     -   Several R packages frameworks are increasingly integrating MAE and SE
     -   MAE enables linking of multiple experiments
-    -   SE is an efficient data container to store data from an experiment
+    -   SE -- and especially TreeSE -- is an efficient data container to store data from an experiment
 
 ## miaverse (MIcrobiome Analysis) ![](figures/mia_logo.png){width="50"}
 
@@ -128,8 +128,8 @@ plot
 -   Based on *TreeSummarizedExperiment (TreeSE)* class
     -   Supports hierarchical data
     -   *phyloseq* class is a subset of *TreeSE*
-    -   Extension of *SingleCellExperiment* class
-    -   miaverse is compatible with other *SummarizedExperiment* frameworks
+    -   Extension of *SingleCellExperiment (SCE)* class
+    -   miaverse is compatible with other *SummarizedExperiment* frameworks (especially [scater package](https://bioconductor.org/packages/release/bioc/html/scater.html))
 -   Purpose to offer tools and tips for microbiome data analysis
 -   Enables development of versatile analytical workflows in microbiome data science
     -   Supports multiomics (*MultiAssayExperiment* class)
@@ -288,7 +288,7 @@ if there are lots of different bacterial species, the alpha diversity is higher.
 Again, miaverse includes convenient tools to calculate alpha diversities of samples
 and to visualize them.
 
-Here we analyze if aplha diversities differ between location.
+Here we analyze if alpha diversities differ between locations.
 
 ```{r alpha}
 # Calculate
@@ -323,7 +323,7 @@ reducedDim(mae[[1]], "dbRDA")
 ```
 
 As we can see, location has significant effect on microbial profile. However,
-from above we can see that group dispersions are not homogenic which is an
+from above we can see that groups do not have similar variance which is an
 assumption of PERMANOVA. This has to be taken into account when making conclusions.
 
 ```{r beta2}
@@ -394,7 +394,7 @@ First we subset the gene function prediction data by taking only those features
 whose abundance varies the most across samples.
 
 ```{r crosscorr1}
-# Transform assays
+# Transform assay
 mae[[2]] <- transformAssay(mae[[2]], method = "log10", pseudocount = 1)
 mae[[2]] <- transformAssay(mae[[2]], assay.type = "log10", method = "z", name = "log10_z")
 # Get coefficients of variances
@@ -446,27 +446,20 @@ Finally, we can save the data container which contains our analysis results.
 saveRDS(mae, "data/mae_results.Rds")
 ```
 
-## Thanks!
+## Thank you for your time!
 
-<img src="figures/mia_logo.png" style="float: right;" width="140"/>
+<img src="figures/mia_logo.png" style="float: right;" width="200"/>
 
 ### Key points
 
 1.  Microbiome research studies interactions between microbes (and human, environment...)
 2.  Big data requires efficient tools to manipulate the data
-3.  miaverse is a SummarizedExperiment framework for microbiome analytics
+3.  miaverse is a (Tree)SummarizedExperiment framework for microbiome analytics
 
 ### More information
 
 - [Project website](https://microbiome.github.io/)
-- [Orchestrating Microbiome Analysis, OMA (tutorial book)](https://microbiome.github.io/OMA/)
 - Poster: miaverse -- microbiome analytics framework in SummarizedExperiment family
-
--   more material in OMA
--   miaverse logo
--   project website and QR also.
--   Contact info
--   Poster info
 
 ## Session info
 
