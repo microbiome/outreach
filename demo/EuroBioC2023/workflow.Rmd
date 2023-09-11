@@ -9,7 +9,6 @@ output:
 ---
 
 ```{r setup, message=FALSE, class.source = 'fold-hide'}
-################################################################################
 # List of packages that we need
 packages <- c(
     "ANCOMBC", "ComplexHeatmap", "ggplot2", "knitr", "mia", "miaViz", "dplyr",
