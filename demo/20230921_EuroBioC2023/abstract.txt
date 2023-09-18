@@ -1,0 +1,9 @@
+Microbiome data integration workflow for population cohort studies
+
+Author(s): Chouaib Benchraka,Tuomas Borman,Leo M Lahti
+
+Affiliation(s): Department of Computing, University of Turku, Finland
+
+
+
+Contemporary microbiome research draws substantially from the heterogeneous omics data sets collected from population cohorts. These data resources are used as discovery cohorts as well as for analytical methods development purposes. Systematically structuring and organizing such data for downstream integration and analyses, and developing scalable analysis methods is essential. The modern multi-assay data containers provide an efficient framework for the integration of omics data from microbiome studies. In particular, the SummarizedExperiment family has been adopted for taxonomic profiling analysis and in multi-omics integration tasks, providing efficient tools to deal with hierarchical data and incorporating various forms of background information and additional omics data that we now frequently encounter in microbiome research. This has enabled a solid methods infrastructure that can be used to build versatile analytical workflows in microbiome data science. We introduce a novel workflow that takes advantage of Bioconductor's multi-assay framework to support data wrangling, visualization, and statistical analysis, with a particular focus on population studies. In particular, we will discuss the challenges and solutions in data integration, in scaling up the analyses and in providing concise summaries for heterogeneous combinations of population-scale omics data sets. These workflows can be deployed for new microbiome data collections, helping to streamline many common analysis tasks in population cohort and related studies. We conclude by discussing the needs of development and elaborated next steps in developing standardized workflows for population-based microbiome research. 
