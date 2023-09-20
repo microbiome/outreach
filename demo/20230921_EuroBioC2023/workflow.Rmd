@@ -11,10 +11,10 @@ output:
 ```{r setup, message=FALSE, class.source = 'fold-hide'}
 # List of packages that we need
 packages <- c(
-    "ANCOMBC", "ComplexHeatmap", "ggplot2", "knitr", "mia", "miaViz", "dplyr",
-    "tidyr", "scater", "knitr")
+    "ANCOMBC", "ComplexHeatmap", "dplyr", "ggplot2", "knitr", "mia", "miaViz",
+    "scater", "tidyr")
 
-# Get packages that are already installed installed
+# Get packages that are already installed
 packages_already_installed <- packages[ packages %in% installed.packages() ]
 
 # Get packages that need to be installed
@@ -63,7 +63,7 @@ theme_set(theme)
 -   European Bioconductor Conference 2023
 -   Ghent, Belgium
 -   September 21, 2023; 13:30 (CEST)
--   **See the poster also (miaverse -- microbiome analytics framework in SummarizedExperiment family)!**
+-   **See the poster also (miaverse -- microbiome analysis framework in SummarizedExperiment family)!**
 
 #### Presenter information
 
@@ -78,8 +78,8 @@ All authors are affiliated to [Turku Data Science Group in University of Turku, 
 ## Learning goals
 
 1.  Microbiome research studies interactions between microbes (and human, environment...)
-2.  Big data requires efficient tools to manipulate the data
-3.  miaverse is a (Tree)SummarizedExperiment framework for microbiome analytics
+2.  Big data requires efficient tools to manipulate data
+3.  miaverse is a *(Tree)SummarizedExperiment* framework for microbiome data analysis
 
 ![Figure source: Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology 12:11.](figures/microbiome.png){width="400"}
 
@@ -88,10 +88,9 @@ All authors are affiliated to [Turku Data Science Group in University of Turku, 
 ### Microbiome research
 
 -   Microbiome is a composition of microbes in well-defined area (gut, skin, mouth...)
--   Bilateral interaction between human and microbiome --> affects both health and disease.
--   The research is based on sequencing (characterization of genes and species).
--   Nowadays, multiomics approach is more common (integration of taxonomy information with metabolite data, for example)
--   Computational methods are the new microscope
+-   Bilateral interaction between human and microbiome --> affects both health and disease
+-   The research is based on sequencing (characterization of genes and species)
+    -   Multiomics approach has become more common (integration of taxonomy information with metabolite data, for example)
 -   The research has expanded rapidly in previous years
 
 ```{r pubmed_fig, fig.width=6, fig.cap="PubMed publications per year with a search term 'microbiome' (fetched: Sep 5, 2023)", class.source = 'fold-hide'}
@@ -110,32 +109,31 @@ plot
 ### Big data
 
 -   Cohort datasets are large in size
-    -   Data management, handling and wrangling --\> data structure
+    -   Data management, handling and wrangling --\> data containers
     -   Computational power --\> High performance computing (HPC) and cloud computing
--   [MultiAssayExperiment (MAE)](https://bioconductor.org/packages/release/bioc/html/MultiAssayExperiment.html) and [SummarizedExperiment (SE)](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html)
-    -   Several R packages frameworks are increasingly integrating MAE and SE
-    -   MAE enables linking of multiple experiments
-    -   SE -- and especially TreeSE -- is an efficient data container to store data from an experiment
+-   *[MultiAssayExperiment (MAE)](https://bioconductor.org/packages/release/bioc/html/MultiAssayExperiment.html)* and *[SummarizedExperiment (SE)](https://bioconductor.org/packages/release/bioc/html/SummarizedExperiment.html)*
+    -   Several R packages frameworks are increasingly integrating *MAE* and *SE*
+    -   *MAE* enables linking of multiple experiments
+    -   *SE* -- and especially *TreeSE* -- is an efficient data container for handling data from an experiment
 
 ## miaverse (MIcrobiome Analysis) ![](figures/mia_logo.png){width="50"}
 
--   A framework for microbiome analytics
+-   A framework for microbiome data analysis
     -   [mia (analysis)](https://bioconductor.org/packages/release/bioc/html/mia.html)
     -   [miaViz (visualization)](https://bioconductor.org/packages/release/bioc/html/miaViz.html)
     -   [miaSim (simulation)](https://bioconductor.org/packages/release/bioc/html/miaSim.html)
     -   [Orchestrating Microbiome Analysis, OMA (tutorial book)](https://microbiome.github.io/OMA/)
--   Based on *TreeSummarizedExperiment (TreeSE)* class
+-   Based on *[TreeSummarizedExperiment (TreeSE)](https://f1000research.com/articles/9-1246)* class
     -   Supports hierarchical data
     -   *phyloseq* class is a subset of *TreeSE*
     -   Extension of *SingleCellExperiment (SCE)* class
-    -   miaverse is compatible with other *SummarizedExperiment* frameworks (especially [scater package](https://bioconductor.org/packages/release/bioc/html/scater.html))
--   Purpose to offer tools and tips for microbiome data analysis
+        -   miaverse is compatible with other *SummarizedExperiment* frameworks (especially [scater](https://bioconductor.org/packages/release/bioc/html/scater.html) package)
 -   Enables development of versatile analytical workflows in microbiome data science
     -   Supports multiomics (*MultiAssayExperiment* class)
     -   Scalable
     -   Standardized
 
-![The structure of the TreeSummarizedExperiment (TreeSE) class.](figures/treese.png){width="700"}
+![The structure of the *TreeSummarizedExperiment (TreeSE)* class.](figures/treese.png){width="700"}
 
 ## The workflow
 
@@ -147,14 +145,14 @@ Find more information from there.
 We fetch the data from [MGnify database](https://www.ebi.ac.uk/metagenomics).
 It is a EMBL-EBI's database for metagenomic data. This large microbiome database
 can be accessed with *MGnifyR* package which nowadays support *TreeSE*.
-The package will be submitted to Bioconductor's next release.
+The package will be submitted to Bioconductor in the next release.
 
-We chose dataset of [study MGYS00005128](https://www.ebi.ac.uk/metagenomics/studies/MGYS00005128#overview).
+We chose the dataset from the [study MGYS00005128](https://www.ebi.ac.uk/metagenomics/studies/MGYS00005128#overview).
 In this study, they studied antibiotic resistance. They collected data from
 Cambodia, Kenya and UK. The dataset contains total of 1197 samples with taxonomy
 and gene function prediction data.
 
-As loading takes some time, the dataset is already loaded.
+Because loading takes some time, the dataset is already loaded.
 
 ```{r import1}
 # library(MGnifyR)
@@ -174,24 +172,24 @@ mae <- readRDS("data/mae.Rds")
 
 ### The data containers
 
-MAE stores multiple experiments, in this case 2 (taxonomy and gene function prediction info).
+*MAE* stores multiple experiments, in this case two (taxonomy and gene function prediction data).
 
 ```{r data_container1}
 mae
 ```
 
-We can have general information on samples of the study in sample metadata of MAE.
+We can have general information on samples of the study in sample metadata (*colData* slot) of *MAE*.
 
 ```{r data_container2}
-colData(mae)[1:5, 1:5] %>% kable()
+colData(mae) %>% head(c(5,5)) %>% kable()
 ```
 
-MAE and TreeSE objects have rows and columns. This means that we can subset the
-data similarly to other objects that have rows and columns (like data.frame).
-In MAE, experiments and samples are linked together, meaning that we can subset
-the data at one go.
+*MAE* and *TreeSE* objects have rows and columns. This means that we can subset the
+data similarly to other objects that have rows and columns (like *data.frame*).
+In *MAE*, experiments and samples are linked together, meaning that we can subset
+the data at one go (you don't have to keep record on order of samples between experiments).
 
-For demonstrative purpose and for saving resources, let's subset the data by
+For demonstrative purpose and for saving computational resources, let's subset the data by
 taking 100 random samples. 
 
 ```{r data_container3}
@@ -201,7 +199,7 @@ mae <- mae[, random_samples]
 mae
 ```
 
-The first experiment / TreeSE includes taxonomy information.
+The first experiment / *TreeSE* includes taxonomy information.
 
 ```{r data_container4}
 mae[[1]]
@@ -214,14 +212,14 @@ fetch the data by specifying index or name of experiment.
 mae[["go-slim"]]
 ```
 
-Taxonomy information includes phylogenetic table in its feature metadata.
+Taxonomy data includes phylogenetic table in its feature metadata (*rowData* slot).
 
 ```{r data_container6}
 rowData(mae[[1]]) %>% head() %>% kable()
 ```
 
-Compared to phyloseq object, TreeSE can hold more data, for example, multiple
-assays. Let's transform the data. Transformed table is stored to assays slot.
+Compared to *phyloseq* object, *TreeSE* can hold more data, for example, multiple
+assays. Let's transform the data. Transformed table is stored to *assays* slot.
 
 ```{r data_container7}
 mae[[1]] <- transformAssay(mae[[1]], method = "relabundance")
@@ -239,11 +237,11 @@ rowData(mae[[1]]) %>% as_tibble() %>% summarise_all(n_distinct) %>% kable()
 
 A common operation in microbiome data analysis is agglomeration. This means
 that we sum-up the data to certain taxonomy levels. We can use
-_mia::mergeFeaturesByRank_ function for agglomerating data to single
+*mia::mergeFeaturesByRank* function for agglomerating data to single
 taxonomy level. If we want to agglomerate the data to all found taxonomy levels
-with one command, we can use _mia::splitByRanks_.
+with one command, we can use *mia::splitByRanks*.
 
-altExp slot is the right place to store experiments with modified features
+*altExps* slot is the right place to store experiments with modified features
 (such as agglomerated or subsetted data).
 
 ```{r summarize2}
@@ -251,29 +249,33 @@ altExps(mae[[1]]) <- splitByRanks(mae[[1]])
 mae[[1]]
 ```
 
-We can fetch agglomerated data from the slot. We can see that instead of 2207
+We can fetch agglomerated data from the slot We can see that instead of 2207
 features, there is only 5 features in the data that is summed-up to kingdom level.
+
+(NOTE: *altExp*, not *altExps*. The latter is a list and the first is for fetching
+data from the list. Similarly to *assay* and *assays*.)
 
 ```{r summarize3}
 altExp(mae[[1]], "Kingdom")
 ```
 
-assays include agglomerated abundance tables.
+*assays* include agglomerated abundance tables.
 
 ```{r summarize4}
-assay(altExp(mae[[1]], "Kingdom"), "counts") %>% head() %>% kable()
+assay(altExp(mae[[1]], "Kingdom"), "counts") %>% head(c(5,5)) %>% kable()
 ```
 
-To visualize phylogenetic relations, we can first create a phylogenetic tree
-based on rowData, and then plot it. The tree is created in family level.
+To visualize phylogenetic relations (here in family level), we can first create a phylogenetic tree
+based on *rowData*. The tree is stored in *rowTree* slot. miaverse includes also
+methods for plotting trees.
 
 ```{r summarize5}
 altExp(mae[[1]], "Family") <- addTaxonomyTree(altExp(mae[[1]], "Family"))
 plotRowTree(altExp(mae[[1]], "Family"), edge_colour_by = "Kingdom")
 ```
 
-miaverse includes several visualizing methods. For example, we can visualize
-relative abundances of 10 most abundant phyla.
+In addition to plotting trees, miaverse includes several other visualizing methods.
+For example, we can visualize relative abundances of 10 most abundant phyla.
 
 ```{r summarize6}
 plotAbundanceDensity(
@@ -282,7 +284,7 @@ plotAbundanceDensity(
 
 ### Alpha diversity
 
-Alpha diversity measures how diverse the microbial composition is. For example,
+Alpha diversity measures how diverse the microbial composition is in a sample. For example,
 if there are lots of different bacterial species, the alpha diversity is higher.
 Again, miaverse includes convenient tools to calculate alpha diversities of samples
 and to visualize them.
@@ -300,14 +302,14 @@ plotColData(mae[[1]], y = "shannon", x = "location", colour_by = "location") +
 
 ### Beta diversity
 
-Beta diversity measures differences of microbial profiles of samples. There are
-several techniques Principal Component Analysis (PCA) being the most well-known
+Beta diversity measures differences and similarities of microbial profiles between samples.
+There are several techniques Principal Component Analysis (PCA) being the most well-known
 ordination method. Distance-based redundancy analysis (dbRDA) is supervised
 ordination method which takes into account sample metadata. It maximizes the
 variance with respect to covariates.
 
 Here we analyze if location can explain the differences in microbial profile.
-The result is stored to reducedDim slot.
+The result is stored to *reducedDim* slot.
 
 ```{r beta1}
 mae[[1]] <- runRDA(
@@ -331,7 +333,7 @@ plotRDA(mae[[1]], "dbRDA", colour_by = "location")
 
 ### Differential abundance analysis (DAA)
 
-The idea of DAA is to analyze, if there are bacteria whose abundance differ
+The idea of DAA is to analyze, if there are individual bacteria whose abundance differ
 between groups. There are multiple methods to test this (such as basic Wilcoxon test).
 [ANCOM-BC](https://www.nature.com/articles/s41467-020-17041-7) is a method
 that takes into consideration unique characters and features of microbial data.
@@ -368,7 +370,9 @@ We can visualize statistically significant features with boxplot.
 
 ```{r daa3, fig.width=12}
 # Get the data from assay, rowData and colData
-df <- meltAssay(altExp(mae[[1]], "Phylum"), assay.type = "relabundance", add_col_data = TRUE, add_row_data = TRUE)
+df <- meltAssay(
+    altExp(mae[[1]], "Phylum"), assay.type = "relabundance",
+    add_col_data = TRUE, add_row_data = TRUE)
 # Take only significant features
 df <- df[ df$diff_abn, ]
 # Plot
@@ -396,7 +400,7 @@ whose abundance varies the most across samples.
 # Transform assay
 mae[[2]] <- transformAssay(mae[[2]], method = "log10", pseudocount = 1)
 mae[[2]] <- transformAssay(mae[[2]], assay.type = "log10", method = "z", name = "log10_z")
-# Get coefficients of variances
+# Get coefficient of variances
 rowData(mae[[2]])[["cv"]] <- apply( assay(mae[[2]], "log10_z"), 1, function(x) sd(x)/mean(x) )
 # Subset the data by taking top 40 features
 top_feat <- order(abs(rowData(mae[[2]])[["cv"]]), decreasing = TRUE)[1:40]
@@ -452,13 +456,14 @@ saveRDS(mae, "data/mae_results.Rds")
 ### Key points
 
 1.  Microbiome research studies interactions between microbes (and human, environment...)
-2.  Big data requires efficient tools to manipulate the data
-3.  miaverse is a (Tree)SummarizedExperiment framework for microbiome analytics
+2.  Big data requires efficient tools to manipulate data
+3.  miaverse is a *(Tree)SummarizedExperiment* framework for microbiome data analysis
 
 ### More information
 
 - [Project website](https://microbiome.github.io/)
-- Poster: miaverse -- microbiome analytics framework in SummarizedExperiment family
+- Join #miaverse Bioc Slack channel
+- Poster: miaverse -- microbiome analysis framework in SummarizedExperiment family
 
 ## Session info
 
