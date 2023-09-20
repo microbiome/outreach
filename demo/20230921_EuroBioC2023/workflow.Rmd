@@ -9,6 +9,24 @@ output:
 ---
 
 ```{r setup, message=FALSE, class.source = 'fold-hide'}
+# Define the directory names of the dependent data
+directories <- c("data", "figures")
+
+# Check if any of the directories is missing
+if (any(!dir.exists(directories))) {
+  # Define the URL of the tar.gz file created with `tar -cvf 20230921_EuroBioC2023.tar.gz data/ figures/ workflow.html`
+  url <- "https://raw.githubusercontent.com/microbiome/outreach/main/demo/20230921_EuroBioC2023/20230921_EuroBioC2023.tar.gz"
+
+  # Extract the local file name from the URL
+  local_file <- basename(url)
+
+  # Download the file from the URL
+  download.file(url, local_file)
+
+  # Untar the downloaded file in the current directory
+  untar(local_file, exdir = ".")
+}
+
 # List of packages that we need
 packages <- c(
     "ANCOMBC", "ComplexHeatmap", "dplyr", "ggplot2", "knitr", "mia", "miaViz",
