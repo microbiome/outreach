@@ -10,6 +10,7 @@ project:
     - starting.qmd
     - reproducible_workflow.qmd
     - datacontainers.qmd
+    - data_manipulation.qmd    
     - summarizedexperiment.qmd
     - day2.qmd
     - treese.qmd

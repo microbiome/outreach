@@ -7,7 +7,7 @@
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.2.475">
+  <meta name="generator" content="quarto-1.0.38">
 
   <title>Reproducible data science workflow</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -18,15 +18,10 @@
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
-    div.columns{display: flex; gap: min(4vw, 1.5em);}
-    div.column{flex: auto; overflow-x: auto;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
     div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
     ul.task-list{list-style: none;}
-    ul.task-list li input[type="checkbox"] {
-      width: 0.8em;
-      margin: 0 0.8em 0.2em -1.6em;
-      vertical-align: middle;
-    }
   </style>
   <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto.css" id="theme">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -322,13 +317,10 @@
   <div class="reveal">
     <div class="slides">
 
-<section id="title-slide" class="quarto-title-block center">
+<section id="title-slide" class="center">
   <h1 class="title">Reproducible data science workflow</h1>
-
-<div class="quarto-title-authors">
-</div>
-
 </section>
+
 <section id="reproducible-notebooks" class="slide level2">
 <h2>Reproducible notebooks</h2>
 <ul>
@@ -408,53 +400,6 @@
 <li><p>Quarto tips &amp; tricks &amp; hacks?</p></li>
 <li><p>Installing new packages</p></li>
 <li><p>importing new data sets to R for interactive data analysis: read.csv, read.biom etc. where to find examples (see OMA section on data import)</p></li>
-</ul>
-</section>
-<section id="exercises-17.3-prepare-the-data-in-quarto" class="slide level2">
-<h2>Exercises 17.3: prepare the data in Quarto</h2>
-<ul>
-<li><p>Load HintikkaXOData and extract the microbiota data element</p></li>
-<li><p>Add colData from mae to the microbiota experiment</p></li>
-<li><p>Extra: create the data from source files in the shared data folder (ask Giulio for support; OMA section 3.4).</p></li>
-</ul>
-</section>
-<section id="subsetting" class="slide level2">
-<h2>Subsetting</h2>
-<ul>
-<li><p>Show how to subset microbiota data (ex. 17.3.1)</p></li>
-<li><p><strong>Subset to the most prevalent taxa (17.3.3)</strong> (tip: subsetByPrevalentFeatures)</p>
-<ul>
-<li>for count assay; how many features remain?</li>
-<li>for relative abundance assay; how many features remain?</li>
-</ul></li>
-</ul>
-</section>
-<section id="agglomeration" class="slide level2">
-<h2>Agglomeration</h2>
-<p>Agglomerate the microbiota data to higher taxonomic levels:</p>
-<ul>
-<li>chapter 6.3</li>
-<li>agglomerateByRank</li>
-</ul>
-</section>
-<section id="extra-exercises-17.3" class="slide level2">
-<h2>Extra exercises 17.3</h2>
-<ul>
-<li>library sizes &amp; rarification (17.3.2)</li>
-</ul>
-</section>
-<section id="exercises-17.5.1-17.5.2-coldata-diversity" class="slide level2">
-<h2>Exercises 17.5.1-17.5.2: colData &amp; diversity</h2>
-<ul>
-<li>Add Shannon diversity in colData</li>
-<li>Visualize diversity differences between sample groups</li>
-</ul>
-</section>
-<section id="transformations" class="slide level2">
-<h2>Transformations</h2>
-<ul>
-<li>transform to alternative assays and show histograms for the whole assay</li>
-<li>transform to alternative assays; boxplots for selected feature</li>
 </ul>
 
 <div class="footer footer-default">
@@ -710,24 +655,7 @@
         button.classList.add('code-copy-button-checked');
         var currentTitle = button.getAttribute("title");
         button.setAttribute("title", "Copied!");
-        let tooltip;
-        if (window.bootstrap) {
-          button.setAttribute("data-bs-toggle", "tooltip");
-          button.setAttribute("data-bs-placement", "left");
-          button.setAttribute("data-bs-title", "Copied!");
-          tooltip = new bootstrap.Tooltip(button, 
-            { trigger: "manual", 
-              customClass: "code-copy-button-tooltip",
-              offset: [0, -8]});
-          tooltip.show();    
-        }
         setTimeout(function() {
-          if (tooltip) {
-            tooltip.hide();
-            button.removeAttribute("data-bs-title");
-            button.removeAttribute("data-bs-toggle");
-            button.removeAttribute("data-bs-placement");
-          }
           button.setAttribute("title", currentTitle);
           button.classList.remove('code-copy-button-checked');
         }, 1000);
@@ -757,50 +685,31 @@
       for (var i=0; i<noterefs.length; i++) {
         const ref = noterefs[i];
         tippyHover(ref, function() {
-          // use id or data attribute instead here
-          let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+          let href = ref.getAttribute('href');
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
           return note.innerHTML;
         });
       }
-      const findCites = (el) => {
-        const parentEl = el.parentElement;
-        if (parentEl) {
-          const cites = parentEl.dataset.cites;
-          if (cites) {
-            return {
-              el,
-              cites: cites.split(' ')
-            };
-          } else {
-            return findCites(el.parentElement)
-          }
-        } else {
-          return undefined;
-        }
-      };
       var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
       for (var i=0; i<bibliorefs.length; i++) {
         const ref = bibliorefs[i];
-        const citeInfo = findCites(ref);
-        if (citeInfo) {
-          tippyHover(citeInfo.el, function() {
-            var popup = window.document.createElement('div');
-            citeInfo.cites.forEach(function(cite) {
-              var citeDiv = window.document.createElement('div');
-              citeDiv.classList.add('hanging-indent');
-              citeDiv.classList.add('csl-entry');
-              var biblioDiv = window.document.getElementById('ref-' + cite);
-              if (biblioDiv) {
-                citeDiv.innerHTML = biblioDiv.innerHTML;
-              }
-              popup.appendChild(citeDiv);
-            });
-            return popup.innerHTML;
+        const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+        tippyHover(ref, function() {
+          var popup = window.document.createElement('div');
+          cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
           });
-        }
+          return popup.innerHTML;
+        });
       }
     });
     </script>
