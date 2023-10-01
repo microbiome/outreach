@@ -1,0 +1,60 @@
+---
+title: "Data manipulation"
+format: revealjs
+editor: visual
+---
+
+
+
+## Import example data
+
+- Load demo data (OMA section 3.3).
+
+- Extra: create the data straight from source files in the shared data folder (OMA section 3.4).
+
+
+## Investigate the data elements
+
+Extract the microbiota data elements (ch 3.2):
+
+- column data (sample data)
+- row data (feature data)
+- assays (abundance matrices)
+- other data elements
+
+
+## Subsetting
+
+- Show how to subset microbiota data (ex. 17.3.1)
+
+- **Subset to the most prevalent taxa (17.3.3)** (tip: subsetByPrevalentFeatures)
+
+  - for count assay; how many features remain? 
+  - for relative abundance assay; how many features remain? 
+
+
+## Agglomeration
+
+Agglomerate the microbiota data to higher taxonomic levels:
+
+- chapter 6.3
+- agglomerateByRank
+
+
+## Extra exercises 17.3 
+
+- library sizes & rarification (17.3.2)
+
+
+## Exercises 17.5.1-17.5.2: colData & diversity
+
+- Add Shannon diversity in colData
+- Visualize diversity differences between sample groups
+
+
+## Transformations
+
+- transform to alternative assays and show histograms for the whole assay
+- transform to alternative assays; boxplots for selected feature
+
+

@@ -9,7 +9,7 @@
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.0.38">
 
-  <title>Bioconductor</title>
+  <title>Data manipulation</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -318,100 +318,64 @@
     <div class="slides">
 
 <section id="title-slide" class="center">
-  <h1 class="title">Bioconductor</h1>
+  <h1 class="title">Data manipulation</h1>
 </section>
 
-<section id="section" class="slide level2">
-<h2></h2>
-
-<img data-src="images/paste-1E7AEB60.png" class="r-stretch"></section>
-<section id="data-science-workflow" class="slide level2">
-<h2>Data science workflow</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/paste-8AAEF32A.png" width="688"></p>
-<p></p><figcaption>R for Data Science / H. Wickham</figcaption><p></p>
-</figure>
-</div>
-<p><img data-src="images/paste-92ACC42B.png"></p>
+<section id="import-example-data" class="slide level2">
+<h2>Import example data</h2>
+<ul>
+<li><p>Load demo data (OMA section 3.3).</p></li>
+<li><p>Extra: create the data straight from source files in the shared data folder (OMA section 3.4).</p></li>
+</ul>
 </section>
-<section id="data-analysis-package-ecosystem" class="slide level2">
-<h2>Data analysis package ecosystem</h2>
-
-<img data-src="images/paste-BA8F36BD.png" class="r-stretch"></section>
-<section id="number-of-open-analysis-tools-has-increased-exponentially" class="slide level2">
-<h2>Number of open analysis tools has increased exponentially</h2>
-
-<img data-src="images/paste-D7E05B23.png" class="r-stretch"></section>
-<section id="section-1" class="slide level2">
-<h2></h2>
-<h3 id="package-ecosystem-microbiome-ecology">Package ecosystem: microbiome ecology<img data-src="images/paste-89E533F7.png" width="728"></h3>
+<section id="investigate-the-data-elements" class="slide level2">
+<h2>Investigate the data elements</h2>
+<p>Extract the microbiota data elements (ch 3.2):</p>
+<ul>
+<li>column data (sample data)</li>
+<li>row data (feature data)</li>
+<li>assays (abundance matrices)</li>
+<li>other data elements</li>
+</ul>
 </section>
-<section id="section-2" class="slide level2 smaller">
-<h2></h2>
-<p><img data-src="images/paste-9E1A48AE.png" width="263"></p>
-<p>Started in 2001 as a platform for microarray data analysis</p>
-<div class="columns">
-<div class="column" style="width:40%;">
-<p>Now 2140+ packages:</p>
-<p>- Sequencing (DNA, RNA, ChIP, SC)</p>
-<p>- Proteomics</p>
-<p>- Metabolomics</p>
-<p>- Multi-omics integration</p>
-</div><div class="column" style="width:60%;">
-<p><img data-src="images/paste-16A0BA51.png" width="306"></p>
-</div>
-</div>
+<section id="subsetting" class="slide level2">
+<h2>Subsetting</h2>
+<ul>
+<li><p>Show how to subset microbiota data (ex. 17.3.1)</p></li>
+<li><p><strong>Subset to the most prevalent taxa (17.3.3)</strong> (tip: subsetByPrevalentFeatures)</p>
+<ul>
+<li>for count assay; how many features remain?</li>
+<li>for relative abundance assay; how many features remain?</li>
+</ul></li>
+</ul>
 </section>
-<section id="section-3" class="slide level2">
-<h2></h2>
-<p><img data-src="images/paste-9E1A48AE.png" width="263"></p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<h4 id="collaborative-development">Collaborative development</h4>
-<p>- 50,000+ papers in PubMed</p>
-<p>- software &amp; data repository</p>
-<p>- tutorials &amp; documentation</p>
-<p>- bioinformatics peer support</p>
-</div><div class="column" style="width:50%;">
-<p><img data-src="images/paste-1BE39B3A.png" width="300"></p>
-</div>
-</div>
+<section id="agglomeration" class="slide level2">
+<h2>Agglomeration</h2>
+<p>Agglomerate the microbiota data to higher taxonomic levels:</p>
+<ul>
+<li>chapter 6.3</li>
+<li>agglomerateByRank</li>
+</ul>
 </section>
-<section id="section-4" class="slide level2">
-<h2></h2>
-<p><img data-src="images/paste-9E1A48AE.png" width="263"></p>
-<div class="columns">
-<div class="column" style="width:50%;">
-<p><strong>Management</strong></p>
-<p>- Core team</p>
-<p>- SAB &amp; TAB &amp; CAB</p>
-<p>- Global contributor base</p>
-</div><div class="column" style="width:50%;">
-<p><img data-src="images/paste-DB32EFB2.png" width="226"></p>
-<p><img data-src="images/paste-BB617EEC.png" width="130"></p>
-</div>
-</div>
+<section id="extra-exercises-17.3" class="slide level2">
+<h2>Extra exercises 17.3</h2>
+<ul>
+<li>library sizes &amp; rarification (17.3.2)</li>
+</ul>
 </section>
-<section id="collaborative-development-1" class="slide level2">
-<h2>Collaborative development</h2>
-
-<img data-src="images/paste-7A47899A.png" class="r-stretch"></section>
-<section id="cultures-of-open-collaboration" class="slide level2">
-<h2>Cultures of open collaboration</h2>
-
-<img data-src="images/paste-505993C5.png" class="r-stretch"></section>
-<section id="open-data-science-ecosystems" class="slide level2">
-<h2>Open data science ecosystems</h2>
-
-<img data-src="images/paste-E23FCD8F.png" class="r-stretch"></section>
-<section id="rbioc-community" class="slide level2">
-<h2>R/Bioc community</h2>
-<p>(Global) Bioconductor conference</p>
-<p>Asian Bioconductor conference</p>
-<p>European Bioconductor conference Gent, Sep 2023</p>
-<p><img data-src="images/paste-424E5F35.png" width="327"></p>
-<p><img data-src="images/paste-5D1F38D5.png" width="212"></p>
+<section id="exercises-17.5.1-17.5.2-coldata-diversity" class="slide level2">
+<h2>Exercises 17.5.1-17.5.2: colData &amp; diversity</h2>
+<ul>
+<li>Add Shannon diversity in colData</li>
+<li>Visualize diversity differences between sample groups</li>
+</ul>
+</section>
+<section id="transformations" class="slide level2">
+<h2>Transformations</h2>
+<ul>
+<li>transform to alternative assays and show histograms for the whole assay</li>
+<li>transform to alternative assays; boxplots for selected feature</li>
+</ul>
 
 <div class="footer footer-default">
 
