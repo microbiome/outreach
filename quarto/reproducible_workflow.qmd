@@ -14,9 +14,9 @@ editor: visual
 
 -   Supported by RStudio
 
-Basic knowledge is already assumed; the preliminary material included a link to Rmarkdown & Quarto tutorial videos.
+The pre-study material includes a link to Rmarkdown & Quarto tutorial videos. See OMA chapter 17: https://microbiome.github.io/OMA/exercises.html
 
-Quarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see <https://quarto.org/docs/presentations/>.
+Quarto enables you to weave together content and executable code into a finished presentation. To learn more, see <https://quarto.org/docs/presentations/>.
 
 
 ## Literate programming
