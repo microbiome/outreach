@@ -106,16 +106,12 @@ Now 2140+ packages:
 
 ![](images/paste-E23FCD8F.png)
 
-
-
 ## R/Bioc community
 
 (Global) Bioconductor conference
 
 Asian Bioconductor conference
 
-European Bioconductor conference Gent, Sep 2023
+European Bioconductor conference
 
 ![](images/paste-424E5F35.png){width="327"}
-
-![](images/paste-5D1F38D5.png){width="212"}
