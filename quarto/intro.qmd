@@ -132,6 +132,7 @@ Primary focus: microbiome research; methods are generally applicable to transcri
 ## Support
 
 -   Post-it stickers
+-   Feedback at lunch and end of each day using minute cards
 -   Practical info at the [course website](https://microbiome.github.io/course_2023_oulu) <!--([gdoc](https://docs.google.com/document/d/1sS3nqe5l6UrzZqsTOuqHvS4OIpTvd7Thagt5aKSw7EI/edit))-->
 -   Online chat (Gitter) <https://gitter.im/microbiome/miaverse>
 -   [Google Doc](https://docs.google.com/document/d/1CEQ2d5g-zMoANhtHGbcKbW4DhElovPHz6iChjSX6Md8/edit?usp=sharing) **Questions at the end of the gdoc are welcome**
