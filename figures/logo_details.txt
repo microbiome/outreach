@@ -1,0 +1,4 @@
+Details of mia logo
+- mia font: Monotype Corsiva
+- mia green: c4bc00ff
+- mia yellow: fff995ff
