@@ -14,10 +14,9 @@ editor: visual
 
 -   Supported by RStudio
 
-The pre-study material includes a link to Rmarkdown & Quarto tutorial videos. See OMA chapter 17: https://microbiome.github.io/OMA/exercises.html
+The pre-study material includes a link to Rmarkdown & Quarto tutorial videos. See OMA Exercise chapter: https://microbiome.github.io/OMA/exercises.html
 
 Quarto enables you to weave together content and executable code into a finished presentation. To learn more, see <https://quarto.org/docs/presentations/>.
-
 
 ## Literate programming
 
@@ -32,7 +31,6 @@ Programming paradigm introduced by Donald Knuth (1984) in which a computer progr
 
 -   Literate programming tools are used by millions of programmers today.
 
-
 ## Quarto demo (GB)
 
 Let us first demonstrate Quarto.
@@ -46,10 +44,9 @@ Let us first demonstrate Quarto.
 
 ## Quarto exercise
 
-OMA Exercise: 
+OMA Exercise:
 
-17.1.1 Reproducible reporting with Quarto
-
+18.2.1 Reproducible reporting with Quarto
 
 ## Task 1: Reproducible reporting {.smaller}
 
@@ -83,20 +80,31 @@ For more tips, see [Quarto tutorial](https://quarto.org/docs/authoring/markdown-
 
 -   See [OMA Exercises](https://microbiome.github.io/OMA/exercises.html) for Quarto.
 
-## Coding tips
 
--   **Comment the code** to explain what each line or lines of code do. This facilitates later understanding, reuse, and transparency.
 
--   **Avoid hard-coding** define key variables in the beginning of the workflow. This will make it easier to modify parameters and reuse the code.
 
--   **Summarize the main results** so that they can easily be understood by others without advanced data analytics knowledge.
 
 ## Tips, tricks & hacks
 
--   Quarto tips & tricks & hacks?
+-  Quarto tips & tricks & hacks?
 
--   Installing new packages
+-  Installing new packages
 
--   importing new data sets to R for interactive data analysis: read.csv, read.biom etc. where to find examples (see OMA section on data import)
+- Importing new data sets to R for interactive data analysis:
+    read.csv, read.biom etc. where to find examples (see OMA section
+    on data import)
 
+
+
+## Random coding tips
+
+- **Comment the code** to explain what each line or lines of code
+      do. This facilitates later understanding, reuse, and
+      transparency.
+
+- **Avoid hard-coding** define key variables in the beginning of the
+      workflow. This makes it easier to modify parameters and reuse
+      the code.
+
+- **Summarize the main results** in an understable way(!)
 

@@ -270,7 +270,7 @@
     "href": "intro.html#support",
     "title": "Intro & practicals",
     "section": "Support",
-    "text": "Support\n\nPost-it stickers\nPractical info at the course website \nOnline chat (Gitter) https://gitter.im/microbiome/miaverse\nGoogle Doc Questions at the end of the gdoc are welcome"
+    "text": "Support\n\nPost-it stickers\nFeedback at lunch and end of each day using minute cards\nPractical info at the course website \nOnline chat (Gitter) https://gitter.im/microbiome/miaverse\nGoogle Doc Questions at the end of the gdoc are welcome"
   },
   {
     "objectID": "intro.html#other-points",
@@ -333,7 +333,7 @@
     "href": "bioconductor.html#section-2",
     "title": "Bioconductor",
     "section": "",
-    "text": "Started in 2001 as a platform for microarray data analysis\n\n\nNow 2140+ packages:\n- Sequencing (DNA, RNA, ChIP, SC)\n- Proteomics\n- Metabolomics\n- Multi-omics integration"
+    "text": "Started in 2001 as a platform for microarray data analysis\n\n\nNow 2200+ packages:\n\nSequencing (DNA, RNA, ChIP, SC)\nProteomics\nMetabolomics\nMicrobiomics\nMulti-omics integration"
   },
   {
     "objectID": "bioconductor.html#section-3",
@@ -375,7 +375,7 @@
     "href": "bioconductor.html#rbioc-community",
     "title": "Bioconductor",
     "section": "R/Bioc community",
-    "text": "R/Bioc community\n(Global) Bioconductor conference\nAsian Bioconductor conference\nEuropean Bioconductor conference Gent, Sep 2023"
+    "text": "R/Bioc community\n(Global) Bioconductor conference\nAsian Bioconductor conference\nEuropean Bioconductor conference"
   },
   {
     "objectID": "starting.html#checklist",
@@ -410,7 +410,7 @@
     "href": "reproducible_workflow.html#reproducible-notebooks",
     "title": "Reproducible data science workflow",
     "section": "Reproducible notebooks",
-    "text": "Reproducible notebooks\n\nWe use Quarto for reproducible documentation.\nNext generation development of Rmarkdown\nLargely compatible with Rmarkdown\nSupported by RStudio\n\nBasic knowledge is already assumed; the preliminary material included a link to Rmarkdown & Quarto tutorial videos.\nQuarto enables you to weave together content and executable code into a finished presentation. To learn more about Quarto presentations see https://quarto.org/docs/presentations/."
+    "text": "Reproducible notebooks\n\nWe use Quarto for reproducible documentation.\nNext generation development of Rmarkdown\nLargely compatible with Rmarkdown\nSupported by RStudio\n\nThe pre-study material includes a link to Rmarkdown & Quarto tutorial videos. See OMA chapter 17: https://microbiome.github.io/OMA/exercises.html\nQuarto enables you to weave together content and executable code into a finished presentation. To learn more, see https://quarto.org/docs/presentations/."
   },
   {
     "objectID": "reproducible_workflow.html#literate-programming",
@@ -438,7 +438,7 @@
     "href": "reproducible_workflow.html#quarto-exercise",
     "title": "Reproducible data science workflow",
     "section": "Quarto exercise",
-    "text": "Quarto exercise\nOMA Exercise:\n17.1.1 Reproducible reporting with Quarto"
+    "text": "Quarto exercise\nOMA Exercise:\n18.2.1 Reproducible reporting with Quarto"
   },
   {
     "objectID": "reproducible_workflow.html#task-1-reproducible-reporting",
@@ -466,7 +466,7 @@
     "href": "reproducible_workflow.html#tips-tricks-hacks",
     "title": "Reproducible data science workflow",
     "section": "Tips, tricks & hacks",
-    "text": "Tips, tricks & hacks\n\nQuarto tips & tricks & hacks?\nInstalling new packages\nimporting new data sets to R for interactive data analysis: read.csv, read.biom etc. where to find examples (see OMA section on data import)"
+    "text": "Tips, tricks & hacks\n\nQuarto tips & tricks & hacks?\nInstalling new packages\nImporting new data sets to R for interactive data analysis: read.csv, read.biom etc. where to find examples (see OMA section on data import)"
   },
   {
     "objectID": "reproducible_workflow.html#exercises-17.3-prepare-the-data-in-quarto",
@@ -1412,5 +1412,12 @@
     "title": "Data manipulation",
     "section": "Transformations",
     "text": "Transformations\n\ntransform to alternative assays and show histograms for the whole assay\ntransform to alternative assays; boxplots for selected feature"
+  },
+  {
+    "objectID": "reproducible_workflow.html#random-coding-tips",
+    "href": "reproducible_workflow.html#random-coding-tips",
+    "title": "Reproducible data science workflow",
+    "section": "Random coding tips",
+    "text": "Random coding tips\n\nComment the code to explain what each line or lines of code do. This facilitates later understanding, reuse, and transparency.\nAvoid hard-coding define key variables in the beginning of the workflow. This makes it easier to modify parameters and reuse the code.\nSummarize the main results in an understable way(!)"
   }
 ]

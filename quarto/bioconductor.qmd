@@ -34,15 +34,17 @@ Started in 2001 as a platform for microarray data analysis
 
 ::: columns
 ::: {.column width="40%"}
-Now 2140+ packages:
+Now 2200+ packages:
 
-\- Sequencing (DNA, RNA, ChIP, SC)
+-   Sequencing (DNA, RNA, ChIP, SC)
 
-\- Proteomics
+-   Proteomics
 
-\- Metabolomics
+-   Metabolomics
 
-\- Multi-omics integration
+-   Microbiomics
+
+-   Multi-omics integration
 :::
 
 ::: {.column width="60%"}
