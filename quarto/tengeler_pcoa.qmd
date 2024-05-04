@@ -1,157 +1,204 @@
 ---
-title: "Beta Diversity"
-format: html
+title: "Principal Coordinate Analysis"
+format: revealjs
 editor: visual
+smaller: true
+bibliography: references.bib
 ---
 
-## Overview
+## Concepts
 
-The following packages are needed to succesfully run the examples in this notebook:
+Principal Coordinate Analysis (**PCoA**) is a method to find the dimensions of
+the data that explain most of its variance. The **diversity between samples**
+can be expressed in terms of several ecological indices, such as Bray-Curtis and Aitchison dissimilarities. If Euclidean distance is used, PCoA becomes Principal
+Component Analysis (**PCA**). You can learn more about PCoA in OMA
+[chapter 7](https://microbiome.github.io/OMA/docs/devel/pages/20_beta_diversity.html).
 
--   mia: tools for microbiome data analysis
+The following packages are necessary to execute the code in this presentation:
 
--   scater: plotting data from TreeSummarizedExperiments
-
--   patchwork: combining plots
+- [_mia_](https://microbiome.github.io/mia/articles/mia.html): methods to
+  analyse microbiome data
+- [_scater_](https://master.bioconductor.org/packages/release/bioc/html/scater.html):
+  utils to visualise data stored in TreeSE objects
+- [_patchwork_](https://patchwork.data-imaginist.com): framework to combine
+  multiple ggplot objects
 
 ```{r}
 #| label: setup
-#| include: false
 library(mia)
 library(scater)
 library(patchwork)
 
-knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
 ```
 
-To get started, we import Tengeler2020 from the mia package and store it into a variable.
+## Example 1.1
+
+To get started, we import
+[Tengeler2020](https://microbiome.github.io/outreach/tengeler2020_presentation.html)
+from _mia_ and store it into a variable.
 
 ```{r}
 #| label: import-tengeler
-
 # load dataset and store it into tse
 data("Tengeler2020", package = "mia")
 tse <- Tengeler2020
+
+# Get summary about the object
+# What dimensions does the data have?
+tse
 ```
 
-After that, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.
+## Example 1.2
+
+After that, we transform the counts assay to relative abundances and store the
+new assay back into the TreeSE.
 
 ```{r}
 #| label: transform-relabundance
-tse <- transformAssay(tse,
-                       method = "relabundance")
+# Transform counts to relative abundance
+tse <- transformAssay(tse, method = "relabundance")
 ```
 
-## Principal Coordinate Analysis (PCoA)
-
-PCoA is a method to choose the dimensions of the data that explain most of the variance in the data. Distances between samples can be expressed by several ecological indices, such as Bray-Curtis and Aitchison dissimilarities.
-
-Here, we run multi-dimensional scaling (a type of PCoA) with Bray-Curtis dissimilarity and based on the relabundance assay.
+Here, we run multi-dimensional scaling (another word for PCoA) on the relative
+abundance assay to reduce the data to fewer dimensions.
 
 ```{r}
 #| label: run-bray
+# Reduce number of dimensions from 151 to 3 by PCoA
 tse <- runMDS(tse,
+              assay.type = "relabundance",
               FUN = vegan::vegdist,
               method = "bray",
-              name = "Bray",
-              assay.type = "relabundance")
+              name = "Bray")
+
+# The new dimensions are stored in the reducedDim slot
+head(reducedDim(tse, "Bray"))
 ```
+
+## Example 1.3
 
 We then visualise the first two dimensions.
 
 ```{r}
-#| label: plot-bray
-p1 <- plotReducedDim(tse, "Bray",
-                     colour_by = "patient_status",
-                     shape_by = "cohort")
-```
-
-```{r}
-#| label: prep-bray
-#| include: false
-e <- attr(reducedDim(tse, "Bray"), "eig")
-rel_eig <- e / sum(e[e > 0])
-
-p1 <- p1 + labs(x = paste("Bray 1 (", round(100 * rel_eig[[1]], 1), "%", ")", sep = ""),
-                y = paste("Bray 2 (", round(100 * rel_eig[[2]], 1), "%", ")", sep = ""))
-```
-
-```{r}
 #| label: fig-bray
-#| fig-cap: Ordination plots based on Bray-Curtis index. Samples are coloured by patient status and shaped by cohort.
-#| fig-width: 7
-#| fig-asp: 0.7
+#| fig-cap: Ordination plots based on Bray-Curtis index. Samples are coloured by
+#|   patient status.
+# The new dimensions can be used to visualise diversity among samples
+p1 <- plotReducedDim(tse, "Bray",
+                     colour_by = "patient_status")
+
 p1
 ```
+
+## Example 2.1
+
+By default, Bray-Curtis dissimilarity is used. However, other metrics can be
+specified with the `method` argument.
+
+```{r}
+#| label: run-jaccard
+# Reduce number of dimensions with a different metric
+tse <- runMDS(tse,
+              assay.type = "relabundance",
+              FUN = vegan::vegdist,
+              method = "jaccard",
+              name = "Jaccard")
+
+reducedDimNames(tse)
+```
+
+## Example 2.2
+
+```{r}
+#| label: fig-jaccard
+#| fig-cap: Ordination plot based on Unifrac index. Samples are coloured by
+#|   patient status.
+# Visualise samples with the newly reduced dimensions
+p3 <- plotReducedDim(tse, "Jaccard",
+                     colour_by = "patient_status")
+
+p3
+```
+
+
+## Example 3.1
+
+example with different distance function. (could be custom)
 
 ```{r}
 #| label: run-unifrac
 tse <- runMDS(tse,
+              assay.type = "counts",
               FUN = mia::calculateUnifrac,
               name = "Unifrac",
               tree = rowTree(tse),
-              ntop = nrow(tse),
-              assay.type = "counts")
+              ntop = nrow(tse))
+
+reducedDimNames(tse)
 ```
 
-```{r}
-#| label: plot-unifrac
-p2 <- plotReducedDim(tse, "Unifrac",
-                     colour_by = "patient_status",
-                     shape_by = "cohort")
-```
-
-```{r}
-#| label: prep-unifrac
-#| include: false
-e <- attr(reducedDim(tse, "Unifrac"), "eig")
-rel_eig <- e / sum(e[e > 0])
-
-p2 <- p2 + labs(x = paste("Unifrac 1 (", round(100 * rel_eig[[1]], 1), "%", ")", sep = ""),
-                y = paste("Unifrac 2 (", round(100 * rel_eig[[2]], 1), "%", ")", sep = ""))
-```
+## Example 3.2
 
 ```{r}
 #| label: fig-unifrac
-#| fig-cap: Ordination plot based on Unifrac index. Samples are coloured by patient status and shaped by cohort.
-#| fig-width: 7
-#| fig-asp: 0.7
+#| fig-cap: Ordination plot based on Unifrac index. Samples are coloured by
+#|   patient status and shaped by cohort.
+p2 <- plotReducedDim(tse, "Unifrac",
+                     colour_by = "patient_status",
+                     shape_by = "cohort")
+
 p2
 ```
 
-Finally, we combine the two plots with the patchwork syntax and compare them in @fig-beta. (Add another 2 plots?)
+## Example 4.1
 
-```{r}
-#| label: fig-beta
-#| fig-cap: Ordination plots based on (A) Bray-Curtis or (B) Unifrac index. Samples are coloured by patient status and shaped by cohort.
-#| fig-asp: 1.4
-(p1 / p2) +
-  plot_layout(guides = "collect") +
-  plot_annotation(tag_levels = "A")
-```
+Example with different algorithm.
 
-It is also possible to specify the number of output dimensions with the argument `ncomponents`. Here, we show it with the UMAP ordination method.
+It is also possible to specify the number of output dimensions with the argument ncomponents. Here, we show it with the UMAP ordination method.
 
 ```{r}
 #| label: run-umap
 tse <- runUMAP(tse,
                assay.type = "counts",
                ncomponents = 3)
+
+# The new dimensions are stored in the reducedDim slot
+head(reducedDim(tse, "UMAP"))
 ```
 
-We then plot all three dimensions, but you could also plot a pair of dimensions (1 and 3, 2 and 3 or 1 and 2) with the argument `ncomponents`.
+## Example 4.2
 
-```{r}
-#| label: plot-umap
-p <- plotReducedDim(tse, "UMAP",
-                    ncomponents = 1:3,
-                    colour_by = "patient_status",
-                    shape_by = "cohort")
-```
+We then plot all three dimensions, but you could also plot a pair of dimensions (1 and 3, 2 and 3 or 1 and 2) with the `ncomponents` argument.
 
 ```{r}
 #| label: fig-umap
 #| fig-cap: UMAP plot of the first three dimensions.
-#| echo: false
-p
+p4 <- plotReducedDim(tse, "UMAP",
+                    ncomponents = 3,
+                    colour_by = "patient_status",
+                    shape_by = "cohort")
+
+p4
 ```
+
+## Comparison
+
+Finally, we combine the two plots with the patchwork syntax and compare them in
+@fig-beta.
+
+```{r}
+#| label: fig-comparison
+#| fig-cap: Ordination plots based on (A) Bray-Curtis, (B) Jaccard and (C)
+#|   Unifrac indices. Samples are coloured by patient status and shaped by
+#|   cohort.
+(p1 | p2 | p3) +
+  plot_layout(guides = "collect") +
+  plot_annotation(tag_levels = "A")
+```
+
+## Try yourself
+
+- [exercise 7.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#visualization-basics-with-pca)
+- [exercise 7.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#principal-coordinate-analysis-pcoa).
+- exercise with aitchison

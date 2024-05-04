@@ -1283,9 +1283,9 @@
   {
     "objectID": "tengeler_pcoa.html#principal-coordinate-analysis-pcoa",
     "href": "tengeler_pcoa.html#principal-coordinate-analysis-pcoa",
-    "title": "Beta Diversity",
+    "title": "Principal Coordinate Analysis (PCoA)",
     "section": "Principal Coordinate Analysis (PCoA)",
-    "text": "Principal Coordinate Analysis (PCoA)\nPCoA is a method to choose the dimensions of the data that explain most of the variance in the data. Distances between samples can be expressed by several ecological indices, such as Bray-Curtis and Aitchison dissimilarities.\nHere, we run multi-dimensional scaling (a type of PCoA) with Bray-Curtis dissimilarity and based on the relabundance assay.\n\ntse <- runMDS(tse,\n              FUN = vegan::vegdist,\n              method = \"bray\",\n              name = \"Bray\",\n              assay.type = \"relabundance\")\n\nWe then visualise the first two dimensions.\n\np1 <- plotReducedDim(tse, \"Bray\",\n                     colour_by = \"patient_status\",\n                     shape_by = \"cohort\")\n\n\np1\n\n\n\n\nFigure 1: Ordination plots based on Bray-Curtis index. Samples are coloured by patient status and shaped by cohort.\n\n\n\n\n\ntse <- runMDS(tse,\n              FUN = mia::calculateUnifrac,\n              name = \"Unifrac\",\n              tree = rowTree(tse),\n              ntop = nrow(tse),\n              assay.type = \"counts\")\n\n\np2 <- plotReducedDim(tse, \"Unifrac\",\n                     colour_by = \"patient_status\",\n                     shape_by = \"cohort\")\n\n\np2\n\n\n\n\nFigure 2: Ordination plot based on Unifrac index. Samples are coloured by patient status and shaped by cohort.\n\n\n\n\nFinally, we combine the two plots with the patchwork syntax and compare them in Figure 3. (Add another 2 plots?)\n\n(p1 / p2) +\n  plot_layout(guides = \"collect\") +\n  plot_annotation(tag_levels = \"A\")\n\n\n\n\nFigure 3: Ordination plots based on (A) Bray-Curtis or (B) Unifrac index. Samples are coloured by patient status and shaped by cohort.\n\n\n\n\nIt is also possible to specify the number of output dimensions with the argument ncomponents. Here, we show it with the UMAP ordination method.\n\ntse <- runUMAP(tse,\n               assay.type = \"counts\",\n               ncomponents = 3)\n\nWe then plot all three dimensions, but you could also plot a pair of dimensions (1 and 3, 2 and 3 or 1 and 2) with the argument ncomponents.\n\np <- plotReducedDim(tse, \"UMAP\",\n                    ncomponents = 1:3,\n                    colour_by = \"patient_status\",\n                    shape_by = \"cohort\")\n\n\n\n\n\n\nFigure 4: UMAP plot of the first three dimensions."
+    "text": "Principal Coordinate Analysis (PCoA)\nPCoA is a method to choose the dimensions of the data that explain most of the variance in the data. Distances between samples can be expressed by several ecological indices, such as Bray-Curtis and Aitchison dissimilarities.\nHere, we run multi-dimensional scaling (a type of PCoA) with Bray-Curtis dissimilarity and based on the relabundance assay.\n\ntse &lt;- runMDS(tse,\n              FUN = vegan::vegdist,\n              method = \"bray\",\n              name = \"Bray\",\n              assay.type = \"relabundance\")"
   },
   {
     "objectID": "tengeler_dbrda.html",
@@ -1419,5 +1419,173 @@
     "title": "Reproducible data science workflow",
     "section": "Random coding tips",
     "text": "Random coding tips\n\nComment the code to explain what each line or lines of code do. This facilitates later understanding, reuse, and transparency.\nAvoid hard-coding define key variables in the beginning of the workflow. This makes it easier to modify parameters and reuse the code.\nSummarize the main results in an understable way(!)"
+  },
+  {
+    "objectID": "tengeler_pcoa.html#overview",
+    "href": "tengeler_pcoa.html#overview",
+    "title": "Principal Coordinate Analysis (PCoA)",
+    "section": "Overview",
+    "text": "Overview\nThe following packages are needed to succesfully run the examples in this notebook:\n\nmia: methods to analyse microbiome data\nscater: utils to visualise data stored in TreeSE objects\npatchwork: framework to combine multiple ggplot objects"
+  },
+  {
+    "objectID": "tengeler_pcoa.html#import",
+    "href": "tengeler_pcoa.html#import",
+    "title": "Principal Coordinate Analysis (PCoA)",
+    "section": "Import",
+    "text": "Import\nTo get started, we import Tengeler2020 from mia and store it into a variable.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nAfter that, we transform the counts assay to relative abundances and store the new assay back into the TreeSE.\n\ntse &lt;- transformAssay(tse,\n                      method = \"relabundance\")"
+  },
+  {
+    "objectID": "tengeler_pcoa.html#slide",
+    "href": "tengeler_pcoa.html#slide",
+    "title": "Principal Coordinate Analysis",
+    "section": "slide",
+    "text": "slide\n\ntse &lt;- runMDS(tse,\n              FUN = mia::calculateUnifrac,\n              name = \"Unifrac\",\n              tree = rowTree(tse),\n              ntop = nrow(tse),\n              assay.type = \"counts\")\n\np2 &lt;- plotReducedDim(tse, \"Unifrac\",\n                     colour_by = \"patient_status\",\n                     shape_by = \"cohort\")\n\np2\n\n\nFigure 2: Ordination plot based on Unifrac index. Samples are coloured by patient status and shaped by cohort."
+  },
+  {
+    "objectID": "tengeler_pcoa.html#slide-1",
+    "href": "tengeler_pcoa.html#slide-1",
+    "title": "Principal Coordinate Analysis",
+    "section": "slide",
+    "text": "slide\nFinally, we combine the two plots with the patchwork syntax and compare them in Figure 3.\n\n(p1 | p2) +\n  plot_layout(guides = \"collect\") +\n  plot_annotation(tag_levels = \"A\")\n\n\nFigure 3: Ordination plots based on (A) Bray-Curtis or (B) Unifrac index. Samples are coloured by patient status and shaped by cohort."
+  },
+  {
+    "objectID": "tengeler_pcoa.html#slide-2",
+    "href": "tengeler_pcoa.html#slide-2",
+    "title": "Principal Coordinate Analysis",
+    "section": "slide",
+    "text": "slide\nFinally, we combine the two plots with the patchwork syntax and compare them in Figure 3.\n\n(p1 | p2) +\n  plot_layout(guides = \"collect\") +\n  plot_annotation(tag_levels = \"A\")\n\n\nFigure 3: Ordination plots based on (A) Bray-Curtis or (B) Unifrac index. Samples are coloured by patient status and shaped by cohort."
+  },
+  {
+    "objectID": "tengeler_pcoa.html#slide-3",
+    "href": "tengeler_pcoa.html#slide-3",
+    "title": "Principal Coordinate Analysis (PCoA)",
+    "section": "slide",
+    "text": "slide\nIt is also possible to specify the number of output dimensions with the argument ncomponents. Here, we show it with the UMAP ordination method.\nWe then plot all three dimensions, but you could also plot a pair of dimensions (1 and 3, 2 and 3 or 1 and 2) with the argument ncomponents.\n\n\nFigure 4: UMAP plot of the first three dimensions."
+  },
+  {
+    "objectID": "tengeler_pcoa.html#slidet",
+    "href": "tengeler_pcoa.html#slidet",
+    "title": "Principal Coordinate Analysis",
+    "section": "slidet",
+    "text": "slidet\nIt is also possible to specify the number of output dimensions with the argument ncomponents. Here, we show it with the UMAP ordination method.\n\ntse &lt;- runUMAP(tse,\n               assay.type = \"counts\",\n               ncomponents = 3)\n\nWe then plot all three dimensions, but you could also plot a pair of dimensions (1 and 3, 2 and 3 or 1 and 2) with the argument ncomponents.\n\np &lt;- plotReducedDim(tse, \"UMAP\",\n                    ncomponents = 1:3,\n                    colour_by = \"patient_status\",\n                    shape_by = \"cohort\")\n\np\n\n\nFigure 4: UMAP plot of the first three dimensions."
+  },
+  {
+    "objectID": "tengeler_pcoa.html#try-yourself",
+    "href": "tengeler_pcoa.html#try-yourself",
+    "title": "Principal Coordinate Analysis",
+    "section": "Try yourself",
+    "text": "Try yourself\n\nexercise 7.2\nexercise 7.3.\nexercise with aitchison"
+  },
+  {
+    "objectID": "tengeler_pcoa.html#background",
+    "href": "tengeler_pcoa.html#background",
+    "title": "Principal Coordinate Analysis",
+    "section": "Background",
+    "text": "Background\nPrincipal Coordinate Analysis (PCoA) is a method to find the dimensions of the data that explain most of its variance. The diversity between samples can be expressed in terms of several ecological indices, such as Bray-Curtis and Aitchison dissimilarities. If Euclidean distance is used, PCoA becomes Principal Component Analysis (PCA). You can learn more about PCoA in OMA chapter 7."
+  },
+  {
+    "objectID": "tengeler_pcoa.html#load-packages",
+    "href": "tengeler_pcoa.html#load-packages",
+    "title": "Principal Coordinate Analysis",
+    "section": "Load packages",
+    "text": "Load packages\nThe following packages are necessary to execute the code in this presentation:\n\nmia: methods to analyse microbiome data\nscater: utils to visualise data stored in TreeSE objects\npatchwork: framework to combine multiple ggplot objects"
+  },
+  {
+    "objectID": "tengeler_pcoa.html#import-dataset",
+    "href": "tengeler_pcoa.html#import-dataset",
+    "title": "Principal Coordinate Analysis",
+    "section": "Import dataset",
+    "text": "Import dataset\nTo get started, we import Tengeler2020 from mia and store it into a variable.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\n# Get summary about the object\n# What dimensions does the data have?\ntse\n\nclass: TreeSummarizedExperiment \ndim: 151 27 \nmetadata(0):\nassays(1): counts\nrownames(151): 1726470 1726471 ... 17264756 17264757\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (151 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL\n\n\nAfter that, we transform the counts assay to relative abundances and store the new assay back into the TreeSE.\n\n# Transform counts to relative abundance\ntse &lt;- transformAssay(tse, method = \"relabundance\")"
+  },
+  {
+    "objectID": "tengeler_pcoa.html#perform-pcoa",
+    "href": "tengeler_pcoa.html#perform-pcoa",
+    "title": "Principal Coordinate Analysis",
+    "section": "Perform PCoA",
+    "text": "Perform PCoA\nHere, we run multi-dimensional scaling (a type of PCoA) with Bray-Curtis dissimilarity and based on the relabundance assay.\n\ntse &lt;- runMDS(tse,\n              FUN = vegan::vegdist,\n              method = \"bray\",\n              name = \"Bray\",\n              assay.type = \"relabundance\")"
+  },
+  {
+    "objectID": "tengeler_pcoa.html#concepts",
+    "href": "tengeler_pcoa.html#concepts",
+    "title": "Principal Coordinate Analysis",
+    "section": "Concepts",
+    "text": "Concepts\nPrincipal Coordinate Analysis (PCoA) is a method to find the dimensions of the data that explain most of its variance. The diversity between samples can be expressed in terms of several ecological indices, such as Bray-Curtis and Aitchison dissimilarities. If Euclidean distance is used, PCoA becomes Principal Component Analysis (PCA). You can learn more about PCoA in OMA chapter 7.\nThe following packages are necessary to execute the code in this presentation:\n\nmia: methods to analyse microbiome data\nscater: utils to visualise data stored in TreeSE objects\npatchwork: framework to combine multiple ggplot objects"
+  },
+  {
+    "objectID": "tengeler_pcoa.html#example-1.1",
+    "href": "tengeler_pcoa.html#example-1.1",
+    "title": "Principal Coordinate Analysis",
+    "section": "Example 1.1",
+    "text": "Example 1.1\nTo get started, we import Tengeler2020 from mia and store it into a variable.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\n# Get summary about the object\n# What dimensions does the data have?\ntse\n\nclass: TreeSummarizedExperiment \ndim: 151 27 \nmetadata(0):\nassays(1): counts\nrownames(151): 1726470 1726471 ... 17264756 17264757\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (151 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "tengeler_pcoa.html#example-1.2",
+    "href": "tengeler_pcoa.html#example-1.2",
+    "title": "Principal Coordinate Analysis",
+    "section": "Example 1.2",
+    "text": "Example 1.2\nAfter that, we transform the counts assay to relative abundances and store the new assay back into the TreeSE.\n\n# Transform counts to relative abundance\ntse &lt;- transformAssay(tse, method = \"relabundance\")\n\nHere, we run multi-dimensional scaling (another word for PCoA) on the relative abundance assay to reduce the data to fewer dimensions.\n\n# Reduce number of dimensions from 151 to 3 by PCoA\ntse &lt;- runMDS(tse,\n              assay.type = \"relabundance\",\n              FUN = vegan::vegdist,\n              method = \"bray\",\n              name = \"Bray\")\n\n# The new dimensions are stored in the reducedDim slot\nhead(reducedDim(tse, \"Bray\"))\n\n            [,1]        [,2]\nA110  0.35648020  0.11979800\nA12  -0.01837414 -0.35553853\nA15   0.14308108  0.36730630\nA19   0.03031075 -0.34670413\nA21   0.07539063 -0.31823525\nA23   0.17993859  0.09476674"
+  },
+  {
+    "objectID": "tengeler_pcoa.html#example-1.3",
+    "href": "tengeler_pcoa.html#example-1.3",
+    "title": "Principal Coordinate Analysis",
+    "section": "Example 1.3",
+    "text": "Example 1.3\nWe then visualise the first two dimensions.\n\n# The new dimensions can be used to visualise diversity among samples\np1 &lt;- plotReducedDim(tse, \"Bray\",\n                     colour_by = \"patient_status\")\n\np1\n\n\nFigure 1: Ordination plots based on Bray-Curtis index. Samples are coloured by patient status."
+  },
+  {
+    "objectID": "tengeler_pcoa.html#example-2.1",
+    "href": "tengeler_pcoa.html#example-2.1",
+    "title": "Principal Coordinate Analysis",
+    "section": "Example 2.1",
+    "text": "Example 2.1\nBy default, Bray-Curtis dissimilarity is used. However, other metrics can be specified with the method argument.\n\n# Reduce number of dimensions with a different metric\ntse &lt;- runMDS(tse,\n              assay.type = \"relabundance\",\n              FUN = vegan::vegdist,\n              method = \"jaccard\",\n              name = \"Jaccard\")\n\nreducedDimNames(tse)\n\n[1] \"Bray\"    \"Jaccard\""
+  },
+  {
+    "objectID": "tengeler_pcoa.html#example-2.2",
+    "href": "tengeler_pcoa.html#example-2.2",
+    "title": "Principal Coordinate Analysis",
+    "section": "Example 2.2",
+    "text": "Example 2.2\n\n# Visualise samples with the newly reduced dimensions\np3 &lt;- plotReducedDim(tse, \"Jaccard\",\n                     colour_by = \"patient_status\")\n\np3\n\n\nFigure 2: Ordination plot based on Unifrac index. Samples are coloured by patient status."
+  },
+  {
+    "objectID": "tengeler_pcoa.html#exampl",
+    "href": "tengeler_pcoa.html#exampl",
+    "title": "Principal Coordinate Analysis",
+    "section": "Exampl",
+    "text": "Exampl\nIt is also possible to specify the number of output dimensions with the argument ncomponents. Here, we show it with the UMAP ordination method.\n\ntse &lt;- runUMAP(tse,\n               assay.type = \"counts\",\n               ncomponents = 3)\n\nWe then plot all three dimensions, but you could also plot a pair of dimensions (1 and 3, 2 and 3 or 1 and 2) with the argument ncomponents.\n\np &lt;- plotReducedDim(tse, \"UMAP\",\n                    ncomponents = 1:3,\n                    colour_by = \"patient_status\",\n                    shape_by = \"cohort\")\n\np\n\n\nFigure 4: UMAP plot of the first three dimensions."
+  },
+  {
+    "objectID": "tengeler_pcoa.html#example-3.1",
+    "href": "tengeler_pcoa.html#example-3.1",
+    "title": "Principal Coordinate Analysis",
+    "section": "Example 3.1",
+    "text": "Example 3.1\nexample with different distance function. (could be custom)\n\ntse &lt;- runMDS(tse,\n              assay.type = \"counts\",\n              FUN = mia::calculateUnifrac,\n              name = \"Unifrac\",\n              tree = rowTree(tse),\n              ntop = nrow(tse))\n\nreducedDimNames(tse)\n\n[1] \"Bray\"    \"Jaccard\" \"Unifrac\""
+  },
+  {
+    "objectID": "tengeler_pcoa.html#example-3.2",
+    "href": "tengeler_pcoa.html#example-3.2",
+    "title": "Principal Coordinate Analysis",
+    "section": "Example 3.2",
+    "text": "Example 3.2\n\np2 &lt;- plotReducedDim(tse, \"Unifrac\",\n                     colour_by = \"patient_status\",\n                     shape_by = \"cohort\")\n\np2\n\n\nFigure 3: Ordination plot based on Unifrac index. Samples are coloured by patient status and shaped by cohort."
+  },
+  {
+    "objectID": "tengeler_pcoa.html#example-4.1",
+    "href": "tengeler_pcoa.html#example-4.1",
+    "title": "Principal Coordinate Analysis",
+    "section": "Example 4.1",
+    "text": "Example 4.1\nExample with different algorithm.\nIt is also possible to specify the number of output dimensions with the argument ncomponents. Here, we show it with the UMAP ordination method.\n\ntse &lt;- runUMAP(tse,\n               assay.type = \"counts\",\n               ncomponents = 3)\n\n# The new dimensions are stored in the reducedDim slot\nhead(reducedDim(tse, \"UMAP\"))\n\n          UMAP1      UMAP2      UMAP3\nA110 -0.2306184  0.7279943  1.5806612\nA12  -0.9707269  0.5182520  1.2675595\nA15   0.9813374  0.3229846 -0.6461952\nA19  -1.1380295  0.5971419  0.8782231\nA21   0.9880926 -0.6312433 -0.5866096\nA23   1.2138464 -0.1371741 -0.5889314"
+  },
+  {
+    "objectID": "tengeler_pcoa.html#example-4.2",
+    "href": "tengeler_pcoa.html#example-4.2",
+    "title": "Principal Coordinate Analysis",
+    "section": "Example 4.2",
+    "text": "Example 4.2\nWe then plot all three dimensions, but you could also plot a pair of dimensions (1 and 3, 2 and 3 or 1 and 2) with the ncomponents argument.\n\np4 &lt;- plotReducedDim(tse, \"UMAP\",\n                    ncomponents = 3,\n                    colour_by = \"patient_status\",\n                    shape_by = \"cohort\")\n\np4\n\n\nFigure 4: UMAP plot of the first three dimensions."
+  },
+  {
+    "objectID": "tengeler_pcoa.html#comparison",
+    "href": "tengeler_pcoa.html#comparison",
+    "title": "Principal Coordinate Analysis",
+    "section": "Comparison",
+    "text": "Comparison\nFinally, we combine the two plots with the patchwork syntax and compare them in ?@fig-beta.\n\n(p1 | p2 | p3) +\n  plot_layout(guides = \"collect\") +\n  plot_annotation(tag_levels = \"A\")\n\n\nFigure 5: Ordination plots based on (A) Bray-Curtis, (B) Jaccard and (C) Unifrac indices. Samples are coloured by patient status and shaped by cohort."
   }
 ]
