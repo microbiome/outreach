@@ -8,25 +8,20 @@ bibliography: references.bib
 
 ## Concepts
 
-Principal Coordinate Analysis (**PCoA**) is a method to find the dimensions of
-the data that explain most of its variance. The **diversity between samples**
-can be expressed in terms of several ecological indices, such as Bray-Curtis and Aitchison dissimilarities. If Euclidean distance is used, PCoA becomes Principal
-Component Analysis (**PCA**). You can learn more about PCoA in OMA
-[chapter 7](https://microbiome.github.io/OMA/docs/devel/pages/20_beta_diversity.html).
+Principal Coordinate Analysis (**PCoA**) is a method to find the dimensions of the data that explain most of its variance. The **diversity between samples** can be expressed in terms of several ecological indices, such as Bray-Curtis and Aitchison dissimilarities. If Euclidean distance is used, PCoA becomes Principal Component Analysis (**PCA**). You can learn more about PCoA in OMA [chapter 7](https://microbiome.github.io/OMA/docs/devel/pages/20_beta_diversity.html).
 
 The following packages are necessary to execute the code in this presentation:
 
-- [_mia_](https://microbiome.github.io/mia/articles/mia.html): methods to
-  analyse microbiome data
-- [_scater_](https://master.bioconductor.org/packages/release/bioc/html/scater.html):
-  utils to visualise data stored in TreeSE objects
-- [_patchwork_](https://patchwork.data-imaginist.com): framework to combine
-  multiple ggplot objects
+-   [*mia*](https://microbiome.github.io/mia/articles/mia.html): methods to analyse microbiome data
+-   [*scater*](https://master.bioconductor.org/packages/release/bioc/html/scater.html): utils to visualise data stored in TreeSE objects
+-   [*patchwork*](https://patchwork.data-imaginist.com): framework to combine multiple ggplot objects
 
 ```{r}
 #| label: setup
 library(mia)
 library(scater)
+library(ggplot2)
+library(ggrepel)
 library(patchwork)
 
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
@@ -34,9 +29,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
 
 ## Example 1.1
 
-To get started, we import
-[Tengeler2020](https://microbiome.github.io/outreach/tengeler2020_presentation.html)
-from _mia_ and store it into a variable.
+To get started, we import [Tengeler2020](https://microbiome.github.io/outreach/tengeler2020_presentation.html) from *mia* and store it into a variable.
 
 ```{r}
 #| label: import-tengeler
@@ -51,8 +44,7 @@ tse
 
 ## Example 1.2
 
-After that, we transform the counts assay to relative abundances and store the
-new assay back into the TreeSE.
+After that, we transform the counts assay to relative abundances and store the new assay back into the TreeSE.
 
 ```{r}
 #| label: transform-relabundance
@@ -60,8 +52,7 @@ new assay back into the TreeSE.
 tse <- transformAssay(tse, method = "relabundance")
 ```
 
-Here, we run multi-dimensional scaling (another word for PCoA) on the relative
-abundance assay to reduce the data to fewer dimensions.
+Here, we run multi-dimensional scaling (another word for PCoA) on the relative abundance assay to reduce the data to fewer dimensions.
 
 ```{r}
 #| label: run-bray
@@ -75,6 +66,8 @@ tse <- runMDS(tse,
 # The new dimensions are stored in the reducedDim slot
 head(reducedDim(tse, "Bray"))
 ```
+
+There are several ecological distances to choose from and you can find many of them under methods in the vignettes of vegan::vegdist. These metrics can be specified with the `method` argument.
 
 ## Example 1.3
 
@@ -91,36 +84,51 @@ p1 <- plotReducedDim(tse, "Bray",
 p1
 ```
 
+## Exercise 1
+
+-   [exercise 7.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#principal-coordinate-analysis-pcoa) -\> change to jaccard
+
 ## Example 2.1
 
-By default, Bray-Curtis dissimilarity is used. However, other metrics can be
-specified with the `method` argument.
+```{r}
+res <- apply(
+    assay(tse, "relabundance"),
+    MARGIN = 1, simplify = FALSE,
+    function(x) cor(x, reducedDim(tse, "Bray"), method = "kendall")
+)
+```
 
 ```{r}
-#| label: run-jaccard
-# Reduce number of dimensions with a different metric
-tse <- runMDS(tse,
-              assay.type = "relabundance",
-              FUN = vegan::vegdist,
-              method = "jaccard",
-              name = "Jaccard")
+mat <- do.call(rbind, res)
+colnames(mat) <- paste0("Bray", seq(ncol(mat)))
+rownames(mat) <- rownames(tse)
+```
 
-reducedDimNames(tse)
+```{r}
+tail(sort(mat[ , 1]))
+tail(sort(mat[ , 2]))
 ```
 
 ## Example 2.2
 
 ```{r}
-#| label: fig-jaccard
-#| fig-cap: Ordination plot based on Unifrac index. Samples are coloured by
-#|   patient status.
-# Visualise samples with the newly reduced dimensions
-p3 <- plotReducedDim(tse, "Jaccard",
-                     colour_by = "patient_status")
+df <- as.data.frame(mat)
+df$Taxon <- rowData(tse)$Genus
+df$Taxon[df$Bray1 < 0.6 & df$Bray2 < 0.5] <- ""
 
-p3
+library(ggplot2)
+library(ggrepel)
+
+ggplot(df, aes(x = Bray1, y = Bray2)) +
+  geom_point(size = 1) +
+  lims(x = c(-1, 1), y = c(-1, 1)) +
+  geom_text_repel(aes(label = Taxon), size = 3) +
+  theme_classic()
 ```
 
+## Exercise 2
+
+an exercise where you have to find important taxa based on loadings we could also use toptaxa coloured ordination plot
 
 ## Example 3.1
 
@@ -142,13 +150,13 @@ reducedDimNames(tse)
 
 ```{r}
 #| label: fig-unifrac
-#| fig-cap: Ordination plot based on Unifrac index. Samples are coloured by
-#|   patient status and shaped by cohort.
+#| fig-cap: Ordination plot based on (A) Bray-Curtis and (B) Unifrac indices. Samples are coloured by patient statu.
 p2 <- plotReducedDim(tse, "Unifrac",
-                     colour_by = "patient_status",
-                     shape_by = "cohort")
+                     colour_by = "patient_status")
 
-p2
+(p1 | p2) +
+  plot_layout(guides = "collect") +
+  plot_annotation(tag_levels = "A")
 ```
 
 ## Example 4.1
@@ -173,32 +181,18 @@ We then plot all three dimensions, but you could also plot a pair of dimensions 
 
 ```{r}
 #| label: fig-umap
-#| fig-cap: UMAP plot of the first three dimensions.
-p4 <- plotReducedDim(tse, "UMAP",
+#| fig-cap: UMAP plot of the first three dimensions. Samples are coloured by
+#|   patient status and shaped by cohort.
+p3 <- plotReducedDim(tse, "UMAP",
                     ncomponents = 3,
                     colour_by = "patient_status",
                     shape_by = "cohort")
 
-p4
-```
-
-## Comparison
-
-Finally, we combine the two plots with the patchwork syntax and compare them in
-@fig-beta.
-
-```{r}
-#| label: fig-comparison
-#| fig-cap: Ordination plots based on (A) Bray-Curtis, (B) Jaccard and (C)
-#|   Unifrac indices. Samples are coloured by patient status and shaped by
-#|   cohort.
-(p1 | p2 | p3) +
-  plot_layout(guides = "collect") +
-  plot_annotation(tag_levels = "A")
+p3
 ```
 
 ## Try yourself
 
-- [exercise 7.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#visualization-basics-with-pca)
-- [exercise 7.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#principal-coordinate-analysis-pcoa).
-- exercise with aitchison
+-   [exercise 7.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#visualization-basics-with-pca)
+-   [exercise 7.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#principal-coordinate-analysis-pcoa).
+-   exercise with aitchison

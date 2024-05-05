@@ -1325,16 +1325,16 @@
   {
     "objectID": "tengeler_community_composition.html#assay-transformation-and-agglomeration",
     "href": "tengeler_community_composition.html#assay-transformation-and-agglomeration",
-    "title": "Community Composition",
+    "title": "Community Composition with Heatmaps",
     "section": "Assay transformation and agglomeration",
-    "text": "Assay transformation and agglomeration\nFirst of all, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.\n\ntse <- transformAssay(tse,\n                       method = \"relabundance\")\n\nRelative abundances are useful because they are not affected by compositionality, which is present in the counts assay due to sequencing bias (the unequal amplification of DNA from two different samples due to random effects).\n\n\n\n\nTable 1: Relative abundance (%) of bacterial phyla grouped by patient status.\n\n\n\nADHD\nControl\n\n\n\n\nBacteroidetes\n69.2\n61.1\n\n\nFirmicutes\n23.7\n30.1\n\n\nVerrucomicrobia\n4.7\n6.9\n\n\nProteobacteria\n2.4\n1.8\n\n\n\n\n\n\nNext, we agglomerate the experiment to the Order level, so that information is more condensed and therefore easier to visualise and interpret.\n\ntse_order <- agglomerateByRank(tse, rank = \"Order\")"
+    "text": "Assay transformation and agglomeration\nRelative abundances are useful because they are not affected by compositionality, which is present in the counts assay due to sequencing bias (the unequal amplification of DNA from two different samples due to random effects).\n\ntse_phylum &lt;- mergeFeaturesByRank(tse, rank = \"Phylum\")\n\ntse_list &lt;- splitOn(tse_phylum, f = \"patient_status\")\n\ntop_tab_list &lt;- lapply(tse_list, function(tse) round(rowMeans(assay(tse, \"relabundance\")[getTopTaxa(tse, top = 4L), ]) * 100, 1))\n\nknitr::kable(cbind(top_tab_list[[1]], top_tab_list[[2]]), col.names = c(\"ADHD\", \"Control\"))\n\n\n\nTable 1: Relative abundance (%) of bacterial phyla grouped by patient status.\n\n\n\nADHD\nControl\n\n\n\n\nBacteroidetes\n69.2\n61.1\n\n\nFirmicutes\n23.7\n30.1\n\n\nVerrucomicrobia\n4.7\n6.9\n\n\nProteobacteria\n2.4\n1.8\n\n\n\n\n\n\nNext, we agglomerate the experiment to the Order level, so that information is more condensed and therefore easier to visualise and interpret.\n\ntse_order &lt;- agglomerateByRank(tse, rank = \"Order\")"
   },
   {
     "objectID": "tengeler_community_composition.html#compositional-heatmap",
     "href": "tengeler_community_composition.html#compositional-heatmap",
-    "title": "Community Composition",
+    "title": "Compositional Heatmaps",
     "section": "Compositional heatmap",
-    "text": "Compositional heatmap\nWe then perform a CLR transformation sample-wise and a Z transformation feature-wise. The former creates a more homogeneous (logarithmic) scale for the usually very skewed microbiome data, whereas the latter normalises the features across samples for better comparisons between samples.\n\n# transform relative abundance to clr\ntse_order <- transformAssay(tse_order,\n                             assay.type = \"relabundance\",\n                             method = \"clr\",\n                             pseudocount = 1,\n                             MARGIN = \"samples\")\n\n# transform clr to z\ntse_order <- transformAssay(tse_order,\n                             assay.type = \"clr\", \n                             method = \"z\",\n                             name = \"clr_z\",\n                             MARGIN = \"features\")\n\nFinally, we plot the compositional heatmap with the ComplexHeatmap package and illustrate it in Figure 1.\n\nHeatmap(assay(tse_order, \"clr_z\"),\n        name = \"clr-z\")\n\n\n\n\nFigure 1: Heatmap of CLR-Z transformed microbiome assay where columns correspond to samples and rows to taxa agglomerated by order."
+    "text": "Compositional heatmap\nNext, we agglomerate the experiment to the Order level, so that information is more condensed and therefore easier to visualise and interpret.\n\ntse_order &lt;- agglomerateByRank(tse, rank = \"Order\")\n\nWe then perform a CLR transformation sample-wise and a Z transformation feature-wise. The former creates a more homogeneous (logarithmic) scale for the usually very skewed microbiome data, whereas the latter normalises the features across samples for better comparisons between samples.\n\n# transform relative abundance to clr\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"relabundance\",\n                            method = \"clr\",\n                            pseudocount = 1,\n                            MARGIN = \"samples\")\n\n# transform clr to z\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"clr\", \n                            method = \"z\",\n                            name = \"clr_z\",\n                            MARGIN = \"features\")"
   },
   {
     "objectID": "tengeler_differential_abundance.html",
@@ -1587,5 +1587,89 @@
     "title": "Principal Coordinate Analysis",
     "section": "Comparison",
     "text": "Comparison\nFinally, we combine the two plots with the patchwork syntax and compare them in ?@fig-beta.\n\n(p1 | p2 | p3) +\n  plot_layout(guides = \"collect\") +\n  plot_annotation(tag_levels = \"A\")\n\n\nFigure 5: Ordination plots based on (A) Bray-Curtis, (B) Jaccard and (C) Unifrac indices. Samples are coloured by patient status and shaped by cohort."
+  },
+  {
+    "objectID": "tengeler_community_composition.html#overview",
+    "href": "tengeler_community_composition.html#overview",
+    "title": "Compositional Heatmaps",
+    "section": "Overview",
+    "text": "Overview\nThe following packages are needed to succesfully run the examples in this notebook:\n\nmia: tools for microbiome data analysis\nComplexHeatmap: plotting heatmaps\n\nTo begin with, we import Tengeler2020 from the mia package and store it into a variable.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nFirst of all, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.\n\ntse &lt;- transformAssay(tse, method = \"relabundance\")"
+  },
+  {
+    "objectID": "tengeler_community_composition.html#why-relabundance",
+    "href": "tengeler_community_composition.html#why-relabundance",
+    "title": "Compositional Heatmaps",
+    "section": "Why relabundance",
+    "text": "Why relabundance\nRelative abundances are useful because they are not affected by compositionality, which is present in the counts assay due to sequencing bias (the unequal amplification of DNA from two different samples due to random effects).\n\ntse_phylum &lt;- mergeFeaturesByRank(tse, rank = \"Phylum\")\n\ntse_list &lt;- splitOn(tse_phylum, f = \"patient_status\")\n\ntop_tab_list &lt;- lapply(\n    tse_list,\n    function(x) round(rowMeans(assay(x, \"relabundance\")[getTopTaxa(x, top = 4L), ]) * 100, 1)\n)\n\nknitr::kable(cbind(top_tab_list[[1]], top_tab_list[[2]]), col.names = c(\"ADHD\", \"Control\"))\n\n\n\n\n\nADHD\nControl\n\n\n\n\nBacteroidetes\n69.2\n61.1\n\n\nFirmicutes\n23.7\n30.1\n\n\nVerrucomicrobia\n4.7\n6.9\n\n\nProteobacteria\n2.4\n1.8"
+  },
+  {
+    "objectID": "tengeler_community_composition.html#heatmap",
+    "href": "tengeler_community_composition.html#heatmap",
+    "title": "Compositional Heatmaps",
+    "section": "Heatmap",
+    "text": "Heatmap\nFinally, we plot the compositional heatmap with the ComplexHeatmap package and illustrate it in Figure 1.\n\nhm1 &lt;- Heatmap(assay(tse_order, \"clr_z\"), name = \"clr-z\")\nhm1\n\n\nFigure 1: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order."
+  },
+  {
+    "objectID": "tengeler_community_composition.html#a",
+    "href": "tengeler_community_composition.html#a",
+    "title": "Community Composition with Heatmaps",
+    "section": "a",
+    "text": "a\n\nhm2 &lt;- Heatmap(assay(tse_order, \"counts\"), name = \"counts\")\nhm3 &lt;- Heatmap(assay(tse_order, \"relabundance\"), name = \"relabundance\")\nhm1 + hm3 + hm3"
+  },
+  {
+    "objectID": "tengeler_community_composition.html#why-clr-z-transformation",
+    "href": "tengeler_community_composition.html#why-clr-z-transformation",
+    "title": "Compositional Heatmaps",
+    "section": "Why clr-z transformation?",
+    "text": "Why clr-z transformation?\n\nhm2 &lt;- Heatmap(assay(tse_order, \"counts\"), name = \"counts\")\nhm3 &lt;- Heatmap(assay(tse_order, \"relabundance\"), name = \"relabundance\")\nhm1 + hm2 + hm3"
+  },
+  {
+    "objectID": "tengeler_community_composition.html#exercise",
+    "href": "tengeler_community_composition.html#exercise",
+    "title": "Compositional Heatmaps",
+    "section": "Exercise",
+    "text": "Exercise\n\nexercise 9.2\nrefine exercise 9.2 and make a new one with some heatmap functionality"
+  },
+  {
+    "objectID": "tengeler_community_composition.html#exercise-1.1",
+    "href": "tengeler_community_composition.html#exercise-1.1",
+    "title": "Compositional Heatmaps",
+    "section": "Exercise 1.1",
+    "text": "Exercise 1.1\nThe following packages are needed to succesfully run the examples in this notebook:\n\nmia: tools for microbiome data analysis\nComplexHeatmap: plotting heatmaps\n\nTo begin with, we import Tengeler2020 from the mia package and store it into a variable.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nFirst of all, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.\n\ntse &lt;- transformAssay(tse, method = \"relabundance\")"
+  },
+  {
+    "objectID": "tengeler_community_composition.html#why-relative-abundances",
+    "href": "tengeler_community_composition.html#why-relative-abundances",
+    "title": "Compositional Heatmaps",
+    "section": "Why relative abundances?",
+    "text": "Why relative abundances?\nRelative abundances are useful because they are not affected by compositionality, which is present in the counts assay due to sequencing bias (the unequal amplification of DNA from two different samples due to random effects).\n\ntse_phylum &lt;- mergeFeaturesByRank(tse, rank = \"Phylum\")\n\ntse_list &lt;- splitOn(tse_phylum, f = \"patient_status\")\n\ntop_tab_list &lt;- lapply(\n    tse_list,\n    function(x) round(rowMeans(assay(x, \"relabundance\")[getTopTaxa(x, top = 4L), ]) * 100, 1)\n)\n\nknitr::kable(cbind(top_tab_list[[1]], top_tab_list[[2]]), col.names = c(\"ADHD\", \"Control\"))\n\n\n\n\n\nADHD\nControl\n\n\n\n\nBacteroidetes\n69.2\n61.1\n\n\nFirmicutes\n23.7\n30.1\n\n\nVerrucomicrobia\n4.7\n6.9\n\n\nProteobacteria\n2.4\n1.8"
+  },
+  {
+    "objectID": "tengeler_community_composition.html#example-1.2",
+    "href": "tengeler_community_composition.html#example-1.2",
+    "title": "Compositional Heatmaps",
+    "section": "Example 1.2",
+    "text": "Example 1.2\nNext, we agglomerate the experiment to the order level, so that information is more condensed and therefore easier to visualise and interpret.\n\ntse_order &lt;- mergeFeaturesByRank(tse, rank = \"Order\")\n\nWe then perform a CLR transformation sample-wise and a Z transformation feature-wise. The former creates a more homogeneous (logarithmic) scale for the usually very skewed microbiome data, whereas the latter normalises the features across samples for better comparisons between samples.\n\n# transform relative abundance to clr\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"relabundance\",\n                            method = \"clr\",\n                            pseudocount = 1,\n                            MARGIN = \"samples\")\n\n# transform clr to z\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"clr\", \n                            method = \"z\",\n                            name = \"clr_z\",\n                            MARGIN = \"features\")"
+  },
+  {
+    "objectID": "tengeler_community_composition.html#example-1.3",
+    "href": "tengeler_community_composition.html#example-1.3",
+    "title": "Compositional Heatmaps",
+    "section": "Example 1.3",
+    "text": "Example 1.3\nFinally, we plot the compositional heatmap with the ComplexHeatmap package and illustrate it in Figure 1.\n\nhm1 &lt;- Heatmap(assay(tse_order, \"clr_z\"), name = \"clr-z\")\nhm1\n\n\nFigure 1: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order."
+  },
+  {
+    "objectID": "tengeler_community_composition.html#example-1.1",
+    "href": "tengeler_community_composition.html#example-1.1",
+    "title": "Compositional Heatmaps",
+    "section": "Example 1.1",
+    "text": "Example 1.1\nThe following packages are needed to succesfully run the examples in this notebook:\n\nmia: tools for microbiome data analysis\nComplexHeatmap: plotting heatmaps\n\nTo begin with, we import Tengeler2020 from the mia package and store it into a variable.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nFirst of all, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.\n\ntse &lt;- transformAssay(tse, method = \"relabundance\")"
+  },
+  {
+    "objectID": "tengeler_community_composition.html#exercise-1",
+    "href": "tengeler_community_composition.html#exercise-1",
+    "title": "Compositional Heatmaps",
+    "section": "Exercise 1",
+    "text": "Exercise 1\n\nexercise 9.2\nrefine exercise 9.2 and make a new one with some heatmap functionality"
   }
 ]
