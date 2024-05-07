@@ -20,11 +20,21 @@ From [course website](https://microbiome.github.io/course_2023_oulu/start.html)
 
 -   Online support: for installation and other issues, join us at [Gitter](https://microbiome.github.io/OMA/training.html#support-and-resources).
 
-## Software & learning environment (GB)
+## Software & learning environment
 
 -   **Pre-installed system** Temporary access to the notebook cloud environment provided by CSC with preinstalled software.
 
 -   **Your own system** encouraged to test the installation on your own system; limited support for this will be available.
+
+## CSC Notebook
+
+-   Offers web applications for self-learning, hosting courses and collaboration provided by CSC.
+
+-   [CSC -- IT Center for Science](https://www.csc.fi/) is a Finnish center of expertise in information technology.
+
+-   CSC is owned by the Finnish state and higher education institutions.
+
+-   Services: High-performance computing, data management, cloud, software.
 
 ## CSC cloud notebook
 
@@ -40,7 +50,66 @@ From [course website](https://microbiome.github.io/course_2023_oulu/start.html)
 
 ![](images/paste-8E75CB83.png){width="71"}
 
-## Teaching environment (GB) {.smaller}
+## Instructions to login
+
+-   Instructions to access the environment will be sent to the registered participants.
+
+1.  Read the [General instructions](https://docs.csc.fi/cloud/csc_notebooks/guide_for_students/)
+
+2.  Go to the [CSC notebook front page](https://notebooks.rahtiapp.fi/welcome).
+
+3.  Login
+
+    a\. Haka login
+
+    b\. CSC login
+
+    c\. Special login
+
+## Haka login
+
+-   If you have a Finnish university account, you should be able to login with Haka
+
+    1.  Press **Login** button from the frontpage
+    2.  Press **Haka** button
+    3.  Select right organization
+    4.  Enter login information
+
+## CSC login
+
+-   You can create a CSC account by following the instructions
+
+    1.  Press **Login** button from the frontpage
+    2.  Press **CSC** button
+    3.  Enter login information
+
+## Special login
+
+-   For those who cannot login with Haka or CSC account
+
+    1.  Contact Jeba on [gitter](https://app.gitter.im/#/room/#microbiome_miaverse:gitter.im) if you are not able to login
+
+    2.  We will give you guest account
+
+    3.  Press **Special login** button from the front page (below the **Login** button)
+
+    4.  Enter login information
+
+## Joining workspace
+
+1.  Join workspace
+
+    a\. Press **Join workspace** button (Top right corner)
+
+    b\. Enter the **Join Code** (Check your email)
+
+2.  Start session
+
+    -   Press **ON** button
+
+3.  Save files to **my-work**
+
+## Teaching environment {.smaller}
 
 1.  Open the course website
 2.  Show instructions
