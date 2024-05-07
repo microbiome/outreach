@@ -15,6 +15,7 @@ This website hosts quarto presentations about microbiome analysis and data integ
 ### Quarto
 
 -   [Reproducible workflow with Quarto](https://microbiome.github.io/outreach/reproducible_workflow.html)
+-   [Learning environment](https://microbiome.github.io/outreach/starting.html)
 
 ### Data containers
 
@@ -28,11 +29,9 @@ This website hosts quarto presentations about microbiome analysis and data integ
 -   [HintikkaXOData](https://microbiome.github.io/outreach/hintikkaxo_presentation.html)
 -   [Tengeler2020](https://microbiome.github.io/outreach/tengeler2020_presentation.html)
 
-
 ### Microbiome data analysis
 
 -   [Data wrangling](https://microbiome.github.io/outreach/data_manipulation.html)
--   [Getting started](https://microbiome.github.io/outreach/starting.html)
 -   [Tengeler / Quarto](https://microbiome.github.io/outreach/tengeler_quarto.html)
 -   [Tengeler / Basic exploration](https://microbiome.github.io/outreach/tengeler_basic_exploration.html)
 -   [Tengeler / Alpha](https://microbiome.github.io/outreach/tengeler_alpha_diversity.html)
@@ -41,7 +40,6 @@ This website hosts quarto presentations about microbiome analysis and data integ
 -   [Tengeler / Community composition](https://microbiome.github.io/outreach/tengeler_community_composition.html)
 -   [Tengeler / DA](https://microbiome.github.io/outreach/tengeler_differential_abundance.html)
 -   [Day 2](https://microbiome.github.io/outreach/day2.html)
-
 
 ## Contributions
 

@@ -1671,5 +1671,61 @@
     "title": "Compositional Heatmaps",
     "section": "Exercise 1",
     "text": "Exercise 1\n\nexercise 9.2\nrefine exercise 9.2 and make a new one with some heatmap functionality"
+  },
+  {
+    "objectID": "starting.html#software-learning-environment",
+    "href": "starting.html#software-learning-environment",
+    "title": "Learning environment & data sets",
+    "section": "Software & learning environment",
+    "text": "Software & learning environment\n\nPre-installed system Temporary access to the notebook cloud environment provided by CSC with preinstalled software.\nYour own system encouraged to test the installation on your own system; limited support for this will be available."
+  },
+  {
+    "objectID": "starting.html#csc-notebook",
+    "href": "starting.html#csc-notebook",
+    "title": "Learning environment & data sets",
+    "section": "CSC Notebook",
+    "text": "CSC Notebook\n\nOffers web applications for self-learning, hosting courses and collaboration provided by CSC.\nCSC – IT Center for Science is a Finnish center of expertise in information technology.\nCSC is owned by the Finnish state and higher education institutions.\nServices: High-performance computing, data management, cloud, software."
+  },
+  {
+    "objectID": "starting.html#instructions-to-login",
+    "href": "starting.html#instructions-to-login",
+    "title": "Learning environment & data sets",
+    "section": "Instructions to login",
+    "text": "Instructions to login\n\nInstructions to access the environment will be sent to the registered participants.\n\n\nRead the General instructions\nGo to the CSC notebook front page.\nLogin\na. Haka login\nb. CSC login\nc. Special login"
+  },
+  {
+    "objectID": "starting.html#haka-login",
+    "href": "starting.html#haka-login",
+    "title": "Learning environment & data sets",
+    "section": "Haka login",
+    "text": "Haka login\n\nIf you have a Finnish university account, you should be able to login with Haka\n\nPress Login button from the frontpage\nPress Haka button\nSelect right organization\nEnter login information"
+  },
+  {
+    "objectID": "starting.html#csc-login",
+    "href": "starting.html#csc-login",
+    "title": "Learning environment & data sets",
+    "section": "CSC login",
+    "text": "CSC login\n\nYou can create a CSC account by following the instructions\n\nPress Login button from the frontpage\nPress CSC button\nEnter login information"
+  },
+  {
+    "objectID": "starting.html#special-login",
+    "href": "starting.html#special-login",
+    "title": "Learning environment & data sets",
+    "section": "Special login",
+    "text": "Special login\n\nFor those who cannot login with Haka or CSC account\n\nContact Jeba on gitter if you are not able to login\nWe will give you guest account\nPress Special login button from the front page (below the Login button)\nEnter login information"
+  },
+  {
+    "objectID": "starting.html#joining-workspace",
+    "href": "starting.html#joining-workspace",
+    "title": "Learning environment & data sets",
+    "section": "Joining workspace",
+    "text": "Joining workspace\n\nJoin workspace\na. Press Join workspace button (Top right corner)\nb. Enter the Join Code (Check your email)\nStart session\n\nPress ON button\n\nSave files to my-work"
+  },
+  {
+    "objectID": "starting.html#teaching-environment",
+    "href": "starting.html#teaching-environment",
+    "title": "Learning environment & data sets",
+    "section": "Teaching environment",
+    "text": "Teaching environment\n\nOpen the course website\nShow instructions\nShow the front page\nExplain login options (personal or guest account)\nJoin workspace with the join code (Workspace means this course)\nOpen new session\nSession lifetime: need to open new session every day (to save computer resources)\nRstudio intro (if necessary)\nUsing folders\nmy-work will be there as long as workspace is there (half year)\nYou can download those by e.g. copy-pasting, or exportin the file\nSaving workspace to your directory (optional)"
   }
 ]
