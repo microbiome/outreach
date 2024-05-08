@@ -4,7 +4,7 @@
     "href": "index.html",
     "title": "Quarto Presentations",
     "section": "",
-    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\n\n\nBioconductor project\n\n\n\n\n\nReproducible workflow with Quarto\n\n\n\n\n\nOrchestrating microbiome multi-omics with R & Bioconductor\nData containers\nSummarizedExperiment\nTreeSummarizedExperiment\n\n\n\n\n\nHintikkaXOData\nTengeler2020\n\n\n\n\n\nData wrangling\nGetting started\nTengeler / Quarto\nTengeler / Basic exploration\nTengeler / Alpha\nTengeler / PCoA\nTengeler / dbRDA\nTengeler / Community composition\nTengeler / DA\nDay 2"
+    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\n\n\nBioconductor project\n\n\n\n\n\nReproducible workflow with Quarto\nLearning environment\n\n\n\n\n\nOrchestrating microbiome multi-omics with R & Bioconductor\nData containers\nSummarizedExperiment\nTreeSummarizedExperiment\n\n\n\n\n\nHintikkaXOData\nTengeler2020\n\n\n\n\n\nData wrangling\nTengeler / Quarto\nTengeler / Basic exploration\nTengeler / Alpha\nTengeler / PCoA\nTengeler / dbRDA\nTengeler / Community composition\nTengeler / DA\nDay 2"
   },
   {
     "objectID": "index.html#contributions",
@@ -1727,5 +1727,12 @@
     "title": "Learning environment & data sets",
     "section": "Teaching environment",
     "text": "Teaching environment\n\nOpen the course website\nShow instructions\nShow the front page\nExplain login options (personal or guest account)\nJoin workspace with the join code (Workspace means this course)\nOpen new session\nSession lifetime: need to open new session every day (to save computer resources)\nRstudio intro (if necessary)\nUsing folders\nmy-work will be there as long as workspace is there (half year)\nYou can download those by e.g. copy-pasting, or exportin the file\nSaving workspace to your directory (optional)"
+  },
+  {
+    "objectID": "index.html#overview",
+    "href": "index.html#overview",
+    "title": "Quarto Presentations",
+    "section": "",
+    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\n\n\nBioconductor project\n\n\n\n\n\nReproducible workflow with Quarto\nLearning environment\n\n\n\n\n\nOrchestrating microbiome multi-omics with R & Bioconductor\nData containers\nSummarizedExperiment\nTreeSummarizedExperiment\n\n\n\n\n\nHintikkaXOData\nTengeler2020\n\n\n\n\n\nData wrangling\nTengeler / Quarto\nTengeler / Basic exploration\nTengeler / Alpha\nTengeler / PCoA\nTengeler / dbRDA\nTengeler / Community composition\nTengeler / DA\nDay 2"
   }
 ]
