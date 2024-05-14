@@ -410,7 +410,7 @@
     "href": "reproducible_workflow.html#reproducible-notebooks",
     "title": "Reproducible data science workflow",
     "section": "Reproducible notebooks",
-    "text": "Reproducible notebooks\n\nWe use Quarto for reproducible documentation.\nNext generation development of Rmarkdown\nLargely compatible with Rmarkdown\nSupported by RStudio\n\nThe pre-study material includes a link to Rmarkdown & Quarto tutorial videos. See OMA chapter 17: https://microbiome.github.io/OMA/exercises.html\nQuarto enables you to weave together content and executable code into a finished presentation. To learn more, see https://quarto.org/docs/presentations/."
+    "text": "Reproducible notebooks\n\nWe use Quarto for reproducible documentation.\nNext generation development of Rmarkdown\nLargely compatible with Rmarkdown\nSupported by RStudio\n\nThe pre-study material includes a link to Rmarkdown & Quarto tutorial videos. See OMA Exercise chapter: https://microbiome.github.io/OMA/exercises.html\nQuarto enables you to weave together content and executable code into a finished presentation. To learn more, see https://quarto.org/docs/presentations/."
   },
   {
     "objectID": "reproducible_workflow.html#literate-programming",
@@ -438,7 +438,7 @@
     "href": "reproducible_workflow.html#quarto-exercise",
     "title": "Reproducible data science workflow",
     "section": "Quarto exercise",
-    "text": "Quarto exercise\nOMA Exercise:\n18.2.1 Reproducible reporting with Quarto"
+    "text": "Quarto exercise\nOMA Exercise:\n21.2.1 Reproducible reporting with Quarto"
   },
   {
     "objectID": "reproducible_workflow.html#task-1-reproducible-reporting",
