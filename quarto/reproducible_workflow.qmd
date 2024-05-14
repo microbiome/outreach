@@ -46,7 +46,7 @@ Let us first demonstrate Quarto.
 
 OMA Exercise:
 
-18.2.1 Reproducible reporting with Quarto
+21.2.1 Reproducible reporting with Quarto
 
 ## Task 1: Reproducible reporting {.smaller}
 
@@ -80,31 +80,18 @@ For more tips, see [Quarto tutorial](https://quarto.org/docs/authoring/markdown-
 
 -   See [OMA Exercises](https://microbiome.github.io/OMA/exercises.html) for Quarto.
 
-
-
-
-
 ## Tips, tricks & hacks
 
--  Quarto tips & tricks & hacks?
+-   Quarto tips & tricks & hacks?
 
--  Installing new packages
+-   Installing new packages
 
-- Importing new data sets to R for interactive data analysis:
-    read.csv, read.biom etc. where to find examples (see OMA section
-    on data import)
-
-
+-   Importing new data sets to R for interactive data analysis: read.csv, read.biom etc. where to find examples (see OMA section on data import)
 
 ## Random coding tips
 
-- **Comment the code** to explain what each line or lines of code
-      do. This facilitates later understanding, reuse, and
-      transparency.
+-   **Comment the code** to explain what each line or lines of code do. This facilitates later understanding, reuse, and transparency.
 
-- **Avoid hard-coding** define key variables in the beginning of the
-      workflow. This makes it easier to modify parameters and reuse
-      the code.
+-   **Avoid hard-coding** define key variables in the beginning of the workflow. This makes it easier to modify parameters and reuse the code.
 
-- **Summarize the main results** in an understable way(!)
-
+-   **Summarize the main results** in an understable way(!)
