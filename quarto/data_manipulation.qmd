@@ -2,59 +2,170 @@
 title: "Data manipulation"
 format: revealjs
 editor: visual
+smaller: true
+bibliography: references.bib
 ---
 
+```{r}
+#| label: setup
+#| include: false
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
+```
 
+## Example 1.1: Data Import
 
-## Import example data
+Load demo data (go deeper in
+[OMA](https://microbiome.github.io/OMA/docs/devel/pages/04_containers.html#data-containers)).
 
-- Load demo data (OMA section 3.3).
+```{r}
+#| label: import-tengeler
+library(mia)
 
-- Extra: create the data straight from source files in the shared data folder (OMA section 3.4).
+# Load Tengeler2020 and store it into a TreeSE
+data("Tengeler2020", package = "mia")
+tse <- Tengeler2020
+```
 
+Print object
 
-## Investigate the data elements
+```{r}
+# Print TreeSE
+tse
+```
 
-Extract the microbiota data elements (ch 3.2):
+## Example 1.2: Column data
 
-- column data (sample data)
-- row data (feature data)
-- assays (abundance matrices)
-- other data elements
+Extract the microbiota data elements: column data (sample data)
 
+```{r}
+head(colnames(tse))
+```
 
-## Subsetting
+```{r}
+head(colData(tse))
+```
 
-- Show how to subset microbiota data (ex. 17.3.1)
+Access variable from colData
 
-- **Subset to the most prevalent taxa (17.3.3)** (tip: subsetByPrevalentFeatures)
+```{r}
+head(tse$patient_status)
+```
 
-  - for count assay; how many features remain? 
-  - for relative abundance assay; how many features remain? 
+## Example 1.3: Row data
 
+row data (feature data)
 
-## Agglomeration
+```{r}
+head(rownames(tse))
+```
 
-Agglomerate the microbiota data to higher taxonomic levels:
+```{r}
+head(rowData(tse))
+```
 
-- chapter 6.3
-- agglomerateByRank
+```{r}
+head(rowData(tse)$Genus)
+```
 
+## Example 1.4: Assays
 
-## Extra exercises 17.3 
+assays (abundance matrices)
 
-- library sizes & rarification (17.3.2)
+```{r}
+assayNames(tse)
+```
 
+```{r}
+assay(tse, "counts")[seq(6), seq(6)]
+```
 
-## Exercises 17.5.1-17.5.2: colData & diversity
+## Exercise 1
 
-- Add Shannon diversity in colData
-- Visualize diversity differences between sample groups
+-   preliminary exploration:
+    [exercise 3.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#preliminary-exploration)
+-   assay retrieval:
+    [exercise 3.4](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#assay-retrieval)
 
+Extra:
 
-## Transformations
+-   constructing a TreeSE object:
+    [exercise 3.1](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#sec-construct-TreeSE)
 
-- transform to alternative assays and show histograms for the whole assay
-- transform to alternative assays; boxplots for selected feature
+Create a TreeSE directly from its components in the form of raw data (OMA
+section 3.4). Raw data [here](https://github.com/microbiome/data).
 
+## Example 2.1: Subsetting
 
+Show how to subset microbiota data (go deeper in
+[OMA](https://microbiome.github.io/OMA/docs/devel/pages/10_manipulation.html#subsetting)).
+
+```{r}
+unique(tse$patient_status)
+```
+
+```{r}
+subcol_tse <- tse[ , tse$patient_status == "ADHD"]
+dim(subcol_tse)
+```
+
+```{r}
+unique(rowData(tse)$Phylum)
+```
+
+```{r}
+subrow_tse <- tse[rowData(tse)$Phylum == "Firmicutes", ]
+dim(subrow_tse)
+```
+
+## Example 2.2: Agglomeration
+
+Agglomerate the microbiota data to higher taxonomic levels (go deeper in
+[OMA](https://microbiome.github.io/OMA/docs/devel/pages/11_taxonomic_information.html#sec-data-agglomeration)).
+
+```{r}
+altExp(tse, "phylum") <- mergeFeaturesByRank(tse, rank = "Phylum")
+altExp(tse, "phylum")
+```
+
+## Example 2.3: Transformation
+
+transform to alternative assays and show histograms for the whole assay
+transform to alternative assays; boxplots for selected feature (go deeper in
+[OMA](https://microbiome.github.io/OMA/docs/devel/pages/11_taxonomic_information.html#sec-assay-transform)).
+
+```{r}
+tse <- transformAssay(tse,
+                      assay.type = "counts",
+                      method = "relabundance")
+
+head(colSums(assay(tse, "relabundance")))
+```
+
+```{r}
+tse <- transformAssay(tse,
+                      assay.type = "relabundance",
+                      method = "z",
+                      MARGIN = "features")
+
+head(rowSds(assay(tse, "z")))
+```
+
+## Exercise 2
+
+-   subsetting:
+    [exercise 4.1](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#subsetting)
+-   agglomeration:
+    [exercise 5.1](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#taxonomic-levels)
+-   transformation:
+    [exercise 4.6](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#assay-transformation)
+
+*Add to exercise 4.3*: Subset to the most prevalent taxa (17.3.3)
+(tip: subsetByPrevalentFeatures). for count assay; how many features remain?
+for relative abundance assay; how many features remain?
+
+Extra:
+
+-   prevalence subsetting:
+    [exercise 4.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#prevalent-and-core-taxonomic-features)
+-   alternative experiments:
+    [exercise 5.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#alternative-experiments)
