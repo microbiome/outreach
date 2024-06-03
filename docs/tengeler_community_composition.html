@@ -397,36 +397,43 @@
 </section>
 <section id="example-1.1" class="slide level2">
 <h2>Example 1.1</h2>
-<p>The following packages are needed to succesfully run the examples in this notebook:</p>
-<ul>
-<li><p><em>mia</em>: tools for microbiome data analysis</p></li>
-<li><p><em>ComplexHeatmap</em>: plotting heatmaps</p></li>
-</ul>
-<p>To begin with, we import Tengeler2020 from the mia package and store it into a variable.</p>
+<p>We first import the packages used in this tutorial.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># load dataset and store it into tse</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">data</span>(<span class="st">"Tengeler2020"</span>, <span class="at">package =</span> <span class="st">"mia"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3"></a>tse <span class="ot">&lt;-</span> Tengeler2020</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Import libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(mia)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(ComplexHeatmap)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>First of all, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.</p>
+<p>We also import Tengeler2020 from the mia package and store it into a variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse, <span class="at">method =</span> <span class="st">"relabundance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Load dataset and store it into tse</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">data</span>(<span class="st">"Tengeler2020"</span>, <span class="at">package =</span> <span class="st">"mia"</span>)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>tse <span class="ot">&lt;-</span> Tengeler2020</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we transform the counts assay to relative abundance assay and store it into the TreeSE.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># Transform counts to relative abundances</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a>tse <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse, <span class="at">method =</span> <span class="st">"relabundance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, we agglomerate the experiment to the order level, so that information is more condensed and therefore easier to visualise and interpret.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Agglomerate by order</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">mergeFeaturesByRank</span>(tse, <span class="at">rank =</span> <span class="st">"Order"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="why-relative-abundances" class="slide level2">
 <h2>Why relative abundances?</h2>
 <p>Relative abundances are useful because they are not affected by <strong>compositionality</strong>, which is present in the counts assay due to <strong>sequencing bias</strong> (the unequal amplification of DNA from two different samples due to random effects).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a>tse_phylum <span class="ot">&lt;-</span> <span class="fu">mergeFeaturesByRank</span>(tse, <span class="at">rank =</span> <span class="st">"Phylum"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a></span>
-<span id="cb3-3"><a href="#cb3-3"></a>tse_list <span class="ot">&lt;-</span> <span class="fu">splitOn</span>(tse_phylum, <span class="at">f =</span> <span class="st">"patient_status"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4"></a></span>
-<span id="cb3-5"><a href="#cb3-5"></a>top_tab_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(</span>
-<span id="cb3-6"><a href="#cb3-6"></a>    tse_list,</span>
-<span id="cb3-7"><a href="#cb3-7"></a>    <span class="cf">function</span>(x) <span class="fu">round</span>(<span class="fu">rowMeans</span>(<span class="fu">assay</span>(x, <span class="st">"relabundance"</span>)[<span class="fu">getTopTaxa</span>(x, <span class="at">top =</span> 4L), ]) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span>
-<span id="cb3-8"><a href="#cb3-8"></a>)</span>
-<span id="cb3-9"><a href="#cb3-9"></a></span>
-<span id="cb3-10"><a href="#cb3-10"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">cbind</span>(top_tab_list[[<span class="dv">1</span>]], top_tab_list[[<span class="dv">2</span>]]), <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"ADHD"</span>, <span class="st">"Control"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>tse_phylum <span class="ot">&lt;-</span> <span class="fu">mergeFeaturesByRank</span>(tse, <span class="at">rank =</span> <span class="st">"Phylum"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2"></a></span>
+<span id="cb5-3"><a href="#cb5-3"></a>tse_list <span class="ot">&lt;-</span> <span class="fu">splitOn</span>(tse_phylum, <span class="at">f =</span> <span class="st">"patient_status"</span>)</span>
+<span id="cb5-4"><a href="#cb5-4"></a></span>
+<span id="cb5-5"><a href="#cb5-5"></a>top_tab_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(</span>
+<span id="cb5-6"><a href="#cb5-6"></a>    tse_list,</span>
+<span id="cb5-7"><a href="#cb5-7"></a>    <span class="cf">function</span>(x) <span class="fu">round</span>(<span class="fu">rowMeans</span>(<span class="fu">assay</span>(x, <span class="st">"relabundance"</span>)[<span class="fu">getTopTaxa</span>(x, <span class="at">top =</span> 4L), ]) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span>
+<span id="cb5-8"><a href="#cb5-8"></a>)</span>
+<span id="cb5-9"><a href="#cb5-9"></a></span>
+<span id="cb5-10"><a href="#cb5-10"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">cbind</span>(top_tab_list[[<span class="dv">1</span>]], top_tab_list[[<span class="dv">2</span>]]), <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"ADHD"</span>, <span class="st">"Control"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table>
 <thead>
@@ -464,50 +471,58 @@
 </section>
 <section id="example-1.2" class="slide level2">
 <h2>Example 1.2</h2>
-<p>Next, we agglomerate the experiment to the order level, so that information is more condensed and therefore easier to visualise and interpret.</p>
+<p>To reduce data skewness, we further transform the relative abundance assay with the <strong>Centered-Log Ratio</strong> (CLR), which is defined as follows:</p>
+<p><span class="math display">\[
+clr = log \frac{x}{g(x)} = log(x)−log[g(x)]
+\]</span></p>
+<p>where x is a feature and g(x) the geometric mean of all features in a sample.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">mergeFeaturesByRank</span>(tse, <span class="at">rank =</span> <span class="st">"Order"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Transform relative abundances to clr</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse_order,</span>
+<span id="cb6-3"><a href="#cb6-3"></a>                            <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
+<span id="cb6-4"><a href="#cb6-4"></a>                            <span class="at">method =</span> <span class="st">"clr"</span>,</span>
+<span id="cb6-5"><a href="#cb6-5"></a>                            <span class="at">pseudocount =</span> <span class="dv">1</span>,</span>
+<span id="cb6-6"><a href="#cb6-6"></a>                            <span class="at">MARGIN =</span> <span class="st">"samples"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We then perform a <strong>CLR transformation</strong> sample-wise and a <strong>Z transformation</strong> feature-wise. The former creates a more homogeneous (logarithmic) scale for the usually very skewed microbiome data, whereas the latter normalises the features across samples for better comparisons between samples.</p>
+<p>Lastly, we get the row-wise <strong>z-scores</strong> of every feature from the clr assay to standardise abundances across samples.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># transform relative abundance to clr</span></span>
-<span id="cb5-2"><a href="#cb5-2"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse_order,</span>
-<span id="cb5-3"><a href="#cb5-3"></a>                            <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
-<span id="cb5-4"><a href="#cb5-4"></a>                            <span class="at">method =</span> <span class="st">"clr"</span>,</span>
-<span id="cb5-5"><a href="#cb5-5"></a>                            <span class="at">pseudocount =</span> <span class="dv">1</span>,</span>
-<span id="cb5-6"><a href="#cb5-6"></a>                            <span class="at">MARGIN =</span> <span class="st">"samples"</span>)</span>
-<span id="cb5-7"><a href="#cb5-7"></a></span>
-<span id="cb5-8"><a href="#cb5-8"></a><span class="co"># transform clr to z</span></span>
-<span id="cb5-9"><a href="#cb5-9"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse_order,</span>
-<span id="cb5-10"><a href="#cb5-10"></a>                            <span class="at">assay.type =</span> <span class="st">"clr"</span>, </span>
-<span id="cb5-11"><a href="#cb5-11"></a>                            <span class="at">method =</span> <span class="st">"z"</span>,</span>
-<span id="cb5-12"><a href="#cb5-12"></a>                            <span class="at">name =</span> <span class="st">"clr_z"</span>,</span>
-<span id="cb5-13"><a href="#cb5-13"></a>                            <span class="at">MARGIN =</span> <span class="st">"features"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Transform clr to z</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse_order,</span>
+<span id="cb7-3"><a href="#cb7-3"></a>                            <span class="at">assay.type =</span> <span class="st">"clr"</span>, </span>
+<span id="cb7-4"><a href="#cb7-4"></a>                            <span class="at">method =</span> <span class="st">"z"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5"></a>                            <span class="at">name =</span> <span class="st">"clr_z"</span>,</span>
+<span id="cb7-6"><a href="#cb7-6"></a>                            <span class="at">MARGIN =</span> <span class="st">"features"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="example-1.3" class="slide level2">
 <h2>Example 1.3</h2>
-<p>Finally, we plot the compositional heatmap with the ComplexHeatmap package and illustrate it in <a href="#/fig-compheat">Figure&nbsp;1</a>.</p>
+<p>Finally, we plot the compositional heatmap with <code>ComplexHeatmap</code>. Results are illustrated by <a href="#/fig-compheat">Figure&nbsp;1</a>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>hm1 <span class="ot">&lt;-</span> <span class="fu">Heatmap</span>(<span class="fu">assay</span>(tse_order, <span class="st">"clr_z"</span>), <span class="at">name =</span> <span class="st">"clr-z"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2"></a>hm1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>clrz_hm <span class="ot">&lt;-</span> <span class="fu">Heatmap</span>(<span class="fu">assay</span>(tse_order, <span class="st">"clr_z"</span>), <span class="at">name =</span> <span class="st">"clr-z"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2"></a>clrz_hm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="tengeler_community_composition_files/figure-revealjs/fig-compheat-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;1: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order.</p></section>
 <section id="why-clr-z-transformation" class="slide level2">
 <h2>Why clr-z transformation?</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>hm2 <span class="ot">&lt;-</span> <span class="fu">Heatmap</span>(<span class="fu">assay</span>(tse_order, <span class="st">"counts"</span>), <span class="at">name =</span> <span class="st">"counts"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2"></a>hm3 <span class="ot">&lt;-</span> <span class="fu">Heatmap</span>(<span class="fu">assay</span>(tse_order, <span class="st">"relabundance"</span>), <span class="at">name =</span> <span class="st">"relabundance"</span>)</span>
-<span id="cb7-3"><a href="#cb7-3"></a>hm1 <span class="sc">+</span> hm2 <span class="sc">+</span> hm3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>A CLR-z transformation improves comparability in two steps:</p>
+<ol type="1">
+<li>Apply <strong>CLR transform</strong> to center features <strong>column-wise</strong></li>
+<li>Find <strong>Z score</strong> to standardise features <strong>row-wise</strong></li>
+</ol>
 
-</div>
-<img data-src="tengeler_community_composition_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section>
+<img data-src="tengeler_community_composition_files/figure-revealjs/fig-comparison-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;2: Visual comparison between counts, relative abundance, clr and clr-z assays (from left to right).</p></section>
 <section id="exercise-1" class="slide level2">
 <h2>Exercise 1</h2>
 <ul>
 <li><a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#heatmap-visualization">exercise 9.2</a></li>
 <li>refine exercise 9.2 and make a new one with some heatmap functionality</li>
+</ul>
+</section>
+<section id="resources" class="slide level2">
+<h2>Resources</h2>
+<ul>
+<li><a href="https://jokergoo.github.io/ComplexHeatmap-reference/book/index.html">ComplexHeatmap Complete Reference</a></li>
 </ul>
 
 <div class="footer footer-default">

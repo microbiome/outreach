@@ -1369,14 +1369,14 @@
     "href": "data_manipulation.html#import-example-data",
     "title": "Data manipulation",
     "section": "Import example data",
-    "text": "Import example data\n\nLoad demo data (OMA section 3.3).\nExtra: create the data straight from source files in the shared data folder (OMA section 3.4)."
+    "text": "Import example data\n\nLoad demo data (OMA section 3.3).\n\n\nlibrary(mia)\n\n# Load Tengeler2020 and store it into a TreeSE\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nPrint object\n\n# Print TreeSE\ntse\n\nclass: TreeSummarizedExperiment \ndim: 151 27 \nmetadata(0):\nassays(1): counts\nrownames(151): Bacteroides Bacteroides_1 ... Parabacteroides_8\n  Unidentified_Lachnospiraceae_14\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (151 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
   },
   {
     "objectID": "data_manipulation.html#investigate-the-data-elements",
     "href": "data_manipulation.html#investigate-the-data-elements",
     "title": "Data manipulation",
     "section": "Investigate the data elements",
-    "text": "Investigate the data elements\nExtract the microbiota data elements (ch 3.2):\n\ncolumn data (sample data)\nrow data (feature data)\nassays (abundance matrices)\nother data elements"
+    "text": "Investigate the data elements\nExtract the microbiota data elements (ch 3.2):\n\ncolumn data (sample data)\n\n\nhead(colnames(tse))\n\n[1] \"A110\" \"A12\"  \"A15\"  \"A19\"  \"A21\"  \"A23\" \n\n\n\nhead(colData(tse))\n\nDataFrame with 6 rows and 4 columns\n     patient_status      cohort patient_status_vs_cohort sample_name\n        &lt;character&gt; &lt;character&gt;              &lt;character&gt; &lt;character&gt;\nA110           ADHD    Cohort_1            ADHD_Cohort_1        A110\nA12            ADHD    Cohort_1            ADHD_Cohort_1         A12\nA15            ADHD    Cohort_1            ADHD_Cohort_1         A15\nA19            ADHD    Cohort_1            ADHD_Cohort_1         A19\nA21            ADHD    Cohort_2            ADHD_Cohort_2         A21\nA23            ADHD    Cohort_2            ADHD_Cohort_2         A23\n\n\nAccess variable from colData\n\nhead(tse$patient_status)\n\n[1] \"ADHD\" \"ADHD\" \"ADHD\" \"ADHD\" \"ADHD\" \"ADHD\""
   },
   {
     "objectID": "data_manipulation.html#subsetting",
@@ -1621,7 +1621,7 @@
     "href": "tengeler_community_composition.html#why-clr-z-transformation",
     "title": "Compositional Heatmaps",
     "section": "Why clr-z transformation?",
-    "text": "Why clr-z transformation?\n\nhm2 &lt;- Heatmap(assay(tse_order, \"counts\"), name = \"counts\")\nhm3 &lt;- Heatmap(assay(tse_order, \"relabundance\"), name = \"relabundance\")\nhm1 + hm2 + hm3"
+    "text": "Why clr-z transformation?\nA CLR-z transformation improves comparability in two steps:\n\nApply CLR transform to center features column-wise\nFind Z score to standardise features row-wise\n\n\nFigure 2: Visual comparison between counts, relative abundance, clr and clr-z assays (from left to right)."
   },
   {
     "objectID": "tengeler_community_composition.html#exercise",
@@ -1649,21 +1649,21 @@
     "href": "tengeler_community_composition.html#example-1.2",
     "title": "Compositional Heatmaps",
     "section": "Example 1.2",
-    "text": "Example 1.2\nNext, we agglomerate the experiment to the order level, so that information is more condensed and therefore easier to visualise and interpret.\n\ntse_order &lt;- mergeFeaturesByRank(tse, rank = \"Order\")\n\nWe then perform a CLR transformation sample-wise and a Z transformation feature-wise. The former creates a more homogeneous (logarithmic) scale for the usually very skewed microbiome data, whereas the latter normalises the features across samples for better comparisons between samples.\n\n# transform relative abundance to clr\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"relabundance\",\n                            method = \"clr\",\n                            pseudocount = 1,\n                            MARGIN = \"samples\")\n\n# transform clr to z\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"clr\", \n                            method = \"z\",\n                            name = \"clr_z\",\n                            MARGIN = \"features\")"
+    "text": "Example 1.2\nTo reduce data skewness, we further transform the relative abundance assay with the Centered-Log Ratio (CLR), which is defined as follows:\n\\[\nclr = log \\frac{x}{g(x)} = log(x)−log[g(x)]\n\\]\nwhere x is a feature and g(x) the geometric mean of all features in a sample.\n\n# Transform relative abundances to clr\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"relabundance\",\n                            method = \"clr\",\n                            pseudocount = 1,\n                            MARGIN = \"samples\")\n\nLastly, we get the row-wise z-scores of every feature from the clr assay to standardise abundances across samples.\n\n# Transform clr to z\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"clr\", \n                            method = \"z\",\n                            name = \"clr_z\",\n                            MARGIN = \"features\")"
   },
   {
     "objectID": "tengeler_community_composition.html#example-1.3",
     "href": "tengeler_community_composition.html#example-1.3",
     "title": "Compositional Heatmaps",
     "section": "Example 1.3",
-    "text": "Example 1.3\nFinally, we plot the compositional heatmap with the ComplexHeatmap package and illustrate it in Figure 1.\n\nhm1 &lt;- Heatmap(assay(tse_order, \"clr_z\"), name = \"clr-z\")\nhm1\n\n\nFigure 1: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order."
+    "text": "Example 1.3\nFinally, we plot the compositional heatmap with ComplexHeatmap. Results are illustrated by Figure 1.\n\nclrz_hm &lt;- Heatmap(assay(tse_order, \"clr_z\"), name = \"clr-z\")\nclrz_hm\n\n\nFigure 1: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order."
   },
   {
     "objectID": "tengeler_community_composition.html#example-1.1",
     "href": "tengeler_community_composition.html#example-1.1",
     "title": "Compositional Heatmaps",
     "section": "Example 1.1",
-    "text": "Example 1.1\nThe following packages are needed to succesfully run the examples in this notebook:\n\nmia: tools for microbiome data analysis\nComplexHeatmap: plotting heatmaps\n\nTo begin with, we import Tengeler2020 from the mia package and store it into a variable.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nFirst of all, we transform the counts assay to relative abundances and store the new assay back in the TreeSE.\n\ntse &lt;- transformAssay(tse, method = \"relabundance\")"
+    "text": "Example 1.1\nWe first import the packages used in this tutorial.\n\n# Import libraries\nlibrary(mia)\nlibrary(ComplexHeatmap)\n\nWe also import Tengeler2020 from the mia package and store it into a variable.\n\n# Load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nNext, we transform the counts assay to relative abundance assay and store it into the TreeSE.\n\n# Transform counts to relative abundances\ntse &lt;- transformAssay(tse, method = \"relabundance\")\n\nThen, we agglomerate the experiment to the order level, so that information is more condensed and therefore easier to visualise and interpret.\n\n# Agglomerate by order\ntse_order &lt;- mergeFeaturesByRank(tse, rank = \"Order\")"
   },
   {
     "objectID": "tengeler_community_composition.html#exercise-1",
@@ -1727,5 +1727,131 @@
     "title": "Learning environment & data sets",
     "section": "Teaching environment",
     "text": "Teaching environment\n\nOpen the course website\nShow instructions\nShow the front page\nExplain login options (personal or guest account)\nJoin workspace with the join code (Workspace means this course)\nOpen new session\nSession lifetime: need to open new session every day (to save computer resources)\nRstudio intro (if necessary)\nUsing folders\nmy-work will be there as long as workspace is there (half year)\nYou can download those by e.g. copy-pasting, or exportin the file\nSaving workspace to your directory (optional)"
+  },
+  {
+    "objectID": "data_manipulation.html#example-1.3",
+    "href": "data_manipulation.html#example-1.3",
+    "title": "Data manipulation",
+    "section": "Example 1.3",
+    "text": "Example 1.3\nrow data (feature data)\n\nhead(rownames(tse))\n\n[1] \"Bacteroides\"     \"Bacteroides_1\"   \"Parabacteroides\" \"Bacteroides_2\"  \n[5] \"Akkermansia\"     \"Bacteroides_3\"  \n\n\n\nhead(rowData(tse))\n\nDataFrame with 6 rows and 6 columns\n                    Kingdom          Phylum            Class              Order\n                &lt;character&gt;     &lt;character&gt;      &lt;character&gt;        &lt;character&gt;\nBacteroides        Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales\nBacteroides_1      Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales\nParabacteroides    Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales\nBacteroides_2      Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales\nAkkermansia        Bacteria Verrucomicrobia Verrucomicrobiae Verrucomicrobiales\nBacteroides_3      Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales\n                             Family           Genus\n                        &lt;character&gt;     &lt;character&gt;\nBacteroides          Bacteroidaceae     Bacteroides\nBacteroides_1        Bacteroidaceae     Bacteroides\nParabacteroides  Porphyromonadaceae Parabacteroides\nBacteroides_2        Bacteroidaceae     Bacteroides\nAkkermansia     Verrucomicrobiaceae     Akkermansia\nBacteroides_3        Bacteroidaceae     Bacteroides\n\n\n\nhead(rowData(tse)$Genus)\n\n[1] \"Bacteroides\"     \"Bacteroides\"     \"Parabacteroides\" \"Bacteroides\"    \n[5] \"Akkermansia\"     \"Bacteroides\""
+  },
+  {
+    "objectID": "data_manipulation.html#assay",
+    "href": "data_manipulation.html#assay",
+    "title": "Data manipulation",
+    "section": "Assay",
+    "text": "Assay\n\nassayNames(tse)\n\n[1] \"counts\"\n\n\n\nhead(assay(tse, \"counts\"))\n\n                 A110   A12  A15  A19  A21  A23  A25  A28 A29  A34  A36   A37\nBacteroides     17722 11630    0 8806 1740 1791 2368 1316 252 5702 2889 12036\nBacteroides_1   12052     0 2679 2776  540  229    0    0   0 6347 2977     0\nParabacteroides     0   970    0  549  145    0  109  119  31    0    0  3326\nBacteroides_2       0  1911    0 5497  659    0  588  542 141    0  219 10430\nAkkermansia      1143  1891 1212  584   84  700  440  244  25 1611  399   835\nBacteroides_3       0  6498    0 4455  610    0  522  511 352    0    0     0\n                 A39 A111  A13  A14  A16  A17  A18 A210  A22  A24  A26  A27\nBacteroides        0 9933 1217 3478 5351 4738 8425 4052 1838 3085 1570 3621\nBacteroides_1      0 7871    0  876    0    0 4879 1762    0 2190    0 1480\nParabacteroides 9477    0 7454    0 2321 1426    0    0 5415    0 3531    0\nBacteroides_2      0  560  449    0 2106 2304    0    0  796   84  135  293\nAkkermansia     1178  278 1159 1422 2069 2231  626 2456  976  316 2420 1129\nBacteroides_3      0    0    0    0    0    0    0    0    0   70    0  322\n                 A33  A35  A38\nBacteroides     4464  719 3250\nBacteroides_1    599    0 2606\nParabacteroides    0 3421    0\nBacteroides_2    580  314  557\nAkkermansia      337  931  726\nBacteroides_3    435    0  252\n\n\n\nassays (abundance matrices)"
+  },
+  {
+    "objectID": "data_manipulation.html#exercise-1",
+    "href": "data_manipulation.html#exercise-1",
+    "title": "Data manipulation",
+    "section": "Exercise 1",
+    "text": "Exercise 1\n\npreliminary exploration: exercise 3.3\nassay retrieval: exercise 3.4\n\nExtra:\n\nconstructing a TreeSE object: exercise 3.1\n\nCreate a TreeSE directly from its components in the form of raw data (OMA section 3.4). Raw data here."
+  },
+  {
+    "objectID": "data_manipulation.html#example-1.1",
+    "href": "data_manipulation.html#example-1.1",
+    "title": "Data manipulation",
+    "section": "Example 1.1",
+    "text": "Example 1.1\nLoad demo data (OMA section 3.3).\n\nlibrary(mia)\n\n# Load Tengeler2020 and store it into a TreeSE\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nPrint object\n\n# Print TreeSE\ntse\n\nclass: TreeSummarizedExperiment \ndim: 151 27 \nmetadata(0):\nassays(1): counts\nrownames(151): Bacteroides Bacteroides_1 ... Parabacteroides_8\n  Unidentified_Lachnospiraceae_14\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (151 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "data_manipulation.html#example-1.2",
+    "href": "data_manipulation.html#example-1.2",
+    "title": "Data manipulation",
+    "section": "Example 1.2",
+    "text": "Example 1.2\nExtract the microbiota data elements (ch 3.2): column data (sample data)\n\nhead(colnames(tse))\n\n[1] \"A110\" \"A12\"  \"A15\"  \"A19\"  \"A21\"  \"A23\" \n\n\n\nhead(colData(tse))\n\nDataFrame with 6 rows and 4 columns\n     patient_status      cohort patient_status_vs_cohort sample_name\n        &lt;character&gt; &lt;character&gt;              &lt;character&gt; &lt;character&gt;\nA110           ADHD    Cohort_1            ADHD_Cohort_1        A110\nA12            ADHD    Cohort_1            ADHD_Cohort_1         A12\nA15            ADHD    Cohort_1            ADHD_Cohort_1         A15\nA19            ADHD    Cohort_1            ADHD_Cohort_1         A19\nA21            ADHD    Cohort_2            ADHD_Cohort_2         A21\nA23            ADHD    Cohort_2            ADHD_Cohort_2         A23\n\n\nAccess variable from colData\n\nhead(tse$patient_status)\n\n[1] \"ADHD\" \"ADHD\" \"ADHD\" \"ADHD\" \"ADHD\" \"ADHD\""
+  },
+  {
+    "objectID": "data_manipulation.html#example-1.4",
+    "href": "data_manipulation.html#example-1.4",
+    "title": "Data manipulation",
+    "section": "Example 1.4",
+    "text": "Example 1.4\nassays (abundance matrices)\n\nassayNames(tse)\n\n[1] \"counts\"\n\n\n\nassay(tse, \"counts\")[seq(6), seq(6)]\n\n                 A110   A12  A15  A19  A21  A23\nBacteroides     17722 11630    0 8806 1740 1791\nBacteroides_1   12052     0 2679 2776  540  229\nParabacteroides     0   970    0  549  145    0\nBacteroides_2       0  1911    0 5497  659    0\nAkkermansia      1143  1891 1212  584   84  700\nBacteroides_3       0  6498    0 4455  610    0"
+  },
+  {
+    "objectID": "data_manipulation.html#example-2.1",
+    "href": "data_manipulation.html#example-2.1",
+    "title": "Data manipulation",
+    "section": "Example 2.1",
+    "text": "Example 2.1\nShow how to subset microbiota data (ex. 17.3.1)\n\nunique(tse$patient_status)\n\n[1] \"ADHD\"    \"Control\"\n\n\n\nsubcol_tse &lt;- tse[ , tse$patient_status == \"ADHD\"]\ndim(subcol_tse)\n\n[1] 151  13\n\n\n\nunique(rowData(tse)$Phylum)\n\n[1] \"Bacteroidetes\"   \"Verrucomicrobia\" \"Proteobacteria\"  \"Firmicutes\"     \n[5] \"Cyanobacteria\"  \n\n\n\nsubrow_tse &lt;- tse[rowData(tse)$Phylum == \"Firmicutes\", ]\ndim(subrow_tse)\n\n[1] 97 27"
+  },
+  {
+    "objectID": "data_manipulation.html#example-2.2",
+    "href": "data_manipulation.html#example-2.2",
+    "title": "Data manipulation",
+    "section": "Example 2.2",
+    "text": "Example 2.2\nAgglomerate the microbiota data to higher taxonomic levels (chapter 6.3)\n\naltExp(tse, \"phylum\") &lt;- mergeFeaturesByRank(tse, rank = \"Phylum\")\naltExp(tse, \"phylum\")\n\nclass: TreeSummarizedExperiment \ndim: 5 27 \nmetadata(1): agglomerated_by_rank\nassays(1): counts\nrownames(5): Bacteroidetes Verrucomicrobia Proteobacteria Firmicutes\n  Cyanobacteria\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (5 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "data_manipulation.html#example-2.3",
+    "href": "data_manipulation.html#example-2.3",
+    "title": "Data manipulation",
+    "section": "Example 2.3",
+    "text": "Example 2.3\ntransform to alternative assays and show histograms for the whole assay transform to alternative assays; boxplots for selected feature\n\ntse &lt;- transformAssay(tse,\n                      assay.type = \"counts\",\n                      method = \"relabundance\")\n\nhead(colSums(assay(tse, \"relabundance\")))\n\nA110  A12  A15  A19  A21  A23 \n   1    1    1    1    1    1 \n\n\n\ntse &lt;- transformAssay(tse,\n                      assay.type = \"relabundance\",\n                      method = \"z\",\n                      MARGIN = \"features\")\n\nhead(rowSds(assay(tse, \"z\")))\n\n    Bacteroides   Bacteroides_1 Parabacteroides   Bacteroides_2     Akkermansia \n              1               1               1               1               1 \n  Bacteroides_3 \n              1"
+  },
+  {
+    "objectID": "data_manipulation.html#exercise-2",
+    "href": "data_manipulation.html#exercise-2",
+    "title": "Data manipulation",
+    "section": "Exercise 2",
+    "text": "Exercise 2\n\nsubsetting: exercise 4.1\nagglomeration: exercise 5.1\ntransformation: exercise 4.6\n\nAdd to exercise 4.3: Subset to the most prevalent taxa (17.3.3) (tip: subsetByPrevalentFeatures). for count assay; how many features remain? for relative abundance assay; how many features remain?\nExtra:\n\nprevalence subsetting: exercise 4.3\nalternative experiments: exercise 5.2"
+  },
+  {
+    "objectID": "data_manipulation.html#example-1.1-data-import",
+    "href": "data_manipulation.html#example-1.1-data-import",
+    "title": "Data manipulation",
+    "section": "Example 1.1: Data Import",
+    "text": "Example 1.1: Data Import\nLoad demo data (go deeper in OMA).\n\nlibrary(mia)\n\n# Load Tengeler2020 and store it into a TreeSE\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nPrint object\n\n# Print TreeSE\ntse\n\nclass: TreeSummarizedExperiment \ndim: 151 27 \nmetadata(0):\nassays(1): counts\nrownames(151): Bacteroides Bacteroides_1 ... Parabacteroides_8\n  Unidentified_Lachnospiraceae_14\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (151 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "data_manipulation.html#example-1.2-column-data",
+    "href": "data_manipulation.html#example-1.2-column-data",
+    "title": "Data manipulation",
+    "section": "Example 1.2: Column data",
+    "text": "Example 1.2: Column data\nExtract the microbiota data elements: column data (sample data)\n\nhead(colnames(tse))\n\n[1] \"A110\" \"A12\"  \"A15\"  \"A19\"  \"A21\"  \"A23\" \n\n\n\nhead(colData(tse))\n\nDataFrame with 6 rows and 4 columns\n     patient_status      cohort patient_status_vs_cohort sample_name\n        &lt;character&gt; &lt;character&gt;              &lt;character&gt; &lt;character&gt;\nA110           ADHD    Cohort_1            ADHD_Cohort_1        A110\nA12            ADHD    Cohort_1            ADHD_Cohort_1         A12\nA15            ADHD    Cohort_1            ADHD_Cohort_1         A15\nA19            ADHD    Cohort_1            ADHD_Cohort_1         A19\nA21            ADHD    Cohort_2            ADHD_Cohort_2         A21\nA23            ADHD    Cohort_2            ADHD_Cohort_2         A23\n\n\nAccess variable from colData\n\nhead(tse$patient_status)\n\n[1] \"ADHD\" \"ADHD\" \"ADHD\" \"ADHD\" \"ADHD\" \"ADHD\""
+  },
+  {
+    "objectID": "data_manipulation.html#example-1.3-row-data",
+    "href": "data_manipulation.html#example-1.3-row-data",
+    "title": "Data manipulation",
+    "section": "Example 1.3: Row data",
+    "text": "Example 1.3: Row data\nrow data (feature data)\n\nhead(rownames(tse))\n\n[1] \"Bacteroides\"     \"Bacteroides_1\"   \"Parabacteroides\" \"Bacteroides_2\"  \n[5] \"Akkermansia\"     \"Bacteroides_3\"  \n\n\n\nhead(rowData(tse))\n\nDataFrame with 6 rows and 6 columns\n                    Kingdom          Phylum            Class              Order\n                &lt;character&gt;     &lt;character&gt;      &lt;character&gt;        &lt;character&gt;\nBacteroides        Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales\nBacteroides_1      Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales\nParabacteroides    Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales\nBacteroides_2      Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales\nAkkermansia        Bacteria Verrucomicrobia Verrucomicrobiae Verrucomicrobiales\nBacteroides_3      Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales\n                             Family           Genus\n                        &lt;character&gt;     &lt;character&gt;\nBacteroides          Bacteroidaceae     Bacteroides\nBacteroides_1        Bacteroidaceae     Bacteroides\nParabacteroides  Porphyromonadaceae Parabacteroides\nBacteroides_2        Bacteroidaceae     Bacteroides\nAkkermansia     Verrucomicrobiaceae     Akkermansia\nBacteroides_3        Bacteroidaceae     Bacteroides\n\n\n\nhead(rowData(tse)$Genus)\n\n[1] \"Bacteroides\"     \"Bacteroides\"     \"Parabacteroides\" \"Bacteroides\"    \n[5] \"Akkermansia\"     \"Bacteroides\""
+  },
+  {
+    "objectID": "data_manipulation.html#example-1.4-assays",
+    "href": "data_manipulation.html#example-1.4-assays",
+    "title": "Data manipulation",
+    "section": "Example 1.4: Assays",
+    "text": "Example 1.4: Assays\nassays (abundance matrices)\n\nassayNames(tse)\n\n[1] \"counts\"\n\n\n\nassay(tse, \"counts\")[seq(6), seq(6)]\n\n                 A110   A12  A15  A19  A21  A23\nBacteroides     17722 11630    0 8806 1740 1791\nBacteroides_1   12052     0 2679 2776  540  229\nParabacteroides     0   970    0  549  145    0\nBacteroides_2       0  1911    0 5497  659    0\nAkkermansia      1143  1891 1212  584   84  700\nBacteroides_3       0  6498    0 4455  610    0"
+  },
+  {
+    "objectID": "data_manipulation.html#example-2.1-subsetting",
+    "href": "data_manipulation.html#example-2.1-subsetting",
+    "title": "Data manipulation",
+    "section": "Example 2.1: Subsetting",
+    "text": "Example 2.1: Subsetting\nShow how to subset microbiota data (go deeper in OMA).\n\nunique(tse$patient_status)\n\n[1] \"ADHD\"    \"Control\"\n\n\n\nsubcol_tse &lt;- tse[ , tse$patient_status == \"ADHD\"]\ndim(subcol_tse)\n\n[1] 151  13\n\n\n\nunique(rowData(tse)$Phylum)\n\n[1] \"Bacteroidetes\"   \"Verrucomicrobia\" \"Proteobacteria\"  \"Firmicutes\"     \n[5] \"Cyanobacteria\"  \n\n\n\nsubrow_tse &lt;- tse[rowData(tse)$Phylum == \"Firmicutes\", ]\ndim(subrow_tse)\n\n[1] 97 27"
+  },
+  {
+    "objectID": "data_manipulation.html#example-2.2-agglomeration",
+    "href": "data_manipulation.html#example-2.2-agglomeration",
+    "title": "Data manipulation",
+    "section": "Example 2.2: Agglomeration",
+    "text": "Example 2.2: Agglomeration\nAgglomerate the microbiota data to higher taxonomic levels (go deeper in OMA).\n\naltExp(tse, \"phylum\") &lt;- mergeFeaturesByRank(tse, rank = \"Phylum\")\naltExp(tse, \"phylum\")\n\nclass: TreeSummarizedExperiment \ndim: 5 27 \nmetadata(1): agglomerated_by_rank\nassays(1): counts\nrownames(5): Bacteroidetes Verrucomicrobia Proteobacteria Firmicutes\n  Cyanobacteria\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (5 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "data_manipulation.html#example-2.3-transformation",
+    "href": "data_manipulation.html#example-2.3-transformation",
+    "title": "Data manipulation",
+    "section": "Example 2.3: Transformation",
+    "text": "Example 2.3: Transformation\ntransform to alternative assays and show histograms for the whole assay transform to alternative assays; boxplots for selected feature (go deeper in OMA).\n\ntse &lt;- transformAssay(tse,\n                      assay.type = \"counts\",\n                      method = \"relabundance\")\n\nhead(colSums(assay(tse, \"relabundance\")))\n\nA110  A12  A15  A19  A21  A23 \n   1    1    1    1    1    1 \n\n\n\ntse &lt;- transformAssay(tse,\n                      assay.type = \"relabundance\",\n                      method = \"z\",\n                      MARGIN = \"features\")\n\nhead(rowSds(assay(tse, \"z\")))\n\n    Bacteroides   Bacteroides_1 Parabacteroides   Bacteroides_2     Akkermansia \n              1               1               1               1               1 \n  Bacteroides_3 \n              1"
+  },
+  {
+    "objectID": "tengeler_community_composition.html#resources",
+    "href": "tengeler_community_composition.html#resources",
+    "title": "Compositional Heatmaps",
+    "section": "Resources",
+    "text": "Resources\n\nComplexHeatmap Complete Reference"
   }
 ]
