@@ -422,60 +422,36 @@
 </section>
 <section id="why-relative-abundances" class="slide level2">
 <h2>Why relative abundances?</h2>
-<p>Relative abundances are useful because they are not affected by <strong>compositionality</strong>, which is present in the counts assay due to <strong>sequencing bias</strong> (the unequal amplification of DNA from two different samples due to random effects).</p>
+<p>Microbiome data is compositional. Relative abundance helps us draw less biased comparisons between samples.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a>tse_phylum <span class="ot">&lt;-</span> <span class="fu">mergeFeaturesByRank</span>(tse, <span class="at">rank =</span> <span class="st">"Phylum"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2"></a></span>
-<span id="cb5-3"><a href="#cb5-3"></a>tse_list <span class="ot">&lt;-</span> <span class="fu">splitOn</span>(tse_phylum, <span class="at">f =</span> <span class="st">"patient_status"</span>)</span>
+<details>
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Import packages</span></span>
+<span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(miaViz)</span>
+<span id="cb5-3"><a href="#cb5-3"></a><span class="fu">library</span>(patchwork)</span>
 <span id="cb5-4"><a href="#cb5-4"></a></span>
-<span id="cb5-5"><a href="#cb5-5"></a>top_tab_list <span class="ot">&lt;-</span> <span class="fu">lapply</span>(</span>
-<span id="cb5-6"><a href="#cb5-6"></a>    tse_list,</span>
-<span id="cb5-7"><a href="#cb5-7"></a>    <span class="cf">function</span>(x) <span class="fu">round</span>(<span class="fu">rowMeans</span>(<span class="fu">assay</span>(x, <span class="st">"relabundance"</span>)[<span class="fu">getTopTaxa</span>(x, <span class="at">top =</span> 4L), ]) <span class="sc">*</span> <span class="dv">100</span>, <span class="dv">1</span>)</span>
-<span id="cb5-8"><a href="#cb5-8"></a>)</span>
-<span id="cb5-9"><a href="#cb5-9"></a></span>
-<span id="cb5-10"><a href="#cb5-10"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">cbind</span>(top_tab_list[[<span class="dv">1</span>]], top_tab_list[[<span class="dv">2</span>]]), <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"ADHD"</span>, <span class="st">"Control"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">ADHD</th>
-<th style="text-align: right;">Control</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">Bacteroidetes</td>
-<td style="text-align: right;">69.2</td>
-<td style="text-align: right;">61.1</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Firmicutes</td>
-<td style="text-align: right;">23.7</td>
-<td style="text-align: right;">30.1</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Verrucomicrobia</td>
-<td style="text-align: right;">4.7</td>
-<td style="text-align: right;">6.9</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Proteobacteria</td>
-<td style="text-align: right;">2.4</td>
-<td style="text-align: right;">1.8</td>
-</tr>
-</tbody>
-</table>
+<span id="cb5-5"><a href="#cb5-5"></a><span class="co"># Plot composition by counts</span></span>
+<span id="cb5-6"><a href="#cb5-6"></a>counts_bar <span class="ot">&lt;-</span> <span class="fu">plotAbundance</span>(tse_order, <span class="at">rank =</span> <span class="st">"Phylum"</span>, <span class="at">use_relative =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">ylab</span>(<span class="st">"Counts"</span>)</span>
+<span id="cb5-8"><a href="#cb5-8"></a></span>
+<span id="cb5-9"><a href="#cb5-9"></a><span class="co"># Plot composition by relative abundance</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>relab_bar <span class="ot">&lt;-</span> <span class="fu">plotAbundance</span>(tse_order, <span class="at">rank =</span> <span class="st">"Phylum"</span>) <span class="sc">+</span></span>
+<span id="cb5-11"><a href="#cb5-11"></a>  <span class="fu">ylab</span>(<span class="st">"Relative Abundance"</span>)</span>
+<span id="cb5-12"><a href="#cb5-12"></a></span>
+<span id="cb5-13"><a href="#cb5-13"></a><span class="co"># Combine plots</span></span>
+<span id="cb5-14"><a href="#cb5-14"></a>(counts_bar <span class="sc">|</span> relab_bar) <span class="sc">+</span></span>
+<span id="cb5-15"><a href="#cb5-15"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
 </div>
-</div>
-</section>
+<img data-src="tengeler_community_composition_files/figure-revealjs/fig-abund-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;1: Sample composition by counts (left) or relative abundance (right).</p></section>
 <section id="example-1.2" class="slide level2">
 <h2>Example 1.2</h2>
 <p>To reduce data skewness, we further transform the relative abundance assay with the <strong>Centered-Log Ratio</strong> (CLR), which is defined as follows:</p>
 <p><span class="math display">\[
 clr = log \frac{x}{g(x)} = log(x)−log[g(x)]
 \]</span></p>
-<p>where x is a feature and g(x) the geometric mean of all features in a sample.</p>
+<p>where x is a feature and g(x) is the geometric mean of all features in a sample.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Transform relative abundances to clr</span></span>
 <span id="cb6-2"><a href="#cb6-2"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse_order,</span>
@@ -496,13 +472,13 @@ clr = log \frac{x}{g(x)} = log(x)−log[g(x)]
 </section>
 <section id="example-1.3" class="slide level2">
 <h2>Example 1.3</h2>
-<p>Finally, we plot the compositional heatmap with <code>ComplexHeatmap</code>. Results are illustrated by <a href="#/fig-compheat">Figure&nbsp;1</a>.</p>
+<p>Finally, we plot the compositional heatmap with <code>ComplexHeatmap</code>. Results are illustrated by <a href="#/fig-compheat">Figure&nbsp;2</a>.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>clrz_hm <span class="ot">&lt;-</span> <span class="fu">Heatmap</span>(<span class="fu">assay</span>(tse_order, <span class="st">"clr_z"</span>), <span class="at">name =</span> <span class="st">"clr-z"</span>)</span>
 <span id="cb8-2"><a href="#cb8-2"></a>clrz_hm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="tengeler_community_composition_files/figure-revealjs/fig-compheat-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;1: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order.</p></section>
+<img data-src="tengeler_community_composition_files/figure-revealjs/fig-compheat-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;2: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order.</p></section>
 <section id="why-clr-z-transformation" class="slide level2">
 <h2>Why clr-z transformation?</h2>
 <p>A CLR-z transformation improves comparability in two steps:</p>
@@ -511,18 +487,20 @@ clr = log \frac{x}{g(x)} = log(x)−log[g(x)]
 <li>Find <strong>Z score</strong> to standardise features <strong>row-wise</strong></li>
 </ol>
 
-<img data-src="tengeler_community_composition_files/figure-revealjs/fig-comparison-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;2: Visual comparison between counts, relative abundance, clr and clr-z assays (from left to right).</p></section>
+<img data-src="tengeler_community_composition_files/figure-revealjs/fig-comparison-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;3: Visual comparison between counts, relative abundance, clr and clr-z assays (from left to right).</p></section>
 <section id="exercise-1" class="slide level2">
 <h2>Exercise 1</h2>
 <ul>
-<li><a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#heatmap-visualization">exercise 9.2</a></li>
+<li>heatmap visualisation: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#heatmap-visualization" target="_blank">exercise 9.2</a></li>
 <li>refine exercise 9.2 and make a new one with some heatmap functionality</li>
 </ul>
 </section>
 <section id="resources" class="slide level2">
 <h2>Resources</h2>
 <ul>
-<li><a href="https://jokergoo.github.io/ComplexHeatmap-reference/book/index.html">ComplexHeatmap Complete Reference</a></li>
+<li><a href="https://microbiome.github.io/OMA/docs/devel/pages/21_microbiome_community.html" target="_blank">OMA Chapter - Community Composition</a></li>
+<li><a href="https://microbiome.github.io/OMA/docs/devel/pages/19_visualization_techniques.html" target="_blank">OMA Chapter - Visualisation</a></li>
+<li><a href="https://jokergoo.github.io/ComplexHeatmap-reference/book/" target="_blank">ComplexHeatmap Complete Reference</a></li>
 </ul>
 
 <div class="footer footer-default">

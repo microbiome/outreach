@@ -50,20 +50,29 @@ tse_order <- mergeFeaturesByRank(tse, rank = "Order")
 
 ## Why relative abundances?
 
-Relative abundances are useful because they are not affected by **compositionality**, which is present in the counts assay due to **sequencing bias** (the unequal amplification of DNA from two different samples due to random effects).
+Microbiome data is compositional. Relative abundance helps us draw less biased
+comparisons between samples.
 
 ```{r}
-#| label: tab-top
-tse_phylum <- mergeFeaturesByRank(tse, rank = "Phylum")
+#| label: fig-abund
+#| fig-cap: Sample composition by counts (left) or relative abundance (right).
+#| code-fold: true
+#| code-summary: "Show code"
+# Import packages
+library(miaViz)
+library(patchwork)
 
-tse_list <- splitOn(tse_phylum, f = "patient_status")
+# Plot composition by counts
+counts_bar <- plotAbundance(tse_order, rank = "Phylum", use_relative = FALSE) +
+  ylab("Counts")
 
-top_tab_list <- lapply(
-    tse_list,
-    function(x) round(rowMeans(assay(x, "relabundance")[getTopTaxa(x, top = 4L), ]) * 100, 1)
-)
+# Plot composition by relative abundance
+relab_bar <- plotAbundance(tse_order, rank = "Phylum") +
+  ylab("Relative Abundance")
 
-knitr::kable(cbind(top_tab_list[[1]], top_tab_list[[2]]), col.names = c("ADHD", "Control"))
+# Combine plots
+(counts_bar | relab_bar) +
+  plot_layout(guides = "collect")
 ```
 
 ## Example 1.2
@@ -129,7 +138,7 @@ assay2heatmap <- function(tse, assay.type) {
         border = TRUE, rect_gp = gpar(col = "white", lwd = 1),
         heatmap_legend_param = list(direction = "horizontal",
                                     title_position = "topcenter"))
-  
+
     hm <- do.call(Heatmap, hm_args)
     return(hm)
 }
@@ -152,9 +161,11 @@ draw(counts_hm + relab_hm + clr_hm + clrz_hm,
 
 ## Exercise 1
 
--   [exercise 9.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#heatmap-visualization)
+-   heatmap visualisation: [exercise 9.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#heatmap-visualization){target="_blank"}
 -   refine exercise 9.2 and make a new one with some heatmap functionality
 
 ## Resources
 
--   [ComplexHeatmap Complete Reference](https://jokergoo.github.io/ComplexHeatmap-reference/book/)
+-   [OMA Chapter - Community Composition](https://microbiome.github.io/OMA/docs/devel/pages/21_microbiome_community.html){target="_blank"}
+-   [OMA Chapter - Visualisation](https://microbiome.github.io/OMA/docs/devel/pages/19_visualization_techniques.html){target="_blank"}
+-   [ComplexHeatmap Complete Reference](https://jokergoo.github.io/ComplexHeatmap-reference/book/){target="_blank"}

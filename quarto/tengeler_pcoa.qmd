@@ -86,7 +86,8 @@ p1
 
 ## Exercise 1
 
--   [exercise 7.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#principal-coordinate-analysis-pcoa) -\> change to jaccard
+-   PCoA: [exercise 7.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#principal-coordinate-analysis-pcoa){target="_blank"} -\> change to jaccard
+-   PCA: [exercise 7.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#visualization-basics-with-pca){target="_blank"}
 
 ## Example 2.1
 
@@ -191,8 +192,5 @@ p3 <- plotReducedDim(tse, "UMAP",
 p3
 ```
 
-## Try yourself
+## Exercise 4
 
--   [exercise 7.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#visualization-basics-with-pca)
--   [exercise 7.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#principal-coordinate-analysis-pcoa).
--   exercise with aitchison

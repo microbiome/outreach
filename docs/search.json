@@ -1516,14 +1516,14 @@
     "href": "tengeler_pcoa.html#example-1.1",
     "title": "Principal Coordinate Analysis",
     "section": "Example 1.1",
-    "text": "Example 1.1\nTo get started, we import Tengeler2020 from mia and store it into a variable.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\n# Get summary about the object\n# What dimensions does the data have?\ntse\n\nclass: TreeSummarizedExperiment \ndim: 151 27 \nmetadata(0):\nassays(1): counts\nrownames(151): 1726470 1726471 ... 17264756 17264757\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (151 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
+    "text": "Example 1.1\nTo get started, we import Tengeler2020 from mia and store it into a variable.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\n# Get summary about the object\n# What dimensions does the data have?\ntse\n\nclass: TreeSummarizedExperiment \ndim: 151 27 \nmetadata(0):\nassays(1): counts\nrownames(151): Bacteroides Bacteroides_1 ... Parabacteroides_8\n  Unidentified_Lachnospiraceae_14\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (151 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
   },
   {
     "objectID": "tengeler_pcoa.html#example-1.2",
     "href": "tengeler_pcoa.html#example-1.2",
     "title": "Principal Coordinate Analysis",
     "section": "Example 1.2",
-    "text": "Example 1.2\nAfter that, we transform the counts assay to relative abundances and store the new assay back into the TreeSE.\n\n# Transform counts to relative abundance\ntse &lt;- transformAssay(tse, method = \"relabundance\")\n\nHere, we run multi-dimensional scaling (another word for PCoA) on the relative abundance assay to reduce the data to fewer dimensions.\n\n# Reduce number of dimensions from 151 to 3 by PCoA\ntse &lt;- runMDS(tse,\n              assay.type = \"relabundance\",\n              FUN = vegan::vegdist,\n              method = \"bray\",\n              name = \"Bray\")\n\n# The new dimensions are stored in the reducedDim slot\nhead(reducedDim(tse, \"Bray\"))\n\n            [,1]        [,2]\nA110  0.35648020  0.11979800\nA12  -0.01837414 -0.35553853\nA15   0.14308108  0.36730630\nA19   0.03031075 -0.34670413\nA21   0.07539063 -0.31823525\nA23   0.17993859  0.09476674"
+    "text": "Example 1.2\nAfter that, we transform the counts assay to relative abundances and store the new assay back into the TreeSE.\n\n# Transform counts to relative abundance\ntse &lt;- transformAssay(tse, method = \"relabundance\")\n\nHere, we run multi-dimensional scaling (another word for PCoA) on the relative abundance assay to reduce the data to fewer dimensions.\n\n# Reduce number of dimensions from 151 to 3 by PCoA\ntse &lt;- runMDS(tse,\n              assay.type = \"relabundance\",\n              FUN = vegan::vegdist,\n              method = \"bray\",\n              name = \"Bray\")\n\n# The new dimensions are stored in the reducedDim slot\nhead(reducedDim(tse, \"Bray\"))\n\n            [,1]        [,2]\nA110  0.35648020  0.11979800\nA12  -0.01837414 -0.35553853\nA15   0.14308108  0.36730630\nA19   0.03031075 -0.34670413\nA21   0.07539063 -0.31823525\nA23   0.17993859  0.09476674\n\n\nThere are several ecological distances to choose from and you can find many of them under methods in the vignettes of vegan::vegdist. These metrics can be specified with the method argument."
   },
   {
     "objectID": "tengeler_pcoa.html#example-1.3",
@@ -1537,14 +1537,14 @@
     "href": "tengeler_pcoa.html#example-2.1",
     "title": "Principal Coordinate Analysis",
     "section": "Example 2.1",
-    "text": "Example 2.1\nBy default, Bray-Curtis dissimilarity is used. However, other metrics can be specified with the method argument.\n\n# Reduce number of dimensions with a different metric\ntse &lt;- runMDS(tse,\n              assay.type = \"relabundance\",\n              FUN = vegan::vegdist,\n              method = \"jaccard\",\n              name = \"Jaccard\")\n\nreducedDimNames(tse)\n\n[1] \"Bray\"    \"Jaccard\""
+    "text": "Example 2.1\n\nres &lt;- apply(\n    assay(tse, \"relabundance\"),\n    MARGIN = 1, simplify = FALSE,\n    function(x) cor(x, reducedDim(tse, \"Bray\"), method = \"kendall\")\n)\n\n\nmat &lt;- do.call(rbind, res)\ncolnames(mat) &lt;- paste0(\"Bray\", seq(ncol(mat)))\nrownames(mat) &lt;- rownames(tse)\n\n\ntail(sort(mat[ , 1]))\n\n        Alistipes Parabacteroides_4       Bacteroides    Bacteroides_14 \n        0.5627412         0.5888056         0.6105570         0.6567227 \n   Bacteroides_11     Bacteroides_1 \n        0.7268548         0.7619756 \n\ntail(sort(mat[ , 2]))\n\n[Eubacterium]_fissicatena_group [Ruminococcus]_gauvreauii_group \n                      0.4393880                       0.4407382 \n         Erysipelatoclostridium  [Clostridium]_innocuum_group_1 \n                      0.4647735                       0.5183186 \n                    Alistipes_1         Ruminococcaceae_UCG-013 \n                      0.5230094                       0.5707329"
   },
   {
     "objectID": "tengeler_pcoa.html#example-2.2",
     "href": "tengeler_pcoa.html#example-2.2",
     "title": "Principal Coordinate Analysis",
     "section": "Example 2.2",
-    "text": "Example 2.2\n\n# Visualise samples with the newly reduced dimensions\np3 &lt;- plotReducedDim(tse, \"Jaccard\",\n                     colour_by = \"patient_status\")\n\np3\n\n\nFigure 2: Ordination plot based on Unifrac index. Samples are coloured by patient status."
+    "text": "Example 2.2\n\ndf &lt;- as.data.frame(mat)\ndf$Taxon &lt;- rowData(tse)$Genus\ndf$Taxon[df$Bray1 &lt; 0.6 & df$Bray2 &lt; 0.5] &lt;- \"\"\n\nlibrary(ggplot2)\nlibrary(ggrepel)\n\nggplot(df, aes(x = Bray1, y = Bray2)) +\n  geom_point(size = 1) +\n  lims(x = c(-1, 1), y = c(-1, 1)) +\n  geom_text_repel(aes(label = Taxon), size = 3) +\n  theme_classic()"
   },
   {
     "objectID": "tengeler_pcoa.html#exampl",
@@ -1558,28 +1558,28 @@
     "href": "tengeler_pcoa.html#example-3.1",
     "title": "Principal Coordinate Analysis",
     "section": "Example 3.1",
-    "text": "Example 3.1\nexample with different distance function. (could be custom)\n\ntse &lt;- runMDS(tse,\n              assay.type = \"counts\",\n              FUN = mia::calculateUnifrac,\n              name = \"Unifrac\",\n              tree = rowTree(tse),\n              ntop = nrow(tse))\n\nreducedDimNames(tse)\n\n[1] \"Bray\"    \"Jaccard\" \"Unifrac\""
+    "text": "Example 3.1\nexample with different distance function. (could be custom)\n\ntse &lt;- runMDS(tse,\n              assay.type = \"counts\",\n              FUN = mia::calculateUnifrac,\n              name = \"Unifrac\",\n              tree = rowTree(tse),\n              ntop = nrow(tse))\n\nreducedDimNames(tse)\n\n[1] \"Bray\"    \"Unifrac\""
   },
   {
     "objectID": "tengeler_pcoa.html#example-3.2",
     "href": "tengeler_pcoa.html#example-3.2",
     "title": "Principal Coordinate Analysis",
     "section": "Example 3.2",
-    "text": "Example 3.2\n\np2 &lt;- plotReducedDim(tse, \"Unifrac\",\n                     colour_by = \"patient_status\",\n                     shape_by = \"cohort\")\n\np2\n\n\nFigure 3: Ordination plot based on Unifrac index. Samples are coloured by patient status and shaped by cohort."
+    "text": "Example 3.2\n\np2 &lt;- plotReducedDim(tse, \"Unifrac\",\n                     colour_by = \"patient_status\")\n\n(p1 | p2) +\n  plot_layout(guides = \"collect\") +\n  plot_annotation(tag_levels = \"A\")\n\n\nFigure 2: Ordination plot based on (A) Bray-Curtis and (B) Unifrac indices. Samples are coloured by patient statu."
   },
   {
     "objectID": "tengeler_pcoa.html#example-4.1",
     "href": "tengeler_pcoa.html#example-4.1",
     "title": "Principal Coordinate Analysis",
     "section": "Example 4.1",
-    "text": "Example 4.1\nExample with different algorithm.\nIt is also possible to specify the number of output dimensions with the argument ncomponents. Here, we show it with the UMAP ordination method.\n\ntse &lt;- runUMAP(tse,\n               assay.type = \"counts\",\n               ncomponents = 3)\n\n# The new dimensions are stored in the reducedDim slot\nhead(reducedDim(tse, \"UMAP\"))\n\n          UMAP1      UMAP2      UMAP3\nA110 -0.2306184  0.7279943  1.5806612\nA12  -0.9707269  0.5182520  1.2675595\nA15   0.9813374  0.3229846 -0.6461952\nA19  -1.1380295  0.5971419  0.8782231\nA21   0.9880926 -0.6312433 -0.5866096\nA23   1.2138464 -0.1371741 -0.5889314"
+    "text": "Example 4.1\nExample with different algorithm.\nIt is also possible to specify the number of output dimensions with the argument ncomponents. Here, we show it with the UMAP ordination method.\n\ntse &lt;- runUMAP(tse,\n               assay.type = \"counts\",\n               ncomponents = 3)\n\n# The new dimensions are stored in the reducedDim slot\nhead(reducedDim(tse, \"UMAP\"))\n\n          UMAP1       UMAP2     UMAP3\nA110  0.5792222  0.61524111  1.463895\nA12   0.0322649 -0.06410641  1.317737\nA15  -0.5628218  0.67070895 -0.792728\nA19   0.2219325 -0.41252083  1.353001\nA21  -0.4774709  0.22370416 -1.038604\nA23   0.1042349  0.41456109 -0.934979"
   },
   {
     "objectID": "tengeler_pcoa.html#example-4.2",
     "href": "tengeler_pcoa.html#example-4.2",
     "title": "Principal Coordinate Analysis",
     "section": "Example 4.2",
-    "text": "Example 4.2\nWe then plot all three dimensions, but you could also plot a pair of dimensions (1 and 3, 2 and 3 or 1 and 2) with the ncomponents argument.\n\np4 &lt;- plotReducedDim(tse, \"UMAP\",\n                    ncomponents = 3,\n                    colour_by = \"patient_status\",\n                    shape_by = \"cohort\")\n\np4\n\n\nFigure 4: UMAP plot of the first three dimensions."
+    "text": "Example 4.2\nWe then plot all three dimensions, but you could also plot a pair of dimensions (1 and 3, 2 and 3 or 1 and 2) with the ncomponents argument.\n\np3 &lt;- plotReducedDim(tse, \"UMAP\",\n                    ncomponents = 3,\n                    colour_by = \"patient_status\",\n                    shape_by = \"cohort\")\n\np3\n\n\nFigure 3: UMAP plot of the first three dimensions. Samples are coloured by patient status and shaped by cohort."
   },
   {
     "objectID": "tengeler_pcoa.html#comparison",
@@ -1621,7 +1621,7 @@
     "href": "tengeler_community_composition.html#why-clr-z-transformation",
     "title": "Compositional Heatmaps",
     "section": "Why clr-z transformation?",
-    "text": "Why clr-z transformation?\nA CLR-z transformation improves comparability in two steps:\n\nApply CLR transform to center features column-wise\nFind Z score to standardise features row-wise\n\n\nFigure 2: Visual comparison between counts, relative abundance, clr and clr-z assays (from left to right)."
+    "text": "Why clr-z transformation?\nA CLR-z transformation improves comparability in two steps:\n\nApply CLR transform to center features column-wise\nFind Z score to standardise features row-wise\n\n\nFigure 3: Visual comparison between counts, relative abundance, clr and clr-z assays (from left to right)."
   },
   {
     "objectID": "tengeler_community_composition.html#exercise",
@@ -1642,21 +1642,21 @@
     "href": "tengeler_community_composition.html#why-relative-abundances",
     "title": "Compositional Heatmaps",
     "section": "Why relative abundances?",
-    "text": "Why relative abundances?\nRelative abundances are useful because they are not affected by compositionality, which is present in the counts assay due to sequencing bias (the unequal amplification of DNA from two different samples due to random effects).\n\ntse_phylum &lt;- mergeFeaturesByRank(tse, rank = \"Phylum\")\n\ntse_list &lt;- splitOn(tse_phylum, f = \"patient_status\")\n\ntop_tab_list &lt;- lapply(\n    tse_list,\n    function(x) round(rowMeans(assay(x, \"relabundance\")[getTopTaxa(x, top = 4L), ]) * 100, 1)\n)\n\nknitr::kable(cbind(top_tab_list[[1]], top_tab_list[[2]]), col.names = c(\"ADHD\", \"Control\"))\n\n\n\n\n\nADHD\nControl\n\n\n\n\nBacteroidetes\n69.2\n61.1\n\n\nFirmicutes\n23.7\n30.1\n\n\nVerrucomicrobia\n4.7\n6.9\n\n\nProteobacteria\n2.4\n1.8"
+    "text": "Why relative abundances?\nMicrobiome data is compositional. Relative abundance helps us draw less biased comparisons between samples.\n\n\nShow code\n# Import packages\nlibrary(miaViz)\nlibrary(patchwork)\n\n# Plot composition by counts\ncounts_bar &lt;- plotAbundance(tse_order, rank = \"Phylum\", use_relative = FALSE) +\n  ylab(\"Counts\")\n\n# Plot composition by relative abundance\nrelab_bar &lt;- plotAbundance(tse_order, rank = \"Phylum\") +\n  ylab(\"Relative Abundance\")\n\n# Combine plots\n(counts_bar | relab_bar) +\n  plot_layout(guides = \"collect\")\n\n\n\nFigure 1: Sample composition by counts (left) or relative abundance (right)."
   },
   {
     "objectID": "tengeler_community_composition.html#example-1.2",
     "href": "tengeler_community_composition.html#example-1.2",
     "title": "Compositional Heatmaps",
     "section": "Example 1.2",
-    "text": "Example 1.2\nTo reduce data skewness, we further transform the relative abundance assay with the Centered-Log Ratio (CLR), which is defined as follows:\n\\[\nclr = log \\frac{x}{g(x)} = log(x)−log[g(x)]\n\\]\nwhere x is a feature and g(x) the geometric mean of all features in a sample.\n\n# Transform relative abundances to clr\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"relabundance\",\n                            method = \"clr\",\n                            pseudocount = 1,\n                            MARGIN = \"samples\")\n\nLastly, we get the row-wise z-scores of every feature from the clr assay to standardise abundances across samples.\n\n# Transform clr to z\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"clr\", \n                            method = \"z\",\n                            name = \"clr_z\",\n                            MARGIN = \"features\")"
+    "text": "Example 1.2\nTo reduce data skewness, we further transform the relative abundance assay with the Centered-Log Ratio (CLR), which is defined as follows:\n\\[\nclr = log \\frac{x}{g(x)} = log(x)−log[g(x)]\n\\]\nwhere x is a feature and g(x) is the geometric mean of all features in a sample.\n\n# Transform relative abundances to clr\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"relabundance\",\n                            method = \"clr\",\n                            pseudocount = 1,\n                            MARGIN = \"samples\")\n\nLastly, we get the row-wise z-scores of every feature from the clr assay to standardise abundances across samples.\n\n# Transform clr to z\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"clr\", \n                            method = \"z\",\n                            name = \"clr_z\",\n                            MARGIN = \"features\")"
   },
   {
     "objectID": "tengeler_community_composition.html#example-1.3",
     "href": "tengeler_community_composition.html#example-1.3",
     "title": "Compositional Heatmaps",
     "section": "Example 1.3",
-    "text": "Example 1.3\nFinally, we plot the compositional heatmap with ComplexHeatmap. Results are illustrated by Figure 1.\n\nclrz_hm &lt;- Heatmap(assay(tse_order, \"clr_z\"), name = \"clr-z\")\nclrz_hm\n\n\nFigure 1: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order."
+    "text": "Example 1.3\nFinally, we plot the compositional heatmap with ComplexHeatmap. Results are illustrated by Figure 2.\n\nclrz_hm &lt;- Heatmap(assay(tse_order, \"clr_z\"), name = \"clr-z\")\nclrz_hm\n\n\nFigure 2: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order."
   },
   {
     "objectID": "tengeler_community_composition.html#example-1.1",
@@ -1670,7 +1670,7 @@
     "href": "tengeler_community_composition.html#exercise-1",
     "title": "Compositional Heatmaps",
     "section": "Exercise 1",
-    "text": "Exercise 1\n\nexercise 9.2\nrefine exercise 9.2 and make a new one with some heatmap functionality"
+    "text": "Exercise 1\n\nheatmap visualisation: exercise 9.2\nrefine exercise 9.2 and make a new one with some heatmap functionality"
   },
   {
     "objectID": "starting.html#software-learning-environment",
@@ -1803,55 +1803,83 @@
     "href": "data_manipulation.html#example-1.1-data-import",
     "title": "Data manipulation",
     "section": "Example 1.1: Data Import",
-    "text": "Example 1.1: Data Import\nLoad demo data (go deeper in OMA).\n\nlibrary(mia)\n\n# Load Tengeler2020 and store it into a TreeSE\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nPrint object\n\n# Print TreeSE\ntse\n\nclass: TreeSummarizedExperiment \ndim: 151 27 \nmetadata(0):\nassays(1): counts\nrownames(151): Bacteroides Bacteroides_1 ... Parabacteroides_8\n  Unidentified_Lachnospiraceae_14\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (151 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
+    "text": "Example 1.1: Data Import\nWe work with microbiome data inside TreeSummarizedExperiment (TreeSE) containers and mia is our toolkit.\n\n# Import libraries\nlibrary(mia)\n\n# Load Tengeler2020 and store it into a TreeSE\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nThe components of a TreeSE can all be seen at a glance.\n\n# Print TreeSE\ntse\n\nclass: TreeSummarizedExperiment \ndim: 151 27 \nmetadata(0):\nassays(1): counts\nrownames(151): Bacteroides Bacteroides_1 ... Parabacteroides_8\n  Unidentified_Lachnospiraceae_14\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (151 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
   },
   {
     "objectID": "data_manipulation.html#example-1.2-column-data",
     "href": "data_manipulation.html#example-1.2-column-data",
     "title": "Data manipulation",
     "section": "Example 1.2: Column data",
-    "text": "Example 1.2: Column data\nExtract the microbiota data elements: column data (sample data)\n\nhead(colnames(tse))\n\n[1] \"A110\" \"A12\"  \"A15\"  \"A19\"  \"A21\"  \"A23\" \n\n\n\nhead(colData(tse))\n\nDataFrame with 6 rows and 4 columns\n     patient_status      cohort patient_status_vs_cohort sample_name\n        &lt;character&gt; &lt;character&gt;              &lt;character&gt; &lt;character&gt;\nA110           ADHD    Cohort_1            ADHD_Cohort_1        A110\nA12            ADHD    Cohort_1            ADHD_Cohort_1         A12\nA15            ADHD    Cohort_1            ADHD_Cohort_1         A15\nA19            ADHD    Cohort_1            ADHD_Cohort_1         A19\nA21            ADHD    Cohort_2            ADHD_Cohort_2         A21\nA23            ADHD    Cohort_2            ADHD_Cohort_2         A23\n\n\nAccess variable from colData\n\nhead(tse$patient_status)\n\n[1] \"ADHD\" \"ADHD\" \"ADHD\" \"ADHD\" \"ADHD\" \"ADHD\""
+    "text": "Example 1.2: Column data\nColumns represent the samples of an experiment.\n\n# Retrieve sample names\nhead(colnames(tse), 3)\n\n[1] \"A110\" \"A12\"  \"A15\" \n\n\nAll information about the samples is stored in colData.\n\n# Retrieve sample data\nhead(colData(tse), 3)\n\nDataFrame with 3 rows and 4 columns\n     patient_status      cohort patient_status_vs_cohort sample_name\n        &lt;character&gt; &lt;character&gt;              &lt;character&gt; &lt;character&gt;\nA110           ADHD    Cohort_1            ADHD_Cohort_1        A110\nA12            ADHD    Cohort_1            ADHD_Cohort_1         A12\nA15            ADHD    Cohort_1            ADHD_Cohort_1         A15\n\n\nIndividual variables about the samples can be accessed directly.\n\n# Retrieve sample variables\nhead(tse$patient_status, 3)\n\n[1] \"ADHD\" \"ADHD\" \"ADHD\""
   },
   {
     "objectID": "data_manipulation.html#example-1.3-row-data",
     "href": "data_manipulation.html#example-1.3-row-data",
     "title": "Data manipulation",
     "section": "Example 1.3: Row data",
-    "text": "Example 1.3: Row data\nrow data (feature data)\n\nhead(rownames(tse))\n\n[1] \"Bacteroides\"     \"Bacteroides_1\"   \"Parabacteroides\" \"Bacteroides_2\"  \n[5] \"Akkermansia\"     \"Bacteroides_3\"  \n\n\n\nhead(rowData(tse))\n\nDataFrame with 6 rows and 6 columns\n                    Kingdom          Phylum            Class              Order\n                &lt;character&gt;     &lt;character&gt;      &lt;character&gt;        &lt;character&gt;\nBacteroides        Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales\nBacteroides_1      Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales\nParabacteroides    Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales\nBacteroides_2      Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales\nAkkermansia        Bacteria Verrucomicrobia Verrucomicrobiae Verrucomicrobiales\nBacteroides_3      Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales\n                             Family           Genus\n                        &lt;character&gt;     &lt;character&gt;\nBacteroides          Bacteroidaceae     Bacteroides\nBacteroides_1        Bacteroidaceae     Bacteroides\nParabacteroides  Porphyromonadaceae Parabacteroides\nBacteroides_2        Bacteroidaceae     Bacteroides\nAkkermansia     Verrucomicrobiaceae     Akkermansia\nBacteroides_3        Bacteroidaceae     Bacteroides\n\n\n\nhead(rowData(tse)$Genus)\n\n[1] \"Bacteroides\"     \"Bacteroides\"     \"Parabacteroides\" \"Bacteroides\"    \n[5] \"Akkermansia\"     \"Bacteroides\""
+    "text": "Example 1.3: Row data\nRows represent the features of an experiment.\n\n# Retrieve feature names\nhead(rownames(tse), 3)\n\n[1] \"Bacteroides\"     \"Bacteroides_1\"   \"Parabacteroides\"\n\n\nAll information about the samples is stored in rowData.\n\n# Retrieve feature data\nhead(rowData(tse), 3)\n\nDataFrame with 3 rows and 6 columns\n                    Kingdom        Phylum       Class         Order\n                &lt;character&gt;   &lt;character&gt; &lt;character&gt;   &lt;character&gt;\nBacteroides        Bacteria Bacteroidetes Bacteroidia Bacteroidales\nBacteroides_1      Bacteria Bacteroidetes Bacteroidia Bacteroidales\nParabacteroides    Bacteria Bacteroidetes Bacteroidia Bacteroidales\n                            Family           Genus\n                       &lt;character&gt;     &lt;character&gt;\nBacteroides         Bacteroidaceae     Bacteroides\nBacteroides_1       Bacteroidaceae     Bacteroides\nParabacteroides Porphyromonadaceae Parabacteroides\n\n\nIndividual variables about the samples can be accessed from rowData.\n\n# Retrieve feature variables\nhead(rowData(tse)$Genus, 3)\n\n[1] \"Bacteroides\"     \"Bacteroides\"     \"Parabacteroides\""
   },
   {
     "objectID": "data_manipulation.html#example-1.4-assays",
     "href": "data_manipulation.html#example-1.4-assays",
     "title": "Data manipulation",
     "section": "Example 1.4: Assays",
-    "text": "Example 1.4: Assays\nassays (abundance matrices)\n\nassayNames(tse)\n\n[1] \"counts\"\n\n\n\nassay(tse, \"counts\")[seq(6), seq(6)]\n\n                 A110   A12  A15  A19  A21  A23\nBacteroides     17722 11630    0 8806 1740 1791\nBacteroides_1   12052     0 2679 2776  540  229\nParabacteroides     0   970    0  549  145    0\nBacteroides_2       0  1911    0 5497  659    0\nAkkermansia      1143  1891 1212  584   84  700\nBacteroides_3       0  6498    0 4455  610    0"
+    "text": "Example 1.4: Assays\nThe assays of an experiment (counts, relative abundance, etc.) can be found in assays.\n\nassays(tse)\n\nList of length 1\nnames(1): counts\n\n\nassayNames return only their names.\n\nassayNames(tse)\n\n[1] \"counts\"\n\n\nAn individual assay can be retrieved with assay.\n\nassay(tse, \"counts\")[seq(6), seq(6)]\n\n                 A110   A12  A15  A19  A21  A23\nBacteroides     17722 11630    0 8806 1740 1791\nBacteroides_1   12052     0 2679 2776  540  229\nParabacteroides     0   970    0  549  145    0\nBacteroides_2       0  1911    0 5497  659    0\nAkkermansia      1143  1891 1212  584   84  700\nBacteroides_3       0  6498    0 4455  610    0"
   },
   {
     "objectID": "data_manipulation.html#example-2.1-subsetting",
     "href": "data_manipulation.html#example-2.1-subsetting",
     "title": "Data manipulation",
     "section": "Example 2.1: Subsetting",
-    "text": "Example 2.1: Subsetting\nShow how to subset microbiota data (go deeper in OMA).\n\nunique(tse$patient_status)\n\n[1] \"ADHD\"    \"Control\"\n\n\n\nsubcol_tse &lt;- tse[ , tse$patient_status == \"ADHD\"]\ndim(subcol_tse)\n\n[1] 151  13\n\n\n\nunique(rowData(tse)$Phylum)\n\n[1] \"Bacteroidetes\"   \"Verrucomicrobia\" \"Proteobacteria\"  \"Firmicutes\"     \n[5] \"Cyanobacteria\"  \n\n\n\nsubrow_tse &lt;- tse[rowData(tse)$Phylum == \"Firmicutes\", ]\ndim(subrow_tse)\n\n[1] 97 27"
+    "text": "Example 2.1: Subsetting\nWe can subset features or samples of a TreeSE, but first we need to pick a variable.\n\n# Check levels of a sample variable\nunique(tse$patient_status)\n\n[1] \"ADHD\"    \"Control\"\n\n\nTo subset samples, we filter columns with a conditional.\n\n# Subset by a sample variable\nsubcol_tse &lt;- tse[ , tse$patient_status == \"ADHD\"]\ndim(subcol_tse)\n\n[1] 151  13\n\n\nWe now want to subset by our favourite Phylum.\n\n# Check levels of a feature variable\nunique(rowData(tse)$Phylum)\n\n[1] \"Bacteroidetes\"   \"Verrucomicrobia\" \"Proteobacteria\"  \"Firmicutes\"     \n[5] \"Cyanobacteria\"  \n\n\nTo subset features, we filter rows with a conditional.\n\n# Subset by a feature variable\nsubrow_tse &lt;- tse[rowData(tse)$Phylum == \"Firmicutes\", ]\ndim(subrow_tse)\n\n[1] 97 27"
   },
   {
     "objectID": "data_manipulation.html#example-2.2-agglomeration",
     "href": "data_manipulation.html#example-2.2-agglomeration",
     "title": "Data manipulation",
     "section": "Example 2.2: Agglomeration",
-    "text": "Example 2.2: Agglomeration\nAgglomerate the microbiota data to higher taxonomic levels (go deeper in OMA).\n\naltExp(tse, \"phylum\") &lt;- mergeFeaturesByRank(tse, rank = \"Phylum\")\naltExp(tse, \"phylum\")\n\nclass: TreeSummarizedExperiment \ndim: 5 27 \nmetadata(1): agglomerated_by_rank\nassays(1): counts\nrownames(5): Bacteroidetes Verrucomicrobia Proteobacteria Firmicutes\n  Cyanobacteria\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (5 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
+    "text": "Example 2.2: Agglomeration\nAgglomeration condenses the assays to higher taxonomic ranks. Related taxa are combined together. We can agglomerate by different ranks.\n\n# View rank options\ntaxonomyRanks(tse)\n\n[1] \"Kingdom\" \"Phylum\"  \"Class\"   \"Order\"   \"Family\"  \"Genus\"  \n\n\nWe agglomerate by Phylum and store the new experiment in the altExp slot.\n\n# Agglomerate by Phylum and store into altExp slot\naltExp(tse, \"phylum\") &lt;- mergeFeaturesByRank(tse, rank = \"Phylum\")\naltExp(tse, \"phylum\")\n\nclass: TreeSummarizedExperiment \ndim: 5 27 \nmetadata(1): agglomerated_by_rank\nassays(1): counts\nrownames(5): Bacteroidetes Verrucomicrobia Proteobacteria Firmicutes\n  Cyanobacteria\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (5 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
   },
   {
     "objectID": "data_manipulation.html#example-2.3-transformation",
     "href": "data_manipulation.html#example-2.3-transformation",
     "title": "Data manipulation",
     "section": "Example 2.3: Transformation",
-    "text": "Example 2.3: Transformation\ntransform to alternative assays and show histograms for the whole assay transform to alternative assays; boxplots for selected feature (go deeper in OMA).\n\ntse &lt;- transformAssay(tse,\n                      assay.type = \"counts\",\n                      method = \"relabundance\")\n\nhead(colSums(assay(tse, \"relabundance\")))\n\nA110  A12  A15  A19  A21  A23 \n   1    1    1    1    1    1 \n\n\n\ntse &lt;- transformAssay(tse,\n                      assay.type = \"relabundance\",\n                      method = \"z\",\n                      MARGIN = \"features\")\n\nhead(rowSds(assay(tse, \"z\")))\n\n    Bacteroides   Bacteroides_1 Parabacteroides   Bacteroides_2     Akkermansia \n              1               1               1               1               1 \n  Bacteroides_3 \n              1"
+    "text": "Example 2.3: Transformation\nData can be transformed for different reasons. For example, to make samples comparable we can use relative abundance.\n\n# Transform counts to relative abundance\ntse &lt;- transformAssay(tse,\n                      assay.type = \"counts\",\n                      method = \"relabundance\")\n\n# View sample-wise sums\nhead(colSums(assay(tse, \"relabundance\")), 3)\n\nA110  A12  A15 \n   1    1    1 \n\n\nOr to standardise features to the normal distribution we can use z-scores: \\(Z = \\frac{x - \\mu}{\\sigma}\\).\n\n# Transform relative abundance to z-scores\ntse &lt;- transformAssay(tse,\n                      assay.type = \"relabundance\",\n                      method = \"z\",\n                      MARGIN = \"features\")\n\n# View feature-wise standard deviations\nhead(rowSds(assay(tse, \"z\")), 3)\n\n    Bacteroides   Bacteroides_1 Parabacteroides \n              1               1               1"
   },
   {
     "objectID": "tengeler_community_composition.html#resources",
     "href": "tengeler_community_composition.html#resources",
     "title": "Compositional Heatmaps",
     "section": "Resources",
-    "text": "Resources\n\nComplexHeatmap Complete Reference"
+    "text": "Resources\n\nOMA Chapter - Community Composition\nOMA Chapter - Visualisation\nComplexHeatmap Complete Reference"
+  },
+  {
+    "objectID": "tengeler_pcoa.html#exercise-1",
+    "href": "tengeler_pcoa.html#exercise-1",
+    "title": "Principal Coordinate Analysis",
+    "section": "Exercise 1",
+    "text": "Exercise 1\n\nPCoA: exercise 7.3 -&gt; change to jaccard\nPCA: exercise 7.2"
+  },
+  {
+    "objectID": "tengeler_pcoa.html#exercise-2",
+    "href": "tengeler_pcoa.html#exercise-2",
+    "title": "Principal Coordinate Analysis",
+    "section": "Exercise 2",
+    "text": "Exercise 2\nan exercise where you have to find important taxa based on loadings we could also use toptaxa coloured ordination plot"
+  },
+  {
+    "objectID": "tengeler_pcoa.html#exercise-4",
+    "href": "tengeler_pcoa.html#exercise-4",
+    "title": "Principal Coordinate Analysis",
+    "section": "Exercise 4",
+    "text": "Exercise 4"
+  },
+  {
+    "objectID": "data_manipulation.html#resources",
+    "href": "data_manipulation.html#resources",
+    "title": "Data manipulation",
+    "section": "Resources",
+    "text": "Resources\n\nmia function reference\nOMA Section - Data Containers\nOMA Section - Subsetting\nOMA Section - Agglomeration\nOMA Section - Transformation"
   }
 ]

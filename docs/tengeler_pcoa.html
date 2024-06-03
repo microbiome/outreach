@@ -421,7 +421,8 @@
 dim: 151 27 
 metadata(0):
 assays(1): counts
-rownames(151): 1726470 1726471 ... 17264756 17264757
+rownames(151): Bacteroides Bacteroides_1 ... Parabacteroides_8
+  Unidentified_Lachnospiraceae_14
 rowData names(6): Kingdom Phylum ... Family Genus
 colnames(27): A110 A12 ... A35 A38
 colData names(4): patient_status cohort patient_status_vs_cohort
@@ -464,6 +465,7 @@ A21   0.07539063 -0.31823525
 A23   0.17993859  0.09476674</code></pre>
 </div>
 </div>
+<p>There are several ecological distances to choose from and you can find many of them under methods in the vignettes of vegan::vegdist. These metrics can be specified with the <code>method</code> argument.</p>
 </section>
 <section id="example-1.3" class="slide level2">
 <h2>Example 1.3</h2>
@@ -477,81 +479,116 @@ A23   0.17993859  0.09476674</code></pre>
 
 </div>
 <img data-src="tengeler_pcoa_files/figure-revealjs/fig-bray-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;1: Ordination plots based on Bray-Curtis index. Samples are coloured by patient status.</p></section>
+<section id="exercise-1" class="slide level2">
+<h2>Exercise 1</h2>
+<ul>
+<li>PCoA: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#principal-coordinate-analysis-pcoa" target="_blank">exercise 7.3</a> -&gt; change to jaccard</li>
+<li>PCA: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#visualization-basics-with-pca" target="_blank">exercise 7.2</a></li>
+</ul>
+</section>
 <section id="example-2.1" class="slide level2">
 <h2>Example 2.1</h2>
-<p>By default, Bray-Curtis dissimilarity is used. However, other metrics can be specified with the <code>method</code> argument.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="co"># Reduce number of dimensions with a different metric</span></span>
-<span id="cb7-2"><a href="#cb7-2"></a>tse <span class="ot">&lt;-</span> <span class="fu">runMDS</span>(tse,</span>
-<span id="cb7-3"><a href="#cb7-3"></a>              <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
-<span id="cb7-4"><a href="#cb7-4"></a>              <span class="at">FUN =</span> vegan<span class="sc">::</span>vegdist,</span>
-<span id="cb7-5"><a href="#cb7-5"></a>              <span class="at">method =</span> <span class="st">"jaccard"</span>,</span>
-<span id="cb7-6"><a href="#cb7-6"></a>              <span class="at">name =</span> <span class="st">"Jaccard"</span>)</span>
-<span id="cb7-7"><a href="#cb7-7"></a></span>
-<span id="cb7-8"><a href="#cb7-8"></a><span class="fu">reducedDimNames</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>res <span class="ot">&lt;-</span> <span class="fu">apply</span>(</span>
+<span id="cb7-2"><a href="#cb7-2"></a>    <span class="fu">assay</span>(tse, <span class="st">"relabundance"</span>),</span>
+<span id="cb7-3"><a href="#cb7-3"></a>    <span class="at">MARGIN =</span> <span class="dv">1</span>, <span class="at">simplify =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb7-4"><a href="#cb7-4"></a>    <span class="cf">function</span>(x) <span class="fu">cor</span>(x, <span class="fu">reducedDim</span>(tse, <span class="st">"Bray"</span>), <span class="at">method =</span> <span class="st">"kendall"</span>)</span>
+<span id="cb7-5"><a href="#cb7-5"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>mat <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, res)</span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">colnames</span>(mat) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"Bray"</span>, <span class="fu">seq</span>(<span class="fu">ncol</span>(mat)))</span>
+<span id="cb8-3"><a href="#cb8-3"></a><span class="fu">rownames</span>(mat) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">tail</span>(<span class="fu">sort</span>(mat[ , <span class="dv">1</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Bray"    "Jaccard"</code></pre>
+<pre><code>        Alistipes Parabacteroides_4       Bacteroides    Bacteroides_14 
+        0.5627412         0.5888056         0.6105570         0.6567227 
+   Bacteroides_11     Bacteroides_1 
+        0.7268548         0.7619756 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">tail</span>(<span class="fu">sort</span>(mat[ , <span class="dv">2</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[Eubacterium]_fissicatena_group [Ruminococcus]_gauvreauii_group 
+                      0.4393880                       0.4407382 
+         Erysipelatoclostridium  [Clostridium]_innocuum_group_1 
+                      0.4647735                       0.5183186 
+                    Alistipes_1         Ruminococcaceae_UCG-013 
+                      0.5230094                       0.5707329 </code></pre>
 </div>
 </div>
 </section>
 <section id="example-2.2" class="slide level2">
 <h2>Example 2.2</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a><span class="co"># Visualise samples with the newly reduced dimensions</span></span>
-<span id="cb9-2"><a href="#cb9-2"></a>p3 <span class="ot">&lt;-</span> <span class="fu">plotReducedDim</span>(tse, <span class="st">"Jaccard"</span>,</span>
-<span id="cb9-3"><a href="#cb9-3"></a>                     <span class="at">colour_by =</span> <span class="st">"patient_status"</span>)</span>
-<span id="cb9-4"><a href="#cb9-4"></a></span>
-<span id="cb9-5"><a href="#cb9-5"></a>p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(mat)</span>
+<span id="cb13-2"><a href="#cb13-2"></a>df<span class="sc">$</span>Taxon <span class="ot">&lt;-</span> <span class="fu">rowData</span>(tse)<span class="sc">$</span>Genus</span>
+<span id="cb13-3"><a href="#cb13-3"></a>df<span class="sc">$</span>Taxon[df<span class="sc">$</span>Bray1 <span class="sc">&lt;</span> <span class="fl">0.6</span> <span class="sc">&amp;</span> df<span class="sc">$</span>Bray2 <span class="sc">&lt;</span> <span class="fl">0.5</span>] <span class="ot">&lt;-</span> <span class="st">""</span></span>
+<span id="cb13-4"><a href="#cb13-4"></a></span>
+<span id="cb13-5"><a href="#cb13-5"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb13-6"><a href="#cb13-6"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb13-7"><a href="#cb13-7"></a></span>
+<span id="cb13-8"><a href="#cb13-8"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> Bray1, <span class="at">y =</span> Bray2)) <span class="sc">+</span></span>
+<span id="cb13-9"><a href="#cb13-9"></a>  <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb13-10"><a href="#cb13-10"></a>  <span class="fu">lims</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb13-11"><a href="#cb13-11"></a>  <span class="fu">geom_text_repel</span>(<span class="fu">aes</span>(<span class="at">label =</span> Taxon), <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a>  <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="tengeler_pcoa_files/figure-revealjs/fig-jaccard-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;2: Ordination plot based on Unifrac index. Samples are coloured by patient status.</p></section>
+<img data-src="tengeler_pcoa_files/figure-revealjs/unnamed-chunk-9-1.png" width="960" class="r-stretch"></section>
+<section id="exercise-2" class="slide level2">
+<h2>Exercise 2</h2>
+<p>an exercise where you have to find important taxa based on loadings we could also use toptaxa coloured ordination plot</p>
+</section>
 <section id="example-3.1" class="slide level2">
 <h2>Example 3.1</h2>
 <p>example with different distance function. (could be custom)</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">runMDS</span>(tse,</span>
-<span id="cb10-2"><a href="#cb10-2"></a>              <span class="at">assay.type =</span> <span class="st">"counts"</span>,</span>
-<span id="cb10-3"><a href="#cb10-3"></a>              <span class="at">FUN =</span> mia<span class="sc">::</span>calculateUnifrac,</span>
-<span id="cb10-4"><a href="#cb10-4"></a>              <span class="at">name =</span> <span class="st">"Unifrac"</span>,</span>
-<span id="cb10-5"><a href="#cb10-5"></a>              <span class="at">tree =</span> <span class="fu">rowTree</span>(tse),</span>
-<span id="cb10-6"><a href="#cb10-6"></a>              <span class="at">ntop =</span> <span class="fu">nrow</span>(tse))</span>
-<span id="cb10-7"><a href="#cb10-7"></a></span>
-<span id="cb10-8"><a href="#cb10-8"></a><span class="fu">reducedDimNames</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">runMDS</span>(tse,</span>
+<span id="cb14-2"><a href="#cb14-2"></a>              <span class="at">assay.type =</span> <span class="st">"counts"</span>,</span>
+<span id="cb14-3"><a href="#cb14-3"></a>              <span class="at">FUN =</span> mia<span class="sc">::</span>calculateUnifrac,</span>
+<span id="cb14-4"><a href="#cb14-4"></a>              <span class="at">name =</span> <span class="st">"Unifrac"</span>,</span>
+<span id="cb14-5"><a href="#cb14-5"></a>              <span class="at">tree =</span> <span class="fu">rowTree</span>(tse),</span>
+<span id="cb14-6"><a href="#cb14-6"></a>              <span class="at">ntop =</span> <span class="fu">nrow</span>(tse))</span>
+<span id="cb14-7"><a href="#cb14-7"></a></span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="fu">reducedDimNames</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Bray"    "Jaccard" "Unifrac"</code></pre>
+<pre><code>[1] "Bray"    "Unifrac"</code></pre>
 </div>
 </div>
 </section>
 <section id="example-3.2" class="slide level2">
 <h2>Example 3.2</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">plotReducedDim</span>(tse, <span class="st">"Unifrac"</span>,</span>
-<span id="cb12-2"><a href="#cb12-2"></a>                     <span class="at">colour_by =</span> <span class="st">"patient_status"</span>,</span>
-<span id="cb12-3"><a href="#cb12-3"></a>                     <span class="at">shape_by =</span> <span class="st">"cohort"</span>)</span>
-<span id="cb12-4"><a href="#cb12-4"></a></span>
-<span id="cb12-5"><a href="#cb12-5"></a>p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">plotReducedDim</span>(tse, <span class="st">"Unifrac"</span>,</span>
+<span id="cb16-2"><a href="#cb16-2"></a>                     <span class="at">colour_by =</span> <span class="st">"patient_status"</span>)</span>
+<span id="cb16-3"><a href="#cb16-3"></a></span>
+<span id="cb16-4"><a href="#cb16-4"></a>(p1 <span class="sc">|</span> p2) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"A"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="tengeler_pcoa_files/figure-revealjs/fig-unifrac-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;3: Ordination plot based on Unifrac index. Samples are coloured by patient status and shaped by cohort.</p></section>
+<img data-src="tengeler_pcoa_files/figure-revealjs/fig-unifrac-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;2: Ordination plot based on (A) Bray-Curtis and (B) Unifrac indices. Samples are coloured by patient statu.</p></section>
 <section id="example-4.1" class="slide level2">
 <h2>Example 4.1</h2>
 <p>Example with different algorithm.</p>
 <p>It is also possible to specify the number of output dimensions with the argument ncomponents. Here, we show it with the UMAP ordination method.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">runUMAP</span>(tse,</span>
-<span id="cb13-2"><a href="#cb13-2"></a>               <span class="at">assay.type =</span> <span class="st">"counts"</span>,</span>
-<span id="cb13-3"><a href="#cb13-3"></a>               <span class="at">ncomponents =</span> <span class="dv">3</span>)</span>
-<span id="cb13-4"><a href="#cb13-4"></a></span>
-<span id="cb13-5"><a href="#cb13-5"></a><span class="co"># The new dimensions are stored in the reducedDim slot</span></span>
-<span id="cb13-6"><a href="#cb13-6"></a><span class="fu">head</span>(<span class="fu">reducedDim</span>(tse, <span class="st">"UMAP"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">runUMAP</span>(tse,</span>
+<span id="cb17-2"><a href="#cb17-2"></a>               <span class="at">assay.type =</span> <span class="st">"counts"</span>,</span>
+<span id="cb17-3"><a href="#cb17-3"></a>               <span class="at">ncomponents =</span> <span class="dv">3</span>)</span>
+<span id="cb17-4"><a href="#cb17-4"></a></span>
+<span id="cb17-5"><a href="#cb17-5"></a><span class="co"># The new dimensions are stored in the reducedDim slot</span></span>
+<span id="cb17-6"><a href="#cb17-6"></a><span class="fu">head</span>(<span class="fu">reducedDim</span>(tse, <span class="st">"UMAP"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>          UMAP1      UMAP2      UMAP3
-A110 -0.2306184  0.7279943  1.5806612
-A12  -0.9707269  0.5182520  1.2675595
-A15   0.9813374  0.3229846 -0.6461952
-A19  -1.1380295  0.5971419  0.8782231
-A21   0.9880926 -0.6312433 -0.5866096
-A23   1.2138464 -0.1371741 -0.5889314</code></pre>
+<pre><code>          UMAP1       UMAP2     UMAP3
+A110  0.5792222  0.61524111  1.463895
+A12   0.0322649 -0.06410641  1.317737
+A15  -0.5628218  0.67070895 -0.792728
+A19   0.2219325 -0.41252083  1.353001
+A21  -0.4774709  0.22370416 -1.038604
+A23   0.1042349  0.41456109 -0.934979</code></pre>
 </div>
 </div>
 </section>
@@ -559,32 +596,17 @@ A23   1.2138464 -0.1371741 -0.5889314</code></pre>
 <h2>Example 4.2</h2>
 <p>We then plot all three dimensions, but you could also plot a pair of dimensions (1 and 3, 2 and 3 or 1 and 2) with the <code>ncomponents</code> argument.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">plotReducedDim</span>(tse, <span class="st">"UMAP"</span>,</span>
-<span id="cb15-2"><a href="#cb15-2"></a>                    <span class="at">ncomponents =</span> <span class="dv">3</span>,</span>
-<span id="cb15-3"><a href="#cb15-3"></a>                    <span class="at">colour_by =</span> <span class="st">"patient_status"</span>,</span>
-<span id="cb15-4"><a href="#cb15-4"></a>                    <span class="at">shape_by =</span> <span class="st">"cohort"</span>)</span>
-<span id="cb15-5"><a href="#cb15-5"></a></span>
-<span id="cb15-6"><a href="#cb15-6"></a>p4</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">plotReducedDim</span>(tse, <span class="st">"UMAP"</span>,</span>
+<span id="cb19-2"><a href="#cb19-2"></a>                    <span class="at">ncomponents =</span> <span class="dv">3</span>,</span>
+<span id="cb19-3"><a href="#cb19-3"></a>                    <span class="at">colour_by =</span> <span class="st">"patient_status"</span>,</span>
+<span id="cb19-4"><a href="#cb19-4"></a>                    <span class="at">shape_by =</span> <span class="st">"cohort"</span>)</span>
+<span id="cb19-5"><a href="#cb19-5"></a></span>
+<span id="cb19-6"><a href="#cb19-6"></a>p3</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="tengeler_pcoa_files/figure-revealjs/fig-umap-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;4: UMAP plot of the first three dimensions.</p></section>
-<section id="comparison" class="slide level2">
-<h2>Comparison</h2>
-<p>Finally, we combine the two plots with the patchwork syntax and compare them in <strong>?@fig-beta</strong>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>(p1 <span class="sc">|</span> p2 <span class="sc">|</span> p3) <span class="sc">+</span></span>
-<span id="cb16-2"><a href="#cb16-2"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">+</span></span>
-<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"A"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="tengeler_pcoa_files/figure-revealjs/fig-comparison-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;5: Ordination plots based on (A) Bray-Curtis, (B) Jaccard and (C) Unifrac indices. Samples are coloured by patient status and shaped by cohort.</p></section>
-<section id="try-yourself" class="slide level2">
-<h2>Try yourself</h2>
-<ul>
-<li><a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#visualization-basics-with-pca">exercise 7.2</a></li>
-<li><a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#principal-coordinate-analysis-pcoa">exercise 7.3</a>.</li>
-<li>exercise with aitchison</li>
-</ul>
+<img data-src="tengeler_pcoa_files/figure-revealjs/fig-umap-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;3: UMAP plot of the first three dimensions. Samples are coloured by patient status and shaped by cohort.</p></section>
+<section id="exercise-4" class="slide level2">
+<h2>Exercise 4</h2>
 
 <div class="footer footer-default">
 

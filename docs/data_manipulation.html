@@ -397,15 +397,16 @@
 </section>
 <section id="example-1.1-data-import" class="slide level2">
 <h2>Example 1.1: Data Import</h2>
-<p>Load demo data (go deeper in <a href="https://microbiome.github.io/OMA/docs/devel/pages/04_containers.html#data-containers">OMA</a>).</p>
+<p>We work with microbiome data inside <code>TreeSummarizedExperiment</code> (TreeSE) containers and <code>mia</code> is our toolkit.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">library</span>(mia)</span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># Load Tengeler2020 and store it into a TreeSE</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="fu">data</span>(<span class="st">"Tengeler2020"</span>, <span class="at">package =</span> <span class="st">"mia"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5"></a>tse <span class="ot">&lt;-</span> Tengeler2020</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Import libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(mia)</span>
+<span id="cb1-3"><a href="#cb1-3"></a></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># Load Tengeler2020 and store it into a TreeSE</span></span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="fu">data</span>(<span class="st">"Tengeler2020"</span>, <span class="at">package =</span> <span class="st">"mia"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6"></a>tse <span class="ot">&lt;-</span> Tengeler2020</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Print object</p>
+<p>The components of a TreeSE can all be seen at a glance.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Print TreeSE</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a>tse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -432,86 +433,93 @@ colTree: NULL</code></pre>
 </section>
 <section id="example-1.2-column-data" class="slide level2">
 <h2>Example 1.2: Column data</h2>
-<p>Extract the microbiota data elements: column data (sample data)</p>
+<p>Columns represent the samples of an experiment.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">head</span>(<span class="fu">colnames</span>(tse))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Retrieve sample names</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">head</span>(<span class="fu">colnames</span>(tse), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "A110" "A12"  "A15"  "A19"  "A21"  "A23" </code></pre>
+<pre><code>[1] "A110" "A12"  "A15" </code></pre>
 </div>
 </div>
+<p>All information about the samples is stored in <code>colData</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">head</span>(<span class="fu">colData</span>(tse))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Retrieve sample data</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">head</span>(<span class="fu">colData</span>(tse), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>DataFrame with 6 rows and 4 columns
+<pre><code>DataFrame with 3 rows and 4 columns
      patient_status      cohort patient_status_vs_cohort sample_name
         &lt;character&gt; &lt;character&gt;              &lt;character&gt; &lt;character&gt;
 A110           ADHD    Cohort_1            ADHD_Cohort_1        A110
 A12            ADHD    Cohort_1            ADHD_Cohort_1         A12
-A15            ADHD    Cohort_1            ADHD_Cohort_1         A15
-A19            ADHD    Cohort_1            ADHD_Cohort_1         A19
-A21            ADHD    Cohort_2            ADHD_Cohort_2         A21
-A23            ADHD    Cohort_2            ADHD_Cohort_2         A23</code></pre>
+A15            ADHD    Cohort_1            ADHD_Cohort_1         A15</code></pre>
 </div>
 </div>
-<p>Access variable from colData</p>
+<p>Individual variables about the samples can be accessed directly.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">head</span>(tse<span class="sc">$</span>patient_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Retrieve sample variables</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">head</span>(tse<span class="sc">$</span>patient_status, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "ADHD" "ADHD" "ADHD" "ADHD" "ADHD" "ADHD"</code></pre>
+<pre><code>[1] "ADHD" "ADHD" "ADHD"</code></pre>
 </div>
 </div>
 </section>
 <section id="example-1.3-row-data" class="slide level2">
 <h2>Example 1.3: Row data</h2>
-<p>row data (feature data)</p>
+<p>Rows represent the features of an experiment.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">head</span>(<span class="fu">rownames</span>(tse))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Retrieve feature names</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">head</span>(<span class="fu">rownames</span>(tse), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Bacteroides"     "Bacteroides_1"   "Parabacteroides" "Bacteroides_2"  
-[5] "Akkermansia"     "Bacteroides_3"  </code></pre>
+<pre><code>[1] "Bacteroides"     "Bacteroides_1"   "Parabacteroides"</code></pre>
 </div>
 </div>
+<p>All information about the samples is stored in <code>rowData</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">head</span>(<span class="fu">rowData</span>(tse))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Retrieve feature data</span></span>
+<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">head</span>(<span class="fu">rowData</span>(tse), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>DataFrame with 6 rows and 6 columns
-                    Kingdom          Phylum            Class              Order
-                &lt;character&gt;     &lt;character&gt;      &lt;character&gt;        &lt;character&gt;
-Bacteroides        Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales
-Bacteroides_1      Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales
-Parabacteroides    Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales
-Bacteroides_2      Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales
-Akkermansia        Bacteria Verrucomicrobia Verrucomicrobiae Verrucomicrobiales
-Bacteroides_3      Bacteria   Bacteroidetes      Bacteroidia      Bacteroidales
-                             Family           Genus
-                        &lt;character&gt;     &lt;character&gt;
-Bacteroides          Bacteroidaceae     Bacteroides
-Bacteroides_1        Bacteroidaceae     Bacteroides
-Parabacteroides  Porphyromonadaceae Parabacteroides
-Bacteroides_2        Bacteroidaceae     Bacteroides
-Akkermansia     Verrucomicrobiaceae     Akkermansia
-Bacteroides_3        Bacteroidaceae     Bacteroides</code></pre>
+<pre><code>DataFrame with 3 rows and 6 columns
+                    Kingdom        Phylum       Class         Order
+                &lt;character&gt;   &lt;character&gt; &lt;character&gt;   &lt;character&gt;
+Bacteroides        Bacteria Bacteroidetes Bacteroidia Bacteroidales
+Bacteroides_1      Bacteria Bacteroidetes Bacteroidia Bacteroidales
+Parabacteroides    Bacteria Bacteroidetes Bacteroidia Bacteroidales
+                            Family           Genus
+                       &lt;character&gt;     &lt;character&gt;
+Bacteroides         Bacteroidaceae     Bacteroides
+Bacteroides_1       Bacteroidaceae     Bacteroides
+Parabacteroides Porphyromonadaceae Parabacteroides</code></pre>
 </div>
 </div>
+<p>Individual variables about the samples can be accessed from <code>rowData</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">head</span>(<span class="fu">rowData</span>(tse)<span class="sc">$</span>Genus)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Retrieve feature variables</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">head</span>(<span class="fu">rowData</span>(tse)<span class="sc">$</span>Genus, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Bacteroides"     "Bacteroides"     "Parabacteroides" "Bacteroides"    
-[5] "Akkermansia"     "Bacteroides"    </code></pre>
+<pre><code>[1] "Bacteroides"     "Bacteroides"     "Parabacteroides"</code></pre>
 </div>
 </div>
 </section>
 <section id="example-1.4-assays" class="slide level2">
 <h2>Example 1.4: Assays</h2>
-<p>assays (abundance matrices)</p>
+<p>The assays of an experiment (counts, relative abundance, etc.) can be found in <code>assays</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">assayNames</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">assays</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>List of length 1
+names(1): counts</code></pre>
+</div>
+</div>
+<p><code>assayNames</code> return only their names.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">assayNames</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "counts"</code></pre>
 </div>
 </div>
+<p>An individual assay can be retrieved with <code>assay</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">assay</span>(tse, <span class="st">"counts"</span>)[<span class="fu">seq</span>(<span class="dv">6</span>), <span class="fu">seq</span>(<span class="dv">6</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">assay</span>(tse, <span class="st">"counts"</span>)[<span class="fu">seq</span>(<span class="dv">6</span>), <span class="fu">seq</span>(<span class="dv">6</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 A110   A12  A15  A19  A21  A23
 Bacteroides     17722 11630    0 8806 1740 1791
@@ -526,41 +534,48 @@ Bacteroides_3       0  6498    0 4455  610    0</code></pre>
 <section id="exercise-1" class="slide level2">
 <h2>Exercise 1</h2>
 <ul>
-<li>preliminary exploration: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#preliminary-exploration">exercise 3.3</a></li>
-<li>assay retrieval: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#assay-retrieval">exercise 3.4</a></li>
+<li>preliminary exploration: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#preliminary-exploration" target="_blank">exercise 3.3</a></li>
+<li>assay retrieval: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#assay-retrieval" target="_blank">exercise 3.4</a></li>
 </ul>
 <p>Extra:</p>
 <ul>
-<li>constructing a TreeSE object: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#sec-construct-TreeSE">exercise 3.1</a></li>
+<li>constructing a TreeSE object: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#sec-construct-TreeSE" target="_blank">exercise 3.1</a></li>
 </ul>
-<p>Create a TreeSE directly from its components in the form of raw data (OMA section 3.4). Raw data <a href="https://github.com/microbiome/data">here</a>.</p>
+<p>Create a TreeSE directly from its components in the form of raw data (OMA section 3.4). Raw data <a href="https://github.com/microbiome/data" target="_blank">here</a>.</p>
 </section>
 <section id="example-2.1-subsetting" class="slide level2">
 <h2>Example 2.1: Subsetting</h2>
-<p>Show how to subset microbiota data (go deeper in <a href="https://microbiome.github.io/OMA/docs/devel/pages/10_manipulation.html#subsetting">OMA</a>).</p>
+<p>We can subset features or samples of a TreeSE, but first we need to pick a variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">unique</span>(tse<span class="sc">$</span>patient_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Check levels of a sample variable</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">unique</span>(tse<span class="sc">$</span>patient_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "ADHD"    "Control"</code></pre>
 </div>
 </div>
+<p>To subset samples, we filter columns with a conditional.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>subcol_tse <span class="ot">&lt;-</span> tse[ , tse<span class="sc">$</span>patient_status <span class="sc">==</span> <span class="st">"ADHD"</span>]</span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">dim</span>(subcol_tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Subset by a sample variable</span></span>
+<span id="cb24-2"><a href="#cb24-2"></a>subcol_tse <span class="ot">&lt;-</span> tse[ , tse<span class="sc">$</span>patient_status <span class="sc">==</span> <span class="st">"ADHD"</span>]</span>
+<span id="cb24-3"><a href="#cb24-3"></a><span class="fu">dim</span>(subcol_tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 151  13</code></pre>
 </div>
 </div>
+<p>We now want to subset by our favourite Phylum.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">unique</span>(<span class="fu">rowData</span>(tse)<span class="sc">$</span>Phylum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Check levels of a feature variable</span></span>
+<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">unique</span>(<span class="fu">rowData</span>(tse)<span class="sc">$</span>Phylum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Bacteroidetes"   "Verrucomicrobia" "Proteobacteria"  "Firmicutes"     
 [5] "Cyanobacteria"  </code></pre>
 </div>
 </div>
+<p>To subset features, we filter rows with a conditional.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a>subrow_tse <span class="ot">&lt;-</span> tse[<span class="fu">rowData</span>(tse)<span class="sc">$</span>Phylum <span class="sc">==</span> <span class="st">"Firmicutes"</span>, ]</span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">dim</span>(subrow_tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># Subset by a feature variable</span></span>
+<span id="cb28-2"><a href="#cb28-2"></a>subrow_tse <span class="ot">&lt;-</span> tse[<span class="fu">rowData</span>(tse)<span class="sc">$</span>Phylum <span class="sc">==</span> <span class="st">"Firmicutes"</span>, ]</span>
+<span id="cb28-3"><a href="#cb28-3"></a><span class="fu">dim</span>(subrow_tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 97 27</code></pre>
 </div>
@@ -568,10 +583,19 @@ Bacteroides_3       0  6498    0 4455  610    0</code></pre>
 </section>
 <section id="example-2.2-agglomeration" class="slide level2">
 <h2>Example 2.2: Agglomeration</h2>
-<p>Agglomerate the microbiota data to higher taxonomic levels (go deeper in <a href="https://microbiome.github.io/OMA/docs/devel/pages/11_taxonomic_information.html#sec-data-agglomeration">OMA</a>).</p>
+<p>Agglomeration condenses the assays to higher taxonomic ranks. Related taxa are combined together. We can agglomerate by different ranks.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="fu">altExp</span>(tse, <span class="st">"phylum"</span>) <span class="ot">&lt;-</span> <span class="fu">mergeFeaturesByRank</span>(tse, <span class="at">rank =</span> <span class="st">"Phylum"</span>)</span>
-<span id="cb28-2"><a href="#cb28-2"></a><span class="fu">altExp</span>(tse, <span class="st">"phylum"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># View rank options</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="fu">taxonomyRanks</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "Kingdom" "Phylum"  "Class"   "Order"   "Family"  "Genus"  </code></pre>
+</div>
+</div>
+<p>We agglomerate by Phylum and store the new experiment in the <code>altExp</code> slot.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># Agglomerate by Phylum and store into altExp slot</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a><span class="fu">altExp</span>(tse, <span class="st">"phylum"</span>) <span class="ot">&lt;-</span> <span class="fu">mergeFeaturesByRank</span>(tse, <span class="at">rank =</span> <span class="st">"Phylum"</span>)</span>
+<span id="cb32-3"><a href="#cb32-3"></a><span class="fu">altExp</span>(tse, <span class="st">"phylum"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>class: TreeSummarizedExperiment 
 dim: 5 27 
@@ -595,45 +619,58 @@ colTree: NULL</code></pre>
 </section>
 <section id="example-2.3-transformation" class="slide level2">
 <h2>Example 2.3: Transformation</h2>
-<p>transform to alternative assays and show histograms for the whole assay transform to alternative assays; boxplots for selected feature (go deeper in <a href="https://microbiome.github.io/OMA/docs/devel/pages/11_taxonomic_information.html#sec-assay-transform">OMA</a>).</p>
+<p>Data can be transformed for different reasons. For example, to make samples comparable we can use relative abundance.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse,</span>
-<span id="cb30-2"><a href="#cb30-2"></a>                      <span class="at">assay.type =</span> <span class="st">"counts"</span>,</span>
-<span id="cb30-3"><a href="#cb30-3"></a>                      <span class="at">method =</span> <span class="st">"relabundance"</span>)</span>
-<span id="cb30-4"><a href="#cb30-4"></a></span>
-<span id="cb30-5"><a href="#cb30-5"></a><span class="fu">head</span>(<span class="fu">colSums</span>(<span class="fu">assay</span>(tse, <span class="st">"relabundance"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># Transform counts to relative abundance</span></span>
+<span id="cb34-2"><a href="#cb34-2"></a>tse <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse,</span>
+<span id="cb34-3"><a href="#cb34-3"></a>                      <span class="at">assay.type =</span> <span class="st">"counts"</span>,</span>
+<span id="cb34-4"><a href="#cb34-4"></a>                      <span class="at">method =</span> <span class="st">"relabundance"</span>)</span>
+<span id="cb34-5"><a href="#cb34-5"></a></span>
+<span id="cb34-6"><a href="#cb34-6"></a><span class="co"># View sample-wise sums</span></span>
+<span id="cb34-7"><a href="#cb34-7"></a><span class="fu">head</span>(<span class="fu">colSums</span>(<span class="fu">assay</span>(tse, <span class="st">"relabundance"</span>)), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>A110  A12  A15  A19  A21  A23 
-   1    1    1    1    1    1 </code></pre>
+<pre><code>A110  A12  A15 
+   1    1    1 </code></pre>
 </div>
 </div>
+<p>Or to standardise features to the normal distribution we can use z-scores: <span class="math inline">\(Z = \frac{x - \mu}{\sigma}\)</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>tse <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse,</span>
-<span id="cb32-2"><a href="#cb32-2"></a>                      <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
-<span id="cb32-3"><a href="#cb32-3"></a>                      <span class="at">method =</span> <span class="st">"z"</span>,</span>
-<span id="cb32-4"><a href="#cb32-4"></a>                      <span class="at">MARGIN =</span> <span class="st">"features"</span>)</span>
-<span id="cb32-5"><a href="#cb32-5"></a></span>
-<span id="cb32-6"><a href="#cb32-6"></a><span class="fu">head</span>(<span class="fu">rowSds</span>(<span class="fu">assay</span>(tse, <span class="st">"z"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># Transform relative abundance to z-scores</span></span>
+<span id="cb36-2"><a href="#cb36-2"></a>tse <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse,</span>
+<span id="cb36-3"><a href="#cb36-3"></a>                      <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
+<span id="cb36-4"><a href="#cb36-4"></a>                      <span class="at">method =</span> <span class="st">"z"</span>,</span>
+<span id="cb36-5"><a href="#cb36-5"></a>                      <span class="at">MARGIN =</span> <span class="st">"features"</span>)</span>
+<span id="cb36-6"><a href="#cb36-6"></a></span>
+<span id="cb36-7"><a href="#cb36-7"></a><span class="co"># View feature-wise standard deviations</span></span>
+<span id="cb36-8"><a href="#cb36-8"></a><span class="fu">head</span>(<span class="fu">rowSds</span>(<span class="fu">assay</span>(tse, <span class="st">"z"</span>)), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>    Bacteroides   Bacteroides_1 Parabacteroides   Bacteroides_2     Akkermansia 
-              1               1               1               1               1 
-  Bacteroides_3 
-              1 </code></pre>
+<pre><code>    Bacteroides   Bacteroides_1 Parabacteroides 
+              1               1               1 </code></pre>
 </div>
 </div>
 </section>
 <section id="exercise-2" class="slide level2">
 <h2>Exercise 2</h2>
 <ul>
-<li>subsetting: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#subsetting">exercise 4.1</a></li>
-<li>agglomeration: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#taxonomic-levels">exercise 5.1</a></li>
-<li>transformation: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#assay-transformation">exercise 4.6</a></li>
+<li>subsetting: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#subsetting" target="_blank">exercise 4.1</a></li>
+<li>agglomeration: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#taxonomic-levels" target="_blank">exercise 5.1</a></li>
+<li>transformation: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#assay-transformation" target="_blank">exercise 4.6</a></li>
 </ul>
 <p><em>Add to exercise 4.3</em>: Subset to the most prevalent taxa (17.3.3) (tip: subsetByPrevalentFeatures). for count assay; how many features remain? for relative abundance assay; how many features remain?</p>
 <p>Extra:</p>
 <ul>
-<li>prevalence subsetting: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#prevalent-and-core-taxonomic-features">exercise 4.3</a></li>
-<li>alternative experiments: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#alternative-experiments">exercise 5.2</a></li>
+<li>prevalence subsetting: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#prevalent-and-core-taxonomic-features" target="_blank">exercise 4.3</a></li>
+<li>alternative experiments: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#alternative-experiments" target="_blank">exercise 5.2</a></li>
+</ul>
+</section>
+<section id="resources" class="slide level2">
+<h2>Resources</h2>
+<ul>
+<li><a href="https://microbiome.github.io/mia/reference/index.html" target="_blank">mia function reference</a></li>
+<li><a href="https://microbiome.github.io/OMA/docs/devel/pages/04_containers.html#data-containers" target="_blank">OMA Section - Data Containers</a></li>
+<li><a href="https://microbiome.github.io/OMA/docs/devel/pages/10_manipulation.html#subsetting" target="_blank">OMA Section - Subsetting</a></li>
+<li><a href="https://microbiome.github.io/OMA/docs/devel/pages/11_taxonomic_information.html#sec-data-agglomeration" target="_blank">OMA Section - Agglomeration</a></li>
+<li><a href="https://microbiome.github.io/OMA/docs/devel/pages/11_taxonomic_information.html#sec-assay-transform" target="_blank">OMA Section - Transformation</a></li>
 </ul>
 
 <div class="footer footer-default">
