@@ -39,7 +39,7 @@ citation("mia")
 ## Exercise 1
 
 -   new document: [exercise 2.1](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#new-document){target="_blank"}
--   code chunks: [exercise 2.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#code-chunks)
+-   code chunks: [exercise 2.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#code-chunks){target="_blank"}
 
 ## Example 2.1: knitr options
 
@@ -126,15 +126,15 @@ date: `r Sys.Date()`
 ## Exercise 2
 
 -   knitr options: [exercise 2.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#knitr-options){target="_blank"}
--   yaml instructions: [exercise 2.4](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#yaml-instructions)
+-   YAML parameters: [exercise 2.4](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#yaml-instructions){target="_blank"}
 
 Extra:
 
--   Quarto parameters: [exercise 2.5](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#quarto-parameters)
+-   Quarto parameters: [exercise 2.5](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#quarto-parameters){target="_blank"}
 
 ## Resources
 
--   [OMA Section - Quarto](https://microbiome.github.io/OMA/resources.html#quarto)
--   [Chunk Option Catalogue](https://yihui.org/knitr/options/)
--   [Cross References](https://quarto.org/docs/authoring/cross-references.html)
--   [YAML Parameter Catalogue](https://quarto.org/docs/reference/formats/html.html)
+-   [OMA Section - Quarto](https://microbiome.github.io/OMA/resources.html#quarto){target="_blank"}
+-   [Chunk Option Catalogue](https://yihui.org/knitr/options/){target="_blank"}
+-   [Cross References](https://quarto.org/docs/authoring/cross-references.html){target="_blank"}
+-   [YAML Parameter Catalogue](https://quarto.org/docs/reference/formats/html.html){target="_blank"}

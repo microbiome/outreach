@@ -1999,7 +1999,7 @@
     "href": "tengeler_quarto.html#exercise-2",
     "title": "Reproducible Reporting with Quarto",
     "section": "Exercise 2",
-    "text": "Exercise 2\n\nknitr options: exercise 2.3\nyaml instructions: exercise 2.4\n\nExtra:\n\nQuarto parameters: exercise 2.5"
+    "text": "Exercise 2\n\nknitr options: exercise 2.3\nYAML parameters: exercise 2.4\n\nExtra:\n\nQuarto parameters: exercise 2.5"
   },
   {
     "objectID": "tengeler_quarto.html#example-2.3-yaml-parameters",
