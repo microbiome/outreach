@@ -1,0 +1,137 @@
+---
+title: "Reproducible Reporting with Quarto"
+format: revealjs
+editor: visual
+smaller: true
+bibliography: references.bib
+---
+
+```{r}
+#| label: setup
+#| include: false
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
+```
+
+## Example 1.1: \# Markdown Syntax
+
+In Markdown syntax, you can do the following and more.
+
+-   Headings: `# My title`, `## My subtitle`, `### My subsubtitle`
+-   Unordered lists:
+    -   `-   item 1`
+    -   `-   item 2`
+-   Ordered lists:
+    -   `1.  item 1`
+    -   `2.  item 2`
+-   Font: \**italic*\*, \*\***bold**\*\*, \``monospaced`\`
+-   Links: `[text](url)`
+-   Cross-references: `@chunk-label`
+
+## Example 1.2: Running Code
+
+Add code chunks with `alt + cmd + i` and click **Render** to generate a report with both text and code output.
+
+```{r}
+# R code
+citation("mia")
+```
+
+## Exercise 1
+
+-   new document: [exercise 2.1](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#new-document){target="_blank"}
+-   code chunks: [exercise 2.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#code-chunks){target="_blank"}
+
+## Example 2.1: knitr options
+
+You can add options to code chunks to change their behaviour.
+
+-   Original chunk
+
+```{r}
+print("I love my microbiome")
+```
+
+-   After adding `#| echo: false`
+
+```{r}
+#| echo: false
+print("I love my microbiome")
+```
+
+-   After adding `#| eval: false`
+
+```{r}
+#| eval: false
+print("I love my microbiome")
+```
+
+-   After adding `#| code-fold: true`
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+print("I love my microbiome")
+```
+
+-   After adding `#| include: false`
+
+```{r}
+#| include: false
+print("I love my microbiome")
+```
+
+## Example 2.2: More about knitr options
+
+If you want an option to affect all chunks in a script, you can set it globally.
+
+```{r}
+#| label: global-knitr-example
+#| eval: false
+# Turn off chunk visibility and warnings
+knitr::opts_chunk$set(echo = FALSE, warning = FALSE)
+```
+
+You can label figures (or tables) with `#| label: fig-name` and cross-reference them with `@fig-name` (@fig-example).
+
+```{r}
+#| label: fig-example
+#| fig-cap: A boxplot of the sepal length distribution by species.
+data(iris)
+boxplot(Sepal.Length ~ Species, data = iris)
+```
+
+## Example 2.3: YAML Parameters
+
+At the beginning of any Quarto document, there is a box delimited by `---`. There you can define document metadata, such as title, author, date, output format, bibliography, citation style, theme, font size and many others.
+
+`---`
+
+title: "Around the gut in 24 hours"
+
+format: html
+
+editor: visual
+
+smaller: true
+
+author: Escherichia coli
+
+date: `r Sys.Date()`
+
+`---`
+
+## Exercise 2
+
+-   knitr options: [exercise 2.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#knitr-options){target="_blank"}
+-   YAML parameters: [exercise 2.4](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#yaml-instructions){target="_blank"}
+
+Extra:
+
+-   Quarto parameters: [exercise 2.5](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#quarto-parameters){target="_blank"}
+
+## Resources
+
+-   [OMA Section - Quarto](https://microbiome.github.io/OMA/resources.html#quarto){target="_blank"}
+-   [Chunk Option Catalogue](https://yihui.org/knitr/options/){target="_blank"}
+-   [Cross References](https://quarto.org/docs/authoring/cross-references.html){target="_blank"}
+-   [YAML Parameter Catalogue](https://quarto.org/docs/reference/formats/html.html){target="_blank"}

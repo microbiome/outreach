@@ -15,10 +15,9 @@ project:
     - day2.qmd
     - treese.qmd
     - tengeler2020_presentation.qmd
-    - tengeler_quarto.qmd
-    - tengeler_basic_exploration.qmd
-    - tengeler_alpha_diversity.qmd
-    - tengeler_pcoa.qmd
-    - tengeler_dbrda.qmd
-    - tengeler_community_composition.qmd
-    - tengeler_differential_abundance.qmd
+    - quarto.qmd
+    - alpha_diversity.qmd
+    - pcoa.qmd
+    - dbrda.qmd
+    - compositional_heatmap.qmd
+    - differential_abundance.qmd

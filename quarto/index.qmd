@@ -10,36 +10,35 @@ This website hosts quarto presentations about microbiome analysis and data integ
 
 ### Bioconductor
 
--   [Bioconductor project](https://microbiome.github.io/outreach/bioconductor.html)
+-   [Bioconductor project](https://microbiome.github.io/outreach/bioconductor.html){target="_blank"}
 
 ### Quarto
 
--   [Reproducible workflow with Quarto](https://microbiome.github.io/outreach/reproducible_workflow.html)
--   [Learning environment](https://microbiome.github.io/outreach/starting.html)
+-   [Reproducible workflow with Quarto](https://microbiome.github.io/outreach/reproducible_workflow.html){target="_blank"}
+-   [Learning environment](https://microbiome.github.io/outreach/starting.html){target="_blank"}
 
 ### Data containers
 
--   [Orchestrating microbiome multi-omics with R & Bioconductor](https://microbiome.github.io/outreach/lahti_bioc2023.html)
--   [Data containers](https://microbiome.github.io/outreach/datacontainers.html)
--   [SummarizedExperiment](https://microbiome.github.io/outreach/summarizedexperiment.html)
--   [TreeSummarizedExperiment](https://microbiome.github.io/outreach/treese.html)
+-   [Orchestrating microbiome multi-omics with R & Bioconductor](https://microbiome.github.io/outreach/lahti_bioc2023.html){target="_blank"}
+-   [Data containers](https://microbiome.github.io/outreach/datacontainers.html){target="_blank"}
+-   [SummarizedExperiment](https://microbiome.github.io/outreach/summarizedexperiment.html){target="_blank"}
+-   [TreeSummarizedExperiment](https://microbiome.github.io/outreach/treese.html){target="_blank"}
 
 ### Example data
 
--   [HintikkaXOData](https://microbiome.github.io/outreach/hintikkaxo_presentation.html)
--   [Tengeler2020](https://microbiome.github.io/outreach/tengeler2020_presentation.html)
+-   [HintikkaXOData](https://microbiome.github.io/outreach/hintikkaxo_presentation.html){target="_blank"}
+-   [Tengeler2020](https://microbiome.github.io/outreach/tengeler2020_presentation.html){target="_blank"}
 
 ### Microbiome data analysis
 
--   [Data wrangling](https://microbiome.github.io/outreach/data_manipulation.html)
--   [Tengeler / Quarto](https://microbiome.github.io/outreach/tengeler_quarto.html)
--   [Tengeler / Basic exploration](https://microbiome.github.io/outreach/tengeler_basic_exploration.html)
--   [Tengeler / Alpha](https://microbiome.github.io/outreach/tengeler_alpha_diversity.html)
--   [Tengeler / PCoA](https://microbiome.github.io/outreach/tengeler_pcoa.html)
--   [Tengeler / dbRDA](https://microbiome.github.io/outreach/tengeler_dbrda.html)
--   [Tengeler / Community composition](https://microbiome.github.io/outreach/tengeler_community_composition.html)
--   [Tengeler / DA](https://microbiome.github.io/outreach/tengeler_differential_abundance.html)
--   [Day 2](https://microbiome.github.io/outreach/day2.html)
+-   [Data Manipulation](https://microbiome.github.io/outreach/data_manipulation.html){target="_blank"}
+-   [Introduction to Quarto](https://microbiome.github.io/outreach/tengeler_quarto.html){target="_blank"}
+-   [Alpha Diversity](https://microbiome.github.io/outreach/tengeler_alpha_diversity.html){target="_blank"}
+-   [PCoA](https://microbiome.github.io/outreach/tengeler_pcoa.html){target="_blank"}
+-   [dbRDA](https://microbiome.github.io/outreach/tengeler_dbrda.html){target="_blank"}
+-   [Compositional Heatmaps](https://microbiome.github.io/outreach/tengeler_community_composition.html){target="_blank"}
+-   [Differential Abundance](https://microbiome.github.io/outreach/tengeler_differential_abundance.html){target="_blank"}
+-   [Day 2](https://microbiome.github.io/outreach/day2.html){target="_blank"}
 
 ## Contributions
 
