@@ -472,10 +472,11 @@ clr = log \frac{x}{g(x)} = log(x)−log[g(x)]
 </section>
 <section id="example-1.3" class="slide level2">
 <h2>Example 1.3</h2>
-<p>Finally, we plot the compositional heatmap with <code>ComplexHeatmap</code>. Results are illustrated by <a href="#/fig-compheat">Figure&nbsp;2</a>.</p>
+<p>Finally, we visualise the clr-z assay with <code>ComplexHeatmap</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>clrz_hm <span class="ot">&lt;-</span> <span class="fu">Heatmap</span>(<span class="fu">assay</span>(tse_order, <span class="st">"clr_z"</span>), <span class="at">name =</span> <span class="st">"clr-z"</span>)</span>
-<span id="cb8-2"><a href="#cb8-2"></a>clrz_hm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Visualise clr-z assay with a heatmap</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a>clrz_hm <span class="ot">&lt;-</span> <span class="fu">Heatmap</span>(<span class="fu">assay</span>(tse_order, <span class="st">"clr_z"</span>), <span class="at">name =</span> <span class="st">"clr-z"</span>)</span>
+<span id="cb8-3"><a href="#cb8-3"></a>clrz_hm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="tengeler_community_composition_files/figure-revealjs/fig-compheat-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;2: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order.</p></section>

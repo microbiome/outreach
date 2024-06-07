@@ -1187,14 +1187,14 @@
     "href": "tengeler_quarto.html#getting-started",
     "title": "Reproducible Reporting with Quarto",
     "section": "Getting started",
-    "text": "Getting started\n\nMarkdown sytax\nThe markdown syntax is a powerful that lets you add many different things to your report. Here we go through a few of the elements.\n\nTitles, defined with #; you can also make subtitles, subsubtitles and even lower-level headings by using more hashes, so ### my subsubsection would be 3rd-level heading\nLists, like this one; you can make unordered lists with * for each item, or ordered lists with 1., 2., 3. and so on\nLinks, which are made with [text](url)\n\n\n\nRunning Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\n\n\nFigures and tables\nFigures and tables returned as output of your code can be easily embedded to the report and cross-referenced from other parts of the report. Here we show it with the iris dataset.\n\ndata(iris)\n\nBelow is a boxplot of flower sepal length by species (see Figure 1). You can add cross-references to figures and tables with the syntax @chunk-label, which is further discussed in Section 3.2. Other items such as sections, equations and publications can be referenced as well as explained here.\n\nboxplot(Sepal.Length ~ Species, data = iris)\n\n\n\n\nFigure 1: This is a figure caption.\n\n\n\n\nSimilarly, tables can also be included and cross-referenced, demonstrated with Table 1 where the number of observations per flower species are shown.\n\nknitr::kable(table(iris$Species))\n\n\n\nTable 1: This is a table caption.\n\n\nVar1\nFreq\n\n\n\n\nsetosa\n50\n\n\nversicolor\n50\n\n\nvirginica\n50"
+    "text": "Getting started\nMarkdown sytax\nThe markdown syntax is a powerful that lets you add many different things to your report. Here we go through a few of the elements.\n\nTitles, defined with #; you can also make subtitles, subsubtitles and even lower-level headings by using more hashes, so ### my subsubsection would be 3rd-level heading\nLists, like this one; you can make unordered lists with * for each item, or ordered lists with 1., 2., 3. and so on\nLinks, which are made with [text](url)\n\nRunning Code\nWhen you click the Render button a document will be generated that includes both content and the output of embedded code. You can embed code like this:\n\n1 + 1\n\n[1] 2\n\n\nFigures and tables\nFigures and tables returned as output of your code can be easily embedded to the report and cross-referenced from other parts of the report. Here we show it with the iris dataset.\n\ndata(iris)\n\nBelow is a boxplot of flower sepal length by species (see Figure 1). You can add cross-references to figures and tables with the syntax @chunk-label, which is further discussed in Section 3.2. Other items such as sections, equations and publications can be referenced as well as explained here.\n\nboxplot(Sepal.Length ~ Species, data = iris)\n\n\nFigure 1: This is a figure caption.Similarly, tables can also be included and cross-referenced, demonstrated with Table 1 where the number of observations per flower species are shown.\n\nknitr::kable(table(iris$Species))\n\n\n\nTable 1: This is a table caption.\n\n\nVar1\nFreq\n\n\n\n\nsetosa\n50\n\n\nversicolor\n50\n\n\nvirginica\n50"
   },
   {
     "objectID": "tengeler_quarto.html#modifying-structure-and-layout",
     "href": "tengeler_quarto.html#modifying-structure-and-layout",
     "title": "Reproducible Reporting with Quarto",
     "section": "Modifying structure and layout",
-    "text": "Modifying structure and layout\n\nAdding knitr options\nYou can add options to executable code like this:\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed).\n\n\nOption catalogue\nThis are some of the knitr chunk options that I find most useful. A full list of options is available here.\n\nlabel: gives a name to the code chunk, which comes handy for troubleshooting programs as well as adding cross-references (notice that chunks returning figures or tables need a special prefix fig- and tbl-, respectively)\necho / include: the former hides the code but shows the output, whereas the latter hides both the code and the output\neval: whether to evaluate or not the code\nmessage / warning: hide messages or warnings returned by the code, respectively\nfig / tbl: this one is not really an option, but you have to add this prefix to a label so that it is recognised as figure or table, respectively\nfig-cap / tbl-cap: define caption for figure or table, respectively\nfig-width + fig-asp: the former defines the width of an image, whereas the latter sets its aspect ratio so that fig-height = fig-width * fig-asp, so these two make a great combo to guess the correct size for your plots\nfig.path: indicates the relative path to which figures should be saved\n\n\n\nGlobal knitr options\nIf you are too lazy to set knitr options for every single chunk, don’t worry! knitr has the solution for you. Just specify global options for the entire document on the very top upstream like this:\n\n# set message and warning to false and specify folder where figures should be saved for the entire document (put upstream everything)\nknitr::opts_chunk$set(message = FALSE, warning = FALSE,\n                      fig.path = \"my/fig/dir\")\n\n\n\nYAML Parameters\nAt the beginning of the raw document, you’ll see a box delimited by ---. There you can define document metadata like title, author, date, but also more advanced execution options such as output format, bibliography and citation style, theme, font size and many others. A full list of available parameters can be found here."
+    "text": "Modifying structure and layout\nAdding knitr options\nYou can add options to executable code like this:\n\n\n[1] 4\n\n\nThe echo: false option disables the printing of code (only output is displayed).\nOption catalogue\nThis are some of the knitr chunk options that I find most useful. A full list of options is available here.\n\nlabel: gives a name to the code chunk, which comes handy for troubleshooting programs as well as adding cross-references (notice that chunks returning figures or tables need a special prefix fig- and tbl-, respectively)\necho / include: the former hides the code but shows the output, whereas the latter hides both the code and the output\neval: whether to evaluate or not the code\nmessage / warning: hide messages or warnings returned by the code, respectively\nfig / tbl: this one is not really an option, but you have to add this prefix to a label so that it is recognised as figure or table, respectively\nfig-cap / tbl-cap: define caption for figure or table, respectively\nfig-width + fig-asp: the former defines the width of an image, whereas the latter sets its aspect ratio so that fig-height = fig-width * fig-asp, so these two make a great combo to guess the correct size for your plots\nfig.path: indicates the relative path to which figures should be saved\n\nGlobal knitr options\nIf you are too lazy to set knitr options for every single chunk, don’t worry! knitr has the solution for you. Just specify global options for the entire document on the very top upstream like this:\n\n# set message and warning to false and specify folder where figures should be saved for the entire document (put upstream everything)\nknitr::opts_chunk$set(message = FALSE, warning = FALSE,\n                      fig.path = \"my/fig/dir\")\n\nYAML Parameters\nAt the beginning of the raw document, you’ll see a box delimited by ---. There you can define document metadata like title, author, date, but also more advanced execution options such as output format, bibliography and citation style, theme, font size and many others. A full list of available parameters can be found here."
   },
   {
     "objectID": "tengeler_quarto.html#useful-resources",
@@ -1572,7 +1572,7 @@
     "href": "tengeler_pcoa.html#example-4.1",
     "title": "Principal Coordinate Analysis",
     "section": "Example 4.1",
-    "text": "Example 4.1\nExample with different algorithm.\nIt is also possible to specify the number of output dimensions with the argument ncomponents. Here, we show it with the UMAP ordination method.\n\ntse &lt;- runUMAP(tse,\n               assay.type = \"counts\",\n               ncomponents = 3)\n\n# The new dimensions are stored in the reducedDim slot\nhead(reducedDim(tse, \"UMAP\"))\n\n          UMAP1       UMAP2     UMAP3\nA110  0.5792222  0.61524111  1.463895\nA12   0.0322649 -0.06410641  1.317737\nA15  -0.5628218  0.67070895 -0.792728\nA19   0.2219325 -0.41252083  1.353001\nA21  -0.4774709  0.22370416 -1.038604\nA23   0.1042349  0.41456109 -0.934979"
+    "text": "Example 4.1\nExample with different algorithm.\nIt is also possible to specify the number of output dimensions with the argument ncomponents. Here, we show it with the UMAP ordination method.\n\ntse &lt;- runUMAP(tse,\n               assay.type = \"counts\",\n               ncomponents = 3)\n\n# The new dimensions are stored in the reducedDim slot\nhead(reducedDim(tse, \"UMAP\"))\n\n           UMAP1        UMAP2      UMAP3\nA110 -0.43197056 -1.172922139  0.6340482\nA12  -0.15772297 -0.991739874  1.4832998\nA15  -0.06751164 -0.003697519 -1.3330839\nA19  -0.11458226 -0.864467506  1.1644376\nA21  -0.17390766  0.203908558 -0.8028505\nA23  -0.63072332  0.404990549 -0.6665848"
   },
   {
     "objectID": "tengeler_pcoa.html#example-4.2",
@@ -1656,7 +1656,7 @@
     "href": "tengeler_community_composition.html#example-1.3",
     "title": "Compositional Heatmaps",
     "section": "Example 1.3",
-    "text": "Example 1.3\nFinally, we plot the compositional heatmap with ComplexHeatmap. Results are illustrated by Figure 2.\n\nclrz_hm &lt;- Heatmap(assay(tse_order, \"clr_z\"), name = \"clr-z\")\nclrz_hm\n\n\nFigure 2: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order."
+    "text": "Example 1.3\nFinally, we visualise the clr-z assay with ComplexHeatmap.\n\n# Visualise clr-z assay with a heatmap\nclrz_hm &lt;- Heatmap(assay(tse_order, \"clr_z\"), name = \"clr-z\")\nclrz_hm\n\n\nFigure 2: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order."
   },
   {
     "objectID": "tengeler_community_composition.html#example-1.1",
@@ -1881,5 +1881,131 @@
     "title": "Data manipulation",
     "section": "Resources",
     "text": "Resources\n\nmia function reference\nOMA Section - Data Containers\nOMA Section - Subsetting\nOMA Section - Agglomeration\nOMA Section - Transformation"
+  },
+  {
+    "objectID": "tengeler_quarto.html#overview",
+    "href": "tengeler_quarto.html#overview",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Overview",
+    "text": "Overview\nQuarto follows the markdown and rmarkdown conventions of literate programming, where code and text are combined for reproducible reporting. In other words, the analytical pipeline is embedded in the report and the code is run every time the report is compiled, so that you don’t have to produce results separately and then include them in a one-time-only report. This way, using Quarto assists in building a reproducible analytical worflow."
+  },
+  {
+    "objectID": "tengeler_quarto.html#markdown-sytax",
+    "href": "tengeler_quarto.html#markdown-sytax",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "# Markdown sytax",
+    "text": "# Markdown sytax\nThe markdown syntax is a powerful that lets you add many different things to your report. Here we go through a few of the elements.\n\nHeadings: # My title, ## My subtitle, ### My subsubtitle\nUnordered lists:\n\nitem 1\nitem 2\n\nOrdered lists:\n\nitem 1\nitem 2\n\nLinks: [text](url)\nFont: *italic*, **bold**, `monospaced`"
+  },
+  {
+    "objectID": "tengeler_quarto.html#running-code",
+    "href": "tengeler_quarto.html#running-code",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Running Code",
+    "text": "Running Code\nClick Render to generate a report with both text and code output.\n\n# R code\ncitation(\"mia\")\n\nTo cite package 'mia' in publications use:\n\n  Ernst F, Shetty S, Borman T, Lahti L (2024). _mia: Microbiome\n  analysis_. R package version 1.13.20, commit\n  5ed79efaf889f9927841d3d2d846dc4ccafa5ae8,\n  &lt;https://github.com/microbiome/mia&gt;.\n\nA BibTeX entry for LaTeX users is\n\n  @Manual{,\n    title = {mia: Microbiome analysis},\n    author = {Felix G.M. Ernst and Sudarshan A. Shetty and Tuomas Borman and Leo Lahti},\n    year = {2024},\n    note = {R package version 1.13.20, commit 5ed79efaf889f9927841d3d2d846dc4ccafa5ae8},\n    url = {https://github.com/microbiome/mia},\n  }"
+  },
+  {
+    "objectID": "tengeler_quarto.html#figures-and-tables",
+    "href": "tengeler_quarto.html#figures-and-tables",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Figures and tables",
+    "text": "Figures and tables\nhere."
+  },
+  {
+    "objectID": "tengeler_quarto.html#adding-knitr-options",
+    "href": "tengeler_quarto.html#adding-knitr-options",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Adding knitr options",
+    "text": "Adding knitr options\nYou can add options to code chunks to change their behaviour.\n\noriginal chunk\n\n\nprint(\"I love my microbiome\")\n\n[1] \"I love my microbiome\"\n\n\n\necho: false\n\n\n\n[1] \"I love my microbiome\"\n\n\n\neval: false\n\n\nprint(\"I love my microbiome\")\n\n\ncode-fold: true\n\n\n\nShow code\nprint(\"I love my microbiome\")\n\n\n[1] \"I love my microbiome\"\n\n\n\ninclude: false"
+  },
+  {
+    "objectID": "tengeler_quarto.html#global-knitr-options",
+    "href": "tengeler_quarto.html#global-knitr-options",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Global knitr options",
+    "text": "Global knitr options\nIf you are too lazy to set knitr options for every single chunk, don’t worry! knitr has the solution for you. Just specify global options for the entire document on the very top upstream like this:\n\n# set message and warning to false and specify folder where figures should be saved for the entire document (put upstream everything)\nknitr::opts_chunk$set(message = FALSE, warning = FALSE,\n                      fig.path = \"my/fig/dir\")"
+  },
+  {
+    "objectID": "tengeler_quarto.html#yaml-parameters",
+    "href": "tengeler_quarto.html#yaml-parameters",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "YAML Parameters",
+    "text": "YAML Parameters\nAt the beginning of any Quarto document, there is a box delimited by ---. There you can define document metadata, such as title, author, date, output format, bibliography, citation style, theme, font size and many others.\n---\ntitle: “Around the gut in 24 hours”\nformat: html\neditor: visual\nsmaller: true\nauthor: Escherichia coli\ndate: 2024-06-07\n---"
+  },
+  {
+    "objectID": "tengeler_quarto.html#resources",
+    "href": "tengeler_quarto.html#resources",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Resources",
+    "text": "Resources\n\nOMA Section - Quarto\nChunk Option Catalogue\nCross References\nYAML Parameter Catalogue"
+  },
+  {
+    "objectID": "tengeler_quarto.html#sec-optcat",
+    "href": "tengeler_quarto.html#sec-optcat",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Option catalogue",
+    "text": "Option catalogue\nThis are some of the knitr chunk options that I find most useful. A full list of options is available here.\n\nlabel: gives a name to the code chunk, which comes handy for troubleshooting programs as well as adding cross-references (notice that chunks returning figures or tables need a special prefix fig- and tbl-, respectively)\necho / include: the former hides the code but shows the output, whereas the latter hides both the code and the output\neval: whether to evaluate or not the code\nmessage / warning: hide messages or warnings returned by the code, respectively\nfig / tbl: this one is not really an option, but you have to add this prefix to a label so that it is recognised as figure or table, respectively\nfig-cap / tbl-cap: define caption for figure or table, respectively\nfig-width + fig-asp: the former defines the width of an image, whereas the latter sets its aspect ratio so that fig-height = fig-width * fig-asp, so these two make a great combo to guess the correct size for your plots\nfig.path: indicates the relative path to which figures should be saved"
+  },
+  {
+    "objectID": "tengeler_quarto.html#markdown-syntax",
+    "href": "tengeler_quarto.html#markdown-syntax",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "# Markdown syntax",
+    "text": "# Markdown syntax\nIn Markdown syntax, you can do the following and more.\n\nHeadings: # My title, ## My subtitle, ### My subsubtitle\nUnordered lists:\n\n-   item 1\n-   item 2\n\nOrdered lists:\n\n1.  item 1\n2.  item 2\n\nLinks: [text](url)\nFont: *italic*, **bold**, `monospaced`"
+  },
+  {
+    "objectID": "tengeler_quarto.html#example-1.1-markdown-syntax",
+    "href": "tengeler_quarto.html#example-1.1-markdown-syntax",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 1.1: # Markdown Syntax",
+    "text": "Example 1.1: # Markdown Syntax\nIn Markdown syntax, you can do the following and more.\n\nHeadings: # My title, ## My subtitle, ### My subsubtitle\nUnordered lists:\n\n-   item 1\n-   item 2\n\nOrdered lists:\n\n1.  item 1\n2.  item 2\n\nFont: *italic*, **bold**, `monospaced`\nLinks: [text](url)\nCross-references: @chunk-label"
+  },
+  {
+    "objectID": "tengeler_quarto.html#example-1.2-running-code",
+    "href": "tengeler_quarto.html#example-1.2-running-code",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 1.2: Running Code",
+    "text": "Example 1.2: Running Code\nAdd code chunks with alt + cmd + i and click Render to generate a report with both text and code output.\n\n# R code\ncitation(\"mia\")\n\nTo cite package 'mia' in publications use:\n\n  Ernst F, Shetty S, Borman T, Lahti L (2024). _mia: Microbiome\n  analysis_. R package version 1.13.20, commit\n  5ed79efaf889f9927841d3d2d846dc4ccafa5ae8,\n  &lt;https://github.com/microbiome/mia&gt;.\n\nA BibTeX entry for LaTeX users is\n\n  @Manual{,\n    title = {mia: Microbiome analysis},\n    author = {Felix G.M. Ernst and Sudarshan A. Shetty and Tuomas Borman and Leo Lahti},\n    year = {2024},\n    note = {R package version 1.13.20, commit 5ed79efaf889f9927841d3d2d846dc4ccafa5ae8},\n    url = {https://github.com/microbiome/mia},\n  }"
+  },
+  {
+    "objectID": "tengeler_quarto.html#exercise-1",
+    "href": "tengeler_quarto.html#exercise-1",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Exercise 1",
+    "text": "Exercise 1\n\nnew document: exercise 2.1\ncode chunks: exercise 2.2"
+  },
+  {
+    "objectID": "tengeler_quarto.html#example-2.1-knitr-options",
+    "href": "tengeler_quarto.html#example-2.1-knitr-options",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 2.1: knitr options",
+    "text": "Example 2.1: knitr options\nYou can add options to code chunks to change their behaviour.\n\nOriginal chunk\n\n\nprint(\"I love my microbiome\")\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| echo: false\n\n\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| eval: false\n\n\nprint(\"I love my microbiome\")\n\n\nAfter adding #| code-fold: true\n\n\n\nShow code\nprint(\"I love my microbiome\")\n\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| include: false"
+  },
+  {
+    "objectID": "tengeler_quarto.html#example-2.2-global-knitr-options",
+    "href": "tengeler_quarto.html#example-2.2-global-knitr-options",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 2.2: Global knitr options",
+    "text": "Example 2.2: Global knitr options\nIf all chunks should follow a certain behaviour, you can set it at the beginning of the script.\n\n# Turn off chunk visibility and warnings\nknitr::opts_chunk$set(echo = FALSE, warning = FALSE)"
+  },
+  {
+    "objectID": "tengeler_quarto.html#example-2.2-more-about-knitr-options",
+    "href": "tengeler_quarto.html#example-2.2-more-about-knitr-options",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 2.2: More about knitr options",
+    "text": "Example 2.2: More about knitr options\nIf you want an option to affect all chunks in a script, you can set it globally.\n\n# Turn off chunk visibility and warnings\nknitr::opts_chunk$set(echo = FALSE, warning = FALSE)\n\nYou can label figures (or tables) with #| label: fig-name and cross-reference them with @fig-name (Figure 1).\n\ndata(iris)\nboxplot(Sepal.Length ~ Species, data = iris)\n\n\nFigure 1: A boxplot of the sepal length distribution by species."
+  },
+  {
+    "objectID": "tengeler_quarto.html#exercise-2",
+    "href": "tengeler_quarto.html#exercise-2",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Exercise 2",
+    "text": "Exercise 2\n\nknitr options: exercise 2.3\nyaml instructions: exercise 2.4\n\nExtra:\n\nQuarto parameters: exercise 2.5"
+  },
+  {
+    "objectID": "tengeler_quarto.html#example-2.3-yaml-parameters",
+    "href": "tengeler_quarto.html#example-2.3-yaml-parameters",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 2.3: YAML Parameters",
+    "text": "Example 2.3: YAML Parameters\nAt the beginning of any Quarto document, there is a box delimited by ---. There you can define document metadata, such as title, author, date, output format, bibliography, citation style, theme, font size and many others.\n---\ntitle: “Around the gut in 24 hours”\nformat: html\neditor: visual\nsmaller: true\nauthor: Escherichia coli\ndate: 2024-06-07\n---"
   }
 ]

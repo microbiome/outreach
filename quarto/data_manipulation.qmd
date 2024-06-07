@@ -1,5 +1,5 @@
 ---
-title: "Data manipulation"
+title: "Data Manipulation"
 format: revealjs
 editor: visual
 smaller: true
@@ -19,10 +19,8 @@ containers and `mia` is our toolkit.
 
 ```{r}
 #| label: import-tengeler
-# Import libraries
-library(mia)
-
 # Load Tengeler2020 and store it into a TreeSE
+library(mia)
 data("Tengeler2020", package = "mia")
 tse <- Tengeler2020
 ```
