@@ -1,22 +1,20 @@
 ---
 title: "Differential Abundance"
-format: html
+format: revealjs
 editor: visual
+smaller: true
+bibliography: references.bib
 ---
 
 ```{r}
 #| label: setup
 #| include: false
-library(mia)
-library(MicrobiomeStat)
-library(tidyverse)
-
-knitr::opts_chunk$set(message = FALSE, warning = FALSE)
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
 ```
 
 ## Overview
 
-Differential Abundance Analysis (DAA) is used to identify taxa that are significantly more or less abundant in the condition compared to control. For more details, read [this chapter](https://microbiome.github.io/OMA/differential-abundance.html#differential-abundance) of the OMA book.
+Differential Abundance (DA) analysis is used to identify taxa that are significantly more or less abundant in the condition compared to control.
 
 Many methods are available including:
 
@@ -34,25 +32,51 @@ A few things to keep in minds when performing DAA involve:
 
 -   It is recommended to run different methods on the same data and compare the results
 
-## Preparing for DAA
+## Example 1.1: Preparing for DA
 
-Before performing DAA, it is important to agglomerate to a meaningful taxonomic rank and select only taxa above a certain prevalence and detection threshold, as this has been shown to make results more reproducible.
+First, we import Tengeler2020 and load the DA library `MicrobiomeStats`.
 
 ```{r}
+#| label: import-tengeler2020
+library(mia)
+library(MicrobiomeStat)
+library(tidyverse)
+
+# Import Tengeler2020
 data("Tengeler2020", package = "mia")
 tse <- Tengeler2020
 ```
 
 ```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+mean_abund <- round(mean(rowMeans(assay(tse, "counts"))), 2)
+paste0("Taxa: ", nrow(tse), ", Mean abundance: ", mean_abund)
+```
+
+For DA analysis, it is preferable to reduce the dimensionality and sparsity of
+the data.
+
+```{r}
+#| label: process
+# Agglomerate by Genus and filter by prevalence and detection
 tse_genus <- agglomerateByPrevalence(tse,
                                      rank = "Genus",
                                      detection = 0.001,
                                      prevalence = 0.1)
 ```
 
-## Performing DAA
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+mean_abund_genus <- round(mean(rowMeans(assay(tse_genus, "counts"))), 2)
+paste0("Taxa: ", nrow(tse_genus), ", Mean abundance: ", mean_abund_genus)
+```
 
-For this tutorial, we run the LinDA method. We first extract the counts assay and convert it into a data frame.
+## Example 1.2: Performing DA
+
+Here, we run LinDA. We first extract the counts assay and convert it into a
+dataframe.
 
 ```{r}
 otu.tab <- assay(tse_genus, "counts") |>
@@ -67,19 +91,18 @@ meta <- colData(tse) |>
   select(patient_status, cohort)
 ```
 
-We are ready to run LinDA, which takes the assay count (`otu.tab`) and the variable arrays (`meta`). A formula for the model with main independent variable + covariates should be defined. The other arguments are optional but good to know.
+We are ready to run LinDA, which takes the assay count (`otu.tab`) and the
+variable arrays (`meta`). A formula for the model with main independent variable
++ covariates should be defined. The other arguments are optional but good to
+know.
 
 ```{r}
-res <- linda(otu.tab,
-             meta,
+res <- linda(otu.tab, meta,
              formula = "~ patient_status + cohort", 
-             alpha = 0.05, 
-             prev.filter = 0, 
-             mean.abund.filter = 0,
              feature.dat.type = "count")
 ```
 
-## Interpreting results
+## Example 1.3: Interpreting Results
 
 Finally, we select significantly DA taxa and list it in @tbl-daa.
 
@@ -94,4 +117,15 @@ signif_res <- res$output$patient_statusControl |>
 knitr::kable(signif_res)
 ```
 
-Good job reading this tutorial. Now go [this chapter](https://microbiome.github.io/OMA/differential-abundance.html#differential-abundance) of the OMA book and try out other DAA methods on Tengeler2020.
+## Exercise 1
+
+-   DA analysis with LinDA: [exercise 8.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#sec-control-daa-confounders){target="_blank"}
+-   DA analysis with ALDEx2: [exercise 8.1](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#standard-analysis-with-aldex2){target="_blank"}
+
+Extra:
+
+-   comparing DA methods: [exercise 8.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#sec-compare-daa-methods){target="_blank"}
+
+## Resources
+
+-   [OMA Chapter - Differential Abundance](https://microbiome.github.io/OMA/differential-abundance.html#differential-abundance){target="_blank"}

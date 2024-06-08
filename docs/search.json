@@ -10,8 +10,8 @@
     "objectID": "differential_abundance.html#overview",
     "href": "differential_abundance.html#overview",
     "title": "Differential Abundance",
-    "section": "",
-    "text": "Differential Abundance Analysis (DAA) is used to identify taxa that are significantly more or less abundant in the condition compared to control. For more details, read this chapter of the OMA book.\nMany methods are available including:\n\nALDEx2\nANCOMBC\nLinDA\n\nA few things to keep in minds when performing DAA involve:\n\nDAA software normally takes the counts assay as input, because they apply normalisation suitable for count data\nDAA results will be more reproducible if the extremely rare taxa and singletons are removed in advance\nIt is recommended to run different methods on the same data and compare the results"
+    "section": "Overview",
+    "text": "Overview\nDifferential Abundance (DA) analysis is used to identify taxa that are significantly more or less abundant in the condition compared to control.\nMany methods are available including:\n\nALDEx2\nANCOMBC\nLinDA\n\nA few things to keep in minds when performing DAA involve:\n\nDAA software normally takes the counts assay as input, because they apply normalisation suitable for count data\nDAA results will be more reproducible if the extremely rare taxa and singletons are removed in advance\nIt is recommended to run different methods on the same data and compare the results"
   },
   {
     "objectID": "differential_abundance.html#preparing-for-daa",
@@ -80,8 +80,8 @@
     "objectID": "alpha_diversity.html#overview",
     "href": "alpha_diversity.html#overview",
     "title": "Alpha Diversity",
-    "section": "",
-    "text": "This notebook guides you through a basic alpha diversity analysis, where you first estimate alpha diversity in terms of a few indices, plot them for the different study groups and compare the results for the different indices.\nThe following packages are needed to succesfully run the examples in this notebook:\n\nmia: tools for microbiome data analysis\nscater: plotting data from TreeSummarizedExperiments\npatchwork: combining plots"
+    "section": "Overview",
+    "text": "Overview\nThis notebook guides you through a basic alpha diversity analysis, where you first estimate alpha diversity in terms of a few indices, plot them for the different study groups and compare the results for the different indices.\nThe following packages are needed to succesfully run the examples in this notebook:\n\nlibrary(mia)\nlibrary(scater)"
   },
   {
     "objectID": "alpha_diversity.html#estimation",
@@ -1481,7 +1481,7 @@
     "href": "pcoa.html#example-4.1",
     "title": "Principal Coordinate Analysis",
     "section": "Example 4.1",
-    "text": "Example 4.1\nExample with different algorithm.\nIt is also possible to specify the number of output dimensions with the argument ncomponents. Here, we show it with the UMAP ordination method.\n\ntse &lt;- runUMAP(tse,\n               assay.type = \"counts\",\n               ncomponents = 3)\n\n# The new dimensions are stored in the reducedDim slot\nhead(reducedDim(tse, \"UMAP\"))\n\n          UMAP1      UMAP2       UMAP3\nA110  0.8807749  1.1610043  0.81002838\nA12   0.6718220  1.3642266 -0.28322404\nA15   0.5837314 -1.1339633  0.08976895\nA19   0.4601364  1.5696070  0.08569008\nA21  -0.1093057 -0.9091337  0.15739161\nA23   0.3891973 -0.8593233 -0.40554756"
+    "text": "Example 4.1\nExample with different algorithm.\nIt is also possible to specify the number of output dimensions with the argument ncomponents. Here, we show it with the UMAP ordination method.\n\ntse &lt;- runUMAP(tse,\n               assay.type = \"counts\",\n               ncomponents = 3)\n\n# The new dimensions are stored in the reducedDim slot\nhead(reducedDim(tse, \"UMAP\"))\n\n          UMAP1      UMAP2        UMAP3\nA110 -1.4442124 -0.7468166  0.400438415\nA12  -0.8794780 -1.4532668  0.214312659\nA15   0.1760659  1.3216753  0.143820392\nA19  -0.7099702 -1.0745811  0.004302131\nA21   0.2166667  1.1904891 -0.533988847\nA23   0.8203642  1.1548592 -0.632679833"
   },
   {
     "objectID": "pcoa.html#example-4.2",
@@ -1545,5 +1545,110 @@
     "title": "Compositional Heatmaps",
     "section": "Resources",
     "text": "Resources\n\nOMA Chapter - Community Composition\nOMA Chapter - Visualisation\nComplexHeatmap Complete Reference"
+  },
+  {
+    "objectID": "differential_abundance.html#example-1.1-preparing-for-daa",
+    "href": "differential_abundance.html#example-1.1-preparing-for-daa",
+    "title": "Differential Abundance",
+    "section": "Example 1.1: Preparing for DAA",
+    "text": "Example 1.1: Preparing for DAA\nFirst, we import Tengeler2020 and load the DA library MicrobiomeStats.\n\nlibrary(mia)\nlibrary(MicrobiomeStat)\nlibrary(tidyverse)\n\n# Import Tengeler2020\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nTo prepare for DA analysis, it is preferable to reduce dimensionality and sparsity by agglomerating and filtering the data.\n\n# Agglomerate by Genus and filter by prevalence and detection\ntse_genus &lt;- agglomerateByPrevalence(tse,\n                                     rank = \"Genus\",\n                                     detection = 0.001,\n                                     prevalence = 0.1)"
+  },
+  {
+    "objectID": "differential_abundance.html#example-1.2-performing-daa",
+    "href": "differential_abundance.html#example-1.2-performing-daa",
+    "title": "Differential Abundance",
+    "section": "Example 1.2: Performing DAA",
+    "text": "Example 1.2: Performing DAA\nFor this tutorial, we run the LinDA method. We first extract the counts assay and convert it into a data frame.\n\notu.tab &lt;- assay(tse_genus, \"counts\") |&gt;\n  as.data.frame()\n\nWe also need to select the columns of the colData which contain the independent variables you want to include in the model.\n\nmeta &lt;- colData(tse) |&gt;\n  as.data.frame() |&gt;\n  select(patient_status, cohort)\n\nWe are ready to run LinDA, which takes the assay count (otu.tab) and the variable arrays (meta). A formula for the model with main independent variable + covariates should be defined. The other arguments are optional but good to know.\n\nres &lt;- linda(otu.tab,\n             meta,\n             formula = \"~ patient_status + cohort\", \n             alpha = 0.05, \n             prev.filter = 0, \n             mean.abund.filter = 0,\n             feature.dat.type = \"count\")\n\n0  features are filtered!\nThe filtered data has  27  samples and  48  features will be tested!\nImputation approach is used.\nFit linear models ...\nCompleted."
+  },
+  {
+    "objectID": "differential_abundance.html#example-1.3-interpreting-results",
+    "href": "differential_abundance.html#example-1.3-interpreting-results",
+    "title": "Differential Abundance",
+    "section": "Example 1.3: Interpreting Results",
+    "text": "Example 1.3: Interpreting Results\nFinally, we select significantly DA taxa and list it in Table 1.\n\nsignif_res &lt;- res$output$patient_statusControl |&gt;\n  filter(reject) |&gt;\n  select(stat, padj) |&gt;\n  arrange(padj)\n\nknitr::kable(signif_res)\n\n\n\nTable 1: DA bacterial genera. If stat &gt; 0, abundance is higher in control, otherwise it is higher in ADHD.\n\n\n\nstat\npadj\n\n\n\n\nGenus:[Ruminococcus]_gauvreauii_group\n4.914221\n0.0026997\n\n\nGenus:Faecalibacterium\n-4.645963\n0.0026997\n\n\nGenus:Catabacter\n-3.574862\n0.0256945\n\n\nGenus:Erysipelatoclostridium\n3.432336\n0.0272767\n\n\nGenus:Ruminococcaceae_UCG-014\n-3.145907\n0.0434529"
+  },
+  {
+    "objectID": "differential_abundance.html#exercise-1",
+    "href": "differential_abundance.html#exercise-1",
+    "title": "Differential Abundance",
+    "section": "Exercise 1",
+    "text": "Exercise 1\n\nDA analysis with LinDA: exercise 8.2\nDA analysis with ALDEx2: exercise 8.1\n\nExtra:\n\ncomparing DA methods: exercise 8.3"
+  },
+  {
+    "objectID": "differential_abundance.html#resources",
+    "href": "differential_abundance.html#resources",
+    "title": "Differential Abundance",
+    "section": "Resources",
+    "text": "Resources\n\nOMA Chapter - Differential Abundance"
+  },
+  {
+    "objectID": "differential_abundance.html#example-1.1-preparing-for-da-analysis",
+    "href": "differential_abundance.html#example-1.1-preparing-for-da-analysis",
+    "title": "Differential Abundance",
+    "section": "Example 1.1: Preparing for DA analysis",
+    "text": "Example 1.1: Preparing for DA analysis\nFirst, we import Tengeler2020 and load the DA library MicrobiomeStats.\n\nlibrary(mia)\nlibrary(MicrobiomeStat)\nlibrary(tidyverse)\n\n# Import Tengeler2020\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\n\n\nShow code\nmean_abund &lt;- round(mean(rowMeans(assay(tse, \"counts\"))), 2)\nprint(paste(\"Taxa:\", nrow(tse), \"Mean abundance:\", mean_abund))\n\n\n[1] \"Taxa: 151 Mean abundance: 119.19\"\n\n\nFor DA analysis, it is preferable to reduce the dimensionality and sparsity of the data.\n\n# Agglomerate by Genus and filter by prevalence and detection\ntse_genus &lt;- agglomerateByPrevalence(tse,\n                                     rank = \"Genus\",\n                                     detection = 0.001,\n                                     prevalence = 0.1)\n\n\n\nShow code\nmean_abund_genus &lt;- round(mean(rowMeans(assay(tse_genus, \"counts\"))), 2)\nprint(paste(\"Taxa:\", nrow(tse_genus), \"Mean abundance:\", mean_abund_genus))\n\n\n[1] \"Taxa: 48 Mean abundance: 374.95\""
+  },
+  {
+    "objectID": "differential_abundance.html#example-1.2-performing-da-analysis",
+    "href": "differential_abundance.html#example-1.2-performing-da-analysis",
+    "title": "Differential Abundance",
+    "section": "Example 1.2: Performing DA analysis",
+    "text": "Example 1.2: Performing DA analysis\nFor this tutorial, we run the LinDA method. We first extract the counts assay and convert it into a data frame.\n\notu.tab &lt;- assay(tse_genus, \"counts\") |&gt;\n  as.data.frame()\n\nWe also need to select the columns of the colData which contain the independent variables you want to include in the model.\n\nmeta &lt;- colData(tse) |&gt;\n  as.data.frame() |&gt;\n  select(patient_status, cohort)\n\nWe are ready to run LinDA, which takes the assay count (otu.tab) and the variable arrays (meta). A formula for the model with main independent variable + covariates should be defined. The other arguments are optional but good to know.\n\nres &lt;- linda(otu.tab,\n             meta,\n             formula = \"~ patient_status + cohort\", \n             alpha = 0.05, \n             prev.filter = 0, \n             mean.abund.filter = 0,\n             feature.dat.type = \"count\")\n\n0  features are filtered!\nThe filtered data has  27  samples and  48  features will be tested!\nImputation approach is used.\nFit linear models ...\nCompleted."
+  },
+  {
+    "objectID": "differential_abundance.html#example-1.1-preparing-for-da",
+    "href": "differential_abundance.html#example-1.1-preparing-for-da",
+    "title": "Differential Abundance",
+    "section": "Example 1.1: Preparing for DA",
+    "text": "Example 1.1: Preparing for DA\nFirst, we import Tengeler2020 and load the DA library MicrobiomeStats.\n\nlibrary(mia)\nlibrary(MicrobiomeStat)\nlibrary(tidyverse)\n\n# Import Tengeler2020\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\n\n\nShow code\nmean_abund &lt;- round(mean(rowMeans(assay(tse, \"counts\"))), 2)\npaste0(\"Taxa: \", nrow(tse), \", Mean abundance: \", mean_abund)\n\n\n[1] \"Taxa: 151, Mean abundance: 119.19\"\n\n\nFor DA analysis, it is preferable to reduce the dimensionality and sparsity of the data.\n\n# Agglomerate by Genus and filter by prevalence and detection\ntse_genus &lt;- agglomerateByPrevalence(tse,\n                                     rank = \"Genus\",\n                                     detection = 0.001,\n                                     prevalence = 0.1)\n\n\n\nShow code\nmean_abund_genus &lt;- round(mean(rowMeans(assay(tse_genus, \"counts\"))), 2)\npaste0(\"Taxa: \", nrow(tse_genus), \", Mean abundance: \", mean_abund_genus)\n\n\n[1] \"Taxa: 48, Mean abundance: 374.95\""
+  },
+  {
+    "objectID": "differential_abundance.html#example-1.2-performing-da",
+    "href": "differential_abundance.html#example-1.2-performing-da",
+    "title": "Differential Abundance",
+    "section": "Example 1.2: Performing DA",
+    "text": "Example 1.2: Performing DA\nHere, we run LinDA. We first extract the counts assay and convert it into a dataframe.\n\notu.tab &lt;- assay(tse_genus, \"counts\") |&gt;\n  as.data.frame()\n\nWe also need to select the columns of the colData which contain the independent variables you want to include in the model.\n\nmeta &lt;- colData(tse) |&gt;\n  as.data.frame() |&gt;\n  select(patient_status, cohort)\n\nWe are ready to run LinDA, which takes the assay count (otu.tab) and the variable arrays (meta). A formula for the model with main independent variable + covariates should be defined. The other arguments are optional but good to know.\n\nres &lt;- linda(otu.tab, meta,\n             formula = \"~ patient_status + cohort\", \n             feature.dat.type = \"count\")\n\n0  features are filtered!\nThe filtered data has  27  samples and  48  features will be tested!\nImputation approach is used.\nFit linear models ...\nCompleted."
+  },
+  {
+    "objectID": "alpha_diversity.html#example-1.1-estimation",
+    "href": "alpha_diversity.html#example-1.1-estimation",
+    "title": "Alpha Diversity",
+    "section": "Example 1.1: Estimation",
+    "text": "Example 1.1: Estimation\nFirst of all, we import Tengeler2020 from the mia package and store it into a variable.\n\n# load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nWe calculate alpha diversity in terms of coverage, Shannon, inverse Simpson and Faith indices based on the counts assay. The first three indices differ from one another in how much weight they give to rare taxa: coverage considers all taxa equally important, whereas Shannon and - even more - Simpson give more importance to abundant taxa. Unlike all others, Faith index measures the phylogenetic diversity and thus requires a phylogenetic tree (stored as rowTree in the TreeSE).\n\n# estimate the specified indices based on the counts assay\ntse &lt;- estimateDiversity(tse,\n                         assay.type = \"counts\",\n                         index = \"shannon\")"
+  },
+  {
+    "objectID": "alpha_diversity.html#example-1.2-visualisation",
+    "href": "alpha_diversity.html#example-1.2-visualisation",
+    "title": "Alpha Diversity",
+    "section": "Example 1.2: Visualisation",
+    "text": "Example 1.2: Visualisation\nNext, we plot the four indices, with patient status on the x axis and alpha diversity on the y axis. We can also colour by cohort to check for batch effects.\n\n# Plot shannon diversity vs patient_status\np_shannon &lt;- plotColData(tse, \"shannon\", \"patient_status\",\n                         colour_by = \"cohort\", show_median = TRUE) +\n  xlab(\"Patient Status\")\n\np_shannon"
+  },
+  {
+    "objectID": "alpha_diversity.html#exercise-1",
+    "href": "alpha_diversity.html#exercise-1",
+    "title": "Alpha Diversity",
+    "section": "Exercise 1",
+    "text": "Exercise 1\n\nestimation: exercise 6.1\nvisualisation: exercise 6.2\n\nExtra:\n\ncorrelation: exercise 6.3\ndifferences between groups: exercise 6.4\n\nThis two exercise could be explained in a second example."
+  },
+  {
+    "objectID": "alpha_diversity.html#resources",
+    "href": "alpha_diversity.html#resources",
+    "title": "Alpha Diversity",
+    "section": "Resources",
+    "text": "Resources\n\nOMA Chapter - Community Diversity\nOMA Chapter - Visualisation"
+  },
+  {
+    "objectID": "alpha_diversity.html#example-1.3-comparison",
+    "href": "alpha_diversity.html#example-1.3-comparison",
+    "title": "Alpha Diversity",
+    "section": "Example 1.3: Comparison",
+    "text": "Example 1.3: Comparison\nThe three metrics for alpha diversity follow different scales, but they seem to agree when comparing the distributions of the two patient groups.\n\n\nShow code\nlibrary(patchwork)\n\n# Calculate diversity metrics\ntse &lt;- estimateDiversity(tse, assay.type = \"counts\",\n                         index = c(\"coverage\", \"inverse_simpson\", \"faith\"))\n\n# Generate a plot for each metric\nplots &lt;- lapply(c(\"coverage\", \"shannon\", \"inverse_simpson\", \"faith\"),\n                plotColData, object = tse, x = \"patient_status\",\n                colour_by = \"cohort\", show_median = TRUE)\n\n# Combine plots\nwrap_plots(plots) +\n  plot_layout(guides = \"collect\") +\n  plot_annotation(tag_levels = \"A\")"
+  },
+  {
+    "objectID": "pcoa.html#resources",
+    "href": "pcoa.html#resources",
+    "title": "Principal Coordinate Analysis",
+    "section": "Resources",
+    "text": "Resources\n\nOMA Chapter - Community Similarity"
   }
 ]

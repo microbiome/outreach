@@ -1,8 +1,17 @@
 ---
 title: "Alpha Diversity"
-format: html
+format: revealjs
 editor: visual
+smaller: true
+bibliography: references.bib
 ---
+
+```{r}
+#| label: setup
+#| include: false
+
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
+```
 
 ## Overview
 
@@ -10,23 +19,12 @@ This notebook guides you through a basic alpha diversity analysis, where you fir
 
 The following packages are needed to succesfully run the examples in this notebook:
 
--   mia: tools for microbiome data analysis
-
--   scater: plotting data from TreeSummarizedExperiments
-
--   patchwork: combining plots
-
 ```{r}
-#| label: setup
-#| include: false
 library(mia)
 library(scater)
-library(patchwork)
-
-knitr::opts_chunk$set(message = FALSE, warning = FALSE)
 ```
 
-## Estimation
+## Example 1.1: Estimation
 
 First of all, we import Tengeler2020 from the mia package and store it into a variable.
 
@@ -46,49 +44,61 @@ We calculate alpha diversity in terms of coverage, Shannon, inverse Simpson and 
 # estimate the specified indices based on the counts assay
 tse <- estimateDiversity(tse,
                          assay.type = "counts",
-                         index = c("coverage", "shannon",
-                                   "inverse_simpson", "faith"))
+                         index = "shannon")
 ```
 
-## Visualisation
+## Example 1.2: Visualisation
 
 Next, we plot the four indices, with patient status on the x axis and alpha diversity on the y axis. We can also colour by cohort to check for batch effects.
 
 ```{r}
 #| label: plot-alpha
-
-# plot coverage vs patient_status
-p_coverage <- plotColData(tse, "coverage", "patient_status",
-                          colour_by = "cohort", show_median = TRUE) +
-  labs(x = "Patient Status")
-
-# plot shannon diversity vs patient_status
+# Plot shannon diversity vs patient_status
 p_shannon <- plotColData(tse, "shannon", "patient_status",
                          colour_by = "cohort", show_median = TRUE) +
-  labs(x = "Patient Status")
+  xlab("Patient Status")
 
-# plot inverse simpson index vs patient_status
-p_simpson <- plotColData(tse, "inverse_simpson", "patient_status",
-                         colour_by = "cohort", show_median = TRUE) +
-  labs(x = "Patient Status")
-
-# plot faith index vs patient_status
-p_faith <- plotColData(tse, "faith", "patient_status",
-                         colour_by = "cohort", show_median = TRUE) +
-  labs(x = "Patient Status")
+p_shannon
 ```
 
-The three metrics for alpha diversity follow different scales, but they seem to agree when comparing the distributions of the two patient groups (see @fig-alpha).
+## Example 1.3: Comparison
+
+The three metrics for alpha diversity follow different scales, but they seem to agree when comparing the distributions of the two patient groups.
 
 ```{r}
-#| label: fig-alpha
-#| fig-cap: Box plots of (A) coverage (B) Shannon and (C) inverse Simpson indices grouped by patient status and coloured by cohort.
-#| fig-width: 8
-#| fig-asp: 0.9
+#| label: compare-alpha
+#| code-fold: true
+#| code-summary: "Show code"
+library(patchwork)
 
-# combine the plots with patchwork
-p <- (p_coverage | p_shannon) / (p_simpson | p_faith) +
+# Calculate diversity metrics
+tse <- estimateDiversity(tse, assay.type = "counts",
+                         index = c("coverage", "inverse_simpson", "faith"))
+
+# Generate a plot for each metric
+plots <- lapply(c("coverage", "shannon", "inverse_simpson", "faith"),
+                plotColData, object = tse, x = "patient_status",
+                colour_by = "cohort", show_median = TRUE)
+
+# Combine plots
+wrap_plots(plots) +
   plot_layout(guides = "collect") +
   plot_annotation(tag_levels = "A")
-p
 ```
+
+## Exercise 1
+
+-   estimation: [exercise 6.1](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#estimation){target="_blank"}
+-   visualisation: [exercise 6.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#visualization){target="_blank"}
+
+Extra:
+
+-   correlation: [exercise 6.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#correlation){target="_blank"}
+-   differences between groups: [exercise 6.4](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#differences-between-groups){target="_blank"}
+
+This two exercise could be explained in a second example.
+
+## Resources
+
+-   [OMA Chapter - Community Diversity](https://microbiome.github.io/OMA/docs/devel/pages/14_alpha_diversity.html){target="_blank"}
+-   [OMA Chapter - Visualisation](https://microbiome.github.io/OMA/docs/devel/pages/19_visualization_techniques.html){target="_blank"}

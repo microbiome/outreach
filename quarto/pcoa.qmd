@@ -193,3 +193,7 @@ p3
 ```
 
 ## Exercise 4
+
+## Resources
+
+-   [OMA Chapter - Community Similarity](https://microbiome.github.io/OMA/docs/devel/pages/20_beta_diversity.html){target="_blank"}
