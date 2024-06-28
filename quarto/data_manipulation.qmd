@@ -14,8 +14,7 @@ knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
 
 ## Example 1.1: Data Import
 
-We work with microbiome data inside `TreeSummarizedExperiment` (TreeSE)
-containers and `mia` is our toolkit.
+We work with microbiome data inside `TreeSummarizedExperiment` (TreeSE) containers and `mia` is our toolkit.
 
 ```{r}
 #| label: import-tengeler
@@ -80,8 +79,7 @@ head(rowData(tse)$Genus, 3)
 
 ## Example 1.4: Assays
 
-The assays of an experiment (counts, relative abundance, etc.) can be found in
-`assays`.
+The assays of an experiment (counts, relative abundance, etc.) can be found in `assays`.
 
 ```{r}
 assays(tse)
@@ -112,8 +110,7 @@ Create a TreeSE directly from its components in the form of raw data (OMA sectio
 
 ## Example 2.1: Subsetting
 
-We can subset features or samples of a TreeSE, but first we need to pick a
-variable.
+We can subset features or samples of a TreeSE, but first we need to pick a variable.
 
 ```{r}
 # Check levels of a sample variable
@@ -145,25 +142,24 @@ dim(subrow_tse)
 
 ## Example 2.2: Agglomeration
 
-Agglomeration condenses the assays to higher taxonomic ranks. Related taxa are
-combined together. We can agglomerate by different ranks.
+Agglomeration condenses the assays to higher taxonomic ranks. Related taxa are combined together. We can agglomerate by different ranks.
 
 ```{r}
 # View rank options
 taxonomyRanks(tse)
 ```
+
 We agglomerate by Phylum and store the new experiment in the `altExp` slot.
 
 ```{r}
 # Agglomerate by Phylum and store into altExp slot
-altExp(tse, "phylum") <- mergeFeaturesByRank(tse, rank = "Phylum")
+altExp(tse, "phylum") <- agglomerateByRank(tse, rank = "Phylum")
 altExp(tse, "phylum")
 ```
 
 ## Example 2.3: Transformation
 
-Data can be transformed for different reasons. For example, to make samples
-comparable we can use relative abundance.
+Data can be transformed for different reasons. For example, to make samples comparable we can use relative abundance.
 
 ```{r}
 # Transform counts to relative abundance
@@ -175,8 +171,7 @@ tse <- transformAssay(tse,
 head(colSums(assay(tse, "relabundance")), 3)
 ```
 
-Or to standardise features to the normal distribution we can use z-scores:
-$Z = \frac{x - \mu}{\sigma}$.
+Or to standardise features to the normal distribution we can use z-scores: $Z = \frac{x - \mu}{\sigma}$.
 
 ```{r}
 # Transform relative abundance to z-scores

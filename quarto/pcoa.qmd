@@ -6,43 +6,25 @@ smaller: true
 bibliography: references.bib
 ---
 
-## Concepts
-
-Principal Coordinate Analysis (**PCoA**) is a method to find the dimensions of the data that explain most of its variance. The **diversity between samples** can be expressed in terms of several ecological indices, such as Bray-Curtis and Aitchison dissimilarities. If Euclidean distance is used, PCoA becomes Principal Component Analysis (**PCA**). You can learn more about PCoA in OMA [chapter 7](https://microbiome.github.io/OMA/docs/devel/pages/20_beta_diversity.html).
-
-The following packages are necessary to execute the code in this presentation:
-
--   [*mia*](https://microbiome.github.io/mia/articles/mia.html): methods to analyse microbiome data
--   [*scater*](https://master.bioconductor.org/packages/release/bioc/html/scater.html): utils to visualise data stored in TreeSE objects
--   [*patchwork*](https://patchwork.data-imaginist.com): framework to combine multiple ggplot objects
-
 ```{r}
 #| label: setup
-library(mia)
-library(scater)
-library(ggplot2)
-library(ggrepel)
-library(patchwork)
-
+#| include: false
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
 ```
 
 ## Example 1.1
 
-To get started, we import [Tengeler2020](https://microbiome.github.io/outreach/tengeler2020_presentation.html) from *mia* and store it into a variable.
+To get started, we import Tengeler2020 from mia and store it into a variable.
 
 ```{r}
 #| label: import-tengeler
-# load dataset and store it into tse
+# Load libraries and import dataset
+library(mia)
+library(scater)
+
 data("Tengeler2020", package = "mia")
 tse <- Tengeler2020
-
-# Get summary about the object
-# What dimensions does the data have?
-tse
 ```
-
-## Example 1.2
 
 After that, we transform the counts assay to relative abundances and store the new assay back into the TreeSE.
 
@@ -52,148 +34,185 @@ After that, we transform the counts assay to relative abundances and store the n
 tse <- transformAssay(tse, method = "relabundance")
 ```
 
-Here, we run multi-dimensional scaling (another word for PCoA) on the relative abundance assay to reduce the data to fewer dimensions.
+## Example 1.2: Ordination
+
+Here, we run PCoA on the relative abundance assay to reduce the dimensionality of the data. We set `method` to Bray-Curtis dissimilarity.
 
 ```{r}
 #| label: run-bray
-# Reduce number of dimensions from 151 to 3 by PCoA
+# Run PCoA with Bray-Curtis dissimilarity
 tse <- runMDS(tse,
               assay.type = "relabundance",
               FUN = vegan::vegdist,
               method = "bray",
               name = "Bray")
+```
 
-# The new dimensions are stored in the reducedDim slot
+The reduced dimensions can be retrieved with `reducedDim`.
+
+```{r}
 head(reducedDim(tse, "Bray"))
 ```
 
-There are several ecological distances to choose from and you can find many of them under methods in the vignettes of vegan::vegdist. These metrics can be specified with the `method` argument.
+## Example 1.2: Visualisation
 
-## Example 1.3
-
-We then visualise the first two dimensions.
+Then, we visualise the first two dimensions.
 
 ```{r}
-#| label: fig-bray
-#| fig-cap: Ordination plots based on Bray-Curtis index. Samples are coloured by
-#|   patient status.
-# The new dimensions can be used to visualise diversity among samples
-p1 <- plotReducedDim(tse, "Bray",
-                     colour_by = "patient_status")
-
-p1
+# Visualise Bray-Curtis dissimilarity between samples
+plotReducedDim(tse, "Bray", colour_by = "patient_status", shape_by = "cohort")
 ```
 
 ## Exercise 1
 
--   PCoA: [exercise 7.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#principal-coordinate-analysis-pcoa){target="_blank"} -\> change to jaccard
--   PCA: [exercise 7.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#visualization-basics-with-pca){target="_blank"}
+-   retrieval of reduced dimensions: [exercise 7.1](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#reduced-dimensions-retrieval){target="_blank"}
+-   PCoA: [exercise 7.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#principal-coordinate-analysis-pcoa){target="_blank"}
 
-## Example 2.1
+## Example 2.1: PCA
+
+When Euclidean distance is used, PCoA reduces to PCA.
 
 ```{r}
-res <- apply(
+tse <- runPCA(tse,
+              assay.type = "relabundance",
+              ncomp = 5,
+              name = "Euclidean")
+```
+
+We can retrieve a list of all reduced dimensions with `reducedDimNames`.
+
+```{r}
+reducedDimNames(tse)
+```
+
+If you need only their names, these can be accessed with `reducedDims`.
+
+```{r}
+reducedDims(tse)
+```
+
+## Example 2.2: PCA Contributors
+
+Some taxa contribute more than others to the generation of reduced dimensions.
+They can be determined from the PCA loadings.
+
+```{r}
+#| label: load-fun
+#| code-fold: true
+#| code-summary: "Show code"
+# Define function to visualise top contributors
+plot_loads <- function(loads, comp, n = 6) {
+
+  loads <- sort(loads[ , comp], decreasing = TRUE)
+  loads <- c(head(loads, round(n / 2)), tail(loads, round(n / 2)))
+  
+  barplot(loads, horiz = TRUE, las = 1,
+          cex.names = 0.5, main = comp, xlab = "Loadings")
+}
+```
+
+The top PCA loadings for the first and fourth dimension are visualised below.
+
+```{r}
+#| label: pca-load
+#| code-fold: true
+#| code-summary: "Show code"
+# Fetch feature loadings
+taxa_loads <- attr(reducedDim(tse, "Euclidean"), "rotation")
+
+# Plot loadings for PCA 1 and 4
+par(mfrow = c(1, 2))
+plot_loads(taxa_loads, "PC1")
+plot_loads(taxa_loads, "PC4")
+```
+
+## Example 2.3: PCoA Contributors
+
+PCoA does not return feature loadings, but they can be estimated as the
+correlation between taxa and reduced dimensions.
+
+```{r}
+#| label: pcoa-load1
+#| code-fold: true
+#| code-summary: "Show code"
+# Compute correlation between features and reduced dimensions
+comp_loads <- apply(
     assay(tse, "relabundance"),
     MARGIN = 1, simplify = FALSE,
     function(x) cor(x, reducedDim(tse, "Bray"), method = "kendall")
 )
+
+# Prepare matrix of feature loadings
+taxa_loads <- do.call(rbind, comp_loads)
+colnames(taxa_loads) <- paste0("Bray", seq(ncol(taxa_loads)))
+rownames(taxa_loads) <- rownames(tse)
 ```
 
-```{r}
-mat <- do.call(rbind, res)
-colnames(mat) <- paste0("Bray", seq(ncol(mat)))
-rownames(mat) <- rownames(tse)
-```
+The top PCoA loadings for the first two dimensions are visualised below.
 
 ```{r}
-tail(sort(mat[ , 1]))
-tail(sort(mat[ , 2]))
-```
-
-## Example 2.2
-
-```{r}
-df <- as.data.frame(mat)
-df$Taxon <- rowData(tse)$Genus
-df$Taxon[df$Bray1 < 0.6 & df$Bray2 < 0.5] <- ""
-
-library(ggplot2)
-library(ggrepel)
-
-ggplot(df, aes(x = Bray1, y = Bray2)) +
-  geom_point(size = 1) +
-  lims(x = c(-1, 1), y = c(-1, 1)) +
-  geom_text_repel(aes(label = Taxon), size = 3) +
-  theme_classic()
+#| label: pcoa-load2
+#| code-fold: true
+#| code-summary: "Show code"
+# Visualise loadings for PCoA 1 and 2
+par(mfrow = c(1, 2))
+plot_loads(taxa_loads, "Bray1")
+plot_loads(taxa_loads, "Bray2")
 ```
 
 ## Exercise 2
 
+-   PCA: [exercise 7.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#visualization-basics-with-pca){target="_blank"}
+
 an exercise where you have to find important taxa based on loadings we could also use toptaxa coloured ordination plot
 
-## Example 3.1
+## Example 3.1: Other Distances
 
-example with different distance function. (could be custom)
+A different distance function can be specified with `FUN`, such as phylogenetic
+distance.
 
 ```{r}
 #| label: run-unifrac
-tse <- runMDS(tse,
-              assay.type = "counts",
-              FUN = mia::calculateUnifrac,
-              name = "Unifrac",
-              tree = rowTree(tse),
-              ntop = nrow(tse))
-
-reducedDimNames(tse)
+# Run PCoA with Unifrac distance
+tse <- runMDS(tse, assay.type = "counts", name = "Unifrac", ncomp = 3,
+              FUN = mia::calculateUnifrac, tree = rowTree(tse))
 ```
 
-## Example 3.2
+The number of dimensions to visualise can also be adjusted with `ncomp`.
 
 ```{r}
-#| label: fig-unifrac
-#| fig-cap: Ordination plot based on (A) Bray-Curtis and (B) Unifrac indices. Samples are coloured by patient statu.
-p2 <- plotReducedDim(tse, "Unifrac",
-                     colour_by = "patient_status")
+# Visualise Unifrac distance between samples
+plotReducedDim(tse, "Unifrac", ncomp = 3, colour_by = "patient_status")
+```
 
-(p1 | p2) +
+## Example 3.2: Comparison
+
+Different ordination methods return considerably different results, which can be compared to achieve a better understanding of the data.
+
+```{r}
+#| label: compare
+#| code-fold: true
+#| code-summary: "Show code"
+library(patchwork)
+
+# Generate plots for 
+plots <- lapply(reducedDimNames(tse),
+                plotReducedDim,
+                object = tse,
+                colour_by = "patient_status")
+
+# Generate multi-panel plot
+wrap_plots(plots) +
   plot_layout(guides = "collect") +
   plot_annotation(tag_levels = "A")
 ```
 
-## Example 4.1
+## Exercise 3
 
-Example with different algorithm.
-
-It is also possible to specify the number of output dimensions with the argument ncomponents. Here, we show it with the UMAP ordination method.
-
-```{r}
-#| label: run-umap
-tse <- runUMAP(tse,
-               assay.type = "counts",
-               ncomponents = 3)
-
-# The new dimensions are stored in the reducedDim slot
-head(reducedDim(tse, "UMAP"))
-```
-
-## Example 4.2
-
-We then plot all three dimensions, but you could also plot a pair of dimensions (1 and 3, 2 and 3 or 1 and 2) with the `ncomponents` argument.
-
-```{r}
-#| label: fig-umap
-#| fig-cap: UMAP plot of the first three dimensions. Samples are coloured by
-#|   patient status and shaped by cohort.
-p3 <- plotReducedDim(tse, "UMAP",
-                    ncomponents = 3,
-                    colour_by = "patient_status",
-                    shape_by = "cohort")
-
-p3
-```
-
-## Exercise 4
+-   an exercise with unifrac or custom distance
+-   an exercise with comparing methods
 
 ## Resources
 
 -   [OMA Chapter - Community Similarity](https://microbiome.github.io/OMA/docs/devel/pages/20_beta_diversity.html){target="_blank"}
+-   [vegan::vegdist vignettes](https://www.rdocumentation.org/packages/vegan/versions/2.6-6.1/topics/vegdist){target="_blank"}

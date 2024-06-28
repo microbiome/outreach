@@ -45,7 +45,7 @@ Then, we agglomerate the experiment to the order level, so that information is m
 ```{r}
 #| label: agglomerate-order
 # Agglomerate by order
-tse_order <- mergeFeaturesByRank(tse, rank = "Order")
+tse_order <- agglomerateByRank(tse, rank = "Order")
 ```
 
 ## Why relative abundances?

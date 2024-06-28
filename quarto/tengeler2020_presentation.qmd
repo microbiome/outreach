@@ -68,13 +68,13 @@ Some taxa were significantly correlated with neurobiological features.
 ## Tutorials
 
 ::: nonincremental
--   [Reproducible Reporting with Quarto](https://microbiome.github.io/outreach/tengeler_quarto.html)
--   [Data Import and Basic Exploration](https://microbiome.github.io/outreach/tengeler_basic_exploration.html)
--   [Alpha Diversity](https://microbiome.github.io/outreach/tengeler_alpha_diversity.html)
--   [Beta Diversity with Principal Coordinate Analysis](https://microbiome.github.io/outreach/tengeler_pcoa.html)
--   [Beta Diversity with Redundance Analysis](https://microbiome.github.io/outreach/tengeler_dbrda.html)
--   [Differential Abundance Analysis](https://microbiome.github.io/outreach/tengeler_differential_abundance.html)
--   [Community Composition](https://microbiome.github.io/outreach/tengeler_community_composition.html)
+-   [Introduction to Quarto](https://microbiome.github.io/outreach/quarto.html){target="_blank"}
+-   [Data Manipulation](https://microbiome.github.io/outreach/data_manipulation.html){target="_blank"}
+-   [Alpha Diversity](https://microbiome.github.io/outreach/alpha_diversity.html){target="_blank"}
+-   [PCoA](https://microbiome.github.io/outreach/pcoa.html){target="_blank"}
+-   [Redundance Analysis](https://microbiome.github.io/outreach/dbrda.html){target="_blank"}
+-   [Differential Abundance Analysis](https://microbiome.github.io/outreach/differential_abundance.html){target="_blank"}
+-   [Community Composition](https://microbiome.github.io/outreach/compositional_heatmap.html){target="_blank"}
 :::
 
 ## References
