@@ -160,7 +160,10 @@ draw(counts_hm + relab_hm + clr_hm + clrz_hm,
 ## Exercise 1
 
 -   heatmap visualisation: [exercise 9.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#heatmap-visualization){target="_blank"}
--   refine exercise 9.2 and make a new one with some heatmap functionality
+
+Extra:
+
+-   advanced heatmap: [exercise 9.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#advanced-heatmaps){target="_blank"}
 
 ## Resources
 

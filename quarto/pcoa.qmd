@@ -164,7 +164,9 @@ plot_loads(taxa_loads, "Bray2")
 
 -   PCA: [exercise 7.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#visualization-basics-with-pca){target="_blank"}
 
-an exercise where you have to find important taxa based on loadings we could also use toptaxa coloured ordination plot
+Extra:
+
+Find the top 5 contributor taxa for principal component 1.
 
 ## Example 3.1: Other Distances
 
@@ -209,8 +211,13 @@ wrap_plots(plots) +
 
 ## Exercise 3
 
--   an exercise with unifrac or custom distance
--   an exercise with comparing methods
+Run MDS on the CLR assay with Euclidean distance and compare the results with
+the previous PCoA and PCA.
+
+Extra:
+
+Make a plot with the first three dimensions, and a plot with the second and
+fourth dimensions.
 
 ## Resources
 

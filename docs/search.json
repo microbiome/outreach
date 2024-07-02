@@ -424,7 +424,7 @@
     "href": "data_manipulation.html#exercise-1",
     "title": "Data Manipulation",
     "section": "Exercise 1",
-    "text": "Exercise 1\n\npreliminary exploration: exercise 3.3\nassay retrieval: exercise 3.4\n\nExtra:\n\nconstructing a TreeSE object: exercise 3.1\n\nCreate a TreeSE directly from its components in the form of raw data (OMA section 3.4). Raw data here."
+    "text": "Exercise 1\n\npreliminary exploration: exercise 3.3\nassay retrieval: exercise 3.4\n\nExtra:\n\nconstructing a TreeSE object: exercise 3.1\n\nRaw data can be retrieved here."
   },
   {
     "objectID": "data_manipulation.html#example-2.1-subsetting",
@@ -452,7 +452,7 @@
     "href": "data_manipulation.html#exercise-2",
     "title": "Data Manipulation",
     "section": "Exercise 2",
-    "text": "Exercise 2\n\nsubsetting: exercise 4.1\nagglomeration: exercise 5.1\ntransformation: exercise 4.6\n\nAdd to exercise 4.3: Subset to the most prevalent taxa (17.3.3) (tip: subsetByPrevalentFeatures). for count assay; how many features remain? for relative abundance assay; how many features remain?\nExtra:\n\nprevalence subsetting: exercise 4.3\nalternative experiments: exercise 5.2"
+    "text": "Exercise 2\n\nsubsetting: exercise 4.1\nagglomeration: exercise 5.1\ntransformation: exercise 4.6\n\nExtra:\n\nprevalence subsetting: exercise 4.3\nalternative experiments: exercise 5.2"
   },
   {
     "objectID": "data_manipulation.html#resources",
@@ -1460,7 +1460,7 @@
     "href": "pcoa.html#exercise-2",
     "title": "Principal Coordinate Analysis",
     "section": "Exercise 2",
-    "text": "Exercise 2\n\nPCA: exercise 7.2\n\nan exercise where you have to find important taxa based on loadings we could also use toptaxa coloured ordination plot"
+    "text": "Exercise 2\n\nPCA: exercise 7.2\n\nExtra:\nFind the top 5 contributor taxa for principal component 1."
   },
   {
     "objectID": "pcoa.html#example-3.1",
@@ -1502,7 +1502,7 @@
     "href": "compositional_heatmap.html#example-1.1",
     "title": "Compositional Heatmaps",
     "section": "Example 1.1",
-    "text": "Example 1.1\nWe first import the packages used in this tutorial.\n\n# Import libraries\nlibrary(mia)\nlibrary(ComplexHeatmap)\n\nWe also import Tengeler2020 from the mia package and store it into a variable.\n\n# Load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nNext, we transform the counts assay to relative abundance assay and store it into the TreeSE.\n\n# Transform counts to relative abundances\ntse &lt;- transformAssay(tse, method = \"relabundance\")\n\nThen, we agglomerate the experiment to the order level, so that information is more condensed and therefore easier to visualise and interpret.\n\n# Agglomerate by order\ntse_order &lt;- mergeFeaturesByRank(tse, rank = \"Order\")"
+    "text": "Example 1.1\nWe first import the packages used in this tutorial.\n\n# Import libraries\nlibrary(mia)\nlibrary(ComplexHeatmap)\n\nWe also import Tengeler2020 from the mia package and store it into a variable.\n\n# Load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nNext, we transform the counts assay to relative abundance assay and store it into the TreeSE.\n\n# Transform counts to relative abundances\ntse &lt;- transformAssay(tse, method = \"relabundance\")\n\nThen, we agglomerate the experiment to the order level, so that information is more condensed and therefore easier to visualise and interpret.\n\n# Agglomerate by order\ntse_order &lt;- agglomerateByRank(tse, rank = \"Order\")"
   },
   {
     "objectID": "compositional_heatmap.html#why-relative-abundances",
@@ -1537,7 +1537,7 @@
     "href": "compositional_heatmap.html#exercise-1",
     "title": "Compositional Heatmaps",
     "section": "Exercise 1",
-    "text": "Exercise 1\n\nheatmap visualisation: exercise 9.2\nrefine exercise 9.2 and make a new one with some heatmap functionality"
+    "text": "Exercise 1\n\nheatmap visualisation: exercise 9.2\n\nExtra:\n\nadvanced heatmap: exercise 9.3"
   },
   {
     "objectID": "compositional_heatmap.html#resources",
@@ -1726,7 +1726,7 @@
     "href": "pcoa.html#exercise-3",
     "title": "Principal Coordinate Analysis",
     "section": "Exercise 3",
-    "text": "Exercise 3\n\nan exercise with unifrac or custom distance\nan exercise with comparing methods"
+    "text": "Exercise 3\nRun MDS on the CLR assay with Euclidean distance and compare the results with the previous PCoA and PCA.\nExtra:\nMake a plot with the first three dimensions, and a plot with the second and fourth dimensions."
   },
   {
     "objectID": "pcoa.html#example-4.1-umap",

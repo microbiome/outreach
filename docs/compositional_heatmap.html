@@ -417,7 +417,7 @@
 <p>Then, we agglomerate the experiment to the order level, so that information is more condensed and therefore easier to visualise and interpret.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Agglomerate by order</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">mergeFeaturesByRank</span>(tse, <span class="at">rank =</span> <span class="st">"Order"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-2"><a href="#cb4-2"></a>tse_order <span class="ot">&lt;-</span> <span class="fu">agglomerateByRank</span>(tse, <span class="at">rank =</span> <span class="st">"Order"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="why-relative-abundances" class="slide level2">
@@ -493,7 +493,10 @@ clr = log \frac{x}{g(x)} = log(x)−log[g(x)]
 <h2>Exercise 1</h2>
 <ul>
 <li>heatmap visualisation: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#heatmap-visualization" target="_blank">exercise 9.2</a></li>
-<li>refine exercise 9.2 and make a new one with some heatmap functionality</li>
+</ul>
+<p>Extra:</p>
+<ul>
+<li>advanced heatmap: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#advanced-heatmaps" target="_blank">exercise 9.3</a></li>
 </ul>
 </section>
 <section id="resources" class="slide level2">

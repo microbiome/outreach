@@ -106,7 +106,8 @@ Extra:
 
 -   constructing a TreeSE object: [exercise 3.1](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#sec-construct-TreeSE){target="_blank"}
 
-Create a TreeSE directly from its components in the form of raw data (OMA section 3.4). Raw data [here](https://github.com/microbiome/data){target="_blank"}.
+Raw data can be retrieved
+[here](https://github.com/microbiome/data){target="_blank"}.
 
 ## Example 2.1: Subsetting
 
@@ -189,8 +190,6 @@ head(rowSds(assay(tse, "z")), 3)
 -   subsetting: [exercise 4.1](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#subsetting){target="_blank"}
 -   agglomeration: [exercise 5.1](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#taxonomic-levels){target="_blank"}
 -   transformation: [exercise 4.6](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#assay-transformation){target="_blank"}
-
-*Add to exercise 4.3*: Subset to the most prevalent taxa (17.3.3) (tip: subsetByPrevalentFeatures). for count assay; how many features remain? for relative abundance assay; how many features remain?
 
 Extra:
 
