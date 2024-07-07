@@ -12,6 +12,13 @@ bibliography: references.bib
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
 ```
 
+## Why PCoA?
+
+Principal Coordinate Analysis (PCoA) is a method to study **beta diversity**, or
+the diversity between microbial communities from different samples.
+
+![](images/tengeler_beta.png){fig-align="center" width="330"}
+
 ## Example 1.1
 
 To get started, we import Tengeler2020 from mia and store it into a variable.

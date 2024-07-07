@@ -12,6 +12,21 @@ bibliography: references.bib
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
 ```
 
+## Why data manipulation?
+
+Raw data might be **uninformative** or **incompatible** with a method. We want
+to be able to modify, polish, subset, agglomerate and transform it.
+
+![](images/paste-27F811B1.png){fig-align="center"}
+
+## Why so complex?
+
+TreeSE containers organise information to improve **flexibility** and
+**accessibility**, which comes with a bit of complexity. Focus on **assays**,
+**colData** and **rowData**.
+
+![](images/paste-14DB8F76.png){fig-align="center"}
+
 ## Example 1.1: Data Import
 
 We work with microbiome data inside `TreeSummarizedExperiment` (TreeSE) containers and `mia` is our toolkit.
