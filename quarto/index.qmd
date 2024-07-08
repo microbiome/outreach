@@ -17,6 +17,7 @@ This website hosts quarto presentations about microbiome analysis and data integ
 
 -   [Reproducible workflow with Quarto](https://microbiome.github.io/outreach/reproducible_workflow.html){target="_blank"}
 -   [Learning environment](https://microbiome.github.io/outreach/starting.html){target="_blank"}
+-   [Workflow](https://microbiome.github.io/outreach/workflow.html){target="_blank"}
 
 ### Data containers
 

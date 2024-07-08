@@ -4,10 +4,6 @@ format: revealjs
 editor: visual
 ---
 
-## 
-
-![](images/paste-1E7AEB60.png)
-
 ## Data science workflow
 
 ![R for Data Science / H. Wickham](images/paste-8AAEF32A.png){width="688"}
@@ -18,102 +14,16 @@ editor: visual
 
 ![](images/paste-BA8F36BD.png)
 
-## Number of open analysis tools has increased exponentially
+## Constant growth in open analytics
 
-![](images/paste-D7E05B23.png)
-
-## 
+![](images/paste-16A0BA51.png){width="671"}
 
 ### Package ecosystem: microbiome ecology![](images/paste-89E533F7.png){width="728"}
-
-##  {.smaller}
-
-![](images/paste-9E1A48AE.png){width="263"}
-
-Started in 2001 as a platform for microarray data analysis
-
-::: columns
-::: {.column width="40%"}
-Now 2200+ packages:
-
--   Sequencing (DNA, RNA, ChIP, SC)
-
--   Proteomics
-
--   Metabolomics
-
--   Microbiomics
-
--   Multi-omics integration
-:::
-
-::: {.column width="60%"}
-![](images/paste-16A0BA51.png){width="306"}
-:::
-:::
-
-## 
-
-![](images/paste-9E1A48AE.png){width="263"}
-
-::: columns
-::: {.column width="50%"}
-#### Collaborative development
-
-\- 50,000+ papers in PubMed
-
-\- software & data repository
-
-\- tutorials & documentation
-
-\- bioinformatics peer support
-:::
-
-::: {.column width="50%"}
-![](images/paste-1BE39B3A.png){width="300"}
-:::
-:::
-
-## 
-
-![](images/paste-9E1A48AE.png){width="263"}
-
-::: columns
-::: {.column width="50%"}
-**Management**
-
-\- Core team
-
-\- SAB & TAB & CAB
-
-\- Global contributor base
-:::
-
-::: {.column width="50%"}
-![](images/paste-DB32EFB2.png){width="226"}
-
-![](images/paste-BB617EEC.png){width="130"}
-:::
-:::
-
-## Collaborative development
-
-![](images/paste-7A47899A.png)
-
-## Cultures of open collaboration
-
-![](images/paste-505993C5.png)
 
 ## Open data science ecosystems
 
 ![](images/paste-E23FCD8F.png)
 
-## R/Bioc community
+## Bioconductor
 
-(Global) Bioconductor conference
-
-Asian Bioconductor conference
-
-European Bioconductor conference
-
-![](images/paste-424E5F35.png){width="327"}
+## Quarto
