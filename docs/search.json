@@ -96,5 +96,82 @@
     "title": "Quarto Presentations",
     "section": "Contributions",
     "text": "Contributions\nYou are welcome to add new presentations or improve the current ones. The guidelines for contributors are explained here. The presentations are deployed from the quarto sub-directory, so you need to make the respective changes there and run cd quarto/; quarto render.\nThe following is a quick workflow for contributions:\n\nfork the repository\nadd your qmd file(s) to the quarto sub-directory\nupdate the _quarto.yml file and the list of presentations in the website with the name of the qmd file(s) with your presentation(s)\nrun quarto render, or in R quarto::render(myfilename) from your terminal from within the quarto sub-directory\nand make a pull request to the master branch\n\nThis documentation provides more details about publishing quarto presentations with GitHub Pages."
+  },
+  {
+    "objectID": "bioconductor.html#data-science-workflow",
+    "href": "bioconductor.html#data-science-workflow",
+    "title": "Bioconductor",
+    "section": "Data science workflow",
+    "text": "Data science workflow\n\n\n\nR for Data Science / H. Wickham"
+  },
+  {
+    "objectID": "bioconductor.html#data-analysis-package-ecosystem",
+    "href": "bioconductor.html#data-analysis-package-ecosystem",
+    "title": "Bioconductor",
+    "section": "Data analysis package ecosystem",
+    "text": "Data analysis package ecosystem"
+  },
+  {
+    "objectID": "bioconductor.html#number-of-open-analysis-tools-has-increased-exponentially",
+    "href": "bioconductor.html#number-of-open-analysis-tools-has-increased-exponentially",
+    "title": "Bioconductor",
+    "section": "Number of open analysis tools has increased exponentially",
+    "text": "Number of open analysis tools has increased exponentially"
+  },
+  {
+    "objectID": "bioconductor.html#section-1",
+    "href": "bioconductor.html#section-1",
+    "title": "Bioconductor",
+    "section": "",
+    "text": "Package ecosystem: microbiome ecology"
+  },
+  {
+    "objectID": "bioconductor.html#section-2",
+    "href": "bioconductor.html#section-2",
+    "title": "Bioconductor",
+    "section": "",
+    "text": "Started in 2001 as a platform for microarray data analysis\n\n\nNow 2200+ packages:\n\nSequencing (DNA, RNA, ChIP, SC)\nProteomics\nMetabolomics\nMicrobiomics\nMulti-omics integration"
+  },
+  {
+    "objectID": "bioconductor.html#section-3",
+    "href": "bioconductor.html#section-3",
+    "title": "Bioconductor",
+    "section": "",
+    "text": "Collaborative development\n- 50,000+ papers in PubMed\n- software & data repository\n- tutorials & documentation\n- bioinformatics peer support"
+  },
+  {
+    "objectID": "bioconductor.html#section-4",
+    "href": "bioconductor.html#section-4",
+    "title": "Bioconductor",
+    "section": "",
+    "text": "Management\n- Core team\n- SAB & TAB & CAB\n- Global contributor base"
+  },
+  {
+    "objectID": "bioconductor.html#collaborative-development-1",
+    "href": "bioconductor.html#collaborative-development-1",
+    "title": "Bioconductor",
+    "section": "Collaborative development",
+    "text": "Collaborative development"
+  },
+  {
+    "objectID": "bioconductor.html#cultures-of-open-collaboration",
+    "href": "bioconductor.html#cultures-of-open-collaboration",
+    "title": "Bioconductor",
+    "section": "Cultures of open collaboration",
+    "text": "Cultures of open collaboration"
+  },
+  {
+    "objectID": "bioconductor.html#open-data-science-ecosystems",
+    "href": "bioconductor.html#open-data-science-ecosystems",
+    "title": "Bioconductor",
+    "section": "Open data science ecosystems",
+    "text": "Open data science ecosystems"
+  },
+  {
+    "objectID": "bioconductor.html#rbioc-community",
+    "href": "bioconductor.html#rbioc-community",
+    "title": "Bioconductor",
+    "section": "R/Bioc community",
+    "text": "R/Bioc community\n(Global) Bioconductor conference\nAsian Bioconductor conference\nEuropean Bioconductor conference"
   }
 ]
