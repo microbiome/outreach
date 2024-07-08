@@ -1,0 +1,100 @@
+[
+  {
+    "objectID": "intro.html#learning-goals",
+    "href": "intro.html#learning-goals",
+    "title": "Intro & practicals",
+    "section": "Learning goals",
+    "text": "Learning goals\n\n\nIntroduction to R/Bioconductor, a popular open-source environment for life science informatics, with a focus on microbiome analysis\nAfter the course, you will know how to:\n\norganize your data into a coherent data science framework\nimplement reproducible data science workflows\napproach common analysis tasks with available documentation and R tools\n\n\n\n\n\nMoreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology."
+  },
+  {
+    "objectID": "intro.html#target-audience",
+    "href": "intro.html#target-audience",
+    "title": "Intro & practicals",
+    "section": "Target audience",
+    "text": "Target audience\n\nAdvanced MSc, PhD & postdoctoral researchers who wish to learn new skills in scientific programming\nEarlier experience with R is expected\n\n\nWelcome!"
+  },
+  {
+    "objectID": "intro.html#code-of-conduct",
+    "href": "intro.html#code-of-conduct",
+    "title": "Intro & practicals",
+    "section": "Code of Conduct",
+    "text": "Code of Conduct\nBioconductor community values an open approach to science that promotes\n\nsharing of ideas, code, software and expertise\ncollaboration\ndiversity and inclusivity\na kind and welcoming environment\ncommunity contributions\n\nBy participating in this community, you agree not to engage in behavior contrary to these values at any Bioconductor-sponsored event or electronic communication channel.\nFor the full CoC, see: https://bioconductor.github.io/bioc_coc_multilingual"
+  },
+  {
+    "objectID": "intro.html#schedule",
+    "href": "intro.html#schedule",
+    "title": "Intro & practicals",
+    "section": "Schedule",
+    "text": "Schedule\n\nDay 1: data science framework\nDay 2: data analysis & visualization\nDay 3: break from hands-on\nDay 4-5: advanced topics"
+  },
+  {
+    "objectID": "intro.html#session-types",
+    "href": "intro.html#session-types",
+    "title": "Intro & practicals",
+    "section": "Session types",
+    "text": "Session types\n\nShort lectures & demonstrations don’t hesitate to ask questions!\nPracticals Solve tasks by taking advantage of the online examples and resources that are pointed out in the material. There is often more than one way to solve a given task.\nAdditional exercises & example data sets, supporting online material, many ways to solve a given task\nPresentations, present your solutions, highlight questions and challenges"
+  },
+  {
+    "objectID": "intro.html#teaching-material",
+    "href": "intro.html#teaching-material",
+    "title": "Intro & practicals",
+    "section": "Teaching material",
+    "text": "Teaching material\n\nTeaching follows the open online book (beta version) created by the course teachers, Orchestrating Microbiome Analysis.\nThe openly licensed teaching material, exercises and slides will be available online during and after the course."
+  },
+  {
+    "objectID": "intro.html#support",
+    "href": "intro.html#support",
+    "title": "Intro & practicals",
+    "section": "Support",
+    "text": "Support\n\nPost-it stickers\nOnline chat (Gitter) https://gitter.im/microbiome/miaverse\nGoogle Doc Questions at the end of the gdoc are welcome\nFeedback at the end of each day using minute cards"
+  },
+  {
+    "objectID": "intro.html#other-points",
+    "href": "intro.html#other-points",
+    "title": "Intro & practicals",
+    "section": "Other points",
+    "text": "Other points\n\nBasic vs. advanced groups\nWorking with your own data?\n\nIf you need a small break, take it!"
+  },
+  {
+    "objectID": "intro.html#acknowledgments",
+    "href": "intro.html#acknowledgments",
+    "title": "Intro & practicals",
+    "section": "Acknowledgments",
+    "text": "Acknowledgments\nDevelopment work has received support from several sources."
+  },
+  {
+    "objectID": "intro.html#learning-goals-for-today",
+    "href": "intro.html#learning-goals-for-today",
+    "title": "Intro & practicals",
+    "section": "Learning goals for today",
+    "text": "Learning goals for today\nBroader context and practical skills on:\n\nData science workflow: setting up reproducible data science workflows with Quarto\nData containers: understanding SummarizedExperiment\nBasic data wrangling (e.g. subsetting, aggregation)"
+  },
+  {
+    "objectID": "intro.html#questions",
+    "href": "intro.html#questions",
+    "title": "Intro & practicals",
+    "section": "Questions?",
+    "text": "Questions?\n\n\nMoreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Quarto Presentations",
+    "section": "",
+    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\n\n\nIntro\nBioconductor project\n\n\n\n\n\nReproducible workflow with Quarto\nLearning environment\n\n\n\n\n\nOrchestrating microbiome multi-omics with R & Bioconductor\nData containers\nSummarizedExperiment\nTreeSummarizedExperiment\n\n\n\n\n\nHintikkaXOData\nTengeler2020\n\n\n\n\n\nData Manipulation\nIntroduction to Quarto\nAlpha Diversity\nPCoA\ndbRDA\nCompositional Heatmaps\nDifferential Abundance\nDay 2"
+  },
+  {
+    "objectID": "index.html#overview",
+    "href": "index.html#overview",
+    "title": "Quarto Presentations",
+    "section": "",
+    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\n\n\nIntro\nBioconductor project\n\n\n\n\n\nReproducible workflow with Quarto\nLearning environment\n\n\n\n\n\nOrchestrating microbiome multi-omics with R & Bioconductor\nData containers\nSummarizedExperiment\nTreeSummarizedExperiment\n\n\n\n\n\nHintikkaXOData\nTengeler2020\n\n\n\n\n\nData Manipulation\nIntroduction to Quarto\nAlpha Diversity\nPCoA\ndbRDA\nCompositional Heatmaps\nDifferential Abundance\nDay 2"
+  },
+  {
+    "objectID": "index.html#contributions",
+    "href": "index.html#contributions",
+    "title": "Quarto Presentations",
+    "section": "Contributions",
+    "text": "Contributions\nYou are welcome to add new presentations or improve the current ones. The guidelines for contributors are explained here. The presentations are deployed from the quarto sub-directory, so you need to make the respective changes there and run cd quarto/; quarto render.\nThe following is a quick workflow for contributions:\n\nfork the repository\nadd your qmd file(s) to the quarto sub-directory\nupdate the _quarto.yml file and the list of presentations in the website with the name of the qmd file(s) with your presentation(s)\nrun quarto render, or in R quarto::render(myfilename) from your terminal from within the quarto sub-directory\nand make a pull request to the master branch\n\nThis documentation provides more details about publishing quarto presentations with GitHub Pages."
+  }
+]
