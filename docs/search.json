@@ -173,5 +173,264 @@
     "title": "Bioconductor",
     "section": "R/Bioc community",
     "text": "R/Bioc community\n(Global) Bioconductor conference\nAsian Bioconductor conference\nEuropean Bioconductor conference"
+  },
+  {
+    "objectID": "reproducible_workflow.html#reproducible-notebooks",
+    "href": "reproducible_workflow.html#reproducible-notebooks",
+    "title": "Reproducible data science workflow",
+    "section": "Reproducible notebooks",
+    "text": "Reproducible notebooks\n\nWe use Quarto for reproducible documentation.\nNext generation development of Rmarkdown\nLargely compatible with Rmarkdown\nSupported by RStudio\n\nThe pre-study material includes a link to Rmarkdown & Quarto tutorial videos. See OMA Exercise chapter: https://microbiome.github.io/OMA/exercises.html\nQuarto enables you to weave together content and executable code into a finished presentation. To learn more, see https://quarto.org/docs/presentations/."
+  },
+  {
+    "objectID": "reproducible_workflow.html#literate-programming",
+    "href": "reproducible_workflow.html#literate-programming",
+    "title": "Reproducible data science workflow",
+    "section": "Literate programming",
+    "text": "Literate programming\nProgramming paradigm introduced by Donald Knuth (1984) in which a computer program is given as an explanation of its logic in a natural language, embedded with code chunks, from which compilable source code can be generated.\n(Adapted from Wikipedia)"
+  },
+  {
+    "objectID": "reproducible_workflow.html#literate-programming-1",
+    "href": "reproducible_workflow.html#literate-programming-1",
+    "title": "Reproducible data science workflow",
+    "section": "Literate programming",
+    "text": "Literate programming\n\nUsed in scientific computing and in data science for reproducible research and open access purposes.\nLiterate programming tools are used by millions of programmers today."
+  },
+  {
+    "objectID": "reproducible_workflow.html#quarto-demo-gb",
+    "href": "reproducible_workflow.html#quarto-demo-gb",
+    "title": "Reproducible data science workflow",
+    "section": "Quarto demo (GB)",
+    "text": "Quarto demo (GB)\nLet us first demonstrate Quarto.\n\nOpen new Quarto file\nCombine text, images, code\nYou can render it easily to create a report\nBasic commands\nChunk, options (it is like R file with text option)\nGood practice is to comment your code (you know what you have done, purpose, someone else knows, transparency, you can use it later easily, someone else can improve and find bug)"
+  },
+  {
+    "objectID": "reproducible_workflow.html#quarto-exercise",
+    "href": "reproducible_workflow.html#quarto-exercise",
+    "title": "Reproducible data science workflow",
+    "section": "Quarto exercise",
+    "text": "Quarto exercise\nOMA Exercise:\n21.2.1 Reproducible reporting with Quarto"
+  },
+  {
+    "objectID": "reproducible_workflow.html#task-1-reproducible-reporting",
+    "href": "reproducible_workflow.html#task-1-reproducible-reporting",
+    "title": "Reproducible data science workflow",
+    "section": "Task 1: Reproducible reporting",
+    "text": "Task 1: Reproducible reporting\nNow, initialize, render & modify Quarto document yourself\n\nCreate Quarto file (Rstudio has ready-made template)\nAdd a code chunk and name it\nRender the file into pdf or html format\nImport e.g., iris dataset, and add a dotplot with a title.\nCreate another code chunk and plot.\nAdjust figure size\nHide code chunk from the report (see chunk options).\nAdd some text\nAdd R command within the text\nUpdate HTML file from the qmd file & play around with the different options\n\nFor more tips, see Quarto tutorial"
+  },
+  {
+    "objectID": "reproducible_workflow.html#fast-track",
+    "href": "reproducible_workflow.html#fast-track",
+    "title": "Reproducible data science workflow",
+    "section": "Fast track",
+    "text": "Fast track\n\nIf you complete the task fast, spend a moment exploring further capabilities of Quarto\nSee OMA Exercises for Quarto."
+  },
+  {
+    "objectID": "reproducible_workflow.html#tips-tricks-hacks",
+    "href": "reproducible_workflow.html#tips-tricks-hacks",
+    "title": "Reproducible data science workflow",
+    "section": "Tips, tricks & hacks",
+    "text": "Tips, tricks & hacks\n\nQuarto tips & tricks & hacks?\nInstalling new packages\nImporting new data sets to R for interactive data analysis: read.csv, read.biom etc. where to find examples (see OMA section on data import)"
+  },
+  {
+    "objectID": "reproducible_workflow.html#random-coding-tips",
+    "href": "reproducible_workflow.html#random-coding-tips",
+    "title": "Reproducible data science workflow",
+    "section": "Random coding tips",
+    "text": "Random coding tips\n\nComment the code to explain what each line or lines of code do. This facilitates later understanding, reuse, and transparency.\nAvoid hard-coding define key variables in the beginning of the workflow. This makes it easier to modify parameters and reuse the code.\nSummarize the main results in an understable way(!)"
+  },
+  {
+    "objectID": "tengeler2020_presentation.html#tengeler2020",
+    "href": "tengeler2020_presentation.html#tengeler2020",
+    "title": "A Brief Introduction to Tengeler2020",
+    "section": "Tengeler2020",
+    "text": "Tengeler2020\nTengeler2020 is a randomised blinded study on the effects of gut microbiome on attention-deficit/hyperactivity disorder (ADHD) in humanised mice (Tengeler et al. 2020).\n\nYoung, male, germ-free C57BL/6JOlaHsd mice (n = 27) were humanised with gut microbiome from either ADHD patients (n = 3) or healthy controls (n = 3) of matched age. Notably, the mice belonged to three different cohorts.\n\n\n\n\n\n\nCohort1\nCohort2\nCohort3\n\n\n\n\nADHD\n4\n5\n4\n\n\nControl\n6\n5\n3"
+  },
+  {
+    "objectID": "tengeler2020_presentation.html#research-question",
+    "href": "tengeler2020_presentation.html#research-question",
+    "title": "A Brief Introduction to Tengeler2020",
+    "section": "Research Question",
+    "text": "Research Question\nGiven its developmental importance and its association with several psichiatric disorders, does the gut microbiome alter brain structure, function or behaviour in ADHD?"
+  },
+  {
+    "objectID": "tengeler2020_presentation.html#study-design",
+    "href": "tengeler2020_presentation.html#study-design",
+    "title": "A Brief Introduction to Tengeler2020",
+    "section": "Study Design",
+    "text": "Study Design\nMicrobiome data was obtained by 16S rRNA gene sequencing of bacterial DNA sampled from faecal pellet on a weekly basis. Then, sequence reads were assembled into Operational Taxonomic Units (OTUs) with an NG-Tax pipeline.\nIn addition to microbiome analysis, during the experimental period mice underwent multiple behavioural tests (OFT, MBT and NOR) and neurophysiological measurements (MRI and perfusion), creating the opportunity to perform a multiomic analysis."
+  },
+  {
+    "objectID": "tengeler2020_presentation.html#community-diversity",
+    "href": "tengeler2020_presentation.html#community-diversity",
+    "title": "A Brief Introduction to Tengeler2020",
+    "section": "Community Diversity",
+    "text": "Community Diversity\nThe profile of the ADHD-related microbiome community showed minor differences from the control in terms of alpha diversity, but the two groups could be distinguished in terms of beta diversity.\n\n\n\n\n\nComparison of diversity between microbiota samples from ADHD mice and control mice using alpha diversity measures Observed OTUs (richness), Shannon Index, InvSimpson Index, and Phylogenetic Diversity.\n\n\n\n\n\n\nPCoA plot of weighted UniFrac distances showing a clear separation in microbial composition between ADHD mice and control mice."
+  },
+  {
+    "objectID": "tengeler2020_presentation.html#correlation-analysis",
+    "href": "tengeler2020_presentation.html#correlation-analysis",
+    "title": "A Brief Introduction to Tengeler2020",
+    "section": "Correlation Analysis",
+    "text": "Correlation Analysis\nSome taxa were significantly correlated with neurobiological features.\n\n\n\n\n\nCircular representation of the different bacterial genera between miceADHD and micecontrol using LEfSe analysis (LDA score &gt; 2.0, p &lt; .05 unadjusted)."
+  },
+  {
+    "objectID": "tengeler2020_presentation.html#brain-and-behaviour",
+    "href": "tengeler2020_presentation.html#brain-and-behaviour",
+    "title": "A Brief Introduction to Tengeler2020",
+    "section": "Brain and Behaviour",
+    "text": "Brain and Behaviour\nCompared to healthy mice, ADHD mice exhibited more anxiety in OFT and less functional connectivity in the right visuomotor system.\n\n\n\n\n\n\n\nResting-state functional connectivity based on partial correlation analyses."
+  },
+  {
+    "objectID": "tengeler2020_presentation.html#tutorials",
+    "href": "tengeler2020_presentation.html#tutorials",
+    "title": "A Brief Introduction to Tengeler2020",
+    "section": "Tutorials",
+    "text": "Tutorials\n\n\nIntroduction to Quarto\nData Manipulation\nAlpha Diversity\nPCoA\nRedundance Analysis\nDifferential Abundance Analysis\nCommunity Composition"
+  },
+  {
+    "objectID": "tengeler2020_presentation.html#references",
+    "href": "tengeler2020_presentation.html#references",
+    "title": "A Brief Introduction to Tengeler2020",
+    "section": "References",
+    "text": "References\n\n\n\n\n\n\nTengeler, Anouk, Sarita A Dam, Maximilian Wiesmann, Jilly Naaijen, Miranda van Bodegom, Clara Belzer, Pieter J Dederen, et al. 2020. “Gut Microbiota from Persons with Attention-Deficit/Hyperactivity Disorder Affects the Brain in Mice.” Microbiome 8: 1–14. https://doi.org/10.1186/s40168-020-00816-x."
+  },
+  {
+    "objectID": "quarto.html#example-1.1-markdown-syntax",
+    "href": "quarto.html#example-1.1-markdown-syntax",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 1.1: # Markdown Syntax",
+    "text": "Example 1.1: # Markdown Syntax\nIn Markdown syntax, you can do the following and more.\n\nHeadings: # My title, ## My subtitle, ### My subsubtitle\nUnordered lists:\n\n-   item 1\n-   item 2\n\nOrdered lists:\n\n1.  item 1\n2.  item 2\n\nFont: *italic*, **bold**, `monospaced`\nLinks: [text](url)\nCross-references: @chunk-label"
+  },
+  {
+    "objectID": "quarto.html#example-1.2-running-code",
+    "href": "quarto.html#example-1.2-running-code",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 1.2: Running Code",
+    "text": "Example 1.2: Running Code\nAdd code chunks with alt + cmd + i and click Render to generate a report with both text and code output.\n\n# R code\ncitation(\"mia\")\n\nTo cite package 'mia' in publications use:\n\n  Ernst F, Shetty S, Borman T, Lahti L (2024). _mia: Microbiome\n  analysis_. R package version 1.13.26,\n  &lt;https://github.com/microbiome/mia&gt;.\n\nA BibTeX entry for LaTeX users is\n\n  @Manual{,\n    title = {mia: Microbiome analysis},\n    author = {Felix G.M. Ernst and Sudarshan A. Shetty and Tuomas Borman and Leo Lahti},\n    year = {2024},\n    note = {R package version 1.13.26},\n    url = {https://github.com/microbiome/mia},\n  }"
+  },
+  {
+    "objectID": "quarto.html#exercise-1",
+    "href": "quarto.html#exercise-1",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Exercise 1",
+    "text": "Exercise 1\n\nnew document: exercise 2.1\ncode chunks: exercise 2.2"
+  },
+  {
+    "objectID": "quarto.html#example-2.1-knitr-options",
+    "href": "quarto.html#example-2.1-knitr-options",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 2.1: knitr options",
+    "text": "Example 2.1: knitr options\nYou can add options to code chunks to change their behaviour.\n\nOriginal chunk\n\n\nprint(\"I love my microbiome\")\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| echo: false\n\n\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| eval: false\n\n\nprint(\"I love my microbiome\")\n\n\nAfter adding #| code-fold: true\n\n\n\nShow code\nprint(\"I love my microbiome\")\n\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| include: false"
+  },
+  {
+    "objectID": "quarto.html#example-2.2-more-about-knitr-options",
+    "href": "quarto.html#example-2.2-more-about-knitr-options",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 2.2: More about knitr options",
+    "text": "Example 2.2: More about knitr options\nIf you want an option to affect all chunks in a script, you can set it globally.\n\n# Turn off chunk visibility and warnings\nknitr::opts_chunk$set(echo = FALSE, warning = FALSE)\n\nYou can label figures (or tables) with #| label: fig-name and cross-reference them with @fig-name (Figure 1).\n\ndata(iris)\nboxplot(Sepal.Length ~ Species, data = iris)\n\n\n\nFigure 1: A boxplot of the sepal length distribution by species."
+  },
+  {
+    "objectID": "quarto.html#example-2.3-yaml-parameters",
+    "href": "quarto.html#example-2.3-yaml-parameters",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 2.3: YAML Parameters",
+    "text": "Example 2.3: YAML Parameters\nAt the beginning of any Quarto document, there is a box delimited by ---. There you can define document metadata, such as title, author, date, output format, bibliography, citation style, theme, font size and many others.\n---\ntitle: “Around the gut in 24 hours”\nformat: html\neditor: visual\nsmaller: true\nauthor: Escherichia coli\ndate: 2024-07-08\n---"
+  },
+  {
+    "objectID": "quarto.html#exercise-2",
+    "href": "quarto.html#exercise-2",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Exercise 2",
+    "text": "Exercise 2\n\nknitr options: exercise 2.3\nYAML parameters: exercise 2.4\n\nExtra:\n\nQuarto parameters: exercise 2.5"
+  },
+  {
+    "objectID": "quarto.html#resources",
+    "href": "quarto.html#resources",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Resources",
+    "text": "Resources\n\nOMA Section - Quarto\nChunk Option Catalogue\nCross References\nYAML Parameter Catalogue"
+  },
+  {
+    "objectID": "data_manipulation.html#why-data-manipulation",
+    "href": "data_manipulation.html#why-data-manipulation",
+    "title": "Data Manipulation",
+    "section": "Why data manipulation?",
+    "text": "Why data manipulation?\nRaw data might be uninformative or incompatible with a method. We want to be able to modify, polish, subset, agglomerate and transform it."
+  },
+  {
+    "objectID": "data_manipulation.html#why-so-complex",
+    "href": "data_manipulation.html#why-so-complex",
+    "title": "Data Manipulation",
+    "section": "Why so complex?",
+    "text": "Why so complex?\nTreeSE containers organise information to improve flexibility and accessibility, which comes with a bit of complexity. Focus on assays, colData and rowData."
+  },
+  {
+    "objectID": "data_manipulation.html#example-1.1-data-import",
+    "href": "data_manipulation.html#example-1.1-data-import",
+    "title": "Data Manipulation",
+    "section": "Example 1.1: Data Import",
+    "text": "Example 1.1: Data Import\nWe work with microbiome data inside TreeSummarizedExperiment (TreeSE) containers and mia is our toolkit.\n\n# Load Tengeler2020 and store it into a TreeSE\nlibrary(mia)\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nThe components of a TreeSE can all be seen at a glance.\n\n# Print TreeSE\ntse\n\nclass: TreeSummarizedExperiment \ndim: 151 27 \nmetadata(0):\nassays(1): counts\nrownames(151): Bacteroides Bacteroides_1 ... Parabacteroides_8\n  Unidentified_Lachnospiraceae_14\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (151 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "data_manipulation.html#example-1.2-column-data",
+    "href": "data_manipulation.html#example-1.2-column-data",
+    "title": "Data Manipulation",
+    "section": "Example 1.2: Column data",
+    "text": "Example 1.2: Column data\nColumns represent the samples of an experiment.\n\n# Retrieve sample names\nhead(colnames(tse), 3)\n\n[1] \"A110\" \"A12\"  \"A15\" \n\n\nAll information about the samples is stored in colData.\n\n# Retrieve sample data\nhead(colData(tse), 3)\n\nDataFrame with 3 rows and 4 columns\n     patient_status      cohort patient_status_vs_cohort sample_name\n        &lt;character&gt; &lt;character&gt;              &lt;character&gt; &lt;character&gt;\nA110           ADHD    Cohort_1            ADHD_Cohort_1        A110\nA12            ADHD    Cohort_1            ADHD_Cohort_1         A12\nA15            ADHD    Cohort_1            ADHD_Cohort_1         A15\n\n\nIndividual variables about the samples can be accessed directly.\n\n# Retrieve sample variables\nhead(tse$patient_status, 3)\n\n[1] \"ADHD\" \"ADHD\" \"ADHD\""
+  },
+  {
+    "objectID": "data_manipulation.html#example-1.3-row-data",
+    "href": "data_manipulation.html#example-1.3-row-data",
+    "title": "Data Manipulation",
+    "section": "Example 1.3: Row data",
+    "text": "Example 1.3: Row data\nRows represent the features of an experiment.\n\n# Retrieve feature names\nhead(rownames(tse), 3)\n\n[1] \"Bacteroides\"     \"Bacteroides_1\"   \"Parabacteroides\"\n\n\nAll information about the samples is stored in rowData.\n\n# Retrieve feature data\nhead(rowData(tse), 3)\n\nDataFrame with 3 rows and 6 columns\n                    Kingdom        Phylum       Class         Order\n                &lt;character&gt;   &lt;character&gt; &lt;character&gt;   &lt;character&gt;\nBacteroides        Bacteria Bacteroidetes Bacteroidia Bacteroidales\nBacteroides_1      Bacteria Bacteroidetes Bacteroidia Bacteroidales\nParabacteroides    Bacteria Bacteroidetes Bacteroidia Bacteroidales\n                            Family           Genus\n                       &lt;character&gt;     &lt;character&gt;\nBacteroides         Bacteroidaceae     Bacteroides\nBacteroides_1       Bacteroidaceae     Bacteroides\nParabacteroides Porphyromonadaceae Parabacteroides\n\n\nIndividual variables about the samples can be accessed from rowData.\n\n# Retrieve feature variables\nhead(rowData(tse)$Genus, 3)\n\n[1] \"Bacteroides\"     \"Bacteroides\"     \"Parabacteroides\""
+  },
+  {
+    "objectID": "data_manipulation.html#example-1.4-assays",
+    "href": "data_manipulation.html#example-1.4-assays",
+    "title": "Data Manipulation",
+    "section": "Example 1.4: Assays",
+    "text": "Example 1.4: Assays\nThe assays of an experiment (counts, relative abundance, etc.) can be found in assays.\n\nassays(tse)\n\nList of length 1\nnames(1): counts\n\n\nassayNames return only their names.\n\nassayNames(tse)\n\n[1] \"counts\"\n\n\nAn individual assay can be retrieved with assay.\n\nassay(tse, \"counts\")[seq(6), seq(6)]\n\n                 A110   A12  A15  A19  A21  A23\nBacteroides     17722 11630    0 8806 1740 1791\nBacteroides_1   12052     0 2679 2776  540  229\nParabacteroides     0   970    0  549  145    0\nBacteroides_2       0  1911    0 5497  659    0\nAkkermansia      1143  1891 1212  584   84  700\nBacteroides_3       0  6498    0 4455  610    0"
+  },
+  {
+    "objectID": "data_manipulation.html#exercise-1",
+    "href": "data_manipulation.html#exercise-1",
+    "title": "Data Manipulation",
+    "section": "Exercise 1",
+    "text": "Exercise 1\n\npreliminary exploration: exercise 3.3\nassay retrieval: exercise 3.4\n\nExtra:\n\nconstructing a TreeSE object: exercise 3.1\n\nRaw data can be retrieved here."
+  },
+  {
+    "objectID": "data_manipulation.html#example-2.1-subsetting",
+    "href": "data_manipulation.html#example-2.1-subsetting",
+    "title": "Data Manipulation",
+    "section": "Example 2.1: Subsetting",
+    "text": "Example 2.1: Subsetting\nWe can subset features or samples of a TreeSE, but first we need to pick a variable.\n\n# Check levels of a sample variable\nunique(tse$patient_status)\n\n[1] \"ADHD\"    \"Control\"\n\n\nTo subset samples, we filter columns with a conditional.\n\n# Subset by a sample variable\nsubcol_tse &lt;- tse[ , tse$patient_status == \"ADHD\"]\ndim(subcol_tse)\n\n[1] 151  13\n\n\nWe now want to subset by our favourite Phylum.\n\n# Check levels of a feature variable\nunique(rowData(tse)$Phylum)\n\n[1] \"Bacteroidetes\"   \"Verrucomicrobia\" \"Proteobacteria\"  \"Firmicutes\"     \n[5] \"Cyanobacteria\"  \n\n\nTo subset features, we filter rows with a conditional.\n\n# Subset by a feature variable\nsubrow_tse &lt;- tse[rowData(tse)$Phylum == \"Firmicutes\", ]\ndim(subrow_tse)\n\n[1] 97 27"
+  },
+  {
+    "objectID": "data_manipulation.html#example-2.2-agglomeration",
+    "href": "data_manipulation.html#example-2.2-agglomeration",
+    "title": "Data Manipulation",
+    "section": "Example 2.2: Agglomeration",
+    "text": "Example 2.2: Agglomeration\nAgglomeration condenses the assays to higher taxonomic ranks. Related taxa are combined together. We can agglomerate by different ranks.\n\n# View rank options\ntaxonomyRanks(tse)\n\n[1] \"Kingdom\" \"Phylum\"  \"Class\"   \"Order\"   \"Family\"  \"Genus\"  \n\n\nWe agglomerate by Phylum and store the new experiment in the altExp slot.\n\n# Agglomerate by Phylum and store into altExp slot\naltExp(tse, \"phylum\") &lt;- agglomerateByRank(tse, rank = \"Phylum\")\naltExp(tse, \"phylum\")\n\nclass: TreeSummarizedExperiment \ndim: 5 27 \nmetadata(1): agglomerated_by_rank\nassays(1): counts\nrownames(5): Bacteroidetes Cyanobacteria Firmicutes Proteobacteria\n  Verrucomicrobia\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (5 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "data_manipulation.html#example-2.3-transformation",
+    "href": "data_manipulation.html#example-2.3-transformation",
+    "title": "Data Manipulation",
+    "section": "Example 2.3: Transformation",
+    "text": "Example 2.3: Transformation\nData can be transformed for different reasons. For example, to make samples comparable we can use relative abundance.\n\n# Transform counts to relative abundance\ntse &lt;- transformAssay(tse,\n                      assay.type = \"counts\",\n                      method = \"relabundance\")\n\n# View sample-wise sums\nhead(colSums(assay(tse, \"relabundance\")), 3)\n\nA110  A12  A15 \n   1    1    1 \n\n\nOr to standardise features to the normal distribution we can use z-scores: \\(Z = \\frac{x - \\mu}{\\sigma}\\).\n\n# Transform relative abundance to z-scores\ntse &lt;- transformAssay(tse,\n                      assay.type = \"relabundance\",\n                      method = \"z\",\n                      MARGIN = \"features\")\n\n# View feature-wise standard deviations\nhead(rowSds(assay(tse, \"z\")), 3)\n\n    Bacteroides   Bacteroides_1 Parabacteroides \n              1               1               1"
+  },
+  {
+    "objectID": "data_manipulation.html#exercise-2",
+    "href": "data_manipulation.html#exercise-2",
+    "title": "Data Manipulation",
+    "section": "Exercise 2",
+    "text": "Exercise 2\n\nsubsetting: exercise 4.1\nagglomeration: exercise 5.1\ntransformation: exercise 4.6\n\nExtra:\n\nprevalence subsetting: exercise 4.3\nalternative experiments: exercise 5.2"
+  },
+  {
+    "objectID": "data_manipulation.html#resources",
+    "href": "data_manipulation.html#resources",
+    "title": "Data Manipulation",
+    "section": "Resources",
+    "text": "Resources\n\nmia function reference\nOMA Section - Data Containers\nOMA Section - Subsetting\nOMA Section - Agglomeration\nOMA Section - Transformation"
   }
 ]
