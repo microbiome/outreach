@@ -4,52 +4,38 @@ format: revealjs
 editor: visual
 ---
 
-## 
+## Learning goals {.smaller}
 
-### Multi-omic data science with R/Bioconductor
+::: columns
+::: {.column width="70%"}
+**Introduction to R/Bioconductor, a popular open-source environment for life science informatics, with a focus on microbiome analysis**
 
-#### Oulu summer school, June 19-21, 2023
+After the course, you will know how to:
 
-#### Welcome!
+-   organize your data into a coherent data science framework
+
+-   implement reproducible data science workflows
+
+-   approach common analysis tasks with available documentation and R tools
+:::
+
+::: {.column width="30%"}
+![Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.](images/paste-DD45BC4A.png)
+:::
+:::
+
+
+## Target audience
+
+
+-   Advanced MSc, PhD & postdoctoral researchers who wish to learn new skills in scientific programming
+
+-   Earlier experience with R is expected
 
 ![](images/bioconductor_logo_rgb.jpg){width="200"}
 
-## Organizers {.smaller}
 
--   Health and Biosciences Doctoral Programme University of Oulu Graduate School
--   Cancer & Translational Medicine Research Unit, University of Oulu
--   Department of Computing, University of Turku, Finland
-
-Finnish IT Center for Science (CSC) provides cloud computing services
-
-::: {layout-nrow="1"}
-![](images/paste-7EE981D9.png){height="200"} ![](images/paste-FF510BA6.png){height="100"}
-:::
-
-## Local organizers
-
--   **Justus Reunanen**, docent, University of Oulu
-
--   **Anna Kaisanlahti**, doctoral researcher, University of Oulu
-
-```{=html}
-<!--
-## 
-
-![](images/paste-82608701.png)
--->
-```
-## Teachers / Facilitators
-
--   **Leo Lahti**, associate prof. in data science
-
--   **Pande Putu Erawijantari**, postdoc
-
--   **Tuomas Borman**, doctoral researcher
-
--   **Giulio Benedetti**, scientific programmer
-
-Department of Computing, Uni. Turku, Finland [datascience.utu.fi](datascience.utu.fi)  
+Welcome!
 
 ## Code of Conduct {.smaller}
 
@@ -69,59 +55,26 @@ By participating in this community, you agree not to engage in behavior contrary
 
 For the full CoC, see: [https://bioconductor.github.io/bioc_coc_multilingual](https://bioconductor.github.io/bioc_coc_multilingual/)
 
-## Target audience
-
--   Focus on multi-omic data integration, with emphasis on microbiome research
-
--   Advanced MSc, PhD & postdoctoral researchers who wish to learn new skills in scientific programming and multi-omic data analysis
-
--   Earlier experience with R is expected
-
--   [Participants & wishlists](https://tinyurl.com/oulubioc2023)
-
-## Learning goals  {.smaller}
-
-::: columns
-::: {.column width="70%"}
-**Introduction to multi-omic data integration and analysis with R/Bioconductor, a popular open-source environment for life science informatics.**
-
-After the course, you will know how to:
-
--   organize multiple data sources into a coherent data science framework
-
--   implement open & reproducible data science workflows
-
--   approach common data analysis tasks by utilizing available documentation and R tools
-:::
-
-::: {.column width="30%"}
-![Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.](images/paste-DD45BC4A.png){alt="Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology."}
-:::
-:::
-
-Primary focus: microbiome research; methods are generally applicable to transcriptomics, metabolomics, single cell sequencing and other omics integration.
 
 ## Schedule
 
--   Day 1: open data science framework
+-   Day 1: data science framework
 
--   Day 2: tabular data analysis (single omics)
+-   Day 2: data analysis & visualization
 
--   Day 3: multi-table data analysis (multi-omics)
+-   Day 3: break from hands-on
 
-## Schedule
-
-![](images/paste-AB917D98.png)
+-   Day 4-5: advanced topics
 
 ## Session types
 
--   **Lectures, demonstrations** don't hesitate to ask questions!
+-   **Short lectures & demonstrations** don't hesitate to ask questions!
 
 -   **Practicals** Solve tasks by taking advantage of the online examples and resources that are pointed out in the material. There is often more than one way to solve a given task.
 
 -   **Additional exercises** & example data sets, supporting online material, many ways to solve a given task
 
--   **Presentations**, present your solutions, highlight questions and challenges, engage the audience
+-   **Presentations**, present your solutions, highlight questions and challenges
 
 ## Teaching material
 
@@ -132,13 +85,15 @@ Primary focus: microbiome research; methods are generally applicable to transcri
 ## Support
 
 -   Post-it stickers
--   Feedback at lunch and end of each day using minute cards
--   Practical info at the [course website](https://microbiome.github.io/course_2023_oulu) <!--([gdoc](https://docs.google.com/document/d/1sS3nqe5l6UrzZqsTOuqHvS4OIpTvd7Thagt5aKSw7EI/edit))-->
+
 -   Online chat (Gitter) <https://gitter.im/microbiome/miaverse>
+
 -   [Google Doc](https://docs.google.com/document/d/1CEQ2d5g-zMoANhtHGbcKbW4DhElovPHz6iChjSX6Md8/edit?usp=sharing) **Questions at the end of the gdoc are welcome**
 
+-   Feedback at the end of each day using minute cards
 
 ![](images/paste-345FB942.png){width="282"}
+
 
 ## Other points
 
@@ -169,13 +124,12 @@ Development work has received support from several sources.
 
 Broader context and practical skills on:
 
--   **Open data science workflow**: setting up reproducible data science workflows with Quarto
+-   **Data science workflow**: setting up reproducible data science workflows with Quarto
 
 -   **Data containers**: understanding *SummarizedExperiment*
 
 -   **Basic data wrangling** (e.g. subsetting, aggregation)
 
-
 ## Questions?
 
-![Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.](images/paste-DD45BC4A.png){alt="Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology." width="420"}
+![Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.](images/paste-DD45BC4A.png){width="420"}

@@ -65,7 +65,7 @@ taxonomic levels, nested designs, sample & feature trees
 
 ## Integrating multiple experiments {.smaller}
 
-Combine **taxonomic, metagenomic & functional profiling, and host measurements**\  
+Combine **taxonomic, metagenomic & functional profiling, and host measurements** 
 
 by extending the Bioconductor *MultiAssayExperiment* class.
 
@@ -134,12 +134,11 @@ Bioconductor methods & packages supporting the framework.
 
 Linking with other common formats and microbiome data science frameworks.
 
-![](images/Screenshot%20from%202023-07-31%2022-04-20.png){height=120} ![](images/Screenshot%20from%202023-07-31%2022-04-41.png){height=120} ![](images/Screenshot%20from%202023-07-31%2022-03-35.png){height=120} ![](images/Screenshot from 2023-07-31 22-12-25.png){height=120}
-
+![](images/Screenshot%20from%202023-07-31%2022-04-20.png){height="120"} ![](images/Screenshot%20from%202023-07-31%2022-04-41.png){height="120"} ![](images/Screenshot%20from%202023-07-31%2022-03-35.png){height="120"} ![](images/Screenshot%20from%202023-07-31%2022-12-25.png){height="120"}
 
 ### Open data resources
 
-Open microbiome data sets readily available in *TreeSummarizedExperiment* format via _curatedMetagenomicData_, _EBI MGnify_, Bioconductor _ExperimentHub_, and packages.
+Open microbiome data sets readily available in *TreeSummarizedExperiment* format via *curatedMetagenomicData*, *EBI MGnify*, Bioconductor *ExperimentHub*, and packages.
 
 ::: {layout="[[40, 30, 33]]"}
 ![](images/Screenshot%20from%202023-07-31%2022-00-40.png){width="350"}
@@ -148,7 +147,6 @@ Open microbiome data sets readily available in *TreeSummarizedExperiment* format
 
 ![](images/Screenshot%20from%202023-07-31%2022-02-16.png){width="420"}
 :::
-
 
 ## Minimal example {.smaller}
 
@@ -163,9 +161,10 @@ Cross-correlating taxonomic and metabolomic profiles from a dietary intervention
 #| cache: true
 library(mia)
 
-# Import data from ExperimentHub
-mae <- microbiomeDataSets::HintikkaXOData() 
-
+# Import data and rename
+data("HintikkaXOData")
+mae <- HintikkaXOData
+  
 # Agglomerate rare taxa by prevalence at the Family level & log10-transform read  counts
 mae[["microbiota"]] <- agglomerateByPrevalence(mae[["microbiota"]], rank = "Family")
 mae[["microbiota"]] <- transformAssay(mae[["microbiota"]], method = "clr", pseudocount = 1)
@@ -194,7 +193,6 @@ Complements other Bioconductor Gitbooks; overlapping methods and analysis strate
 :::
 :::
 
-
 ## Community {.smaller}
 
 ::: columns
@@ -203,7 +201,7 @@ Complements other Bioconductor Gitbooks; overlapping methods and analysis strate
 
 Giulio Benedetti, Yağmur Şimşek, Basil Courbayre, Jeba Akewak, Daena Rys, Henrik Eckermann, Chouaib Benchraka, Rajesh Shigdel, Artur Sannikov, Lu Yang, Renuka Potbhare, S. A. Shetty, R. Huang, F. G.M. Ernst, D. J. Braccia, H. C. Bravo; 20+ contributors, 10+ countries. Welcome to join!
 
-**Acknowledgments:** TreeSummarizedExperiment, SingleCellExperiment, MultiAssayExperiment, curatedMetagenomicData,  MGnifyR, phILR, ANCOMBC, ALDEx2, benchdamic, scater, scuttle authors..
+**Acknowledgments:** TreeSummarizedExperiment, SingleCellExperiment, MultiAssayExperiment, curatedMetagenomicData, MGnifyR, phILR, ANCOMBC, ALDEx2, benchdamic, scater, scuttle authors..
 
 **Courses in 2023:** Pune (IND) \| Turku & Oulu (FIN) \| Utrecht, Wageningen & Radboud (NLD) \| Norwich (UK) \|Bergen (NO)
 :::

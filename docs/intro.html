@@ -8,7 +8,7 @@
 <link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.3.450">
+  <meta name="generator" content="quarto-1.4.506">
 
   <title>Intro &amp; practicals</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -155,7 +155,8 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    margin-bottom: 0.5rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -330,50 +331,35 @@
 </div>
 
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
-<h3 id="multi-omic-data-science-with-rbioconductor">Multi-omic data science with R/Bioconductor</h3>
-<h4 id="oulu-summer-school-june-19-21-2023">Oulu summer school, June 19-21, 2023</h4>
-<h4 id="welcome">Welcome!</h4>
-
-<img data-src="images/bioconductor_logo_rgb.jpg" width="200" class="r-stretch"></section>
-<section id="organizers" class="slide level2 smaller">
-<h2>Organizers</h2>
+<section id="learning-goals" class="slide level2 smaller">
+<h2>Learning goals</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<p><strong>Introduction to R/Bioconductor, a popular open-source environment for life science informatics, with a focus on microbiome analysis</strong></p>
+<p>After the course, you will know how to:</p>
 <ul>
-<li>Health and Biosciences Doctoral Programme University of Oulu Graduate School</li>
-<li>Cancer &amp; Translational Medicine Research Unit, University of Oulu</li>
-<li>Department of Computing, University of Turku, Finland</li>
+<li><p>organize your data into a coherent data science framework</p></li>
+<li><p>implement reproducible data science workflows</p></li>
+<li><p>approach common analysis tasks with available documentation and R tools</p></li>
 </ul>
-<p>Finnish IT Center for Science (CSC) provides cloud computing services</p>
-<div class="quarto-layout-panel">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
-<p><img data-src="images/paste-7EE981D9.png" height="200"> <img data-src="images/paste-FF510BA6.png" height="100"></p>
+</div><div class="column" style="width:30%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/paste-DD45BC4A.png"></p>
+<figcaption>Moreno-Indias et al.&nbsp;(2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.</figcaption>
+</figure>
 </div>
 </div>
 </div>
 </section>
-<section id="local-organizers" class="slide level2">
-<h2>Local organizers</h2>
+<section id="target-audience" class="slide level2">
+<h2>Target audience</h2>
 <ul>
-<li><p><strong>Justus Reunanen</strong>, docent, University of Oulu</p></li>
-<li><p><strong>Anna Kaisanlahti</strong>, doctoral researcher, University of Oulu</p></li>
+<li><p>Advanced MSc, PhD &amp; postdoctoral researchers who wish to learn new skills in scientific programming</p></li>
+<li><p>Earlier experience with R is expected</p></li>
 </ul>
-<!--
-## 
 
-![](images/paste-82608701.png)
--->
-</section>
-<section id="teachers-facilitators" class="slide level2">
-<h2>Teachers / Facilitators</h2>
-<ul>
-<li><p><strong>Leo Lahti</strong>, associate prof. in data science</p></li>
-<li><p><strong>Pande Putu Erawijantari</strong>, postdoc</p></li>
-<li><p><strong>Tuomas Borman</strong>, doctoral researcher</p></li>
-<li><p><strong>Giulio Benedetti</strong>, scientific programmer</p></li>
-</ul>
-<p>Department of Computing, Uni. Turku, Finland <a href="datascience.utu.fi">datascience.utu.fi</a> &nbsp;</p>
+<img data-src="images/bioconductor_logo_rgb.jpg" width="200" class="r-stretch"><p>Welcome!</p>
 </section>
 <section id="code-of-conduct" class="slide level2 smaller">
 <h2>Code of Conduct</h2>
@@ -388,56 +374,22 @@
 <p>By participating in this community, you agree not to engage in behavior contrary to these values at any Bioconductor-sponsored event or electronic communication channel.</p>
 <p>For the full CoC, see: <a href="https://bioconductor.github.io/bioc_coc_multilingual/">https://bioconductor.github.io/bioc_coc_multilingual</a></p>
 </section>
-<section id="target-audience" class="slide level2">
-<h2>Target audience</h2>
-<ul>
-<li><p>Focus on multi-omic data integration, with emphasis on microbiome research</p></li>
-<li><p>Advanced MSc, PhD &amp; postdoctoral researchers who wish to learn new skills in scientific programming and multi-omic data analysis</p></li>
-<li><p>Earlier experience with R is expected</p></li>
-<li><p><a href="https://tinyurl.com/oulubioc2023">Participants &amp; wishlists</a></p></li>
-</ul>
-</section>
-<section id="learning-goals" class="slide level2 smaller">
-<h2>Learning goals</h2>
-<div class="columns">
-<div class="column" style="width:70%;">
-<p><strong>Introduction to multi-omic data integration and analysis with R/Bioconductor, a popular open-source environment for life science informatics.</strong></p>
-<p>After the course, you will know how to:</p>
-<ul>
-<li><p>organize multiple data sources into a coherent data science framework</p></li>
-<li><p>implement open &amp; reproducible data science workflows</p></li>
-<li><p>approach common data analysis tasks by utilizing available documentation and R tools</p></li>
-</ul>
-</div><div class="column" style="width:30%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/paste-DD45BC4A.png"></p>
-<figcaption>Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>Primary focus: microbiome research; methods are generally applicable to transcriptomics, metabolomics, single cell sequencing and other omics integration.</p>
-</section>
 <section id="schedule" class="slide level2">
 <h2>Schedule</h2>
 <ul>
-<li><p>Day 1: open data science framework</p></li>
-<li><p>Day 2: tabular data analysis (single omics)</p></li>
-<li><p>Day 3: multi-table data analysis (multi-omics)</p></li>
+<li><p>Day 1: data science framework</p></li>
+<li><p>Day 2: data analysis &amp; visualization</p></li>
+<li><p>Day 3: break from hands-on</p></li>
+<li><p>Day 4-5: advanced topics</p></li>
 </ul>
 </section>
-<section id="schedule-1" class="slide level2">
-<h2>Schedule</h2>
-
-<img data-src="images/paste-AB917D98.png" class="r-stretch"></section>
 <section id="session-types" class="slide level2">
 <h2>Session types</h2>
 <ul>
-<li><p><strong>Lectures, demonstrations</strong> don’t hesitate to ask questions!</p></li>
+<li><p><strong>Short lectures &amp; demonstrations</strong> don’t hesitate to ask questions!</p></li>
 <li><p><strong>Practicals</strong> Solve tasks by taking advantage of the online examples and resources that are pointed out in the material. There is often more than one way to solve a given task.</p></li>
 <li><p><strong>Additional exercises</strong> &amp; example data sets, supporting online material, many ways to solve a given task</p></li>
-<li><p><strong>Presentations</strong>, present your solutions, highlight questions and challenges, engage the audience</p></li>
+<li><p><strong>Presentations</strong>, present your solutions, highlight questions and challenges</p></li>
 </ul>
 </section>
 <section id="teaching-material" class="slide level2">
@@ -450,11 +402,10 @@
 <section id="support" class="slide level2">
 <h2>Support</h2>
 <ul>
-<li>Post-it stickers</li>
-<li>Feedback at lunch and end of each day using minute cards</li>
-<li>Practical info at the <a href="https://microbiome.github.io/course_2023_oulu">course website</a> <!--([gdoc](https://docs.google.com/document/d/1sS3nqe5l6UrzZqsTOuqHvS4OIpTvd7Thagt5aKSw7EI/edit))--></li>
-<li>Online chat (Gitter) <a href="https://gitter.im/microbiome/miaverse" class="uri">https://gitter.im/microbiome/miaverse</a></li>
-<li><a href="https://docs.google.com/document/d/1CEQ2d5g-zMoANhtHGbcKbW4DhElovPHz6iChjSX6Md8/edit?usp=sharing">Google Doc</a> <strong>Questions at the end of the gdoc are welcome</strong></li>
+<li><p>Post-it stickers</p></li>
+<li><p>Online chat (Gitter) <a href="https://gitter.im/microbiome/miaverse" class="uri">https://gitter.im/microbiome/miaverse</a></p></li>
+<li><p><a href="https://docs.google.com/document/d/1CEQ2d5g-zMoANhtHGbcKbW4DhElovPHz6iChjSX6Md8/edit?usp=sharing">Google Doc</a> <strong>Questions at the end of the gdoc are welcome</strong></p></li>
+<li><p>Feedback at the end of each day using minute cards</p></li>
 </ul>
 
 <img data-src="images/paste-345FB942.png" width="282" class="r-stretch"></section>
@@ -469,12 +420,12 @@
 <section id="acknowledgments" class="slide level2">
 <h2>Acknowledgments</h2>
 <p>Development work has received support from several sources.</p>
-<div class="quarto-layout-panel">
+<div class="quarto-layout-panel" data-layout-nrow="3">
 <div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 52.4%;justify-content: center;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img data-src="images/paste-A7B39107.png" width="330"></p>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 47.6%;justify-content: center;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img data-src="images/paste-F2F09EA8.png" width="300"></p>
 </div>
 </div>
@@ -487,10 +438,10 @@
 </div>
 </div>
 <div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 70.2%;justify-content: center;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img data-src="images/ml4microbiome.png" width="330"></p>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 29.8%;justify-content: center;">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: center;">
 <p><img data-src="images/paste-0DD2D200.png" width="140"></p>
 </div>
 </div>
@@ -500,7 +451,7 @@
 <h2>Learning goals for <em>today</em></h2>
 <p>Broader context and practical skills on:</p>
 <ul>
-<li><p><strong>Open data science workflow</strong>: setting up reproducible data science workflows with Quarto</p></li>
+<li><p><strong>Data science workflow</strong>: setting up reproducible data science workflows with Quarto</p></li>
 <li><p><strong>Data containers</strong>: understanding <em>SummarizedExperiment</em></p></li>
 <li><p><strong>Basic data wrangling</strong> (e.g.&nbsp;subsetting, aggregation)</p></li>
 </ul>
@@ -509,7 +460,7 @@
 <h2>Questions?</h2>
 
 
-<img data-src="images/paste-DD45BC4A.png" width="420" class="r-stretch quarto-figure-center"><p class="caption">Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.</p><div class="footer footer-default">
+<img data-src="images/paste-DD45BC4A.png" width="420" class="r-stretch quarto-figure-center"><p class="caption">Moreno-Indias et al.&nbsp;(2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.</p><div class="footer footer-default">
 
 </div>
 </section>
@@ -539,7 +490,6 @@
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
-'smaller': false,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -800,10 +750,9 @@
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn) {
+      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
-          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -813,8 +762,17 @@
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start'
+          placement: 'bottom-start',
         };
+        if (contentFn) {
+          config.content = contentFn;
+        }
+        if (onTriggerFn) {
+          config.onTrigger = onTriggerFn;
+        }
+        if (onUntriggerFn) {
+          config.onUntrigger = onUntriggerFn;
+        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
