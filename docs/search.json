@@ -487,7 +487,7 @@
     "href": "compositional_heatmap.html#why-relative-abundances",
     "title": "Compositional Heatmaps",
     "section": "Why relative abundances?",
-    "text": "Why relative abundances?\nMicrobiome data is compositional. Relative abundance helps us draw less biased comparisons between samples.\n\n\nShow code\n# Import packages\nlibrary(miaViz)\nlibrary(patchwork)\n\n# Plot composition by counts\ncounts_bar &lt;- plotAbundance(tse_order, rank = \"Phylum\", use_relative = FALSE) +\n  ylab(\"Counts\")\n\n# Plot composition by relative abundance\nrelab_bar &lt;- plotAbundance(tse_order, rank = \"Phylum\") +\n  ylab(\"Relative Abundance\")\n\n# Combine plots\n(counts_bar | relab_bar) +\n  plot_layout(guides = \"collect\")\n\n\n\n\nFigure 1: Sample composition by counts (left) or relative abundance (right)."
+    "text": "Why relative abundances?\nMicrobiome data is compositional. Relative abundance helps us draw less biased comparisons between samples.\n\n\nShow code\n# Import packages\nlibrary(miaViz)\nlibrary(patchwork)\n\n# Plot composition by counts\ncounts_bar &lt;- plotAbundance(tse_order, rank = \"Phylum\", use_relative = FALSE) +\n  ylab(\"Counts\")\n\n# Plot composition by relative abundance\nrelab_bar &lt;- plotAbundance(tse_order, rank = \"Phylum\") +\n  ylab(\"Relative Abundance\")\n\n# Combine plots\n(counts_bar | relab_bar) +\n  plot_layout(guides = \"collect\")\n\n\n\nFigure 1: Sample composition by counts (left) or relative abundance (right)."
   },
   {
     "objectID": "compositional_heatmap.html#example-1.2",
@@ -501,14 +501,14 @@
     "href": "compositional_heatmap.html#example-1.3",
     "title": "Compositional Heatmaps",
     "section": "Example 1.3",
-    "text": "Example 1.3\nFinally, we visualise the clr-z assay with ComplexHeatmap.\n\n# Visualise clr-z assay with a heatmap\nclrz_hm &lt;- Heatmap(assay(tse_order, \"clr_z\"), name = \"clr-z\")\nclrz_hm\n\n\n\nFigure 2: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order."
+    "text": "Example 1.3\nFinally, we visualise the clr-z assay with ComplexHeatmap.\n\n# Visualise clr-z assay with a heatmap\nclrz_hm &lt;- Heatmap(assay(tse_order, \"clr_z\"), name = \"clr-z\")\nclrz_hm\n\n\nFigure 2: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order."
   },
   {
     "objectID": "compositional_heatmap.html#why-clr-z-transformation",
     "href": "compositional_heatmap.html#why-clr-z-transformation",
     "title": "Compositional Heatmaps",
     "section": "Why clr-z transformation?",
-    "text": "Why clr-z transformation?\nA CLR-z transformation improves comparability in two steps:\n\nApply CLR transform to center features column-wise\nFind Z score to standardise features row-wise\n\n\n\nFigure 3: Visual comparison between counts, relative abundance, clr and clr-z assays (from left to right)."
+    "text": "Why clr-z transformation?\nA CLR-z transformation improves comparability in two steps:\n\nApply CLR transform to center features column-wise\nFind Z score to standardise features row-wise\n\n\nFigure 3: Visual comparison between counts, relative abundance, clr and clr-z assays (from left to right)."
   },
   {
     "objectID": "compositional_heatmap.html#exercise-1",
