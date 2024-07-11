@@ -66,7 +66,7 @@ counts_bar <- plotAbundance(tse_order, rank = "Phylum", use_relative = FALSE) +
   ylab("Counts")
 
 # Plot composition by relative abundance
-relab_bar <- plotAbundance(tse_order, rank = "Phylum") +
+relab_bar <- plotAbundance(tse_order, rank = "Phylum", use_relative = TRUE) +
   ylab("Relative Abundance")
 
 # Combine plots
