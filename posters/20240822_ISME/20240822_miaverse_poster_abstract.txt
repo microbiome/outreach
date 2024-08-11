@@ -1,0 +1,15 @@
+Abstract title: Orchestrating data analyses in microbial ecology with Bioconductor 	
+Abstract text:
+
+Due to the complexity and high dimensionality of microbiome variation, machine learning and other computational approaches have become an instrumental part of the researcher’s toolkit. There is a growing demand for robust, transparent and reproducible methods to accommodate emerging trends, including advancements in methodology, multi-omics integration, and the expansion of datasets. Systematic strategies to manage hierarchical, heterogeneous, multi-assay data sets can benefit microbial ecologists, and various open data science toolkits have been created to support computational research in this field.
+
+We provide new, enhanced solutions designed to support common tasks in microbiome data analysis, visualization, simulation, and time series analysis. We take advantage of state-of-the-art data containers that provide scalable solutions to deal with heterogeneous data from multiple sources; the mia flagship package has become one of the top-10% most downloaded Bioconductor packages in less than three years. Detailed guidance is provided in the Orchestrating Microbiome Analysis (OMA) tutorial book, dedicated to disseminating best practices in microbiome data science.
+
+The framework is continually evolving to support the latest advancements in microbial ecological data analysis. This is further facilitated by the tight links to related application domains, such as single-cell sequencing, where closely related open source techniques are actively developed. Interoperability with the overall Bioconductor framework substantially enhances the sustainability and scope of the work, and has provided unique opportunities for scalable, community-driven development. With growing support from other tools and an expanding user base, the latest advances in multi-omic data integration and analysis can be increasingly adopted in microbial ecology.
+	
+Main author: Borman, Tuomas, University of Turku, Turku, Finland (Presenting Author)
+ 1 University of Turku, Turku, Finland
+Co-authors: Prof Lahti, Leo, University of Turku, Turku, Finland
+ 1 University of Turku, Turku, Finland
+Presenting author: Borman, Tuomas, University of Turku, Turku, Finland
+ 1 University of Turku, Turku, Finland
