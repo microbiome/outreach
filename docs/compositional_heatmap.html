@@ -8,7 +8,7 @@
 <link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.506">
+  <meta name="generator" content="quarto-1.3.450">
 
   <title>Compositional Heatmaps</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -30,7 +30,7 @@
     }
     /* CSS for syntax highlighting */
     pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
     pre > code.sourceCode > span:empty { height: 1.2em; }
     .sourceCode { overflow: visible; }
     code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -220,8 +220,7 @@
   }
 
   .callout.callout-titled .callout-body > .callout-content > :last-child {
-    padding-bottom: 0.5rem;
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
   }
 
   .callout.callout-titled .callout-icon::before {
@@ -425,7 +424,7 @@
 <h2>Why relative abundances?</h2>
 <p>Microbiome data is compositional. Relative abundance helps us draw less biased comparisons between samples.</p>
 <div class="cell">
-<details class="code-fold">
+<details>
 <summary>Show code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="co"># Import packages</span></span>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="fu">library</span>(miaViz)</span>
@@ -436,7 +435,7 @@
 <span id="cb5-7"><a href="#cb5-7"></a>  <span class="fu">ylab</span>(<span class="st">"Counts"</span>)</span>
 <span id="cb5-8"><a href="#cb5-8"></a></span>
 <span id="cb5-9"><a href="#cb5-9"></a><span class="co"># Plot composition by relative abundance</span></span>
-<span id="cb5-10"><a href="#cb5-10"></a>relab_bar <span class="ot">&lt;-</span> <span class="fu">plotAbundance</span>(tse_order, <span class="at">rank =</span> <span class="st">"Phylum"</span>) <span class="sc">+</span></span>
+<span id="cb5-10"><a href="#cb5-10"></a>relab_bar <span class="ot">&lt;-</span> <span class="fu">plotAbundance</span>(tse_order, <span class="at">rank =</span> <span class="st">"Phylum"</span>, <span class="at">use_relative =</span> <span class="cn">TRUE</span>) <span class="sc">+</span></span>
 <span id="cb5-11"><a href="#cb5-11"></a>  <span class="fu">ylab</span>(<span class="st">"Relative Abundance"</span>)</span>
 <span id="cb5-12"><a href="#cb5-12"></a></span>
 <span id="cb5-13"><a href="#cb5-13"></a><span class="co"># Combine plots</span></span>
@@ -445,9 +444,7 @@
 </details>
 
 </div>
-<img data-src="compositional_heatmap_files/figure-revealjs/fig-abund-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;1: Sample composition by counts (left) or relative abundance (right).
-</p></section>
+<img data-src="compositional_heatmap_files/figure-revealjs/fig-abund-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;1: Sample composition by counts (left) or relative abundance (right).</p></section>
 <section id="example-1.2" class="slide level2">
 <h2>Example 1.2</h2>
 <p>To reduce data skewness, we further transform the relative abundance assay with the <strong>Centered-Log Ratio</strong> (CLR), which is defined as follows:</p>
@@ -482,9 +479,7 @@ clr = log \frac{x}{g(x)} = log(x)−log[g(x)]
 <span id="cb8-3"><a href="#cb8-3"></a>clrz_hm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="compositional_heatmap_files/figure-revealjs/fig-compheat-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;2: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order.
-</p></section>
+<img data-src="compositional_heatmap_files/figure-revealjs/fig-compheat-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;2: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order.</p></section>
 <section id="why-clr-z-transformation" class="slide level2">
 <h2>Why clr-z transformation?</h2>
 <p>A CLR-z transformation improves comparability in two steps:</p>
@@ -493,9 +488,7 @@ Figure&nbsp;2: Heatmap of CLR-Z assay where columns correspond to samples and ro
 <li>Find <strong>Z score</strong> to standardise features <strong>row-wise</strong></li>
 </ol>
 
-<img data-src="compositional_heatmap_files/figure-revealjs/fig-comparison-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">
-Figure&nbsp;3: Visual comparison between counts, relative abundance, clr and clr-z assays (from left to right).
-</p></section>
+<img data-src="compositional_heatmap_files/figure-revealjs/fig-comparison-1.png" width="960" class="r-stretch quarto-figure-center"><p class="caption">Figure&nbsp;3: Visual comparison between counts, relative abundance, clr and clr-z assays (from left to right).</p></section>
 <section id="exercise-1" class="slide level2">
 <h2>Exercise 1</h2>
 <ul>
@@ -544,6 +537,7 @@ Figure&nbsp;3: Visual comparison between counts, relative abundance, clr and clr
       Reveal.initialize({
 'controlsAuto': true,
 'previewLinksAuto': false,
+'smaller': true,
 'pdfSeparateFragments': false,
 'autoAnimateEasing': "ease",
 'autoAnimateDuration': 1,
@@ -842,9 +836,10 @@ Figure&nbsp;3: Visual comparison between counts, relative abundance, clr and clr
         // clear code selection
         e.clearSelection();
       });
-      function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      function tippyHover(el, contentFn) {
         const config = {
           allowHTML: true,
+          content: contentFn,
           maxWidth: 500,
           delay: 100,
           arrow: false,
@@ -854,17 +849,8 @@ Figure&nbsp;3: Visual comparison between counts, relative abundance, clr and clr
           interactive: true,
           interactiveBorder: 10,
           theme: 'light-border',
-          placement: 'bottom-start',
+          placement: 'bottom-start'
         };
-        if (contentFn) {
-          config.content = contentFn;
-        }
-        if (onTriggerFn) {
-          config.onTrigger = onTriggerFn;
-        }
-        if (onUntriggerFn) {
-          config.onUntrigger = onUntriggerFn;
-        }
           config['offset'] = [0,0];
           config['maxWidth'] = 700;
         window.tippy(el, config); 
