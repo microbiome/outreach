@@ -655,21 +655,21 @@
     "href": "day2.html#recap-of-day-1",
     "title": "Tabular data analysis",
     "section": "Recap of Day 1",
-    "text": "Recap of Day 1\n\nData: SummarizedExperiment: rowData, colData, assays\nMethods: subsetting, transformations"
+    "text": "Recap of Day 1"
   },
   {
     "objectID": "day2.html#day-1-basic-data-wrangling",
     "href": "day2.html#day-1-basic-data-wrangling",
     "title": "Tabular data analysis",
     "section": "Day 1: Basic data wrangling",
-    "text": "Day 1: Basic data wrangling\n\nreproducible data science workflow\ndata import\ndata containers\ndata manipulation (subsetting, transformations)"
+    "text": "Day 1: Basic data wrangling\n\nreproducible data science workflow\ndata import\ndata containers"
   },
   {
     "objectID": "day2.html#todays-learning-goals",
     "href": "day2.html#todays-learning-goals",
     "title": "Tabular data analysis",
     "section": "Today’s learning goals",
-    "text": "Today’s learning goals\nExpanding multi-assay analyses:\nTreeSummarizedExperiment\n\naugmenting the data (add diversities)\ndata agglomeration & alternative experiments\ntree information: rowTree, colTree"
+    "text": "Today’s learning goals\n\ndata manipulation (subsetting, transformations)\naugmenting the data (add diversities)"
   },
   {
     "objectID": "day2.html#todays-program",
@@ -732,7 +732,7 @@
     "href": "day2.html#finite-sampling",
     "title": "Tabular data analysis",
     "section": "Finite sampling",
-    "text": "Finite sampling\n\nhttps://github.com/mblstamps/stamps2019/blob/master/STAMPS2019_overview_Pop.pdf"
+    "text": "Finite sampling\n\n\n\nhttps://github.com/mblstamps/stamps2019/blob/master/STAMPS2019_overview_Pop.pdf"
   },
   {
     "objectID": "day2.html#section-1",
@@ -816,7 +816,7 @@
     "href": "day2.html#subsetting",
     "title": "Tabular data analysis",
     "section": "Subsetting",
-    "text": "Subsetting\nLoad example data set:\n\nlibrary(mia)\ndata(GlobalPatterns)\ntse &lt;- GlobalPatterns\n\nCheck dimension:\n\ndim(tse)\n\n[1] 19216    26\n\n\nCheck dimension for a subset:\n\ndim(tse[1:10, 1:3])\n\n[1] 10  3"
+    "text": "Subsetting\nLoad example data set:\n\nlibrary(mia)\n\nLoading required package: SummarizedExperiment\n\n\nLoading required package: MatrixGenerics\n\n\nLoading required package: matrixStats\n\n\n\nAttaching package: 'MatrixGenerics'\n\n\nThe following objects are masked from 'package:matrixStats':\n\n    colAlls, colAnyNAs, colAnys, colAvgsPerRowSet, colCollapse,\n    colCounts, colCummaxs, colCummins, colCumprods, colCumsums,\n    colDiffs, colIQRDiffs, colIQRs, colLogSumExps, colMadDiffs,\n    colMads, colMaxs, colMeans2, colMedians, colMins, colOrderStats,\n    colProds, colQuantiles, colRanges, colRanks, colSdDiffs, colSds,\n    colSums2, colTabulates, colVarDiffs, colVars, colWeightedMads,\n    colWeightedMeans, colWeightedMedians, colWeightedSds,\n    colWeightedVars, rowAlls, rowAnyNAs, rowAnys, rowAvgsPerColSet,\n    rowCollapse, rowCounts, rowCummaxs, rowCummins, rowCumprods,\n    rowCumsums, rowDiffs, rowIQRDiffs, rowIQRs, rowLogSumExps,\n    rowMadDiffs, rowMads, rowMaxs, rowMeans2, rowMedians, rowMins,\n    rowOrderStats, rowProds, rowQuantiles, rowRanges, rowRanks,\n    rowSdDiffs, rowSds, rowSums2, rowTabulates, rowVarDiffs, rowVars,\n    rowWeightedMads, rowWeightedMeans, rowWeightedMedians,\n    rowWeightedSds, rowWeightedVars\n\n\nLoading required package: GenomicRanges\n\n\nLoading required package: stats4\n\n\nLoading required package: BiocGenerics\n\n\n\nAttaching package: 'BiocGenerics'\n\n\nThe following objects are masked from 'package:stats':\n\n    IQR, mad, sd, var, xtabs\n\n\nThe following objects are masked from 'package:base':\n\n    anyDuplicated, aperm, append, as.data.frame, basename, cbind,\n    colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,\n    get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,\n    match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,\n    Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,\n    table, tapply, union, unique, unsplit, which.max, which.min\n\n\nLoading required package: S4Vectors\n\n\n\nAttaching package: 'S4Vectors'\n\n\nThe following object is masked from 'package:utils':\n\n    findMatches\n\n\nThe following objects are masked from 'package:base':\n\n    expand.grid, I, unname\n\n\nLoading required package: IRanges\n\n\nLoading required package: GenomeInfoDb\n\n\nLoading required package: Biobase\n\n\nWelcome to Bioconductor\n\n    Vignettes contain introductory material; view with\n    'browseVignettes()'. To cite Bioconductor, see\n    'citation(\"Biobase\")', and for packages 'citation(\"pkgname\")'.\n\n\n\nAttaching package: 'Biobase'\n\n\nThe following object is masked from 'package:MatrixGenerics':\n\n    rowMedians\n\n\nThe following objects are masked from 'package:matrixStats':\n\n    anyMissing, rowMedians\n\n\nLoading required package: SingleCellExperiment\n\n\nLoading required package: TreeSummarizedExperiment\n\n\nLoading required package: Biostrings\n\n\nLoading required package: XVector\n\n\n\nAttaching package: 'Biostrings'\n\n\nThe following object is masked from 'package:base':\n\n    strsplit\n\n\nLoading required package: MultiAssayExperiment\n\ndata(GlobalPatterns)\ntse &lt;- GlobalPatterns\n\nCheck dimension:\n\ndim(tse)\n\n[1] 19216    26\n\n\nCheck dimension for a subset:\n\ndim(tse[1:10, 1:3])\n\n[1] 10  3"
   },
   {
     "objectID": "day2.html#transformations",
@@ -1559,5 +1559,12 @@
     "title": "TreeSummarizedExperiment",
     "section": "Further tasks",
     "text": "Further tasks\nIf you complete the task fast, check out other OMA Exercises on data containers."
+  },
+  {
+    "objectID": "day2.html",
+    "href": "day2.html",
+    "title": "Tabular data analysis",
+    "section": "",
+    "text": "Data: SummarizedExperiment: rowData, colData, assays\nMethods: subsetting, transformations"
   }
 ]

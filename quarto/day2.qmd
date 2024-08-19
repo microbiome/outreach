@@ -7,10 +7,7 @@ execute:
   cache: true
 ---
 
-## Recap of Day 1 
-
--   **Data**: *SummarizedExperiment*: rowData, colData, assays
--   **Methods**: subsetting, transformations
+## Recap of Day 1
 
 ![](images/paste-AA8BAE15.png){width="402"}
 
@@ -19,16 +16,11 @@ execute:
 -   reproducible data science workflow
 -   data import
 -   data containers
--   data manipulation (subsetting, transformations)
 
 ## Today's learning goals
 
-Expanding multi-assay analyses:\
-**TreeSummarizedExperiment**
-
+-   data manipulation (subsetting, transformations)
 -   augmenting the data (add diversities)
--   data agglomeration & *alternative experiments*
--   tree information: *rowTree, colTree*
 
 ## Today's program
 
@@ -102,9 +94,9 @@ Healthy & normal obese subjects.
 
 ## Finite sampling
 
-![https://github.com/mblstamps/stamps2019/blob/master/STAMPS2019_overview_Pop.pdf](images/paste-178A9470.png){alt="https://github.com/mblstamps/stamps2019/blob/master/STAMPS2019_overview_Pop.pdf"}
+![https://github.com/mblstamps/stamps2019/blob/master/STAMPS2019_overview_Pop.pdf](images/paste-178A9470.png)
 
-## {.scrollable}
+##  {.scrollable}
 
 ![](images/paste-B5BEB852.png)
 
@@ -142,7 +134,7 @@ The UHGG and UHGP collections enable studies linking genotypes to phenotypes in 
 
 ::: columns
 ::: {.column width="50%"}
-![Copyright © Claudia Zirion, Diego Garfias, Vanessa Arellano, Aaron Jaime, Abel Lovaco, Daniel Díaz, Abraham Avelar, Nelly Sélem https://carpentries-incubator.github.io/metagenomics-workshop/)](images/paste-2AD9955A.png){alt="Copyright © Claudia Zirion, Diego Garfias, Vanessa Arellano, Aaron Jaime, Abel Lovaco, Daniel Díaz, Abraham Avelar, Nelly Sélem https://carpentries-incubator.github.io/metagenomics-workshop/)"}
+![Copyright © Claudia Zirion, Diego Garfias, Vanessa Arellano, Aaron Jaime, Abel Lovaco, Daniel Díaz, Abraham Avelar, Nelly Sélem https://carpentries-incubator.github.io/metagenomics-workshop/)](images/paste-2AD9955A.png)
 :::
 
 ::: {.column width="50%"}
@@ -277,22 +269,6 @@ Order of diversity:
 
 # Data wrangling
 
-```{=html}
-<!--
-## Overview so far
-
-By now, you are supposed to be able to:
-
--   understand the basic structure of the TreeSE data container
-
--   construct a new TreeSE object from scratch or from imported data
-
--   extract specific components from the object (assays, sample & feature info, trees)
-
--\> How to manipulate & operate with this data object?
-
--->
-```
 ## Basic data operations
 
 -   Transform
