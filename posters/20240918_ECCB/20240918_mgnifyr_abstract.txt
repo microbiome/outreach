@@ -1,0 +1,12 @@
+﻿MGnifyR – R interface to MGnify metagenomic resource
+
+
+Tuomas Borman, Ben Allen, Leo Lahti
+
+
+Microbiome refers to micro-organisms and their genetic material in a certain well-defined habitat. While we acknowledge the important role of microbiome in human well-being, our understanding of the underlying mechanisms is often limited. Central to microbiome research is the analysis of metagenomic data, which offers insights into the composition and function of microbial communities. However, the acquisition of comprehensive and high-quality metagenomic data includes challenges. Data collection is time-consuming, expensive, and demands domain-specific expertise, posing barriers to research progress. To address this, open data portals, including the extensive MGnify database, have been established to provide curated metagenomic datasets. Open access to data is a step forward, but retrieving data from these resources often requires specialized skills and a deep understanding of the database structure. To simplify data retrieval, the MGnifyR package was developed, enabling easy and streamlined access to MGnify data directly from the R interface. A recent update to the package has integrated it more tightly with the Bioconductor ecosystem. This enhancement allows data to be fetched in a standardized format commonly used in Bioconductor, facilitating access to cutting-edge analytical tools in the microbiome field, such as miaverse. This integration bridges the gap between high-quality metagenomic resources and advanced analytical methods, fostering a more efficient and comprehensive approach to microbiome research. By connecting MGnify database with Bioconductor, the updated MGnifyR package is expected to catalyze further advancements and innovations in microbiome research, ultimately fostering a deeper understanding of microbial ecology and its broader implications in human health and disease.
+
+
+
+
+Keywords: metagenomics, data, bioconductor
