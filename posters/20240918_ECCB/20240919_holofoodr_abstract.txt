@@ -1,0 +1,7 @@
+Holo-omic is a novel research field that integrates multi-omic data from the host
+organism and its microbiome. Created by the HoloFood consortium, the openly available
+HoloFood database  grants access to the holo-omic data for over 2000 chickens and salmons.
+This database aims to study the impact of food additives on physiological and biomolecular
+parameters of farmed animals. However, access to such a wealthy database is complex and
+requires a profound understanding of the interrelations between various omic datasets,
+creating a gap between data availability and analytical frameworks.
