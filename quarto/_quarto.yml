@@ -9,6 +9,7 @@ project:
     - bioconductor.qmd
     - starting.qmd
     - reproducible_workflow.qmd
+    - mgnifyr.qmd
     - datacontainers.qmd
     - data_manipulation.qmd    
     - summarizedexperiment.qmd

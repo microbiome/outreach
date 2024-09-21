@@ -19,6 +19,10 @@ This website hosts quarto presentations about microbiome analysis and data integ
 -   [Learning environment](https://microbiome.github.io/outreach/starting.html){target="_blank"}
 -   [Workflow](https://microbiome.github.io/outreach/workflow.html){target="_blank"}
 
+### Packages
+
+- [MGnifyR: An R package for accessing MGnify microbiome data](https://microbiome.github.io/outreach/mgnifyr.html)
+
 ### Data containers
 
 -   [Orchestrating microbiome multi-omics with R & Bioconductor](https://microbiome.github.io/outreach/lahti_bioc2023.html){target="_blank"}
@@ -54,7 +58,7 @@ The following is a quick workflow for contributions:
 
 3.  update the [\_quarto.yml file](https://github.com/microbiome/outreach/blob/main/quarto/_quarto.yml) and the list of presentations in the [website](https://github.com/microbiome/outreach/blob/main/quarto/index.qmd) with the name of the qmd file(s) with your presentation(s)
 
-4.  run `quarto render`, or in R `quarto::render(myfilename)` from your terminal from within the quarto sub-directory
+4.  run `quarto render`, or in R `quarto::quarto_render(myfilename)` from your terminal from within the quarto sub-directory
 
 5.  and make a pull request to the master branch
 

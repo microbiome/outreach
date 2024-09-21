@@ -1566,5 +1566,54 @@
     "title": "Tabular data analysis",
     "section": "",
     "text": "Data: SummarizedExperiment: rowData, colData, assays\nMethods: subsetting, transformations"
+  },
+  {
+    "objectID": "mgnifyr.html#contents",
+    "href": "mgnifyr.html#contents",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "Contents",
+    "text": "Contents\n\nIntroduction to MGnify\nOverview of MGnifyR\nBioconductor and MGnifyR"
+  },
+  {
+    "objectID": "mgnifyr.html#mgnify",
+    "href": "mgnifyr.html#mgnify",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "MGnify",
+    "text": "MGnify\n\nMicrobiome database hosted by EMBL/EBI\nRaw sequences from ENA\nStandardized bioinformatics pipelines"
+  },
+  {
+    "objectID": "mgnifyr.html#data-availability",
+    "href": "mgnifyr.html#data-availability",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "Data availability",
+    "text": "Data availability\n\nOpen access\nTaxonomy and functional mappings along with genome catalogues\nApplication Programming Interface (API)"
+  },
+  {
+    "objectID": "mgnifyr.html#problem-in-api",
+    "href": "mgnifyr.html#problem-in-api",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "Problem in API",
+    "text": "Problem in API\n\nRequires familiarity with API workflows, database structures, and linkages.\nLeads to challenges in reproducibility and time-consuming data wrangling."
+  },
+  {
+    "objectID": "mgnifyr.html#mgnifyr",
+    "href": "mgnifyr.html#mgnifyr",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "MGnifyR",
+    "text": "MGnifyR\n\nR/Bioconductor package\nStreamlines access to MGnify database\nBridges the gap between data resources and tools"
+  },
+  {
+    "objectID": "mgnifyr.html#functions",
+    "href": "mgnifyr.html#functions",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "Functions",
+    "text": "Functions\n\nMgnifyClient(): Constructor for MgnifyClient object.\ndoQuery(): Search MGnify database for studies, samples, runs, analyses, biomes, assemblies, and genomes.\nsearchAnalysis(): Look up analysis accession IDs for one or more study or sample accessions.\ngetMetadata(): Get all study, sample and analysis metadata for the supplied analysis accessions.\ngetResult(): Get microbial and/or functional profiling data for a list of accessions.\ngetData(): Versatile function to retrieve raw results.\ngetFile() & searchFile(): Download any MGnify files, also including processed reads and identified protein sequences."
+  },
+  {
+    "objectID": "mgnifyr.html#bioconductor-and-mgnifyr",
+    "href": "mgnifyr.html#bioconductor-and-mgnifyr",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "Bioconductor and MGnifyR",
+    "text": "Bioconductor and MGnifyR\n\nMicrobial and functional profiling data is retrieved as TreeSE/MAE format.\nCommon data format supported broadly by Bioconductor.\nEnables direct access to cutting-edge tools (e.g. miaverse)."
   }
 ]
