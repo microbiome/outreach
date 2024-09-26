@@ -25,7 +25,7 @@ editor: visual
 - Taxonomy and functional mappings along with genome catalogues
 - Application Programming Interface (API)
 
-## Problem in API
+## Challenges in API
 
 - Requires familiarity with API workflows, database structures, and linkages.
 - Leads to challenges in reproducibility and time-consuming data wrangling.

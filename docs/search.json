@@ -1615,5 +1615,12 @@
     "title": "MGnifyR: An R package for accessing MGnify microbiome data",
     "section": "Bioconductor and MGnifyR",
     "text": "Bioconductor and MGnifyR\n\nMicrobial and functional profiling data is retrieved as TreeSE/MAE format.\nCommon data format supported broadly by Bioconductor.\nEnables direct access to cutting-edge tools (e.g. miaverse)."
+  },
+  {
+    "objectID": "mgnifyr.html#challenges-in-api",
+    "href": "mgnifyr.html#challenges-in-api",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "Challenges in API",
+    "text": "Challenges in API\n\nRequires familiarity with API workflows, database structures, and linkages.\nLeads to challenges in reproducibility and time-consuming data wrangling."
   }
 ]
