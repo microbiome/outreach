@@ -1,0 +1,156 @@
+---
+title: "Orchestrating Microbiome Analysis with Bioconductor"
+author: Tuomas Borman
+format:
+  revealjs: 
+    slide-number: true
+    chalkboard: 
+      buttons: false
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+---
+
+## Outline
+
+1. Bioconductor
+2. mia framework
+
+## Bioconductor
+
+- Community-driven open-source project
+
+1. Training programs and workshops
+2. Conferences and community support
+3. Bioinformatics software
+
+
+<!--
+- Training, conferences, software, ...
+
+- Project, community, training, conference, worldwide, inclusivity, everyone can join
+- Worldwide project
+- Software, t
+
+The idea is to give idea of Bioconductor. Also highlight the impact.
+-->
+
+![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo." fig-align="right" width=10%}
+
+## Software
+
+- ~2,300 R packages
+- Review, testing, documentation
+- Genomics, transcriptomics, microbiomics, ...
+
+```{r}
+# dat <- unlist(lapply(asd[["biocViews"]], function(x) any(grepl("microbiome", x, ignore.case = TRUE))))
+# 
+# df <- data.frame(value = c(sum(dat), sum(!dat)), group = c("Microbiome", "Other"))
+# 
+# library(ggplot2)
+# # 
+# # # Basic ggplot2# Basic piechart
+# # ggplot(dat, aes(x="", y = value, fill = field)) +
+# #   geom_bar(stat="identity", width=1) +
+# #   coord_polar("y", start=0) +
+# #     geom_text(aes(y = ypos, label = group), color = "white", size=6) +
+# #     theme_classic()
+# # 
+# # 
+# # df <- data.frame(value = c(15, 25, 32, 28),
+# #                  group = paste0("G", 1:4))
+# 
+# library(ggplot2)
+# library(ggrepel)
+# library(tidyverse)
+# # Get the positions
+# df2 <- df %>% 
+#   mutate(csum = rev(cumsum(rev(value))), 
+#          pos = value/2 + lead(csum, 1),
+#          pos = if_else(is.na(pos), value/2, pos))
+# 
+# ggplot(df, aes(x = "" , y = value, fill = fct_inorder(group))) +
+#   geom_col(width = 1, color = 1) +
+#   coord_polar(theta = "y") +
+#   scale_fill_brewer(palette = "Pastel1") +
+#   geom_label_repel(data = df2,
+#                    aes(y = pos, label = paste0(value, "")),
+#                    size = 4.5, nudge_x = 1, show.legend = FALSE) +
+#   guides(fill = guide_legend(title = "Field")) +
+#   theme_void()
+```
+
+![](images/sequencing_pkg.png){fig-alt="Number of packages related to sequencing data." fig-align="right" width=10%}
+
+<!--
+- Importance of Bioc
+- Over 2,300 packages
+- Different fields, ...
+
+The idea is to give idea what kind of software there are in Bioconductor.
+-->
+
+## Data cotainers forms the core {.smaller}
+
+![](images/paste-E3B845C5.png){fig-alt="Bioconductor class" fig-align="right" width=10%}
+
+## Structured and standardized format {.smaller}
+
+![](images/book_papers.webp){fig-alt="Bioconductor class" fig-align="right" width=10%}
+
+
+## SummarizedExperiment data container
+
+- Most common data container
+- Extended to different purpose
+- Scalable
+- 2015-->
+
+## SE
+
+Show figure of SE
+
+##
+
+![](images/optimal_data_container.png){fig-alt="Bioconductor class" fig-align="center" width=10%}
+
+## TreeSummarizedExperiment
+
+- Etxnesion to SE
+- Optimal for microbiome data science
+
+## SE
+
+Show figure of SE
+
+## TreeSE
+
+Show figure of TreeSE --> trees added
+
+## Show figure that class<methods<community
+
+## Microbiome data science
+
+We as a community have developed mehtods that utilize TreeSE
+Distributed via multiple R packages
+
+## Show packages
+
+## Advanatges
+
+As we are utilizing TreeSE, scalable, multiomics,...
+
+## OMA online book
+
+- Best practices
+- Examples
+
+--> Show OMA
+
+[Orchestrating Microbiome Analysis with Bioconductor](https://microbiome.github.io/OMA/docs/devel/){preview-link="true"}
+
+## Thank you for your time! {.smaller}
+
+![Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.](images/paste-DD45BC4A.png){width="800"}
+
