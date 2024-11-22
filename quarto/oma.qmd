@@ -34,7 +34,7 @@ format:
 
 ```{r}
 #| label: bioc_packages
-#| eval: false
+#| eval: true
 
 # Get packages and info based on their BiocViews
 pkgs <- BiocPkgTools::biocPkgList()
@@ -193,7 +193,7 @@ final_image
 ```{r}
 #| label: se_field
 #| fig-align: "right"
-#| eval: false
+#| eval: true
 
 # Get packages and info based on their BiocViews
 pkgs <- BiocPkgTools::biocPkgList()
@@ -318,7 +318,7 @@ _Reduce overlapping efforts, improve interoperability, ensure sustainability._
 
 ```{r}
 #| label: mia_stats
-#| eval: false
+#| eval: true
 
 df <- BiocPkgTools::biocDownloadStats()
 df <- as.data.frame(df)

@@ -22,3 +22,4 @@ project:
     - dbrda.qmd
     - compositional_heatmap.qmd
     - differential_abundance.qmd
+    - oma.qmd
