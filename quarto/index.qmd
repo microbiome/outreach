@@ -12,6 +12,7 @@ This website hosts quarto presentations about microbiome analysis and data integ
 
 -   [Intro](https://microbiome.github.io/outreach/intro.html){target="_blank"}
 -   [Bioconductor project](https://microbiome.github.io/outreach/bioconductor.html){target="_blank"}
+-   [Orchestrating microbiome Analysis with Bioconductor](https://microbiome.github.io/outreach/oma.html){target="_blank"}
 
 ### Quarto
 
