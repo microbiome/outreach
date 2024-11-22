@@ -8,7 +8,7 @@
 <link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.506">
+  <meta name="generator" content="quarto-1.5.57">
 
   <title>Data Manipulation</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -41,7 +41,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -69,7 +69,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -83,7 +83,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -410,15 +410,15 @@
 <h2>Example 1.1: Data Import</h2>
 <p>We work with microbiome data inside <code>TreeSummarizedExperiment</code> (TreeSE) containers and <code>mia</code> is our toolkit.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># Load Tengeler2020 and store it into a TreeSE</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="fu">library</span>(mia)</span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">data</span>(<span class="st">"Tengeler2020"</span>, <span class="at">package =</span> <span class="st">"mia"</span>)</span>
-<span id="cb1-4"><a href="#cb1-4"></a>tse <span class="ot">&lt;-</span> Tengeler2020</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># Load Tengeler2020 and store it into a TreeSE</span></span>
+<span id="cb1-2"><a></a><span class="fu">library</span>(mia)</span>
+<span id="cb1-3"><a></a><span class="fu">data</span>(<span class="st">"Tengeler2020"</span>, <span class="at">package =</span> <span class="st">"mia"</span>)</span>
+<span id="cb1-4"><a></a>tse <span class="ot">&lt;-</span> Tengeler2020</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The components of a TreeSE can all be seen at a glance.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># Print TreeSE</span></span>
-<span id="cb2-2"><a href="#cb2-2"></a>tse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="co"># Print TreeSE</span></span>
+<span id="cb2-2"><a></a>tse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>class: TreeSummarizedExperiment 
 dim: 151 27 
@@ -444,16 +444,16 @@ colTree: NULL</code></pre>
 <h2>Example 1.2: Column data</h2>
 <p>Columns represent the samples of an experiment.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Retrieve sample names</span></span>
-<span id="cb4-2"><a href="#cb4-2"></a><span class="fu">head</span>(<span class="fu">colnames</span>(tse), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="co"># Retrieve sample names</span></span>
+<span id="cb4-2"><a></a><span class="fu">head</span>(<span class="fu">colnames</span>(tse), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "A110" "A12"  "A15" </code></pre>
 </div>
 </div>
 <p>All information about the samples is stored in <code>colData</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a><span class="co"># Retrieve sample data</span></span>
-<span id="cb6-2"><a href="#cb6-2"></a><span class="fu">head</span>(<span class="fu">colData</span>(tse), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="co"># Retrieve sample data</span></span>
+<span id="cb6-2"><a></a><span class="fu">head</span>(<span class="fu">colData</span>(tse), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>DataFrame with 3 rows and 4 columns
      patient_status      cohort patient_status_vs_cohort sample_name
@@ -465,8 +465,8 @@ A15            ADHD    Cohort_1            ADHD_Cohort_1         A15</code></pre
 </div>
 <p>Individual variables about the samples can be accessed directly.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a><span class="co"># Retrieve sample variables</span></span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="fu">head</span>(tse<span class="sc">$</span>patient_status, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="co"># Retrieve sample variables</span></span>
+<span id="cb8-2"><a></a><span class="fu">head</span>(tse<span class="sc">$</span>patient_status, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "ADHD" "ADHD" "ADHD"</code></pre>
 </div>
@@ -476,16 +476,16 @@ A15            ADHD    Cohort_1            ADHD_Cohort_1         A15</code></pre
 <h2>Example 1.3: Row data</h2>
 <p>Rows represent the features of an experiment.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="co"># Retrieve feature names</span></span>
-<span id="cb10-2"><a href="#cb10-2"></a><span class="fu">head</span>(<span class="fu">rownames</span>(tse), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="co"># Retrieve feature names</span></span>
+<span id="cb10-2"><a></a><span class="fu">head</span>(<span class="fu">rownames</span>(tse), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Bacteroides"     "Bacteroides_1"   "Parabacteroides"</code></pre>
 </div>
 </div>
 <p>All information about the samples is stored in <code>rowData</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a><span class="co"># Retrieve feature data</span></span>
-<span id="cb12-2"><a href="#cb12-2"></a><span class="fu">head</span>(<span class="fu">rowData</span>(tse), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="co"># Retrieve feature data</span></span>
+<span id="cb12-2"><a></a><span class="fu">head</span>(<span class="fu">rowData</span>(tse), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>DataFrame with 3 rows and 6 columns
                     Kingdom        Phylum       Class         Order
@@ -502,8 +502,8 @@ Parabacteroides Porphyromonadaceae Parabacteroides</code></pre>
 </div>
 <p>Individual variables about the samples can be accessed from <code>rowData</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># Retrieve feature variables</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">head</span>(<span class="fu">rowData</span>(tse)<span class="sc">$</span>Genus, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="co"># Retrieve feature variables</span></span>
+<span id="cb14-2"><a></a><span class="fu">head</span>(<span class="fu">rowData</span>(tse)<span class="sc">$</span>Genus, <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Bacteroides"     "Bacteroides"     "Parabacteroides"</code></pre>
 </div>
@@ -513,7 +513,7 @@ Parabacteroides Porphyromonadaceae Parabacteroides</code></pre>
 <h2>Example 1.4: Assays</h2>
 <p>The assays of an experiment (counts, relative abundance, etc.) can be found in <code>assays</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">assays</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="fu">assays</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>List of length 1
 names(1): counts</code></pre>
@@ -521,14 +521,14 @@ names(1): counts</code></pre>
 </div>
 <p><code>assayNames</code> return only their names.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">assayNames</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">assayNames</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "counts"</code></pre>
 </div>
 </div>
 <p>An individual assay can be retrieved with <code>assay</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a><span class="fu">assay</span>(tse, <span class="st">"counts"</span>)[<span class="fu">seq</span>(<span class="dv">6</span>), <span class="fu">seq</span>(<span class="dv">6</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="fu">assay</span>(tse, <span class="st">"counts"</span>)[<span class="fu">seq</span>(<span class="dv">6</span>), <span class="fu">seq</span>(<span class="dv">6</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 A110   A12  A15  A19  A21  A23
 Bacteroides     17722 11630    0 8806 1740 1791
@@ -556,25 +556,25 @@ Bacteroides_3       0  6498    0 4455  610    0</code></pre>
 <h2>Example 2.1: Subsetting</h2>
 <p>We can subset features or samples of a TreeSE, but first we need to pick a variable.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="co"># Check levels of a sample variable</span></span>
-<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">unique</span>(tse<span class="sc">$</span>patient_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="co"># Check levels of a sample variable</span></span>
+<span id="cb22-2"><a></a><span class="fu">unique</span>(tse<span class="sc">$</span>patient_status)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "ADHD"    "Control"</code></pre>
 </div>
 </div>
 <p>To subset samples, we filter columns with a conditional.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="co"># Subset by a sample variable</span></span>
-<span id="cb24-2"><a href="#cb24-2"></a>subcol_tse <span class="ot">&lt;-</span> tse[ , tse<span class="sc">$</span>patient_status <span class="sc">==</span> <span class="st">"ADHD"</span>]</span>
-<span id="cb24-3"><a href="#cb24-3"></a><span class="fu">dim</span>(subcol_tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a></a><span class="co"># Subset by a sample variable</span></span>
+<span id="cb24-2"><a></a>subcol_tse <span class="ot">&lt;-</span> tse[ , tse<span class="sc">$</span>patient_status <span class="sc">==</span> <span class="st">"ADHD"</span>]</span>
+<span id="cb24-3"><a></a><span class="fu">dim</span>(subcol_tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 151  13</code></pre>
 </div>
 </div>
 <p>We now want to subset by our favourite Phylum.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="co"># Check levels of a feature variable</span></span>
-<span id="cb26-2"><a href="#cb26-2"></a><span class="fu">unique</span>(<span class="fu">rowData</span>(tse)<span class="sc">$</span>Phylum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a></a><span class="co"># Check levels of a feature variable</span></span>
+<span id="cb26-2"><a></a><span class="fu">unique</span>(<span class="fu">rowData</span>(tse)<span class="sc">$</span>Phylum)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Bacteroidetes"   "Verrucomicrobia" "Proteobacteria"  "Firmicutes"     
 [5] "Cyanobacteria"  </code></pre>
@@ -582,9 +582,9 @@ Bacteroides_3       0  6498    0 4455  610    0</code></pre>
 </div>
 <p>To subset features, we filter rows with a conditional.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># Subset by a feature variable</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a>subrow_tse <span class="ot">&lt;-</span> tse[<span class="fu">rowData</span>(tse)<span class="sc">$</span>Phylum <span class="sc">==</span> <span class="st">"Firmicutes"</span>, ]</span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="fu">dim</span>(subrow_tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a></a><span class="co"># Subset by a feature variable</span></span>
+<span id="cb28-2"><a></a>subrow_tse <span class="ot">&lt;-</span> tse[<span class="fu">rowData</span>(tse)<span class="sc">$</span>Phylum <span class="sc">==</span> <span class="st">"Firmicutes"</span>, ]</span>
+<span id="cb28-3"><a></a><span class="fu">dim</span>(subrow_tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 97 27</code></pre>
 </div>
@@ -594,17 +594,17 @@ Bacteroides_3       0  6498    0 4455  610    0</code></pre>
 <h2>Example 2.2: Agglomeration</h2>
 <p>Agglomeration condenses the assays to higher taxonomic ranks. Related taxa are combined together. We can agglomerate by different ranks.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># View rank options</span></span>
-<span id="cb30-2"><a href="#cb30-2"></a><span class="fu">taxonomyRanks</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a></a><span class="co"># View rank options</span></span>
+<span id="cb30-2"><a></a><span class="fu">taxonomyRanks</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "Kingdom" "Phylum"  "Class"   "Order"   "Family"  "Genus"  </code></pre>
 </div>
 </div>
 <p>We agglomerate by Phylum and store the new experiment in the <code>altExp</code> slot.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># Agglomerate by Phylum and store into altExp slot</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a><span class="fu">altExp</span>(tse, <span class="st">"phylum"</span>) <span class="ot">&lt;-</span> <span class="fu">agglomerateByRank</span>(tse, <span class="at">rank =</span> <span class="st">"Phylum"</span>)</span>
-<span id="cb32-3"><a href="#cb32-3"></a><span class="fu">altExp</span>(tse, <span class="st">"phylum"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a></a><span class="co"># Agglomerate by Phylum and store into altExp slot</span></span>
+<span id="cb32-2"><a></a><span class="fu">altExp</span>(tse, <span class="st">"phylum"</span>) <span class="ot">&lt;-</span> <span class="fu">agglomerateByRank</span>(tse, <span class="at">rank =</span> <span class="st">"Phylum"</span>)</span>
+<span id="cb32-3"><a></a><span class="fu">altExp</span>(tse, <span class="st">"phylum"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>class: TreeSummarizedExperiment 
 dim: 5 27 
@@ -630,13 +630,13 @@ colTree: NULL</code></pre>
 <h2>Example 2.3: Transformation</h2>
 <p>Data can be transformed for different reasons. For example, to make samples comparable we can use relative abundance.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a><span class="co"># Transform counts to relative abundance</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a>tse <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse,</span>
-<span id="cb34-3"><a href="#cb34-3"></a>                      <span class="at">assay.type =</span> <span class="st">"counts"</span>,</span>
-<span id="cb34-4"><a href="#cb34-4"></a>                      <span class="at">method =</span> <span class="st">"relabundance"</span>)</span>
-<span id="cb34-5"><a href="#cb34-5"></a></span>
-<span id="cb34-6"><a href="#cb34-6"></a><span class="co"># View sample-wise sums</span></span>
-<span id="cb34-7"><a href="#cb34-7"></a><span class="fu">head</span>(<span class="fu">colSums</span>(<span class="fu">assay</span>(tse, <span class="st">"relabundance"</span>)), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a></a><span class="co"># Transform counts to relative abundance</span></span>
+<span id="cb34-2"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse,</span>
+<span id="cb34-3"><a></a>                      <span class="at">assay.type =</span> <span class="st">"counts"</span>,</span>
+<span id="cb34-4"><a></a>                      <span class="at">method =</span> <span class="st">"relabundance"</span>)</span>
+<span id="cb34-5"><a></a></span>
+<span id="cb34-6"><a></a><span class="co"># View sample-wise sums</span></span>
+<span id="cb34-7"><a></a><span class="fu">head</span>(<span class="fu">colSums</span>(<span class="fu">assay</span>(tse, <span class="st">"relabundance"</span>)), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>A110  A12  A15 
    1    1    1 </code></pre>
@@ -644,14 +644,14 @@ colTree: NULL</code></pre>
 </div>
 <p>Or to standardise features to the normal distribution we can use z-scores: <span class="math inline">\(Z = \frac{x - \mu}{\sigma}\)</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="co"># Transform relative abundance to z-scores</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a>tse <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse,</span>
-<span id="cb36-3"><a href="#cb36-3"></a>                      <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
-<span id="cb36-4"><a href="#cb36-4"></a>                      <span class="at">method =</span> <span class="st">"z"</span>,</span>
-<span id="cb36-5"><a href="#cb36-5"></a>                      <span class="at">MARGIN =</span> <span class="st">"features"</span>)</span>
-<span id="cb36-6"><a href="#cb36-6"></a></span>
-<span id="cb36-7"><a href="#cb36-7"></a><span class="co"># View feature-wise standard deviations</span></span>
-<span id="cb36-8"><a href="#cb36-8"></a><span class="fu">head</span>(<span class="fu">rowSds</span>(<span class="fu">assay</span>(tse, <span class="st">"z"</span>)), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a></a><span class="co"># Transform relative abundance to z-scores</span></span>
+<span id="cb36-2"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse,</span>
+<span id="cb36-3"><a></a>                      <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
+<span id="cb36-4"><a></a>                      <span class="at">method =</span> <span class="st">"z"</span>,</span>
+<span id="cb36-5"><a></a>                      <span class="at">MARGIN =</span> <span class="st">"features"</span>)</span>
+<span id="cb36-6"><a></a></span>
+<span id="cb36-7"><a></a><span class="co"># View feature-wise standard deviations</span></span>
+<span id="cb36-8"><a></a><span class="fu">head</span>(<span class="fu">rowSds</span>(<span class="fu">assay</span>(tse, <span class="st">"z"</span>)), <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    Bacteroides   Bacteroides_1 Parabacteroides 
               1               1               1 </code></pre>
@@ -681,8 +681,10 @@ colTree: NULL</code></pre>
 <li><a href="https://microbiome.github.io/OMA/docs/devel/pages/11_taxonomic_information.html#sec-assay-transform" target="_blank">OMA Section - Transformation</a></li>
 </ul>
 
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
     </div>
@@ -965,18 +967,7 @@ colTree: NULL</code></pre>
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1008,7 +999,47 @@ colTree: NULL</code></pre>
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -1045,7 +1076,11 @@ colTree: NULL</code></pre>
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

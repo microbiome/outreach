@@ -8,7 +8,7 @@
 <link href="site_libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.4.506">
+  <meta name="generator" content="quarto-1.5.57">
 
   <meta name="author" content="Leo Lahti @antagomir">
   <title>Orchestrating microbiome multi-omics</title>
@@ -42,7 +42,7 @@
     }
     @media print {
     pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
     }
     pre.numberSource code
       { counter-reset: source-line 0; }
@@ -70,7 +70,7 @@
     code span.at { color: #657422; } /* Attribute */
     code span.bn { color: #ad0000; } /* BaseN */
     code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; } /* ControlFlow */
+    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
     code span.ch { color: #20794d; } /* Char */
     code span.cn { color: #8f5902; } /* Constant */
     code span.co { color: #5e5e5e; } /* Comment */
@@ -84,7 +84,7 @@
     code span.fu { color: #4758ab; } /* Function */
     code span.im { color: #00769e; } /* Import */
     code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; } /* Keyword */
+    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
     code span.op { color: #5e5e5e; } /* Operator */
     code span.ot { color: #003b4f; } /* Other */
     code span.pp { color: #ad0000; } /* Preprocessor */
@@ -439,8 +439,7 @@ counts, relabundance, phILR..</p>
 taxonomic levels, nested designs, sample &amp; feature trees</p>
 </div><div class="column" style="width:60%;">
 <p><img data-src="images/Screenshot from 2023-07-27 17-54-40.png"></p>
-</div>
-</div>
+</div></div>
 </div>
 </section>
 <section id="section" class="slide level2 smaller">
@@ -454,9 +453,12 @@ taxonomic levels, nested designs, sample &amp; feature trees</p>
 <p>by extending the Bioconductor <em>MultiAssayExperiment</em> class.</p>
 <div data-layout="[50, 50]">
 <p><img data-src="images/Screenshot from 2023-07-30 15-12-18.png" height="400"></p>
+<div>
+
+</div>
 <div class="quarto-layout-panel" data-layout="[[100], [100]]">
-<div class="quarto-layout-row quarto-layout-valign-top">
-<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: center;">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 100.0%;justify-content: flex-start;">
 <p><img data-src="images/Screenshot from 2023-07-31 00-08-19.png"> <img data-src="images/Screenshot from 2023-07-31 00-14-46.png"></p>
 </div>
 </div>
@@ -476,8 +478,7 @@ enhances multi-assay analyses in microbiome studies</p>
 speed, memory &amp; scale (sample sizes, datasets, cohorts)</p>
 <p><strong>Integrated</strong><br>
 with other applications &amp; frameworks (e.g.&nbsp;Single Cell, Spatial transcriptomics)</p>
-</div>
-</div>
+</div></div>
 <!--$\rightarrow$ Interoperability, sustainability, efficiency-->
 </section>
 <section id="package-and-data-ecosystem" class="slide level2 smaller">
@@ -497,8 +498,7 @@ with other applications &amp; frameworks (e.g.&nbsp;Single Cell, Spatial transcr
 <li><p>Ecological simulations (miaSim)</p></li>
 </ul>
 <p><img data-src="images/mia_logo.png" width="80"> <img data-src="images/bioconductor_logo_rgb.jpg" class="absolute" style="top: 585px; left: 680px; width: 200px; "></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="section-1" class="slide level2 smaller">
 <h2></h2>
@@ -507,8 +507,11 @@ with other applications &amp; frameworks (e.g.&nbsp;Single Cell, Spatial transcr
 <p><img data-src="images/Screenshot from 2023-07-31 22-04-20.png" height="120"> <img data-src="images/Screenshot from 2023-07-31 22-04-41.png" height="120"> <img data-src="images/Screenshot from 2023-07-31 22-03-35.png" height="120"> <img data-src="images/Screenshot from 2023-07-31 22-12-25.png" height="120"></p>
 <h3 id="open-data-resources">Open data resources</h3>
 <p>Open microbiome data sets readily available in <em>TreeSummarizedExperiment</em> format via <em>curatedMetagenomicData</em>, <em>EBI MGnify</em>, Bioconductor <em>ExperimentHub</em>, and packages.</p>
+<div>
+
+</div>
 <div class="quarto-layout-panel" data-layout="[[40, 30, 33]]">
-<div class="quarto-layout-row quarto-layout-valign-top">
+<div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 38.8%;justify-content: center;">
 <p><img data-src="images/Screenshot from 2023-07-31 22-00-40.png" width="350"></p>
 </div>
@@ -525,23 +528,23 @@ with other applications &amp; frameworks (e.g.&nbsp;Single Cell, Spatial transcr
 <h2>Minimal example</h2>
 <p>Cross-correlating taxonomic and metabolomic profiles from a dietary intervention study in mice (Hintikka et al.&nbsp;2021).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mia)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Import data and rename</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"HintikkaXOData"</span>)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>mae <span class="ot">&lt;-</span> HintikkaXOData</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Agglomerate rare taxa by prevalence at the Family level &amp; log10-transform read  counts</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>mae[[<span class="st">"microbiota"</span>]] <span class="ot">&lt;-</span> <span class="fu">agglomerateByPrevalence</span>(mae[[<span class="st">"microbiota"</span>]], <span class="at">rank =</span> <span class="st">"Family"</span>)</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>mae[[<span class="st">"microbiota"</span>]] <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(mae[[<span class="st">"microbiota"</span>]], <span class="at">method =</span> <span class="st">"clr"</span>, <span class="at">pseudocount =</span> <span class="dv">1</span>)</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Get cross-correlation between taxa &amp; metabolites</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">testExperimentCrossAssociation</span>(mae, <span class="at">experiment1 =</span> <span class="st">"microbiota"</span>, <span class="at">experiment2 =</span> <span class="st">"metabolites"</span>,</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">assay.type1 =</span> <span class="st">"clr"</span>, <span class="at">assay.type2 =</span> <span class="st">"nmr"</span>,</span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>                                               <span class="at">mode =</span> <span class="st">"matrix"</span>, <span class="at">sort =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>cor</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize taxa-metabolite associations on heatmap</span></span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>ComplexHeatmap<span class="sc">::</span><span class="fu">Heatmap</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mia)</span>
+<span id="cb1-2"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Import data and rename</span></span>
+<span id="cb1-4"><a aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"HintikkaXOData"</span>)</span>
+<span id="cb1-5"><a aria-hidden="true" tabindex="-1"></a>mae <span class="ot">&lt;-</span> HintikkaXOData</span>
+<span id="cb1-6"><a aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb1-7"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Agglomerate rare taxa by prevalence at the Family level &amp; log10-transform read  counts</span></span>
+<span id="cb1-8"><a aria-hidden="true" tabindex="-1"></a>mae[[<span class="st">"microbiota"</span>]] <span class="ot">&lt;-</span> <span class="fu">agglomerateByPrevalence</span>(mae[[<span class="st">"microbiota"</span>]], <span class="at">rank =</span> <span class="st">"Family"</span>)</span>
+<span id="cb1-9"><a aria-hidden="true" tabindex="-1"></a>mae[[<span class="st">"microbiota"</span>]] <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(mae[[<span class="st">"microbiota"</span>]], <span class="at">method =</span> <span class="st">"clr"</span>, <span class="at">pseudocount =</span> <span class="dv">1</span>)</span>
+<span id="cb1-10"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Get cross-correlation between taxa &amp; metabolites</span></span>
+<span id="cb1-12"><a aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">testExperimentCrossAssociation</span>(mae, <span class="at">experiment1 =</span> <span class="st">"microbiota"</span>, <span class="at">experiment2 =</span> <span class="st">"metabolites"</span>,</span>
+<span id="cb1-13"><a aria-hidden="true" tabindex="-1"></a>                                               <span class="at">assay.type1 =</span> <span class="st">"clr"</span>, <span class="at">assay.type2 =</span> <span class="st">"nmr"</span>,</span>
+<span id="cb1-14"><a aria-hidden="true" tabindex="-1"></a>                                               <span class="at">mode =</span> <span class="st">"matrix"</span>, <span class="at">sort =</span> <span class="cn">TRUE</span>)<span class="sc">$</span>cor</span>
+<span id="cb1-15"><a aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a aria-hidden="true" tabindex="-1"></a><span class="co"># Visualize taxa-metabolite associations on heatmap</span></span>
+<span id="cb1-17"><a aria-hidden="true" tabindex="-1"></a>ComplexHeatmap<span class="sc">::</span><span class="fu">Heatmap</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="lahti_bioc2023_files/figure-revealjs/unnamed-chunk-1-1.png" data-fig-pos="r" width="1440" class="r-stretch"></section>
@@ -554,8 +557,7 @@ with other applications &amp; frameworks (e.g.&nbsp;Single Cell, Spatial transcr
 </div><div class="column" style="width:35%;">
 <p><img data-src="images/Screenshot from 2023-07-29 17-13-06.png" width="350"><br>
 <img data-src="images/Screenshot from 2023-07-29 17-11-27-01.png" width="350"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="community" class="slide level2 smaller">
 <h2>Community</h2>
@@ -569,8 +571,7 @@ with other applications &amp; frameworks (e.g.&nbsp;Single Cell, Spatial transcr
 <p><img data-src="images/Screenshot from 2023-07-27 18-03-25.png" class="absolute" style="top: 0px; left: 720px; width: 300px; "><br>
 <img data-src="images/renuka.png" class="absolute" style="top: 265px; left: 760px; width: 180px; "><br>
 <img data-src="images/ccby.png" class="absolute" style="top: 535px; left: 800px; width: 120px; "></p>
-</div>
-</div>
+</div></div>
 <div class="columns">
 <div class="column" style="width:14%;">
 <p><img data-src="images/turun_yliopiston_logo.jpg"></p>
@@ -586,8 +587,7 @@ with other applications &amp; frameworks (e.g.&nbsp;Single Cell, Spatial transcr
 <p><img data-src="images/ml4microbiome_logo.png"></p>
 </div><div class="column" style="width:14%;">
 <p><img data-src="images/bioconductor_logo_cmyk.jpg"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="section-2" class="slide level2">
 <h2></h2>
@@ -600,8 +600,7 @@ with other applications &amp; frameworks (e.g.&nbsp;Single Cell, Spatial transcr
 <img data-src="images/Screenshot from 2023-07-29 17-11-27-01.png" width="350"></p>
 </div><div class="column" style="width:50%;">
 <p><img data-src="images/Screenshot from 2023-07-29 17-48-58.png"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="resources" class="slide level2">
 <h2>Resources</h2>
@@ -612,8 +611,7 @@ with other applications &amp; frameworks (e.g.&nbsp;Single Cell, Spatial transcr
 <p><img data-src="images/mia_logo.png"></p>
 </div><div class="column" style="width:80%;">
 <p><img data-src="images/Screenshot from 2023-07-27 18-02-19.png"></p>
-</div>
-</div>
+</div></div>
 <!--Link to Shetty pkg listing-->
 <!--![](images/Screenshot%20from%202023-07-27%2018-00-45.png)-->
 </section>
@@ -635,8 +633,7 @@ mia, miaViz</p>
 <figcaption>Figure by Domenick Braccia (EuroBioC 2020)</figcaption>
 </figure>
 </div>
-</div>
-</div>
+</div></div>
 </section>
 <section id="misc" class="slide level2">
 <h2>Misc</h2>
@@ -663,8 +660,7 @@ speed &amp; memory</p>
 other applications &amp; frameworks</p>
 </div><div class="column" style="width:60%;">
 <p><img data-src="images/ecosystem.png"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="data-integration-in-microbiomics" class="slide level2 smaller">
 <h2>Data integration in microbiomics</h2>
@@ -695,8 +691,7 @@ speed &amp; memory</p>
 other applications &amp; frameworks</p>
 </div><div class="column" style="width:60%;">
 <p><img data-src="images/ecosystem.png"></p>
-</div>
-</div>
+</div></div>
 </section>
 <section id="linking-multiple-omics" class="slide level2 smaller">
 <h2>Linking multiple omics</h2>
@@ -713,8 +708,10 @@ other applications &amp; frameworks</p>
 <li><p>Import functions for common formats (Biom, QIIME2, Mothur, phyloseq)</p></li>
 </ul>
 
+<div class="quarto-auto-generated-content">
 <div class="footer footer-default">
 
+</div>
 </div>
 </section>
     </div>
@@ -999,18 +996,7 @@ other applications &amp; frameworks</p>
         }
         return false;
       }
-      const clipboard = new window.ClipboardJS('.code-copy-button', {
-        text: function(trigger) {
-          const codeEl = trigger.previousElementSibling.cloneNode(true);
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
-            }
-          }
-          return codeEl.innerText;
-        }
-      });
-      clipboard.on('success', function(e) {
+      const onCopySuccess = function(e) {
         // button target
         const button = e.trigger;
         // don't keep focus
@@ -1042,7 +1028,47 @@ other applications &amp; frameworks</p>
         }, 1000);
         // clear code selection
         e.clearSelection();
+      }
+      const getTextToCopy = function(trigger) {
+          const codeEl = trigger.previousElementSibling.cloneNode(true);
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+      }
+      const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+        text: getTextToCopy
       });
+      clipboard.on('success', onCopySuccess);
+      if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+        // For code content inside modals, clipBoardJS needs to be initialized with a container option
+        // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+        const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+          text: getTextToCopy,
+          container: window.document.getElementById('quarto-embedded-source-code-modal')
+        });
+        clipboardModal.on('success', onCopySuccess);
+      }
+        var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+        var mailtoRegex = new RegExp(/^mailto:/);
+          var filterRegex = new RegExp('/' + window.location.host + '/');
+        var isInternal = (href) => {
+            return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+        }
+        // Inspect non-navigation links and adorn them if external
+     	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+        for (var i=0; i<links.length; i++) {
+          const link = links[i];
+          if (!isInternal(link.href)) {
+            // undo the damage that might have been done by quarto-nav.js in the case of
+            // links that we want to consider external
+            if (link.dataset.originalHref !== undefined) {
+              link.href = link.dataset.originalHref;
+            }
+          }
+        }
       function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
         const config = {
           allowHTML: true,
@@ -1079,7 +1105,11 @@ other applications &amp; frameworks</p>
           try { href = new URL(href).hash; } catch {}
           const id = href.replace(/^#\/?/, "");
           const note = window.document.getElementById(id);
-          return note.innerHTML;
+          if (note) {
+            return note.innerHTML;
+          } else {
+            return "";
+          }
         });
       }
       const findCites = (el) => {

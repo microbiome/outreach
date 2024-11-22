@@ -1,7 +1,6 @@
 ---
 title: "distance-based Redundance Analysis (dbRDA)"
 format: html
-editor: visual
 ---
 
 ## Overview
@@ -105,7 +104,7 @@ p
 ```{r}
 #| label: test-rda
 #| echo: true
-rda <- attr(reducedDim(tse, "RDA"), "rda")
+rda <- attr(reducedDim(tse, "RDA"), "obj")
 
 set.seed(123)
 terms_permanova <- anova.cca(rda,
