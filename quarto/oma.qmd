@@ -342,11 +342,12 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 ::: columns
 ::: {.column width="70%"}
 
+<!--
 - Community-driven ecosystem of tools
 - Analysis, visualization, simulation, multi-omics, time series, ...
 - Now with a graphical user interface
+-->
 
-<!--
 - [mia](https://bioconductor.org/packages/release/bioc/html/mia.html) (Data analysis)
 - [miaViz](https://bioconductor.org/packages/release/bioc/html/miaViz.html) (Visualization)
 - [miaSim](https://bioconductor.org/packages/release/bioc/html/miaSim.html) (Simulation)
@@ -354,7 +355,6 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 - [miaDash](https://miadash-microbiome.2.rahtiapp.fi/) (Graphical user interface)
 - [iSEEtree](https://bioconductor.org/packages/release/bioc/html/iSEEtree.html) (Interactive visualization)
 - [Expanded by independent developers](https://microbiome.github.io/OMA/docs/devel/pages/miaverse.html#sec-packages)
--->
 
 :::
 

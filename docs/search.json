@@ -133,11 +133,11 @@
     "text": "MIcrobiome Analysis (mia)\n\nMicrobiome data science in SummarizedExperiment ecosystem\nDistributed through several R packages\nmia package top 7.6% Bioconductor downloads"
   },
   {
-    "objectID": "oma.html#mia-ecosystem",
-    "href": "oma.html#mia-ecosystem",
+    "objectID": "oma.html#expanding-ecosystem",
+    "href": "oma.html#expanding-ecosystem",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "mia ecosystem",
-    "text": "mia ecosystem\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEEtree (Interactive visualization)\nExpanded by independent developers"
+    "section": "Expanding ecosystem",
+    "text": "Expanding ecosystem\n\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEEtree (Interactive visualization)\nExpanded by independent developers"
   },
   {
     "objectID": "oma.html#advantages",
@@ -214,7 +214,7 @@
     "href": "oma.html#thank-you-for-your-time",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Thank you for your time!",
-    "text": "Thank you for your time!\n Moreno-Indias et al. (2021)\n  \n\n\n\n\nhttps://microbiome.github.io/"
+    "text": "Thank you for your time!\n\n\n\n\n\nMoreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhttps://microbiome.github.io/"
   },
   {
     "objectID": "hintikkaxo_presentation.html#study-design",
@@ -291,7 +291,7 @@
     "href": "quarto.html#example-2.3-yaml-parameters",
     "title": "Reproducible Reporting with Quarto",
     "section": "Example 2.3: YAML Parameters",
-    "text": "Example 2.3: YAML Parameters\nAt the beginning of any Quarto document, there is a box delimited by ---. There you can define document metadata, such as title, author, date, output format, bibliography, citation style, theme, font size and many others.\n---\ntitle: “Around the gut in 24 hours”\nformat: html\neditor: visual\nsmaller: true\nauthor: Escherichia coli\ndate: 2024-11-22\n---"
+    "text": "Example 2.3: YAML Parameters\nAt the beginning of any Quarto document, there is a box delimited by ---. There you can define document metadata, such as title, author, date, output format, bibliography, citation style, theme, font size and many others.\n---\ntitle: “Around the gut in 24 hours”\nformat: html\neditor: visual\nsmaller: true\nauthor: Escherichia coli\ndate: 2024-11-23\n---"
   },
   {
     "objectID": "quarto.html#exercise-2",
