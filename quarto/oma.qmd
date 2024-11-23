@@ -337,16 +337,10 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 
 ![](images/mia_logo.png){fig-alt="mia logo." fig-align="right" width=10%}
 
-## Expanding ecosystem
+## Community-driven ecosystem of tools
 
 ::: columns
 ::: {.column width="70%"}
-
-<!--
-- Community-driven ecosystem of tools
-- Analysis, visualization, simulation, multi-omics, time series, ...
-- Now with a graphical user interface
--->
 
 - [mia](https://bioconductor.org/packages/release/bioc/html/mia.html) (Data analysis)
 - [miaViz](https://bioconductor.org/packages/release/bioc/html/miaViz.html) (Visualization)

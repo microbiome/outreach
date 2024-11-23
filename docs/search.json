@@ -133,11 +133,11 @@
     "text": "MIcrobiome Analysis (mia)\n\nMicrobiome data science in SummarizedExperiment ecosystem\nDistributed through several R packages\nmia package top 7.6% Bioconductor downloads"
   },
   {
-    "objectID": "oma.html#expanding-ecosystem",
-    "href": "oma.html#expanding-ecosystem",
+    "objectID": "oma.html#community-driven-ecosystem-of-tools",
+    "href": "oma.html#community-driven-ecosystem-of-tools",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Expanding ecosystem",
-    "text": "Expanding ecosystem\n\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEEtree (Interactive visualization)\nExpanded by independent developers"
+    "section": "Community-driven ecosystem of tools",
+    "text": "Community-driven ecosystem of tools\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEEtree (Interactive visualization)\nExpanded by independent developers"
   },
   {
     "objectID": "oma.html#advantages",
