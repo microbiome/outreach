@@ -337,8 +337,16 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 
 ![](images/mia_logo.png){fig-alt="mia logo." fig-align="right" width=10%}
 
-## mia ecosystem
+## Expanding ecosystem
 
+::: columns
+::: {.column width="70%"}
+
+- Community-driven ecosystem of tools
+- Analysis, visualization, simulation, multi-omics, time series, ...
+- Now with a graphical user interface
+
+<!--
 - [mia](https://bioconductor.org/packages/release/bioc/html/mia.html) (Data analysis)
 - [miaViz](https://bioconductor.org/packages/release/bioc/html/miaViz.html) (Visualization)
 - [miaSim](https://bioconductor.org/packages/release/bioc/html/miaSim.html) (Simulation)
@@ -346,6 +354,24 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 - [miaDash](https://miadash-microbiome.2.rahtiapp.fi/) (Graphical user interface)
 - [iSEEtree](https://bioconductor.org/packages/release/bioc/html/iSEEtree.html) (Interactive visualization)
 - [Expanded by independent developers](https://microbiome.github.io/OMA/docs/devel/pages/miaverse.html#sec-packages)
+-->
+
+:::
+
+::: {.column width="30%"}
+
+![](https://raw.githubusercontent.com/microbiome/mia/refs/heads/devel/man/figures/mia_logo.png){fig-alt="mia logo." width=30%} ![](https://raw.githubusercontent.com/EBI-Metagenomics/MGnifyR/refs/heads/devel/man/figures/mgnifyr_logo.png){fig-alt="MGnifyR logo." width=30%}
+![](https://raw.githubusercontent.com/EBI-Metagenomics/HoloFoodR/refs/heads/devel/man/figures/holofoodr_logo.png){fig-alt="HoloFoodR logo." width=30%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/iSEE/iSEE.png){fig-alt="iSEE logo." width=30%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/MultiAssayExperiment/MultiAssayExperiment.png){fig-alt="MAE logo." width=30%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SummarizedExperiment/SummarizedExperiment.png){fig-alt="SE logo." width=30%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SingleCellExperiment/SingleCellExperiment.png){fig-alt="SCE logo." width=30%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/scater/scater.png){fig-alt="scater logo." width=30%}
+![](https://pbs.twimg.com/media/FDNU5KgWYAcnU8w.jpg){fig-alt="benchdamic logo." width=30%}
+![](https://stefpeschel.de/media/logos/NetCoMi_Logo.svg){fig-alt="netcomi logo." width=30%}
+:::
+
+:::
 
 ## Advantages
 
@@ -493,10 +519,27 @@ plotReducedDim(tse, dimred = "MDS", colour_by = "Geographical_location")
 
 ## Thank you for your time! {.smaller}
 
+::: columns
+::: {.column width="70%"}
+![Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.](images/paste-DD45BC4A.png)
+:::
 
-![](images/paste-DD45BC4A.png){width="600" fig-align="right"}
-\hfill <small>[_Moreno-Indias et al. (2021)_]{style="right"}</small>
+::: {.column width="30%"}
 
-![](https://apps.utu.fi/media/logo/UTU_logo_EN_RGB.png){fig-alt="University of Turku logo" width="100" fig-align="center"}
-![](https://www.ebi.ac.uk/metagenomics/static/50d6b60518ea8b4816b9.png){fig-alt="UTU logo" width="190" fig-align="center"}
-![](https://media.aka.fi/api/v3/public/file/497671429c8b0783/thumbnail.jpg?version=e5566c3f8491a9bcc65c74594efa47c0){fig-alt="Research Council of Finland logo" width="100" fig-align="center"}
+![](https://apps.utu.fi/media/logo/UTU_logo_EN_RGB.png){fig-alt="University of Turku logo" width="200" fig-align="center"}
+
+
+![](https://www.ebi.ac.uk/metagenomics/static/50d6b60518ea8b4816b9.png){fig-alt="UTU logo" width="200" fig-align="center"}
+
+
+![](https://media.aka.fi/api/v3/public/file/497671429c8b0783/thumbnail.jpg?version=e5566c3f8491a9bcc65c74594efa47c0){fig-alt="Research Council of Finland logo" width="200" fig-align="center"}
+
+
+![](https://biocityturku.fi/wp-content/uploads/2023/06/CompLifeSci-color-balck-01-2-720x217.png){fig-alt="CompLifeSci logo" width="200" fig-align="center"}
+
+
+![](https://www.yliopistosaatio.fi/wp-content/uploads/2024/02/logo-vaaka-turun-yliopistosatio.webp){fig-alt="Turun yliopistosäätiö logo" width="200" fig-align="center"}
+:::
+
+:::
+
