@@ -207,7 +207,14 @@
     "href": "oma.html#orchestrating-microbiome-analysis-with-bioconductor",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Orchestrating Microbiome Analysis with Bioconductor",
-    "text": "Orchestrating Microbiome Analysis with Bioconductor\n\nResources and tutorials for microbiome analysis\nCommunity-built best practices\nOpen to contributions!\n\n\n\n\n\n\n\nGo to the book\n\n\nmicrobiome.github.io/OMA"
+    "text": "Orchestrating Microbiome Analysis with Bioconductor\n\nResources and tutorials for microbiome analysis\nCommunity-built best practices\nOpen to contributions!\n\n\n\n\n\n\n\nGo to the OMA book\n\n\nmicrobiome.github.io/OMA"
+  },
+  {
+    "objectID": "oma.html#summary",
+    "href": "oma.html#summary",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Summary",
+    "text": "Summary\n\n\n\nData containers in Bioconductor\nmia framework for microbiome data science\nOrchestrating Microbiome Analysis (OMA) online book"
   },
   {
     "objectID": "oma.html#thank-you-for-your-time",
@@ -291,7 +298,7 @@
     "href": "quarto.html#example-2.3-yaml-parameters",
     "title": "Reproducible Reporting with Quarto",
     "section": "Example 2.3: YAML Parameters",
-    "text": "Example 2.3: YAML Parameters\nAt the beginning of any Quarto document, there is a box delimited by ---. There you can define document metadata, such as title, author, date, output format, bibliography, citation style, theme, font size and many others.\n---\ntitle: “Around the gut in 24 hours”\nformat: html\neditor: visual\nsmaller: true\nauthor: Escherichia coli\ndate: 2024-11-23\n---"
+    "text": "Example 2.3: YAML Parameters\nAt the beginning of any Quarto document, there is a box delimited by ---. There you can define document metadata, such as title, author, date, output format, bibliography, citation style, theme, font size and many others.\n---\ntitle: “Around the gut in 24 hours”\nformat: html\neditor: visual\nsmaller: true\nauthor: Escherichia coli\ndate: 2024-11-24\n---"
   },
   {
     "objectID": "quarto.html#exercise-2",

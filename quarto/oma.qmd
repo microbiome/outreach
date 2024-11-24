@@ -506,10 +506,33 @@ plotReducedDim(tse, dimred = "MDS", colour_by = "Geographical_location")
 - Open to contributions!
 
 ::: {.callout-tip}
-## Go to the book
+## Go to the OMA book
 
 [microbiome.github.io/OMA](https://microbiome.github.io/OMA/docs/devel/){preview-link="true"}
 :::
+
+## Summary
+
+::: columns
+::: {.column width="50%"}
+
+1. Data containers in Bioconductor
+2. mia framework for microbiome data science
+3. Orchestrating Microbiome Analysis (OMA) online book
+
+:::
+
+::: {.column width="50%"}
+
+![](images/paste-14DB8F76.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=100%}
+
+
+![](images/mia_logo.png){fig-alt="mia logo." fig-align="center" width=30%}
+
+:::
+
+:::
+
 
 ## Thank you for your time! {.smaller}
 
