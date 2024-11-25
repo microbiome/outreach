@@ -72,6 +72,7 @@ fields <- sapply(pkgs$biocViews, function(x){
     return(field)
 })
 pkgs[["Field"]] <- fields
+pkgs[pkgs[["Package"]] %in% c("mia", "miaViz", "miaSim", "iSEEtree", "HoloFoodR", "MGnifyR"), "Field"] <- "Microbiome"
 # Get download stats 
 df <- BiocPkgTools::biocDownloadStats()
 # Subset to include only packages which BiocView we have
@@ -232,6 +233,7 @@ fields <- sapply(pkgs$biocViews, function(x){
     return(field)
 })
 pkgs[["Field"]] <- fields
+pkgs[pkgs[["Package"]] %in% c("mia", "miaViz", "miaSim", "iSEEtree", "HoloFoodR", "MGnifyR"), "Field"] <- "Microbiome"
 #
 se_pkgs <- data.frame(table(pkgs$Field))
 colnames(se_pkgs) <- c("Field", "N")
@@ -304,7 +306,7 @@ _Reduce overlapping efforts, improve interoperability, ensure sustainability._
 
 - Extension to SummarizedExperiment
 - Optimal for microbiome data
-- Allows us to develop modular and efficient workflows
+- Links microbiome field to larger SE family
 
 ##
 
@@ -372,6 +374,8 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 - Shared data container
 - Scalable & optimized for large datasets
 - Comprehensive documentation
+
+_Allows us to develop modular and efficient workflows_
 
 ## {auto-animate="true"}
 
@@ -491,7 +495,7 @@ plotReducedDim(tse, dimred = "MDS", colour_by = "Geographical_location")
 ```
 
 ```{r}
-#| label: sow_pcoa
+#| label: show_pcoa
 
 # Perform PCoA
 tse <- runMDS(tse, assay.type = "relabundance", FUN = getDissimilarity, method = "bray")
