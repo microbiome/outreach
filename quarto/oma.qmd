@@ -510,7 +510,7 @@ plotReducedDim(tse, dimred = "MDS", colour_by = "Geographical_location")
 - Open to contributions!
 
 ::: {.callout-tip}
-## Go to the OMA book
+## Go to the Orchestrating Microbiome Analysis (OMA) online  book
 
 [microbiome.github.io/OMA](https://microbiome.github.io/OMA/docs/devel/){preview-link="true"}
 :::
@@ -518,18 +518,21 @@ plotReducedDim(tse, dimred = "MDS", colour_by = "Geographical_location")
 ## Summary
 
 ::: columns
-::: {.column width="50%"}
+::: {.column width="60%"}
 
-1. Data containers in Bioconductor
-2. mia framework for microbiome data science
-3. Orchestrating Microbiome Analysis (OMA) online book
+_Put it in the book, make it clear,_  
+_mia framework’s waiting here._
+
+
+_OMA’s guide will light the way,_  
+_Helping you every step of the day._
 
 :::
 
-::: {.column width="50%"}
+::: {.column width="40%"}
 
-![](images/paste-14DB8F76.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=100%}
-
+![](images/book.webp){fig-alt="Book" fig-align="center" width=30%}
+![](images/paste-14DB8F76.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=50%}
 
 ![](images/mia_logo.png){fig-alt="mia logo." fig-align="center" width=30%}
 
@@ -547,19 +550,19 @@ plotReducedDim(tse, dimred = "MDS", colour_by = "Geographical_location")
 
 ::: {.column width="30%"}
 
-![](https://apps.utu.fi/media/logo/UTU_logo_EN_RGB.png){fig-alt="University of Turku logo" width="200" fig-align="center"}
+![](https://apps.utu.fi/media/logo/UTU_logo_EN_RGB.png){fig-alt="University of Turku logo" width="150" fig-align="center"}
 
 
-![](https://www.ebi.ac.uk/metagenomics/static/50d6b60518ea8b4816b9.png){fig-alt="UTU logo" width="200" fig-align="center"}
+![](https://www.ebi.ac.uk/metagenomics/static/50d6b60518ea8b4816b9.png){fig-alt="UTU logo" width="150" fig-align="center"}
 
 
-![](https://media.aka.fi/api/v3/public/file/497671429c8b0783/thumbnail.jpg?version=e5566c3f8491a9bcc65c74594efa47c0){fig-alt="Research Council of Finland logo" width="200" fig-align="center"}
+![](https://media.aka.fi/api/v3/public/file/497671429c8b0783/thumbnail.jpg?version=e5566c3f8491a9bcc65c74594efa47c0){fig-alt="Research Council of Finland logo" width="150" fig-align="center"}
 
 
-![](https://biocityturku.fi/wp-content/uploads/2023/06/CompLifeSci-color-balck-01-2-720x217.png){fig-alt="CompLifeSci logo" width="200" fig-align="center"}
+![](https://biocityturku.fi/wp-content/uploads/2023/06/CompLifeSci-color-balck-01-2-720x217.png){fig-alt="CompLifeSci logo" width="150" fig-align="center"}
 
 
-![](https://www.yliopistosaatio.fi/wp-content/uploads/2024/02/logo-vaaka-turun-yliopistosatio.webp){fig-alt="Turun yliopistosäätiö logo" width="200" fig-align="center"}
+![](https://www.yliopistosaatio.fi/wp-content/uploads/2024/02/logo-vaaka-turun-yliopistosatio.webp){fig-alt="Turun yliopistosäätiö logo" width="150" fig-align="center"}
 :::
 
 :::
