@@ -30,7 +30,6 @@ format:
 
 - ~2,300 R packages
 - Review, testing, documentation
-- Genomics, transcriptomics, microbiomics, ...
 
 ```{r}
 #| label: bioc_packages
@@ -115,7 +114,7 @@ p1 <- ggplot(pkgs_date, aes(x = Date, y = N, fill = Field)) +
 p1
 ```
 
-## Data containers form the foundation {.smaller}
+## Data containers form the core {.smaller}
 
 ```{r}
 #| label: data_container
@@ -130,7 +129,7 @@ ellipse_data <- data.frame(
     y = c(2, 1, 0),         # Centers of ellipses
     a = c(4, 3, 2),         # Widths of ellipses
     b = c(3, 2, 1),         # Heights of ellipses
-    label = c("COMMUNITY", "PACKAGES", "DATA"),  # Labels for each ellipse
+    label = c("COMMUNITY", "METHODS", "DATA CONTAINER"),  # Labels for each ellipse
     label_y = c(4, 1.75, 0) # Adjusted vertical positions for labels
 )
 
@@ -306,17 +305,17 @@ _Reduce overlapping efforts, improve interoperability, ensure sustainability._
 
 - Extension to SummarizedExperiment
 - Optimal for microbiome data
-- Links microbiome field to larger SE family
+- Links microbiome field to larger SummarizedExperiment family
 
 ##
 
 ![](images/SE.png){fig-alt="SummarizedExperiment class" fig-align="center" width=10%}
 
-## {transition="fade" transition-speed="slow"}
+## 
 
 ![](images/paste-14DB8F76.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=10%}
 
-## MIcrobiome Analysis (mia) {transition="none"}
+## MIcrobiome Analysis (mia)
 
 ```{r}
 #| label: mia_stats
@@ -375,133 +374,8 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 - Scalable & optimized for large datasets
 - Comprehensive documentation
 
-_Allows us to develop modular and efficient workflows_
+_Allows us to develop efficient microbiome data science workflows_
 
-## {auto-animate="true"}
-
-```r
-# Load package
-library(mia)
-# Load example dataset
-data("peerj13075")
-tse <- peerj13075
-```
-
-```{r}
-#| label: show_treese
-
-
-# Load package
-library(mia)
-# Load example dataset
-data("peerj13075")
-tse <- peerj13075
-
-tse
-```
-
-
-## {auto-animate="true"}
-
-```r
-# Agglomerate to genus level
-tse <- agglomerateByRank(tse, rank = "genus")
-```
-
-## {auto-animate="true"}
-
-```r
-# Agglomerate to genus level
-tse <- agglomerateByRank(tse, rank = "genus")
-
-# Add relative abundances
-tse <- transformAssay(tse, method = "relabundance")
-```
-
-```{r}
-#| label: show_transform
-
-# Agglomerate to genus level
-tse <- agglomerateByRank(tse, rank = "genus")
-
-# Add relative abundances
-tse <- transformAssay(tse, method = "relabundance")
-```
-
-## {auto-animate="true"}
-
-```r
-# Load visualization package
-library(miaViz)
-# Summarize abundance of top taxa
-plotAbundanceDensity(tse, assay.type = "relabundance")
-```
-
-```{r}
-#| label: show_prevalence
-
-# Load visualization package
-library(miaViz)
-# Summarize abundance of top taxa
-plotAbundanceDensity(tse, assay.type = "relabundance")
-```
-
-## {auto-animate="true"}
-
-```r
-# Calculate alpha diversity indices
-tse <- addAlpha(tse, index = "shannon")
-```
-
-## {auto-animate="true"}
-
-```r
-# Calculate alpha diversity indices
-tse <- addAlpha(tse, index = "shannon")
-
-# Load single-cell analysis package that has useful, complementary tools
-library(scater)
-# Plot alpha diversity
-plotColData(tse, x = "Geographical_location", y = "shannon")
-```
-
-```{r}
-#| label: show_alpha
-#| fig-height: 4
-
-# Calculate alpha diversity indices
-tse <- addAlpha(tse, index = "shannon")
-
-# Load single-cell analysis package that has useful, complementary tools
-library(scater)
-# Plot alpha diversity
-plotColData(tse, x = "Geographical_location", y = "shannon")
-```
-
-## {auto-animate="true"}
-
-```r
-# Perform PCoA
-tse <- runMDS(tse, assay.type = "relabundance", FUN = getDissimilarity, method = "bray")
-```
-
-## {auto-animate="true"}
-
-```r
-# Perform PCoA
-tse <- runMDS(tse, assay.type = "relabundance", FUN = getDissimilarity, method = "bray")
-# Plot PCoA
-plotReducedDim(tse, dimred = "MDS", colour_by = "Geographical_location")
-```
-
-```{r}
-#| label: show_pcoa
-
-# Perform PCoA
-tse <- runMDS(tse, assay.type = "relabundance", FUN = getDissimilarity, method = "bray")
-# Plot PCoA
-plotReducedDim(tse, dimred = "MDS", colour_by = "Geographical_location")
-```
 
 ## Orchestrating Microbiome Analysis with Bioconductor
 
@@ -515,7 +389,7 @@ plotReducedDim(tse, dimred = "MDS", colour_by = "Geographical_location")
 [microbiome.github.io/OMA](https://microbiome.github.io/OMA/docs/devel/){preview-link="true"}
 :::
 
-## Summary
+## Poem of the day
 
 ::: columns
 ::: {.column width="60%"}
@@ -525,7 +399,7 @@ _mia framework’s waiting here._
 
 
 _OMA’s guide will light the way,_  
-_Helping you every step of the day._
+_helping you every step of the day._
 
 :::
 

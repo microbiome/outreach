@@ -29,71 +29,6 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
-    /* CSS for syntax highlighting */
-    pre > code.sourceCode { white-space: pre; position: relative; }
-    pre > code.sourceCode > span { line-height: 1.25; }
-    pre > code.sourceCode > span:empty { height: 1.2em; }
-    .sourceCode { overflow: visible; }
-    code.sourceCode > span { color: inherit; text-decoration: inherit; }
-    div.sourceCode { margin: 1em 0; }
-    pre.sourceCode { margin: 0; }
-    @media screen {
-    div.sourceCode { overflow: auto; }
-    }
-    @media print {
-    pre > code.sourceCode { white-space: pre-wrap; }
-    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-    }
-    pre.numberSource code
-      { counter-reset: source-line 0; }
-    pre.numberSource code > span
-      { position: relative; left: -4em; counter-increment: source-line; }
-    pre.numberSource code > span > a:first-child::before
-      { content: counter(source-line);
-        position: relative; left: -1em; text-align: right; vertical-align: baseline;
-        border: none; display: inline-block;
-        -webkit-touch-callout: none; -webkit-user-select: none;
-        -khtml-user-select: none; -moz-user-select: none;
-        -ms-user-select: none; user-select: none;
-        padding: 0 4px; width: 4em;
-        color: #aaaaaa;
-      }
-    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-    div.sourceCode
-      { color: #003b4f; background-color: #f1f3f5; }
-    @media screen {
-    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-    }
-    code span { color: #003b4f; } /* Normal */
-    code span.al { color: #ad0000; } /* Alert */
-    code span.an { color: #5e5e5e; } /* Annotation */
-    code span.at { color: #657422; } /* Attribute */
-    code span.bn { color: #ad0000; } /* BaseN */
-    code span.bu { } /* BuiltIn */
-    code span.cf { color: #003b4f; font-weight: bold; } /* ControlFlow */
-    code span.ch { color: #20794d; } /* Char */
-    code span.cn { color: #8f5902; } /* Constant */
-    code span.co { color: #5e5e5e; } /* Comment */
-    code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
-    code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
-    code span.dt { color: #ad0000; } /* DataType */
-    code span.dv { color: #ad0000; } /* DecVal */
-    code span.er { color: #ad0000; } /* Error */
-    code span.ex { } /* Extension */
-    code span.fl { color: #ad0000; } /* Float */
-    code span.fu { color: #4758ab; } /* Function */
-    code span.im { color: #00769e; } /* Import */
-    code span.in { color: #5e5e5e; } /* Information */
-    code span.kw { color: #003b4f; font-weight: bold; } /* Keyword */
-    code span.op { color: #5e5e5e; } /* Operator */
-    code span.ot { color: #003b4f; } /* Other */
-    code span.pp { color: #ad0000; } /* Preprocessor */
-    code span.sc { color: #5e5e5e; } /* SpecialChar */
-    code span.ss { color: #20794d; } /* SpecialString */
-    code span.st { color: #20794d; } /* String */
-    code span.va { color: #111111; } /* Variable */
-    code span.vs { color: #20794d; } /* VerbatimString */
-    code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
   <link rel="stylesheet" href="site_libs/revealjs/dist/theme/quarto.css">
   <link href="site_libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -425,12 +360,11 @@ Tuomas Borman
 <ul>
 <li>~2,300 R packages</li>
 <li>Review, testing, documentation</li>
-<li>Genomics, transcriptomics, microbiomics, …</li>
 </ul>
 
 <img data-src="oma_files/figure-revealjs/bioc_packages-1.png" width="960" class="r-stretch"></section>
-<section id="data-containers-form-the-foundation" class="slide level2 smaller">
-<h2>Data containers form the foundation</h2>
+<section id="data-containers-form-the-core" class="slide level2 smaller">
+<h2>Data containers form the core</h2>
 
 <img data-src="oma_files/figure-revealjs/data_container-1.png" width="960" class="r-stretch"></section>
 <section id="section" class="slide level2">
@@ -513,23 +447,23 @@ Tuomas Borman
 <ul>
 <li>Extension to SummarizedExperiment</li>
 <li>Optimal for microbiome data</li>
-<li>Allows us to develop modular and efficient workflows</li>
+<li>Links microbiome field to larger SummarizedExperiment family</li>
 </ul>
 </section>
 <section id="section-3" class="slide level2">
 <h2></h2>
 
 <img data-src="images/SE.png" class="quarto-figure quarto-figure-center r-stretch" style="width:10.0%" alt="SummarizedExperiment class"></section>
-<section id="section-4" class="slide level2" data-transition="fade" data-transition-speed="slow">
+<section id="section-4" class="slide level2">
 <h2></h2>
 
 <img data-src="images/paste-14DB8F76.png" class="quarto-figure quarto-figure-center r-stretch" style="width:10.0%" alt="TreeSummarizedExperiment class"></section>
-<section id="microbiome-analysis-mia" class="slide level2" data-transition="none">
+<section id="microbiome-analysis-mia" class="slide level2">
 <h2>MIcrobiome Analysis (mia)</h2>
 <ul>
 <li>Microbiome data science in SummarizedExperiment ecosystem</li>
 <li>Distributed through several R packages</li>
-<li>mia package top 7.6% Bioconductor downloads</li>
+<li>mia package top 7.7% Bioconductor downloads</li>
 </ul>
 
 <img data-src="images/mia_logo.png" class="quarto-figure quarto-figure-right r-stretch" style="width:10.0%" alt="mia logo."></section>
@@ -557,84 +491,8 @@ Tuomas Borman
 <li>Scalable &amp; optimized for large datasets</li>
 <li>Comprehensive documentation</li>
 </ul>
+<p><em>Allows us to develop efficient microbiome data science workflows</em></p>
 </section>
-<section id="section-5" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title"></h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb1-1" class="hljs-ln-code"><a></a><span class="co"># Load package</span></span>
-<span id="cb1-2" class="hljs-ln-code"><a></a><span class="fu">library</span>(mia)</span>
-<span id="cb1-3" class="hljs-ln-code"><a></a><span class="co"># Load example dataset</span></span>
-<span id="cb1-4" class="hljs-ln-code"><a></a><span class="fu">data</span>(<span class="st">"peerj13075"</span>)</span>
-<span id="cb1-5" class="hljs-ln-code"><a></a>tse <span class="ot">&lt;-</span> peerj13075</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell">
-<div class="cell-output cell-output-stdout">
-<pre><code>class: TreeSummarizedExperiment 
-dim: 674 58 
-metadata(0):
-assays(1): counts
-rownames(674): OTU1 OTU2 ... OTU2567 OTU2569
-rowData names(6): kingdom phylum ... family genus
-colnames(58): ID1 ID2 ... ID57 ID58
-colData names(5): Sample Geographical_location Gender Age Diet
-reducedDimNames(0):
-mainExpName: NULL
-altExpNames(0):
-rowLinks: NULL
-rowTree: NULL
-colLinks: NULL
-colTree: NULL</code></pre>
-</div>
-</div>
-</section>
-<section id="section-6" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title"></h2>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb3-1" class="hljs-ln-code"><a></a><span class="co"># Agglomerate to genus level</span></span>
-<span id="cb3-2" class="hljs-ln-code"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">agglomerateByRank</span>(tse, <span class="at">rank =</span> <span class="st">"genus"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="section-7" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title"></h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb4-1" class="hljs-ln-code"><a></a><span class="co"># Agglomerate to genus level</span></span>
-<span id="cb4-2" class="hljs-ln-code"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">agglomerateByRank</span>(tse, <span class="at">rank =</span> <span class="st">"genus"</span>)</span>
-<span id="cb4-3" class="hljs-ln-code"><a></a></span>
-<span id="cb4-4" class="hljs-ln-code"><a></a><span class="co"># Add relative abundances</span></span>
-<span id="cb4-5" class="hljs-ln-code"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse, <span class="at">method =</span> <span class="st">"relabundance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="section-8" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title"></h2>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb5-1" class="hljs-ln-code"><a></a><span class="co"># Load visualization package</span></span>
-<span id="cb5-2" class="hljs-ln-code"><a></a><span class="fu">library</span>(miaViz)</span>
-<span id="cb5-3" class="hljs-ln-code"><a></a><span class="co"># Summarize abundance of top taxa</span></span>
-<span id="cb5-4" class="hljs-ln-code"><a></a><span class="fu">plotAbundanceDensity</span>(tse, <span class="at">assay.type =</span> <span class="st">"relabundance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-<img data-src="oma_files/figure-revealjs/show_prevalence-1.png" width="960" class="r-stretch"></section>
-<section id="section-9" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title"></h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb6-1" class="hljs-ln-code"><a></a><span class="co"># Calculate alpha diversity indices</span></span>
-<span id="cb6-2" class="hljs-ln-code"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">addAlpha</span>(tse, <span class="at">index =</span> <span class="st">"shannon"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="section-10" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title"></h2>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb7-1" class="hljs-ln-code"><a></a><span class="co"># Calculate alpha diversity indices</span></span>
-<span id="cb7-2" class="hljs-ln-code"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">addAlpha</span>(tse, <span class="at">index =</span> <span class="st">"shannon"</span>)</span>
-<span id="cb7-3" class="hljs-ln-code"><a></a></span>
-<span id="cb7-4" class="hljs-ln-code"><a></a><span class="co"># Load single-cell analysis package that has useful, complementary tools</span></span>
-<span id="cb7-5" class="hljs-ln-code"><a></a><span class="fu">library</span>(scater)</span>
-<span id="cb7-6" class="hljs-ln-code"><a></a><span class="co"># Plot alpha diversity</span></span>
-<span id="cb7-7" class="hljs-ln-code"><a></a><span class="fu">plotColData</span>(tse, <span class="at">x =</span> <span class="st">"Geographical_location"</span>, <span class="at">y =</span> <span class="st">"shannon"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-<img data-src="oma_files/figure-revealjs/show_alpha-1.png" width="960" class="r-stretch"></section>
-<section id="section-11" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title"></h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb8-1" class="hljs-ln-code"><a></a><span class="co"># Perform PCoA</span></span>
-<span id="cb8-2" class="hljs-ln-code"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">runMDS</span>(tse, <span class="at">assay.type =</span> <span class="st">"relabundance"</span>, <span class="at">FUN =</span> getDissimilarity, <span class="at">method =</span> <span class="st">"bray"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="section-12" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title"></h2>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb9-1" class="hljs-ln-code"><a></a><span class="co"># Perform PCoA</span></span>
-<span id="cb9-2" class="hljs-ln-code"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">runMDS</span>(tse, <span class="at">assay.type =</span> <span class="st">"relabundance"</span>, <span class="at">FUN =</span> getDissimilarity, <span class="at">method =</span> <span class="st">"bray"</span>)</span>
-<span id="cb9-3" class="hljs-ln-code"><a></a><span class="co"># Plot PCoA</span></span>
-<span id="cb9-4" class="hljs-ln-code"><a></a><span class="fu">plotReducedDim</span>(tse, <span class="at">dimred =</span> <span class="st">"MDS"</span>, <span class="at">colour_by =</span> <span class="st">"Geographical_location"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-<img data-src="oma_files/figure-revealjs/sow_pcoa-1.png" width="960" class="r-stretch"></section>
 <section id="orchestrating-microbiome-analysis-with-bioconductor" class="slide level2">
 <h2>Orchestrating Microbiome Analysis with Bioconductor</h2>
 <ul>
@@ -648,7 +506,7 @@ colTree: NULL</code></pre>
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<p><strong>Go to the OMA book</strong></p>
+<p><strong>Go to the Orchestrating Microbiome Analysis (OMA) online book</strong></p>
 </div>
 <div class="callout-content">
 <p><a href="https://microbiome.github.io/OMA/docs/devel/" data-preview-link="true">microbiome.github.io/OMA</a></p>
@@ -656,21 +514,16 @@ colTree: NULL</code></pre>
 </div>
 </div>
 </section>
-<section id="summary" class="slide level2">
-<h2>Summary</h2>
+<section id="poem-of-the-day" class="slide level2">
+<h2>Poem of the day</h2>
 <div class="columns">
-<div class="column" style="width:50%;">
-<ol type="1">
-<li>Data containers in Bioconductor</li>
-<li>mia framework for microbiome data science</li>
-<li>Orchestrating Microbiome Analysis (OMA) online book</li>
-</ol>
-</div><div class="column" style="width:50%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/paste-14DB8F76.png" class="quarto-figure quarto-figure-center" style="width:100.0%" alt="TreeSummarizedExperiment class"></p>
-</figure>
-</div>
+<div class="column" style="width:60%;">
+<p><em>Put it in the book, make it clear,</em><br>
+<em>mia framework’s waiting here.</em></p>
+<p><em>OMA’s guide will light the way,</em><br>
+<em>helping you every step of the day.</em></p>
+</div><div class="column" style="width:40%;">
+<p><img data-src="images/book.webp" class="quarto-figure quarto-figure-center" style="width:30.0%" alt="Book"> <img data-src="images/paste-14DB8F76.png" class="quarto-figure quarto-figure-center" style="width:50.0%" alt="TreeSummarizedExperiment class"></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="images/mia_logo.png" class="quarto-figure quarto-figure-center" style="width:30.0%" alt="mia logo."></p>
@@ -691,27 +544,27 @@ colTree: NULL</code></pre>
 </div><div class="column" style="width:30%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="https://apps.utu.fi/media/logo/UTU_logo_EN_RGB.png" class="quarto-figure quarto-figure-center" alt="University of Turku logo" width="200"></p>
+<p><img data-src="https://apps.utu.fi/media/logo/UTU_logo_EN_RGB.png" class="quarto-figure quarto-figure-center" alt="University of Turku logo" width="150"></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="https://www.ebi.ac.uk/metagenomics/static/50d6b60518ea8b4816b9.png" class="quarto-figure quarto-figure-center" alt="UTU logo" width="200"></p>
+<p><img data-src="https://www.ebi.ac.uk/metagenomics/static/50d6b60518ea8b4816b9.png" class="quarto-figure quarto-figure-center" alt="UTU logo" width="150"></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="https://media.aka.fi/api/v3/public/file/497671429c8b0783/thumbnail.jpg?version=e5566c3f8491a9bcc65c74594efa47c0" class="quarto-figure quarto-figure-center" alt="Research Council of Finland logo" width="200"></p>
+<p><img data-src="https://media.aka.fi/api/v3/public/file/497671429c8b0783/thumbnail.jpg?version=e5566c3f8491a9bcc65c74594efa47c0" class="quarto-figure quarto-figure-center" alt="Research Council of Finland logo" width="150"></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="https://biocityturku.fi/wp-content/uploads/2023/06/CompLifeSci-color-balck-01-2-720x217.png" class="quarto-figure quarto-figure-center" alt="CompLifeSci logo" width="200"></p>
+<p><img data-src="https://biocityturku.fi/wp-content/uploads/2023/06/CompLifeSci-color-balck-01-2-720x217.png" class="quarto-figure quarto-figure-center" alt="CompLifeSci logo" width="150"></p>
 </figure>
 </div>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="https://www.yliopistosaatio.fi/wp-content/uploads/2024/02/logo-vaaka-turun-yliopistosatio.webp" class="quarto-figure quarto-figure-center" alt="Turun yliopistosäätiö logo" width="200"></p>
+<p><img data-src="https://www.yliopistosaatio.fi/wp-content/uploads/2024/02/logo-vaaka-turun-yliopistosatio.webp" class="quarto-figure quarto-figure-center" alt="Turun yliopistosäätiö logo" width="150"></p>
 </figure>
 </div>
 </div></div>

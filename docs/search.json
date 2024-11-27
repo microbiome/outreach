@@ -35,284 +35,179 @@
     "text": "RDA plot with weights\n\n\n\n\n\n\n\n\nFigure 3: RDA plot of samples coloured by patient status. The arrows indicate the percentage of variance in beta diversity explained by the patient status or cohort and the respective p-value."
   },
   {
-    "objectID": "oma.html#outline",
-    "href": "oma.html#outline",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Outline",
-    "text": "Outline"
+    "objectID": "data_manipulation.html#why-data-manipulation",
+    "href": "data_manipulation.html#why-data-manipulation",
+    "title": "Data Manipulation",
+    "section": "Why data manipulation?",
+    "text": "Why data manipulation?\nRaw data might be uninformative or incompatible with a method. We want to be able to modify, polish, subset, agglomerate and transform it."
   },
   {
-    "objectID": "oma.html#bioconductor",
-    "href": "oma.html#bioconductor",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Bioconductor",
-    "text": "Bioconductor\n\nCommunity-driven open-source project\n\n\nTraining programs & workshops\nConferences & community support\nBioinformatics software"
+    "objectID": "data_manipulation.html#why-so-complex",
+    "href": "data_manipulation.html#why-so-complex",
+    "title": "Data Manipulation",
+    "section": "Why so complex?",
+    "text": "Why so complex?\nTreeSE containers organise information to improve flexibility and accessibility, which comes with a bit of complexity. Focus on assays, colData and rowData."
   },
   {
-    "objectID": "oma.html#software",
-    "href": "oma.html#software",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Software",
-    "text": "Software\n\n~2,300 R packages\nReview, testing, documentation\nGenomics, transcriptomics, microbiomics, …"
+    "objectID": "data_manipulation.html#example-1.1-data-import",
+    "href": "data_manipulation.html#example-1.1-data-import",
+    "title": "Data Manipulation",
+    "section": "Example 1.1: Data Import",
+    "text": "Example 1.1: Data Import\nWe work with microbiome data inside TreeSummarizedExperiment (TreeSE) containers and mia is our toolkit.\n\n# Load Tengeler2020 and store it into a TreeSE\nlibrary(mia)\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nThe components of a TreeSE can all be seen at a glance.\n\n# Print TreeSE\ntse\n\nclass: TreeSummarizedExperiment \ndim: 151 27 \nmetadata(0):\nassays(1): counts\nrownames(151): Bacteroides Bacteroides_1 ... Parabacteroides_8\n  Unidentified_Lachnospiraceae_14\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (151 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
   },
   {
-    "objectID": "oma.html#data-containers-form-the-foundation",
-    "href": "oma.html#data-containers-form-the-foundation",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Data containers form the foundation",
-    "text": "Data containers form the foundation"
+    "objectID": "data_manipulation.html#example-1.2-column-data",
+    "href": "data_manipulation.html#example-1.2-column-data",
+    "title": "Data Manipulation",
+    "section": "Example 1.2: Column data",
+    "text": "Example 1.2: Column data\nColumns represent the samples of an experiment.\n\n# Retrieve sample names\nhead(colnames(tse), 3)\n\n[1] \"A110\" \"A12\"  \"A15\" \n\n\nAll information about the samples is stored in colData.\n\n# Retrieve sample data\nhead(colData(tse), 3)\n\nDataFrame with 3 rows and 4 columns\n     patient_status      cohort patient_status_vs_cohort sample_name\n        &lt;character&gt; &lt;character&gt;              &lt;character&gt; &lt;character&gt;\nA110           ADHD    Cohort_1            ADHD_Cohort_1        A110\nA12            ADHD    Cohort_1            ADHD_Cohort_1         A12\nA15            ADHD    Cohort_1            ADHD_Cohort_1         A15\n\n\nIndividual variables about the samples can be accessed directly.\n\n# Retrieve sample variables\nhead(tse$patient_status, 3)\n\n[1] \"ADHD\" \"ADHD\" \"ADHD\""
   },
   {
-    "objectID": "oma.html#summarizedexperiment",
-    "href": "oma.html#summarizedexperiment",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "SummarizedExperiment",
-    "text": "SummarizedExperiment\n\nMost common data container\nOptimized for biological data\nExtended to different purposes"
+    "objectID": "data_manipulation.html#example-1.3-row-data",
+    "href": "data_manipulation.html#example-1.3-row-data",
+    "title": "Data Manipulation",
+    "section": "Example 1.3: Row data",
+    "text": "Example 1.3: Row data\nRows represent the features of an experiment.\n\n# Retrieve feature names\nhead(rownames(tse), 3)\n\n[1] \"Bacteroides\"     \"Bacteroides_1\"   \"Parabacteroides\"\n\n\nAll information about the samples is stored in rowData.\n\n# Retrieve feature data\nhead(rowData(tse), 3)\n\nDataFrame with 3 rows and 6 columns\n                    Kingdom        Phylum       Class         Order\n                &lt;character&gt;   &lt;character&gt; &lt;character&gt;   &lt;character&gt;\nBacteroides        Bacteria Bacteroidetes Bacteroidia Bacteroidales\nBacteroides_1      Bacteria Bacteroidetes Bacteroidia Bacteroidales\nParabacteroides    Bacteria Bacteroidetes Bacteroidia Bacteroidales\n                            Family           Genus\n                       &lt;character&gt;     &lt;character&gt;\nBacteroides         Bacteroidaceae     Bacteroides\nBacteroides_1       Bacteroidaceae     Bacteroides\nParabacteroides Porphyromonadaceae Parabacteroides\n\n\nIndividual variables about the samples can be accessed from rowData.\n\n# Retrieve feature variables\nhead(rowData(tse)$Genus, 3)\n\n[1] \"Bacteroides\"     \"Bacteroides\"     \"Parabacteroides\""
   },
   {
-    "objectID": "oma.html#optimal-container-for-microbiome-data",
-    "href": "oma.html#optimal-container-for-microbiome-data",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Optimal container for microbiome data?",
-    "text": "Optimal container for microbiome data?"
+    "objectID": "data_manipulation.html#example-1.4-assays",
+    "href": "data_manipulation.html#example-1.4-assays",
+    "title": "Data Manipulation",
+    "section": "Example 1.4: Assays",
+    "text": "Example 1.4: Assays\nThe assays of an experiment (counts, relative abundance, etc.) can be found in assays.\n\nassays(tse)\n\nList of length 1\nnames(1): counts\n\n\nassayNames return only their names.\n\nassayNames(tse)\n\n[1] \"counts\"\n\n\nAn individual assay can be retrieved with assay.\n\nassay(tse, \"counts\")[seq(6), seq(6)]\n\n                 A110   A12  A15  A19  A21  A23\nBacteroides     17722 11630    0 8806 1740 1791\nBacteroides_1   12052     0 2679 2776  540  229\nParabacteroides     0   970    0  549  145    0\nBacteroides_2       0  1911    0 5497  659    0\nAkkermansia      1143  1891 1212  584   84  700\nBacteroides_3       0  6498    0 4455  610    0"
   },
   {
-    "objectID": "oma.html#optimal-container-for-microbiome-data-1",
-    "href": "oma.html#optimal-container-for-microbiome-data-1",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Optimal container for microbiome data?",
-    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking"
-  },
-  {
-    "objectID": "oma.html#optimal-container-for-microbiome-data-2",
-    "href": "oma.html#optimal-container-for-microbiome-data-2",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Optimal container for microbiome data?",
-    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features"
-  },
-  {
-    "objectID": "oma.html#optimal-container-for-microbiome-data-3",
-    "href": "oma.html#optimal-container-for-microbiome-data-3",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Optimal container for microbiome data?",
-    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types"
-  },
-  {
-    "objectID": "oma.html#optimal-container-for-microbiome-data-4",
-    "href": "oma.html#optimal-container-for-microbiome-data-4",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Optimal container for microbiome data?",
-    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\nOptimized: for speed & memory"
-  },
-  {
-    "objectID": "oma.html#optimal-container-for-microbiome-data-5",
-    "href": "oma.html#optimal-container-for-microbiome-data-5",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Optimal container for microbiome data?",
-    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\nOptimized: for speed & memory\nIntegrated: with other applications & frameworks"
-  },
-  {
-    "objectID": "oma.html#optimal-container-for-microbiome-data-6",
-    "href": "oma.html#optimal-container-for-microbiome-data-6",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Optimal container for microbiome data?",
-    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\nOptimized: for speed & memory\nIntegrated: with other applications & frameworks\n\nReduce overlapping efforts, improve interoperability, ensure sustainability."
-  },
-  {
-    "objectID": "oma.html#treesummarizedexperiment",
-    "href": "oma.html#treesummarizedexperiment",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "TreeSummarizedExperiment",
-    "text": "TreeSummarizedExperiment\n\nExtension to SummarizedExperiment\nOptimal for microbiome data\nAllows us to develop modular and efficient workflows"
-  },
-  {
-    "objectID": "oma.html#microbiome-analysis-mia",
-    "href": "oma.html#microbiome-analysis-mia",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "MIcrobiome Analysis (mia)",
-    "text": "MIcrobiome Analysis (mia)\n\nMicrobiome data science in SummarizedExperiment ecosystem\nDistributed through several R packages\nmia package top 7.6% Bioconductor downloads"
-  },
-  {
-    "objectID": "oma.html#community-driven-ecosystem-of-tools",
-    "href": "oma.html#community-driven-ecosystem-of-tools",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Community-driven ecosystem of tools",
-    "text": "Community-driven ecosystem of tools\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEEtree (Interactive visualization)\nExpanded by independent developers"
-  },
-  {
-    "objectID": "oma.html#advantages",
-    "href": "oma.html#advantages",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Advantages",
-    "text": "Advantages\n\nShared data container\nScalable & optimized for large datasets\nComprehensive documentation"
-  },
-  {
-    "objectID": "oma.html#section-5",
-    "href": "oma.html#section-5",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "",
-    "text": "# Load package\nlibrary(mia)\n# Load example dataset\ndata(\"peerj13075\")\ntse &lt;- peerj13075\n\n\nclass: TreeSummarizedExperiment \ndim: 674 58 \nmetadata(0):\nassays(1): counts\nrownames(674): OTU1 OTU2 ... OTU2567 OTU2569\nrowData names(6): kingdom phylum ... family genus\ncolnames(58): ID1 ID2 ... ID57 ID58\ncolData names(5): Sample Geographical_location Gender Age Diet\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: NULL\nrowTree: NULL\ncolLinks: NULL\ncolTree: NULL"
-  },
-  {
-    "objectID": "oma.html#section-6",
-    "href": "oma.html#section-6",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "",
-    "text": "# Agglomerate to genus level\ntse &lt;- agglomerateByRank(tse, rank = \"genus\")"
-  },
-  {
-    "objectID": "oma.html#section-7",
-    "href": "oma.html#section-7",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "",
-    "text": "# Agglomerate to genus level\ntse &lt;- agglomerateByRank(tse, rank = \"genus\")\n\n# Add relative abundances\ntse &lt;- transformAssay(tse, method = \"relabundance\")"
-  },
-  {
-    "objectID": "oma.html#section-8",
-    "href": "oma.html#section-8",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "",
-    "text": "# Load visualization package\nlibrary(miaViz)\n# Summarize abundance of top taxa\nplotAbundanceDensity(tse, assay.type = \"relabundance\")"
-  },
-  {
-    "objectID": "oma.html#section-9",
-    "href": "oma.html#section-9",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "",
-    "text": "# Calculate alpha diversity indices\ntse &lt;- addAlpha(tse, index = \"shannon\")"
-  },
-  {
-    "objectID": "oma.html#section-10",
-    "href": "oma.html#section-10",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "",
-    "text": "# Calculate alpha diversity indices\ntse &lt;- addAlpha(tse, index = \"shannon\")\n\n# Load single-cell analysis package that has useful, complementary tools\nlibrary(scater)\n# Plot alpha diversity\nplotColData(tse, x = \"Geographical_location\", y = \"shannon\")"
-  },
-  {
-    "objectID": "oma.html#section-11",
-    "href": "oma.html#section-11",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "",
-    "text": "# Perform PCoA\ntse &lt;- runMDS(tse, assay.type = \"relabundance\", FUN = getDissimilarity, method = \"bray\")"
-  },
-  {
-    "objectID": "oma.html#section-12",
-    "href": "oma.html#section-12",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "",
-    "text": "# Perform PCoA\ntse &lt;- runMDS(tse, assay.type = \"relabundance\", FUN = getDissimilarity, method = \"bray\")\n# Plot PCoA\nplotReducedDim(tse, dimred = \"MDS\", colour_by = \"Geographical_location\")"
-  },
-  {
-    "objectID": "oma.html#orchestrating-microbiome-analysis-with-bioconductor",
-    "href": "oma.html#orchestrating-microbiome-analysis-with-bioconductor",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Orchestrating Microbiome Analysis with Bioconductor",
-    "text": "Orchestrating Microbiome Analysis with Bioconductor\n\nResources and tutorials for microbiome analysis\nCommunity-built best practices\nOpen to contributions!\n\n\n\n\n\n\n\nGo to the OMA book\n\n\nmicrobiome.github.io/OMA"
-  },
-  {
-    "objectID": "oma.html#summary",
-    "href": "oma.html#summary",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Summary",
-    "text": "Summary\n\n\n\nData containers in Bioconductor\nmia framework for microbiome data science\nOrchestrating Microbiome Analysis (OMA) online book"
-  },
-  {
-    "objectID": "oma.html#thank-you-for-your-time",
-    "href": "oma.html#thank-you-for-your-time",
-    "title": "Orchestrating Microbiome Analysis with Bioconductor",
-    "section": "Thank you for your time!",
-    "text": "Thank you for your time!\n\n\n\n\n\nMoreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhttps://microbiome.github.io/"
-  },
-  {
-    "objectID": "hintikkaxo_presentation.html#study-design",
-    "href": "hintikkaxo_presentation.html#study-design",
-    "title": "A brief introduction to HintikkaXOData",
-    "section": "Study design",
-    "text": "Study design\n\nHintikkaXOData is a MultiAssayExperiment containing microbiome, metabolome and biomarker data from a study on the effects of diet and prebiotics on fatty-liver disease in rats (Hintikka et al. 2021).\n\n\nExperimentList class object of length 3:\n [1] microbiota: TreeSummarizedExperiment with 12706 rows and 40 columns\n [2] metabolites: TreeSummarizedExperiment with 38 rows and 40 columns\n [3] biomarkers: TreeSummarizedExperiment with 39 rows and 40 columns\n\n\n\n\nThe rat population (N = 40) was divided into 4 groups (n = 10), which underwent different diets over a period of 12 weeks. The 4 groups included:\n\n\n\nhigh-fat diet without prebiotics\nhigh-fat diet with prebiotics\nlow-fat diet without prebiotics\nlow-fat diet with prebiotics\n\n\n\n\n\n\n\n\nXOS+\nXOS-\n\n\n\n\nLow Fat\n10\n10\n\n\nHigh Fat\n10\n10\n\n\n\n\n\n\n\nXOS: xylooligosaccharide"
-  },
-  {
-    "objectID": "hintikkaxo_presentation.html#microbiota",
-    "href": "hintikkaxo_presentation.html#microbiota",
-    "title": "A brief introduction to HintikkaXOData",
-    "section": "Microbiota",
-    "text": "Microbiota\n\nMicrobiome data was obtained by 16S rRNA gene sequencing of bacterial DNA sampled from the cecum of terminated rats. Then, sequence reads were assembled into Operational Taxonomic Units (OTUs).\n\n\n\n\n\n\n\n\n\n\nRelative Abundance (%)\n\n\n\n\nBacteroidetes\n51.3\n\n\nFirmicutes\n39.3\n\n\nVerrucomicrobia\n3.8\n\n\nCyanobacteria\n2.6\n\n\nProteobacteria\n2.1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 1"
-  },
-  {
-    "objectID": "hintikkaxo_presentation.html#metabolites",
-    "href": "hintikkaxo_presentation.html#metabolites",
-    "title": "A brief introduction to HintikkaXOData",
-    "section": "Metabolites",
-    "text": "Metabolites\nMetabolome data was obtained from the same cecal samples by nuclear magnetic resonance (NMR) spectroscopy. There is a total of 38 features, corresponding to the different metabolites."
-  },
-  {
-    "objectID": "hintikkaxo_presentation.html#biomarkers",
-    "href": "hintikkaxo_presentation.html#biomarkers",
-    "title": "A brief introduction to HintikkaXOData",
-    "section": "Biomarkers",
-    "text": "Biomarkers\n\nBiomarkers data were obtained by Western blot from protein homogenates of rat tissues. There is a total of 39 features, corresponding to the biomarkers/site combinations.\n\n\n\n\n\n\n\n\n\nBiomarker\nFunction\n\n\n\n\nCS\ncitrate synthase\n\n\nAST\naspartate aminotransferase\n\n\nALT\nalanine aminotransferase\n\n\nERK\nextracellular signal-regulated kinase\n\n\nIRS1\ninsulin receptor substrate 1\n\n\nAKT\nprotein kinase B\n\n\nIL1b\ninterleukin 1 beta\n\n\nHAD\n3-hydroxyacyl-CoA dehydrogenase 8\n\n\nCD45\nprotein tyrosine phosphatase\n\n\n\n\n\n\n\n\n\n\n\nName\nSite\n\n\n\n\nepi\nepididymal adipose tissue\n\n\nSCfat\nmesenteric adopose tissue\n\n\nmese\nsubcutaneous adipose tissue\n\n\nliver\nliver\n\n\ngastro\ngastrocnemius muscle\n\n\nserum\nserum"
-  },
-  {
-    "objectID": "hintikkaxo_presentation.html#references",
-    "href": "hintikkaxo_presentation.html#references",
-    "title": "A brief introduction to HintikkaXOData",
-    "section": "References",
-    "text": "References\n\n\n\n\n\n\n\n\nHintikka, Jukka, Sanna Lensu, Elina Mäkinen, Sira Karvinen, Marjaana Honkanen, Jere Lindén, Tim Garrels, Satu Pekkala, and Leo Lahti. 2021. “Xylo-Oligosaccharides in Prevention of Hepatic Steatosis and Adipose Tissue Inflammation: Associating Taxonomic and Metabolomic Patterns in Fecal Microbiomes with Biclustering.” International Journal of Environmental Research and Public Health 18 (8): 4049. https://doi.org/10.3390/ijerph18084049."
-  },
-  {
-    "objectID": "quarto.html#example-1.1-markdown-syntax",
-    "href": "quarto.html#example-1.1-markdown-syntax",
-    "title": "Reproducible Reporting with Quarto",
-    "section": "Example 1.1: # Markdown Syntax",
-    "text": "Example 1.1: # Markdown Syntax\nIn Markdown syntax, you can do the following and more.\n\nHeadings: # My title, ## My subtitle, ### My subsubtitle\nUnordered lists:\n\n-   item 1\n-   item 2\n\nOrdered lists:\n\n1.  item 1\n2.  item 2\n\nFont: *italic*, **bold**, `monospaced`\nLinks: [text](url)\nCross-references: @chunk-label"
-  },
-  {
-    "objectID": "quarto.html#example-1.2-running-code",
-    "href": "quarto.html#example-1.2-running-code",
-    "title": "Reproducible Reporting with Quarto",
-    "section": "Example 1.2: Running Code",
-    "text": "Example 1.2: Running Code\nAdd code chunks with alt + cmd + i and click Render to generate a report with both text and code output.\n\n# R code\ncitation(\"mia\")\n\nTo cite package 'mia' in publications use:\n\n  Borman T, Ernst F, Shetty S, Lahti L (2024). _mia: Microbiome\n  analysis_. R package version 1.15.3, commit\n  161b2096a2ab2c1791eb02e2ccf3564defe39e40,\n  &lt;https://github.com/microbiome/mia&gt;.\n\nA BibTeX entry for LaTeX users is\n\n  @Manual{,\n    title = {mia: Microbiome analysis},\n    author = {Tuomas Borman and Felix G.M. Ernst and Sudarshan A. Shetty and Leo Lahti},\n    year = {2024},\n    note = {R package version 1.15.3, commit 161b2096a2ab2c1791eb02e2ccf3564defe39e40},\n    url = {https://github.com/microbiome/mia},\n  }"
-  },
-  {
-    "objectID": "quarto.html#exercise-1",
-    "href": "quarto.html#exercise-1",
-    "title": "Reproducible Reporting with Quarto",
+    "objectID": "data_manipulation.html#exercise-1",
+    "href": "data_manipulation.html#exercise-1",
+    "title": "Data Manipulation",
     "section": "Exercise 1",
-    "text": "Exercise 1\n\nnew document: exercise 2.1\ncode chunks: exercise 2.2"
+    "text": "Exercise 1\n\npreliminary exploration: exercise 3.3\nassay retrieval: exercise 3.4\n\nExtra:\n\nconstructing a TreeSE object: exercise 3.1\n\nRaw data can be retrieved here."
   },
   {
-    "objectID": "quarto.html#example-2.1-knitr-options",
-    "href": "quarto.html#example-2.1-knitr-options",
-    "title": "Reproducible Reporting with Quarto",
-    "section": "Example 2.1: knitr options",
-    "text": "Example 2.1: knitr options\nYou can add options to code chunks to change their behaviour.\n\nOriginal chunk\n\n\nprint(\"I love my microbiome\")\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| echo: false\n\n\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| eval: false\n\n\nprint(\"I love my microbiome\")\n\n\nAfter adding #| code-fold: true\n\n\n\nShow code\nprint(\"I love my microbiome\")\n\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| include: false"
+    "objectID": "data_manipulation.html#example-2.1-subsetting",
+    "href": "data_manipulation.html#example-2.1-subsetting",
+    "title": "Data Manipulation",
+    "section": "Example 2.1: Subsetting",
+    "text": "Example 2.1: Subsetting\nWe can subset features or samples of a TreeSE, but first we need to pick a variable.\n\n# Check levels of a sample variable\nunique(tse$patient_status)\n\n[1] \"ADHD\"    \"Control\"\n\n\nTo subset samples, we filter columns with a conditional.\n\n# Subset by a sample variable\nsubcol_tse &lt;- tse[ , tse$patient_status == \"ADHD\"]\ndim(subcol_tse)\n\n[1] 151  13\n\n\nWe now want to subset by our favourite Phylum.\n\n# Check levels of a feature variable\nunique(rowData(tse)$Phylum)\n\n[1] \"Bacteroidetes\"   \"Verrucomicrobia\" \"Proteobacteria\"  \"Firmicutes\"     \n[5] \"Cyanobacteria\"  \n\n\nTo subset features, we filter rows with a conditional.\n\n# Subset by a feature variable\nsubrow_tse &lt;- tse[rowData(tse)$Phylum == \"Firmicutes\", ]\ndim(subrow_tse)\n\n[1] 97 27"
   },
   {
-    "objectID": "quarto.html#example-2.2-more-about-knitr-options",
-    "href": "quarto.html#example-2.2-more-about-knitr-options",
-    "title": "Reproducible Reporting with Quarto",
-    "section": "Example 2.2: More about knitr options",
-    "text": "Example 2.2: More about knitr options\nIf you want an option to affect all chunks in a script, you can set it globally.\n\n# Turn off chunk visibility and warnings\nknitr::opts_chunk$set(echo = FALSE, warning = FALSE)\n\nYou can label figures (or tables) with #| label: fig-name and cross-reference them with @fig-name (Figure 1).\n\ndata(iris)\nboxplot(Sepal.Length ~ Species, data = iris)\n\n\n\nFigure 1: A boxplot of the sepal length distribution by species."
+    "objectID": "data_manipulation.html#example-2.2-agglomeration",
+    "href": "data_manipulation.html#example-2.2-agglomeration",
+    "title": "Data Manipulation",
+    "section": "Example 2.2: Agglomeration",
+    "text": "Example 2.2: Agglomeration\nAgglomeration condenses the assays to higher taxonomic ranks. Related taxa are combined together. We can agglomerate by different ranks.\n\n# View rank options\ntaxonomyRanks(tse)\n\n[1] \"Kingdom\" \"Phylum\"  \"Class\"   \"Order\"   \"Family\"  \"Genus\"  \n\n\nWe agglomerate by Phylum and store the new experiment in the altExp slot.\n\n# Agglomerate by Phylum and store into altExp slot\naltExp(tse, \"phylum\") &lt;- agglomerateByRank(tse, rank = \"Phylum\")\naltExp(tse, \"phylum\")\n\nclass: TreeSummarizedExperiment \ndim: 5 27 \nmetadata(1): agglomerated_by_rank\nassays(1): counts\nrownames(5): Bacteroidetes Cyanobacteria Firmicutes Proteobacteria\n  Verrucomicrobia\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (5 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
   },
   {
-    "objectID": "quarto.html#example-2.3-yaml-parameters",
-    "href": "quarto.html#example-2.3-yaml-parameters",
-    "title": "Reproducible Reporting with Quarto",
-    "section": "Example 2.3: YAML Parameters",
-    "text": "Example 2.3: YAML Parameters\nAt the beginning of any Quarto document, there is a box delimited by ---. There you can define document metadata, such as title, author, date, output format, bibliography, citation style, theme, font size and many others.\n---\ntitle: “Around the gut in 24 hours”\nformat: html\neditor: visual\nsmaller: true\nauthor: Escherichia coli\ndate: 2024-11-24\n---"
+    "objectID": "data_manipulation.html#example-2.3-transformation",
+    "href": "data_manipulation.html#example-2.3-transformation",
+    "title": "Data Manipulation",
+    "section": "Example 2.3: Transformation",
+    "text": "Example 2.3: Transformation\nData can be transformed for different reasons. For example, to make samples comparable we can use relative abundance.\n\n# Transform counts to relative abundance\ntse &lt;- transformAssay(tse,\n                      assay.type = \"counts\",\n                      method = \"relabundance\")\n\n# View sample-wise sums\nhead(colSums(assay(tse, \"relabundance\")), 3)\n\nA110  A12  A15 \n   1    1    1 \n\n\nOr to standardise features to the normal distribution we can use z-scores: \\(Z = \\frac{x - \\mu}{\\sigma}\\).\n\n# Transform relative abundance to z-scores\ntse &lt;- transformAssay(tse,\n                      assay.type = \"relabundance\",\n                      method = \"z\",\n                      MARGIN = \"features\")\n\n# View feature-wise standard deviations\nhead(rowSds(assay(tse, \"z\")), 3)\n\n    Bacteroides   Bacteroides_1 Parabacteroides \n              1               1               1"
   },
   {
-    "objectID": "quarto.html#exercise-2",
-    "href": "quarto.html#exercise-2",
-    "title": "Reproducible Reporting with Quarto",
+    "objectID": "data_manipulation.html#exercise-2",
+    "href": "data_manipulation.html#exercise-2",
+    "title": "Data Manipulation",
     "section": "Exercise 2",
-    "text": "Exercise 2\n\nknitr options: exercise 2.3\nYAML parameters: exercise 2.4\n\nExtra:\n\nQuarto parameters: exercise 2.5"
+    "text": "Exercise 2\n\nsubsetting: exercise 4.1\nagglomeration: exercise 5.1\ntransformation: exercise 4.6\n\nExtra:\n\nprevalence subsetting: exercise 4.3\nalternative experiments: exercise 5.2"
   },
   {
-    "objectID": "quarto.html#resources",
-    "href": "quarto.html#resources",
-    "title": "Reproducible Reporting with Quarto",
+    "objectID": "data_manipulation.html#resources",
+    "href": "data_manipulation.html#resources",
+    "title": "Data Manipulation",
     "section": "Resources",
-    "text": "Resources\n\nOMA Section - Quarto\nChunk Option Catalogue\nCross References\nYAML Parameter Catalogue"
+    "text": "Resources\n\nmia function reference\nOMA Section - Data Containers\nOMA Section - Subsetting\nOMA Section - Agglomeration\nOMA Section - Transformation"
+  },
+  {
+    "objectID": "compositional_heatmap.html#example-1.1",
+    "href": "compositional_heatmap.html#example-1.1",
+    "title": "Compositional Heatmaps",
+    "section": "Example 1.1",
+    "text": "Example 1.1\nWe first import the packages used in this tutorial.\n\n# Import libraries\nlibrary(mia)\nlibrary(ComplexHeatmap)\n\nWe also import Tengeler2020 from the mia package and store it into a variable.\n\n# Load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nNext, we transform the counts assay to relative abundance assay and store it into the TreeSE.\n\n# Transform counts to relative abundances\ntse &lt;- transformAssay(tse, method = \"relabundance\")\n\nThen, we agglomerate the experiment to the order level, so that information is more condensed and therefore easier to visualise and interpret.\n\n# Agglomerate by order\ntse_order &lt;- agglomerateByRank(tse, rank = \"Order\")"
+  },
+  {
+    "objectID": "compositional_heatmap.html#why-relative-abundances",
+    "href": "compositional_heatmap.html#why-relative-abundances",
+    "title": "Compositional Heatmaps",
+    "section": "Why relative abundances?",
+    "text": "Why relative abundances?\nMicrobiome data is compositional. Relative abundance helps us draw less biased comparisons between samples.\n\n\nShow code\n# Import packages\nlibrary(miaViz)\nlibrary(patchwork)\n\n# Plot composition by counts\ncounts_bar &lt;- plotAbundance(tse_order, rank = \"Phylum\", use_relative = FALSE) +\n  ylab(\"Counts\")\n\n# Plot composition by relative abundance\nrelab_bar &lt;- plotAbundance(tse_order, rank = \"Phylum\", use_relative = TRUE) +\n  ylab(\"Relative Abundance\")\n\n# Combine plots\n(counts_bar | relab_bar) +\n  plot_layout(guides = \"collect\")\n\n\n\n\nFigure 1: Sample composition by counts (left) or relative abundance (right)."
+  },
+  {
+    "objectID": "compositional_heatmap.html#example-1.2",
+    "href": "compositional_heatmap.html#example-1.2",
+    "title": "Compositional Heatmaps",
+    "section": "Example 1.2",
+    "text": "Example 1.2\nTo reduce data skewness, we further transform the relative abundance assay with the Centered-Log Ratio (CLR), which is defined as follows:\n\\[\nclr = log \\frac{x}{g(x)} = log(x)−log[g(x)]\n\\]\nwhere x is a feature and g(x) is the geometric mean of all features in a sample.\n\n# Transform relative abundances to clr\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"relabundance\",\n                            method = \"clr\",\n                            pseudocount = 1,\n                            MARGIN = \"samples\")\n\nLastly, we get the row-wise z-scores of every feature from the clr assay to standardise abundances across samples.\n\n# Transform clr to z\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"clr\", \n                            method = \"z\",\n                            name = \"clr_z\",\n                            MARGIN = \"features\")"
+  },
+  {
+    "objectID": "compositional_heatmap.html#example-1.3",
+    "href": "compositional_heatmap.html#example-1.3",
+    "title": "Compositional Heatmaps",
+    "section": "Example 1.3",
+    "text": "Example 1.3\nFinally, we visualise the clr-z assay with ComplexHeatmap.\n\n# Visualise clr-z assay with a heatmap\nclrz_hm &lt;- Heatmap(assay(tse_order, \"clr_z\"), name = \"clr-z\")\nclrz_hm\n\n\n\nFigure 2: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order."
+  },
+  {
+    "objectID": "compositional_heatmap.html#why-clr-z-transformation",
+    "href": "compositional_heatmap.html#why-clr-z-transformation",
+    "title": "Compositional Heatmaps",
+    "section": "Why clr-z transformation?",
+    "text": "Why clr-z transformation?\nA CLR-z transformation improves comparability in two steps:\n\nApply CLR transform to center features column-wise\nFind Z score to standardise features row-wise\n\n\n\nFigure 3: Visual comparison between counts, relative abundance, clr and clr-z assays (from left to right)."
+  },
+  {
+    "objectID": "compositional_heatmap.html#exercise-1",
+    "href": "compositional_heatmap.html#exercise-1",
+    "title": "Compositional Heatmaps",
+    "section": "Exercise 1",
+    "text": "Exercise 1\n\nheatmap visualisation: exercise 9.2\n\nExtra:\n\nadvanced heatmap: exercise 9.3"
+  },
+  {
+    "objectID": "compositional_heatmap.html#resources",
+    "href": "compositional_heatmap.html#resources",
+    "title": "Compositional Heatmaps",
+    "section": "Resources",
+    "text": "Resources\n\nOMA Chapter - Community Composition\nOMA Chapter - Visualisation\nComplexHeatmap Complete Reference"
+  },
+  {
+    "objectID": "differential_abundance.html#overview",
+    "href": "differential_abundance.html#overview",
+    "title": "Differential Abundance",
+    "section": "Overview",
+    "text": "Overview\nDifferential Abundance (DA) analysis is used to identify taxa that are significantly more or less abundant in the condition compared to control.\nMany methods are available including:\n\nALDEx2\nANCOMBC\nLinDA\n\nA few things to keep in minds when performing DAA involve:\n\nDAA software normally takes the counts assay as input, because they apply normalisation suitable for count data\nDAA results will be more reproducible if the extremely rare taxa and singletons are removed in advance\nIt is recommended to run different methods on the same data and compare the results"
+  },
+  {
+    "objectID": "differential_abundance.html#example-1.1-preparing-for-da",
+    "href": "differential_abundance.html#example-1.1-preparing-for-da",
+    "title": "Differential Abundance",
+    "section": "Example 1.1: Preparing for DA",
+    "text": "Example 1.1: Preparing for DA\nFirst, we import Tengeler2020 and load the DA library MicrobiomeStats.\n\nlibrary(mia)\nlibrary(MicrobiomeStat)\nlibrary(tidyverse)\n\n# Import Tengeler2020\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\n\n\nShow code\nmean_abund &lt;- round(mean(rowMeans(assay(tse, \"counts\"))), 2)\npaste0(\"Taxa: \", nrow(tse), \", Mean abundance: \", mean_abund)\n\n\n[1] \"Taxa: 151, Mean abundance: 119.19\"\n\n\nFor DA analysis, it is preferable to reduce the dimensionality and sparsity of the data.\n\n# Agglomerate by Genus and filter by prevalence and detection\ntse_genus &lt;- agglomerateByPrevalence(tse,\n                                     rank = \"Genus\",\n                                     detection = 0.001,\n                                     prevalence = 0.1)\n\n\n\nShow code\nmean_abund_genus &lt;- round(mean(rowMeans(assay(tse_genus, \"counts\"))), 2)\npaste0(\"Taxa: \", nrow(tse_genus), \", Mean abundance: \", mean_abund_genus)\n\n\n[1] \"Taxa: 49, Mean abundance: 355.52\""
+  },
+  {
+    "objectID": "differential_abundance.html#example-1.2-performing-da",
+    "href": "differential_abundance.html#example-1.2-performing-da",
+    "title": "Differential Abundance",
+    "section": "Example 1.2: Performing DA",
+    "text": "Example 1.2: Performing DA\nHere, we run LinDA. We first extract the counts assay and convert it into a dataframe.\n\notu.tab &lt;- assay(tse_genus, \"counts\") |&gt;\n  as.data.frame()\n\nWe also need to select the columns of the colData which contain the independent variables you want to include in the model.\n\nmeta &lt;- colData(tse) |&gt;\n  as.data.frame() |&gt;\n  select(patient_status, cohort)\n\nWe are ready to run LinDA, which takes the assay count (otu.tab) and the variable arrays (meta). A formula for the model with main independent variable + covariates should be defined. The other arguments are optional but good to know.\n\nres &lt;- linda(otu.tab, meta,\n             formula = \"~ patient_status + cohort\", \n             feature.dat.type = \"count\")\n\n0  features are filtered!\nThe filtered data has  27  samples and  49  features will be tested!\nImputation approach is used.\nFit linear models ...\nCompleted."
+  },
+  {
+    "objectID": "differential_abundance.html#example-1.3-interpreting-results",
+    "href": "differential_abundance.html#example-1.3-interpreting-results",
+    "title": "Differential Abundance",
+    "section": "Example 1.3: Interpreting Results",
+    "text": "Example 1.3: Interpreting Results\nFinally, we select significantly DA taxa and list it in Table 1.\n\nsignif_res &lt;- res$output$patient_statusControl |&gt;\n  filter(reject) |&gt;\n  select(stat, padj) |&gt;\n  arrange(padj)\n\nknitr::kable(signif_res)\n\n\n\nTable 1: DA bacterial genera. If stat &gt; 0, abundance is higher in control, otherwise it is higher in ADHD.\n\n\n\n\n\n\n\nstat\npadj\n\n\n\n\n[Ruminococcus]_gauvreauii_group\n4.891159\n0.0024419\n\n\nFaecalibacterium\n-4.694520\n0.0024419\n\n\nCatabacter\n-3.616601\n0.0236808\n\n\nErysipelatoclostridium\n3.357042\n0.0334163\n\n\nRuminococcaceae_UCG-014\n-3.224143\n0.0368033"
+  },
+  {
+    "objectID": "differential_abundance.html#exercise-1",
+    "href": "differential_abundance.html#exercise-1",
+    "title": "Differential Abundance",
+    "section": "Exercise 1",
+    "text": "Exercise 1\n\nDA analysis with LinDA: exercise 8.2\nDA analysis with ALDEx2: exercise 8.1\n\nExtra:\n\ncomparing DA methods: exercise 8.3"
+  },
+  {
+    "objectID": "differential_abundance.html#resources",
+    "href": "differential_abundance.html#resources",
+    "title": "Differential Abundance",
+    "section": "Resources",
+    "text": "Resources\n\nOMA Chapter - Differential Abundance"
   },
   {
     "objectID": "alpha_diversity.html#overview",
@@ -977,14 +872,14 @@
     "href": "index.html",
     "title": "Quarto Presentations",
     "section": "",
-    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\n\n\nIntro\nBioconductor project\nOrchestrating microbiome Analysis with Bioconductor\n\n\n\n\n\nReproducible workflow with Quarto\nLearning environment\nWorkflow\n\n\n\n\n\nMGnifyR: An R package for accessing MGnify microbiome data\n\n\n\n\n\nOrchestrating microbiome multi-omics with R & Bioconductor\nData containers\nSummarizedExperiment\nTreeSummarizedExperiment\n\n\n\n\n\nHintikkaXOData\nTengeler2020\n\n\n\n\n\nData Manipulation\nIntroduction to Quarto\nAlpha Diversity\nPCoA\ndbRDA\nCompositional Heatmaps\nDifferential Abundance\nDay 2"
+    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\n\n\nIntro\nBioconductor project\nOrchestrating Microbiome Analysis with Bioconductor\n\n\n\n\n\nReproducible workflow with Quarto\nLearning environment\nWorkflow\n\n\n\n\n\nMGnifyR: An R package for accessing MGnify microbiome data\n\n\n\n\n\nOrchestrating microbiome multi-omics with R & Bioconductor\nData containers\nSummarizedExperiment\nTreeSummarizedExperiment\n\n\n\n\n\nHintikkaXOData\nTengeler2020\n\n\n\n\n\nData Manipulation\nIntroduction to Quarto\nAlpha Diversity\nPCoA\ndbRDA\nCompositional Heatmaps\nDifferential Abundance\nDay 2"
   },
   {
     "objectID": "index.html#overview",
     "href": "index.html#overview",
     "title": "Quarto Presentations",
     "section": "",
-    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\n\n\nIntro\nBioconductor project\nOrchestrating microbiome Analysis with Bioconductor\n\n\n\n\n\nReproducible workflow with Quarto\nLearning environment\nWorkflow\n\n\n\n\n\nMGnifyR: An R package for accessing MGnify microbiome data\n\n\n\n\n\nOrchestrating microbiome multi-omics with R & Bioconductor\nData containers\nSummarizedExperiment\nTreeSummarizedExperiment\n\n\n\n\n\nHintikkaXOData\nTengeler2020\n\n\n\n\n\nData Manipulation\nIntroduction to Quarto\nAlpha Diversity\nPCoA\ndbRDA\nCompositional Heatmaps\nDifferential Abundance\nDay 2"
+    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\n\n\nIntro\nBioconductor project\nOrchestrating Microbiome Analysis with Bioconductor\n\n\n\n\n\nReproducible workflow with Quarto\nLearning environment\nWorkflow\n\n\n\n\n\nMGnifyR: An R package for accessing MGnify microbiome data\n\n\n\n\n\nOrchestrating microbiome multi-omics with R & Bioconductor\nData containers\nSummarizedExperiment\nTreeSummarizedExperiment\n\n\n\n\n\nHintikkaXOData\nTengeler2020\n\n\n\n\n\nData Manipulation\nIntroduction to Quarto\nAlpha Diversity\nPCoA\ndbRDA\nCompositional Heatmaps\nDifferential Abundance\nDay 2"
   },
   {
     "objectID": "index.html#contributions",
@@ -1533,179 +1428,228 @@
     "text": "Julia packages"
   },
   {
-    "objectID": "differential_abundance.html#overview",
-    "href": "differential_abundance.html#overview",
-    "title": "Differential Abundance",
-    "section": "Overview",
-    "text": "Overview\nDifferential Abundance (DA) analysis is used to identify taxa that are significantly more or less abundant in the condition compared to control.\nMany methods are available including:\n\nALDEx2\nANCOMBC\nLinDA\n\nA few things to keep in minds when performing DAA involve:\n\nDAA software normally takes the counts assay as input, because they apply normalisation suitable for count data\nDAA results will be more reproducible if the extremely rare taxa and singletons are removed in advance\nIt is recommended to run different methods on the same data and compare the results"
+    "objectID": "oma.html#outline",
+    "href": "oma.html#outline",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Outline",
+    "text": "Outline"
   },
   {
-    "objectID": "differential_abundance.html#example-1.1-preparing-for-da",
-    "href": "differential_abundance.html#example-1.1-preparing-for-da",
-    "title": "Differential Abundance",
-    "section": "Example 1.1: Preparing for DA",
-    "text": "Example 1.1: Preparing for DA\nFirst, we import Tengeler2020 and load the DA library MicrobiomeStats.\n\nlibrary(mia)\nlibrary(MicrobiomeStat)\nlibrary(tidyverse)\n\n# Import Tengeler2020\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\n\n\nShow code\nmean_abund &lt;- round(mean(rowMeans(assay(tse, \"counts\"))), 2)\npaste0(\"Taxa: \", nrow(tse), \", Mean abundance: \", mean_abund)\n\n\n[1] \"Taxa: 151, Mean abundance: 119.19\"\n\n\nFor DA analysis, it is preferable to reduce the dimensionality and sparsity of the data.\n\n# Agglomerate by Genus and filter by prevalence and detection\ntse_genus &lt;- agglomerateByPrevalence(tse,\n                                     rank = \"Genus\",\n                                     detection = 0.001,\n                                     prevalence = 0.1)\n\n\n\nShow code\nmean_abund_genus &lt;- round(mean(rowMeans(assay(tse_genus, \"counts\"))), 2)\npaste0(\"Taxa: \", nrow(tse_genus), \", Mean abundance: \", mean_abund_genus)\n\n\n[1] \"Taxa: 49, Mean abundance: 355.52\""
+    "objectID": "oma.html#bioconductor",
+    "href": "oma.html#bioconductor",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Bioconductor",
+    "text": "Bioconductor\n\nCommunity-driven open-source project\n\n\nTraining programs & workshops\nConferences & community support\nBioinformatics software"
   },
   {
-    "objectID": "differential_abundance.html#example-1.2-performing-da",
-    "href": "differential_abundance.html#example-1.2-performing-da",
-    "title": "Differential Abundance",
-    "section": "Example 1.2: Performing DA",
-    "text": "Example 1.2: Performing DA\nHere, we run LinDA. We first extract the counts assay and convert it into a dataframe.\n\notu.tab &lt;- assay(tse_genus, \"counts\") |&gt;\n  as.data.frame()\n\nWe also need to select the columns of the colData which contain the independent variables you want to include in the model.\n\nmeta &lt;- colData(tse) |&gt;\n  as.data.frame() |&gt;\n  select(patient_status, cohort)\n\nWe are ready to run LinDA, which takes the assay count (otu.tab) and the variable arrays (meta). A formula for the model with main independent variable + covariates should be defined. The other arguments are optional but good to know.\n\nres &lt;- linda(otu.tab, meta,\n             formula = \"~ patient_status + cohort\", \n             feature.dat.type = \"count\")\n\n0  features are filtered!\nThe filtered data has  27  samples and  49  features will be tested!\nImputation approach is used.\nFit linear models ...\nCompleted."
+    "objectID": "oma.html#software",
+    "href": "oma.html#software",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Software",
+    "text": "Software\n\n~2,300 R packages\nReview, testing, documentation"
   },
   {
-    "objectID": "differential_abundance.html#example-1.3-interpreting-results",
-    "href": "differential_abundance.html#example-1.3-interpreting-results",
-    "title": "Differential Abundance",
-    "section": "Example 1.3: Interpreting Results",
-    "text": "Example 1.3: Interpreting Results\nFinally, we select significantly DA taxa and list it in Table 1.\n\nsignif_res &lt;- res$output$patient_statusControl |&gt;\n  filter(reject) |&gt;\n  select(stat, padj) |&gt;\n  arrange(padj)\n\nknitr::kable(signif_res)\n\n\n\nTable 1: DA bacterial genera. If stat &gt; 0, abundance is higher in control, otherwise it is higher in ADHD.\n\n\n\n\n\n\n\nstat\npadj\n\n\n\n\n[Ruminococcus]_gauvreauii_group\n4.891159\n0.0024419\n\n\nFaecalibacterium\n-4.694520\n0.0024419\n\n\nCatabacter\n-3.616601\n0.0236808\n\n\nErysipelatoclostridium\n3.357042\n0.0334163\n\n\nRuminococcaceae_UCG-014\n-3.224143\n0.0368033"
+    "objectID": "oma.html#data-containers-form-the-core",
+    "href": "oma.html#data-containers-form-the-core",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Data containers form the core",
+    "text": "Data containers form the core"
   },
   {
-    "objectID": "differential_abundance.html#exercise-1",
-    "href": "differential_abundance.html#exercise-1",
-    "title": "Differential Abundance",
+    "objectID": "oma.html#summarizedexperiment",
+    "href": "oma.html#summarizedexperiment",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "SummarizedExperiment",
+    "text": "SummarizedExperiment\n\nMost common data container\nOptimized for biological data\nExtended to different purposes"
+  },
+  {
+    "objectID": "oma.html#optimal-container-for-microbiome-data",
+    "href": "oma.html#optimal-container-for-microbiome-data",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?"
+  },
+  {
+    "objectID": "oma.html#optimal-container-for-microbiome-data-1",
+    "href": "oma.html#optimal-container-for-microbiome-data-1",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking"
+  },
+  {
+    "objectID": "oma.html#optimal-container-for-microbiome-data-2",
+    "href": "oma.html#optimal-container-for-microbiome-data-2",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features"
+  },
+  {
+    "objectID": "oma.html#optimal-container-for-microbiome-data-3",
+    "href": "oma.html#optimal-container-for-microbiome-data-3",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types"
+  },
+  {
+    "objectID": "oma.html#optimal-container-for-microbiome-data-4",
+    "href": "oma.html#optimal-container-for-microbiome-data-4",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\nOptimized: for speed & memory"
+  },
+  {
+    "objectID": "oma.html#optimal-container-for-microbiome-data-5",
+    "href": "oma.html#optimal-container-for-microbiome-data-5",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\nOptimized: for speed & memory\nIntegrated: with other applications & frameworks"
+  },
+  {
+    "objectID": "oma.html#optimal-container-for-microbiome-data-6",
+    "href": "oma.html#optimal-container-for-microbiome-data-6",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\nOptimized: for speed & memory\nIntegrated: with other applications & frameworks\n\nReduce overlapping efforts, improve interoperability, ensure sustainability."
+  },
+  {
+    "objectID": "oma.html#treesummarizedexperiment",
+    "href": "oma.html#treesummarizedexperiment",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "TreeSummarizedExperiment",
+    "text": "TreeSummarizedExperiment\n\nExtension to SummarizedExperiment\nOptimal for microbiome data\nLinks microbiome field to larger SummarizedExperiment family"
+  },
+  {
+    "objectID": "oma.html#microbiome-analysis-mia",
+    "href": "oma.html#microbiome-analysis-mia",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "MIcrobiome Analysis (mia)",
+    "text": "MIcrobiome Analysis (mia)\n\nMicrobiome data science in SummarizedExperiment ecosystem\nDistributed through several R packages\nmia package top 7.7% Bioconductor downloads"
+  },
+  {
+    "objectID": "oma.html#community-driven-ecosystem-of-tools",
+    "href": "oma.html#community-driven-ecosystem-of-tools",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Community-driven ecosystem of tools",
+    "text": "Community-driven ecosystem of tools\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEEtree (Interactive visualization)\nExpanded by independent developers"
+  },
+  {
+    "objectID": "oma.html#advantages",
+    "href": "oma.html#advantages",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Advantages",
+    "text": "Advantages\n\nShared data container\nScalable & optimized for large datasets\nComprehensive documentation\n\nAllows us to develop efficient microbiome data science workflows"
+  },
+  {
+    "objectID": "oma.html#orchestrating-microbiome-analysis-with-bioconductor",
+    "href": "oma.html#orchestrating-microbiome-analysis-with-bioconductor",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Orchestrating Microbiome Analysis with Bioconductor",
+    "text": "Orchestrating Microbiome Analysis with Bioconductor\n\nResources and tutorials for microbiome analysis\nCommunity-built best practices\nOpen to contributions!\n\n\n\n\n\n\n\nGo to the Orchestrating Microbiome Analysis (OMA) online book\n\n\nmicrobiome.github.io/OMA"
+  },
+  {
+    "objectID": "oma.html#poem-of-the-day",
+    "href": "oma.html#poem-of-the-day",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Poem of the day",
+    "text": "Poem of the day\n\n\nPut it in the book, make it clear,\nmia framework’s waiting here.\nOMA’s guide will light the way,\nhelping you every step of the day."
+  },
+  {
+    "objectID": "oma.html#thank-you-for-your-time",
+    "href": "oma.html#thank-you-for-your-time",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Thank you for your time!",
+    "text": "Thank you for your time!\n\n\n\n\n\nMoreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nhttps://microbiome.github.io/"
+  },
+  {
+    "objectID": "quarto.html#example-1.1-markdown-syntax",
+    "href": "quarto.html#example-1.1-markdown-syntax",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 1.1: # Markdown Syntax",
+    "text": "Example 1.1: # Markdown Syntax\nIn Markdown syntax, you can do the following and more.\n\nHeadings: # My title, ## My subtitle, ### My subsubtitle\nUnordered lists:\n\n-   item 1\n-   item 2\n\nOrdered lists:\n\n1.  item 1\n2.  item 2\n\nFont: *italic*, **bold**, `monospaced`\nLinks: [text](url)\nCross-references: @chunk-label"
+  },
+  {
+    "objectID": "quarto.html#example-1.2-running-code",
+    "href": "quarto.html#example-1.2-running-code",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 1.2: Running Code",
+    "text": "Example 1.2: Running Code\nAdd code chunks with alt + cmd + i and click Render to generate a report with both text and code output.\n\n# R code\ncitation(\"mia\")\n\nTo cite package 'mia' in publications use:\n\n  Borman T, Ernst F, Shetty S, Lahti L (2024). _mia: Microbiome\n  analysis_. R package version 1.15.3, commit\n  161b2096a2ab2c1791eb02e2ccf3564defe39e40,\n  &lt;https://github.com/microbiome/mia&gt;.\n\nA BibTeX entry for LaTeX users is\n\n  @Manual{,\n    title = {mia: Microbiome analysis},\n    author = {Tuomas Borman and Felix G.M. Ernst and Sudarshan A. Shetty and Leo Lahti},\n    year = {2024},\n    note = {R package version 1.15.3, commit 161b2096a2ab2c1791eb02e2ccf3564defe39e40},\n    url = {https://github.com/microbiome/mia},\n  }"
+  },
+  {
+    "objectID": "quarto.html#exercise-1",
+    "href": "quarto.html#exercise-1",
+    "title": "Reproducible Reporting with Quarto",
     "section": "Exercise 1",
-    "text": "Exercise 1\n\nDA analysis with LinDA: exercise 8.2\nDA analysis with ALDEx2: exercise 8.1\n\nExtra:\n\ncomparing DA methods: exercise 8.3"
+    "text": "Exercise 1\n\nnew document: exercise 2.1\ncode chunks: exercise 2.2"
   },
   {
-    "objectID": "differential_abundance.html#resources",
-    "href": "differential_abundance.html#resources",
-    "title": "Differential Abundance",
-    "section": "Resources",
-    "text": "Resources\n\nOMA Chapter - Differential Abundance"
+    "objectID": "quarto.html#example-2.1-knitr-options",
+    "href": "quarto.html#example-2.1-knitr-options",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 2.1: knitr options",
+    "text": "Example 2.1: knitr options\nYou can add options to code chunks to change their behaviour.\n\nOriginal chunk\n\n\nprint(\"I love my microbiome\")\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| echo: false\n\n\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| eval: false\n\n\nprint(\"I love my microbiome\")\n\n\nAfter adding #| code-fold: true\n\n\n\nShow code\nprint(\"I love my microbiome\")\n\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| include: false"
   },
   {
-    "objectID": "compositional_heatmap.html#example-1.1",
-    "href": "compositional_heatmap.html#example-1.1",
-    "title": "Compositional Heatmaps",
-    "section": "Example 1.1",
-    "text": "Example 1.1\nWe first import the packages used in this tutorial.\n\n# Import libraries\nlibrary(mia)\nlibrary(ComplexHeatmap)\n\nWe also import Tengeler2020 from the mia package and store it into a variable.\n\n# Load dataset and store it into tse\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nNext, we transform the counts assay to relative abundance assay and store it into the TreeSE.\n\n# Transform counts to relative abundances\ntse &lt;- transformAssay(tse, method = \"relabundance\")\n\nThen, we agglomerate the experiment to the order level, so that information is more condensed and therefore easier to visualise and interpret.\n\n# Agglomerate by order\ntse_order &lt;- agglomerateByRank(tse, rank = \"Order\")"
+    "objectID": "quarto.html#example-2.2-more-about-knitr-options",
+    "href": "quarto.html#example-2.2-more-about-knitr-options",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 2.2: More about knitr options",
+    "text": "Example 2.2: More about knitr options\nIf you want an option to affect all chunks in a script, you can set it globally.\n\n# Turn off chunk visibility and warnings\nknitr::opts_chunk$set(echo = FALSE, warning = FALSE)\n\nYou can label figures (or tables) with #| label: fig-name and cross-reference them with @fig-name (Figure 1).\n\ndata(iris)\nboxplot(Sepal.Length ~ Species, data = iris)\n\n\n\nFigure 1: A boxplot of the sepal length distribution by species."
   },
   {
-    "objectID": "compositional_heatmap.html#why-relative-abundances",
-    "href": "compositional_heatmap.html#why-relative-abundances",
-    "title": "Compositional Heatmaps",
-    "section": "Why relative abundances?",
-    "text": "Why relative abundances?\nMicrobiome data is compositional. Relative abundance helps us draw less biased comparisons between samples.\n\n\nShow code\n# Import packages\nlibrary(miaViz)\nlibrary(patchwork)\n\n# Plot composition by counts\ncounts_bar &lt;- plotAbundance(tse_order, rank = \"Phylum\", use_relative = FALSE) +\n  ylab(\"Counts\")\n\n# Plot composition by relative abundance\nrelab_bar &lt;- plotAbundance(tse_order, rank = \"Phylum\", use_relative = TRUE) +\n  ylab(\"Relative Abundance\")\n\n# Combine plots\n(counts_bar | relab_bar) +\n  plot_layout(guides = \"collect\")\n\n\n\n\nFigure 1: Sample composition by counts (left) or relative abundance (right)."
+    "objectID": "quarto.html#example-2.3-yaml-parameters",
+    "href": "quarto.html#example-2.3-yaml-parameters",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 2.3: YAML Parameters",
+    "text": "Example 2.3: YAML Parameters\nAt the beginning of any Quarto document, there is a box delimited by ---. There you can define document metadata, such as title, author, date, output format, bibliography, citation style, theme, font size and many others.\n---\ntitle: “Around the gut in 24 hours”\nformat: html\neditor: visual\nsmaller: true\nauthor: Escherichia coli\ndate: 2024-11-27\n---"
   },
   {
-    "objectID": "compositional_heatmap.html#example-1.2",
-    "href": "compositional_heatmap.html#example-1.2",
-    "title": "Compositional Heatmaps",
-    "section": "Example 1.2",
-    "text": "Example 1.2\nTo reduce data skewness, we further transform the relative abundance assay with the Centered-Log Ratio (CLR), which is defined as follows:\n\\[\nclr = log \\frac{x}{g(x)} = log(x)−log[g(x)]\n\\]\nwhere x is a feature and g(x) is the geometric mean of all features in a sample.\n\n# Transform relative abundances to clr\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"relabundance\",\n                            method = \"clr\",\n                            pseudocount = 1,\n                            MARGIN = \"samples\")\n\nLastly, we get the row-wise z-scores of every feature from the clr assay to standardise abundances across samples.\n\n# Transform clr to z\ntse_order &lt;- transformAssay(tse_order,\n                            assay.type = \"clr\", \n                            method = \"z\",\n                            name = \"clr_z\",\n                            MARGIN = \"features\")"
-  },
-  {
-    "objectID": "compositional_heatmap.html#example-1.3",
-    "href": "compositional_heatmap.html#example-1.3",
-    "title": "Compositional Heatmaps",
-    "section": "Example 1.3",
-    "text": "Example 1.3\nFinally, we visualise the clr-z assay with ComplexHeatmap.\n\n# Visualise clr-z assay with a heatmap\nclrz_hm &lt;- Heatmap(assay(tse_order, \"clr_z\"), name = \"clr-z\")\nclrz_hm\n\n\n\nFigure 2: Heatmap of CLR-Z assay where columns correspond to samples and rows to taxa agglomerated by order."
-  },
-  {
-    "objectID": "compositional_heatmap.html#why-clr-z-transformation",
-    "href": "compositional_heatmap.html#why-clr-z-transformation",
-    "title": "Compositional Heatmaps",
-    "section": "Why clr-z transformation?",
-    "text": "Why clr-z transformation?\nA CLR-z transformation improves comparability in two steps:\n\nApply CLR transform to center features column-wise\nFind Z score to standardise features row-wise\n\n\n\nFigure 3: Visual comparison between counts, relative abundance, clr and clr-z assays (from left to right)."
-  },
-  {
-    "objectID": "compositional_heatmap.html#exercise-1",
-    "href": "compositional_heatmap.html#exercise-1",
-    "title": "Compositional Heatmaps",
-    "section": "Exercise 1",
-    "text": "Exercise 1\n\nheatmap visualisation: exercise 9.2\n\nExtra:\n\nadvanced heatmap: exercise 9.3"
-  },
-  {
-    "objectID": "compositional_heatmap.html#resources",
-    "href": "compositional_heatmap.html#resources",
-    "title": "Compositional Heatmaps",
-    "section": "Resources",
-    "text": "Resources\n\nOMA Chapter - Community Composition\nOMA Chapter - Visualisation\nComplexHeatmap Complete Reference"
-  },
-  {
-    "objectID": "data_manipulation.html#why-data-manipulation",
-    "href": "data_manipulation.html#why-data-manipulation",
-    "title": "Data Manipulation",
-    "section": "Why data manipulation?",
-    "text": "Why data manipulation?\nRaw data might be uninformative or incompatible with a method. We want to be able to modify, polish, subset, agglomerate and transform it."
-  },
-  {
-    "objectID": "data_manipulation.html#why-so-complex",
-    "href": "data_manipulation.html#why-so-complex",
-    "title": "Data Manipulation",
-    "section": "Why so complex?",
-    "text": "Why so complex?\nTreeSE containers organise information to improve flexibility and accessibility, which comes with a bit of complexity. Focus on assays, colData and rowData."
-  },
-  {
-    "objectID": "data_manipulation.html#example-1.1-data-import",
-    "href": "data_manipulation.html#example-1.1-data-import",
-    "title": "Data Manipulation",
-    "section": "Example 1.1: Data Import",
-    "text": "Example 1.1: Data Import\nWe work with microbiome data inside TreeSummarizedExperiment (TreeSE) containers and mia is our toolkit.\n\n# Load Tengeler2020 and store it into a TreeSE\nlibrary(mia)\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nThe components of a TreeSE can all be seen at a glance.\n\n# Print TreeSE\ntse\n\nclass: TreeSummarizedExperiment \ndim: 151 27 \nmetadata(0):\nassays(1): counts\nrownames(151): Bacteroides Bacteroides_1 ... Parabacteroides_8\n  Unidentified_Lachnospiraceae_14\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (151 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
-  },
-  {
-    "objectID": "data_manipulation.html#example-1.2-column-data",
-    "href": "data_manipulation.html#example-1.2-column-data",
-    "title": "Data Manipulation",
-    "section": "Example 1.2: Column data",
-    "text": "Example 1.2: Column data\nColumns represent the samples of an experiment.\n\n# Retrieve sample names\nhead(colnames(tse), 3)\n\n[1] \"A110\" \"A12\"  \"A15\" \n\n\nAll information about the samples is stored in colData.\n\n# Retrieve sample data\nhead(colData(tse), 3)\n\nDataFrame with 3 rows and 4 columns\n     patient_status      cohort patient_status_vs_cohort sample_name\n        &lt;character&gt; &lt;character&gt;              &lt;character&gt; &lt;character&gt;\nA110           ADHD    Cohort_1            ADHD_Cohort_1        A110\nA12            ADHD    Cohort_1            ADHD_Cohort_1         A12\nA15            ADHD    Cohort_1            ADHD_Cohort_1         A15\n\n\nIndividual variables about the samples can be accessed directly.\n\n# Retrieve sample variables\nhead(tse$patient_status, 3)\n\n[1] \"ADHD\" \"ADHD\" \"ADHD\""
-  },
-  {
-    "objectID": "data_manipulation.html#example-1.3-row-data",
-    "href": "data_manipulation.html#example-1.3-row-data",
-    "title": "Data Manipulation",
-    "section": "Example 1.3: Row data",
-    "text": "Example 1.3: Row data\nRows represent the features of an experiment.\n\n# Retrieve feature names\nhead(rownames(tse), 3)\n\n[1] \"Bacteroides\"     \"Bacteroides_1\"   \"Parabacteroides\"\n\n\nAll information about the samples is stored in rowData.\n\n# Retrieve feature data\nhead(rowData(tse), 3)\n\nDataFrame with 3 rows and 6 columns\n                    Kingdom        Phylum       Class         Order\n                &lt;character&gt;   &lt;character&gt; &lt;character&gt;   &lt;character&gt;\nBacteroides        Bacteria Bacteroidetes Bacteroidia Bacteroidales\nBacteroides_1      Bacteria Bacteroidetes Bacteroidia Bacteroidales\nParabacteroides    Bacteria Bacteroidetes Bacteroidia Bacteroidales\n                            Family           Genus\n                       &lt;character&gt;     &lt;character&gt;\nBacteroides         Bacteroidaceae     Bacteroides\nBacteroides_1       Bacteroidaceae     Bacteroides\nParabacteroides Porphyromonadaceae Parabacteroides\n\n\nIndividual variables about the samples can be accessed from rowData.\n\n# Retrieve feature variables\nhead(rowData(tse)$Genus, 3)\n\n[1] \"Bacteroides\"     \"Bacteroides\"     \"Parabacteroides\""
-  },
-  {
-    "objectID": "data_manipulation.html#example-1.4-assays",
-    "href": "data_manipulation.html#example-1.4-assays",
-    "title": "Data Manipulation",
-    "section": "Example 1.4: Assays",
-    "text": "Example 1.4: Assays\nThe assays of an experiment (counts, relative abundance, etc.) can be found in assays.\n\nassays(tse)\n\nList of length 1\nnames(1): counts\n\n\nassayNames return only their names.\n\nassayNames(tse)\n\n[1] \"counts\"\n\n\nAn individual assay can be retrieved with assay.\n\nassay(tse, \"counts\")[seq(6), seq(6)]\n\n                 A110   A12  A15  A19  A21  A23\nBacteroides     17722 11630    0 8806 1740 1791\nBacteroides_1   12052     0 2679 2776  540  229\nParabacteroides     0   970    0  549  145    0\nBacteroides_2       0  1911    0 5497  659    0\nAkkermansia      1143  1891 1212  584   84  700\nBacteroides_3       0  6498    0 4455  610    0"
-  },
-  {
-    "objectID": "data_manipulation.html#exercise-1",
-    "href": "data_manipulation.html#exercise-1",
-    "title": "Data Manipulation",
-    "section": "Exercise 1",
-    "text": "Exercise 1\n\npreliminary exploration: exercise 3.3\nassay retrieval: exercise 3.4\n\nExtra:\n\nconstructing a TreeSE object: exercise 3.1\n\nRaw data can be retrieved here."
-  },
-  {
-    "objectID": "data_manipulation.html#example-2.1-subsetting",
-    "href": "data_manipulation.html#example-2.1-subsetting",
-    "title": "Data Manipulation",
-    "section": "Example 2.1: Subsetting",
-    "text": "Example 2.1: Subsetting\nWe can subset features or samples of a TreeSE, but first we need to pick a variable.\n\n# Check levels of a sample variable\nunique(tse$patient_status)\n\n[1] \"ADHD\"    \"Control\"\n\n\nTo subset samples, we filter columns with a conditional.\n\n# Subset by a sample variable\nsubcol_tse &lt;- tse[ , tse$patient_status == \"ADHD\"]\ndim(subcol_tse)\n\n[1] 151  13\n\n\nWe now want to subset by our favourite Phylum.\n\n# Check levels of a feature variable\nunique(rowData(tse)$Phylum)\n\n[1] \"Bacteroidetes\"   \"Verrucomicrobia\" \"Proteobacteria\"  \"Firmicutes\"     \n[5] \"Cyanobacteria\"  \n\n\nTo subset features, we filter rows with a conditional.\n\n# Subset by a feature variable\nsubrow_tse &lt;- tse[rowData(tse)$Phylum == \"Firmicutes\", ]\ndim(subrow_tse)\n\n[1] 97 27"
-  },
-  {
-    "objectID": "data_manipulation.html#example-2.2-agglomeration",
-    "href": "data_manipulation.html#example-2.2-agglomeration",
-    "title": "Data Manipulation",
-    "section": "Example 2.2: Agglomeration",
-    "text": "Example 2.2: Agglomeration\nAgglomeration condenses the assays to higher taxonomic ranks. Related taxa are combined together. We can agglomerate by different ranks.\n\n# View rank options\ntaxonomyRanks(tse)\n\n[1] \"Kingdom\" \"Phylum\"  \"Class\"   \"Order\"   \"Family\"  \"Genus\"  \n\n\nWe agglomerate by Phylum and store the new experiment in the altExp slot.\n\n# Agglomerate by Phylum and store into altExp slot\naltExp(tse, \"phylum\") &lt;- agglomerateByRank(tse, rank = \"Phylum\")\naltExp(tse, \"phylum\")\n\nclass: TreeSummarizedExperiment \ndim: 5 27 \nmetadata(1): agglomerated_by_rank\nassays(1): counts\nrownames(5): Bacteroidetes Cyanobacteria Firmicutes Proteobacteria\n  Verrucomicrobia\nrowData names(6): Kingdom Phylum ... Family Genus\ncolnames(27): A110 A12 ... A35 A38\ncolData names(4): patient_status cohort patient_status_vs_cohort\n  sample_name\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (5 rows)\nrowTree: 1 phylo tree(s) (151 leaves)\ncolLinks: NULL\ncolTree: NULL"
-  },
-  {
-    "objectID": "data_manipulation.html#example-2.3-transformation",
-    "href": "data_manipulation.html#example-2.3-transformation",
-    "title": "Data Manipulation",
-    "section": "Example 2.3: Transformation",
-    "text": "Example 2.3: Transformation\nData can be transformed for different reasons. For example, to make samples comparable we can use relative abundance.\n\n# Transform counts to relative abundance\ntse &lt;- transformAssay(tse,\n                      assay.type = \"counts\",\n                      method = \"relabundance\")\n\n# View sample-wise sums\nhead(colSums(assay(tse, \"relabundance\")), 3)\n\nA110  A12  A15 \n   1    1    1 \n\n\nOr to standardise features to the normal distribution we can use z-scores: \\(Z = \\frac{x - \\mu}{\\sigma}\\).\n\n# Transform relative abundance to z-scores\ntse &lt;- transformAssay(tse,\n                      assay.type = \"relabundance\",\n                      method = \"z\",\n                      MARGIN = \"features\")\n\n# View feature-wise standard deviations\nhead(rowSds(assay(tse, \"z\")), 3)\n\n    Bacteroides   Bacteroides_1 Parabacteroides \n              1               1               1"
-  },
-  {
-    "objectID": "data_manipulation.html#exercise-2",
-    "href": "data_manipulation.html#exercise-2",
-    "title": "Data Manipulation",
+    "objectID": "quarto.html#exercise-2",
+    "href": "quarto.html#exercise-2",
+    "title": "Reproducible Reporting with Quarto",
     "section": "Exercise 2",
-    "text": "Exercise 2\n\nsubsetting: exercise 4.1\nagglomeration: exercise 5.1\ntransformation: exercise 4.6\n\nExtra:\n\nprevalence subsetting: exercise 4.3\nalternative experiments: exercise 5.2"
+    "text": "Exercise 2\n\nknitr options: exercise 2.3\nYAML parameters: exercise 2.4\n\nExtra:\n\nQuarto parameters: exercise 2.5"
   },
   {
-    "objectID": "data_manipulation.html#resources",
-    "href": "data_manipulation.html#resources",
-    "title": "Data Manipulation",
+    "objectID": "quarto.html#resources",
+    "href": "quarto.html#resources",
+    "title": "Reproducible Reporting with Quarto",
     "section": "Resources",
-    "text": "Resources\n\nmia function reference\nOMA Section - Data Containers\nOMA Section - Subsetting\nOMA Section - Agglomeration\nOMA Section - Transformation"
+    "text": "Resources\n\nOMA Section - Quarto\nChunk Option Catalogue\nCross References\nYAML Parameter Catalogue"
+  },
+  {
+    "objectID": "hintikkaxo_presentation.html#study-design",
+    "href": "hintikkaxo_presentation.html#study-design",
+    "title": "A brief introduction to HintikkaXOData",
+    "section": "Study design",
+    "text": "Study design\n\nHintikkaXOData is a MultiAssayExperiment containing microbiome, metabolome and biomarker data from a study on the effects of diet and prebiotics on fatty-liver disease in rats (Hintikka et al. 2021).\n\n\nExperimentList class object of length 3:\n [1] microbiota: TreeSummarizedExperiment with 12706 rows and 40 columns\n [2] metabolites: TreeSummarizedExperiment with 38 rows and 40 columns\n [3] biomarkers: TreeSummarizedExperiment with 39 rows and 40 columns\n\n\n\n\nThe rat population (N = 40) was divided into 4 groups (n = 10), which underwent different diets over a period of 12 weeks. The 4 groups included:\n\n\n\nhigh-fat diet without prebiotics\nhigh-fat diet with prebiotics\nlow-fat diet without prebiotics\nlow-fat diet with prebiotics\n\n\n\n\n\n\n\n\nXOS+\nXOS-\n\n\n\n\nLow Fat\n10\n10\n\n\nHigh Fat\n10\n10\n\n\n\n\n\n\n\nXOS: xylooligosaccharide"
+  },
+  {
+    "objectID": "hintikkaxo_presentation.html#microbiota",
+    "href": "hintikkaxo_presentation.html#microbiota",
+    "title": "A brief introduction to HintikkaXOData",
+    "section": "Microbiota",
+    "text": "Microbiota\n\nMicrobiome data was obtained by 16S rRNA gene sequencing of bacterial DNA sampled from the cecum of terminated rats. Then, sequence reads were assembled into Operational Taxonomic Units (OTUs).\n\n\n\n\n\n\n\n\n\n\nRelative Abundance (%)\n\n\n\n\nBacteroidetes\n51.3\n\n\nFirmicutes\n39.3\n\n\nVerrucomicrobia\n3.8\n\n\nCyanobacteria\n2.6\n\n\nProteobacteria\n2.1\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nFigure 1"
+  },
+  {
+    "objectID": "hintikkaxo_presentation.html#metabolites",
+    "href": "hintikkaxo_presentation.html#metabolites",
+    "title": "A brief introduction to HintikkaXOData",
+    "section": "Metabolites",
+    "text": "Metabolites\nMetabolome data was obtained from the same cecal samples by nuclear magnetic resonance (NMR) spectroscopy. There is a total of 38 features, corresponding to the different metabolites."
+  },
+  {
+    "objectID": "hintikkaxo_presentation.html#biomarkers",
+    "href": "hintikkaxo_presentation.html#biomarkers",
+    "title": "A brief introduction to HintikkaXOData",
+    "section": "Biomarkers",
+    "text": "Biomarkers\n\nBiomarkers data were obtained by Western blot from protein homogenates of rat tissues. There is a total of 39 features, corresponding to the biomarkers/site combinations.\n\n\n\n\n\n\n\n\n\nBiomarker\nFunction\n\n\n\n\nCS\ncitrate synthase\n\n\nAST\naspartate aminotransferase\n\n\nALT\nalanine aminotransferase\n\n\nERK\nextracellular signal-regulated kinase\n\n\nIRS1\ninsulin receptor substrate 1\n\n\nAKT\nprotein kinase B\n\n\nIL1b\ninterleukin 1 beta\n\n\nHAD\n3-hydroxyacyl-CoA dehydrogenase 8\n\n\nCD45\nprotein tyrosine phosphatase\n\n\n\n\n\n\n\n\n\n\n\nName\nSite\n\n\n\n\nepi\nepididymal adipose tissue\n\n\nSCfat\nmesenteric adopose tissue\n\n\nmese\nsubcutaneous adipose tissue\n\n\nliver\nliver\n\n\ngastro\ngastrocnemius muscle\n\n\nserum\nserum"
+  },
+  {
+    "objectID": "hintikkaxo_presentation.html#references",
+    "href": "hintikkaxo_presentation.html#references",
+    "title": "A brief introduction to HintikkaXOData",
+    "section": "References",
+    "text": "References\n\n\n\n\n\n\n\n\nHintikka, Jukka, Sanna Lensu, Elina Mäkinen, Sira Karvinen, Marjaana Honkanen, Jere Lindén, Tim Garrels, Satu Pekkala, and Leo Lahti. 2021. “Xylo-Oligosaccharides in Prevention of Hepatic Steatosis and Adipose Tissue Inflammation: Associating Taxonomic and Metabolomic Patterns in Fecal Microbiomes with Biclustering.” International Journal of Environmental Research and Public Health 18 (8): 4049. https://doi.org/10.3390/ijerph18084049."
   },
   {
     "objectID": "pcoa.html#why-pcoa",
