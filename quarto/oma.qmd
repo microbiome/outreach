@@ -1,6 +1,5 @@
 ---
 title: "Orchestrating Microbiome Analysis with Bioconductor"
-author: Tuomas Borman
 format:
   revealjs: 
     slide-number: true
