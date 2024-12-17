@@ -1,7 +1,6 @@
 ---
 title: "Reproducible data science workflow"
 format: revealjs
-editor: visual
 ---
 
 ## Reproducible notebooks

@@ -312,7 +312,7 @@ _Reduce overlapping efforts, improve interoperability, ensure sustainability._
 
 ## 
 
-![](images/paste-14DB8F76.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=10%}
+![](images/TreeSE.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=10%}
 
 ## MIcrobiome Analysis (mia)
 

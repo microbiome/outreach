@@ -1,81 +1,246 @@
 ---
 title: "Data containers in R/Bioconductor"
 format: revealjs
-editor: visual
 ---
 
-## Getting started
+## Stuctured way to represent data
 
--   CSC notebook access OK?
--   R, Rstudio, R packages installation OK?
--   First task: reproducible workflow & Quarto documents (in a moment)
+- Biological data cannot be represented with a single table
+- Managing multiple tables becomes easily a bottleneck of efficient workflows
 
-<!--![](images/paste-D7CA373B.png){}-->
+##
 
-## Data containers support collaborative workflow development
+```{r}
+#| label: pages_and_book
 
-![](images/paste-DB20F164.png){width="485"}
+library(magick)
 
-![](images/paste-2562BFE6.png)
+img1 <- image_read("images/pile_of_papers.webp")
+img2 <- image_read("images/book.webp")
+arrow <- image_blank(width = 500, height = 1000, color = "none") %>%
+  image_annotate("→", size = 200, gravity = "center", color = "black")
+
+# Combine images with the arrow
+final_image <- image_append(c(img1, arrow, img2), stack = FALSE)
+
+# Display the final image
+final_image
+```
+
+##
+
+```{r}
+#| label: data_and_data_container
+
+library(magick)
+
+img1 <- image_read("images/unorganized_data.webp")
+img2 <- image_read("images/SE.png")
+img2 <- image_scale(img2, "200%")  # This will make img2 twice as big
+arrow <- image_blank(width = 500, height = 1000, color = "none") %>%
+  image_annotate("→", size = 200, gravity = "center", color = "black")
+
+# Combine images with the arrow
+final_image <- image_append(c(img1, arrow, img2), stack = FALSE)
+
+# Display the final image
+final_image
+```
 
 ## Standardized data containers
 
 Central for the R/Bioconductor ecosystem: *phyloseq, (Tree)SummarizedExperiment, MultiAssayExperiment*
 
-![](images/paste-E3B845C5.png){width="330"}
+```{r}
+#| label: data_container
 
-## Data containers
+# Load libraries
+library(ggplot2)
+library(ggforce)
 
-![](images/paste-5F140C1E.png)
+# Adjusting the text positions for better alignment
+ellipse_data <- data.frame(
+    x = c(0, 0, 0),         # Centers of ellipses
+    y = c(2, 1, 0),         # Centers of ellipses
+    a = c(4, 3, 2),         # Widths of ellipses
+    b = c(3, 2, 1),         # Heights of ellipses
+    label = c("COMMUNITY", "METHODS", "DATA CONTAINER"),  # Labels for each ellipse
+    label_y = c(4, 1.75, 0) # Adjusted vertical positions for labels
+)
 
-```{=html}
-<!--
-## Data containers
-
-![](images/paste-8E455D3E.png)
-
--->
+# Plot with adjusted labels
+ggplot() +
+    geom_ellipse(data = ellipse_data, 
+                 aes(x0 = x, y0 = y, a = a, b = b, angle = 0),
+                 color = "darkgreen", fill = "grey90", alpha = 0.7) +
+    geom_text(data = ellipse_data, 
+              aes(x = x, y = label_y, label = label), 
+              size = 5, fontface = "bold") +
+    coord_fixed() +
+    theme_void()
 ```
-## *phyloseq*: microbiome data container
 
--   The first microbome data container from around 2010.
+## Data containers support collaborative workflow development
 
--   Has become standard for (16S) microbiome bioinformatics in R (J McMurdie, S Holmes et al.)
+![](images/paste-DB20F164.png){width="550"}
+
+## _SummarizedExperiment_
+
+- Most common data container
+- Optimized for biological data
+- Extended to different purposes
+
+```{r}
+#| label: se_field
+#| fig-align: "right"
+#| eval: true
+
+# Get packages and info based on their BiocViews
+pkgs <- BiocPkgTools::biocPkgList()
+#
+pkgs[["SE"]] <- sapply(pkgs$Depends, function(x) any(grepl("summarizedexperiment", x, ignore.case = TRUE)) )
+pkgs <- pkgs[pkgs[["SE"]], ]
+fields <- sapply(pkgs$biocViews, function(x){
+    field <- "Other"
+    if( any(grepl("genomic|genetic|gene|genom|DNA", x, ignore.case = TRUE)) ){
+        field <- "Genomics"
+    }
+    if( any(grepl("proteomics|protein", x, ignore.case = TRUE)) ){
+        field <- "Proteomics"
+    }
+    if( any(grepl("metabolomics|metabolome|metabolite|Lipidom|massspectro", x, ignore.case = TRUE)) ){
+        field <- "Metabolomics"
+    }
+    if( any(grepl("transcripto|RNA-seq|RNA", x, ignore.case = TRUE)) ){
+        field <- "Transcriptomics"
+    }
+    if( any(grepl("immuno", x, ignore.case = TRUE)) ){
+        field <- "Immunology"
+    }
+    if( any(grepl("cytom", x, ignore.case = TRUE)) ){
+        field <- "Cytometrics"
+    }
+    if( any(grepl("microarray|chip", x, ignore.case = TRUE)) ){
+        field <- "Microarray"
+    }
+    if( any(grepl("single-cell|singlecell", x, ignore.case = TRUE)) ){
+        field <- "Single-cell"
+    }
+    if( any(grepl("metagenom|microbiome|16S|microbiota|amplicon|shotgun|microb|metatranscript|metametabolo|metaproteo", x, ignore.case = TRUE)) ){
+        field <- "Microbiome"
+    }
+    return(field)
+})
+pkgs[["Field"]] <- fields
+pkgs[pkgs[["Package"]] %in% c("mia", "miaViz", "miaSim", "iSEEtree", "HoloFoodR", "MGnifyR"), "Field"] <- "Microbiome"
+#
+se_pkgs <- data.frame(table(pkgs$Field))
+colnames(se_pkgs) <- c("Field", "N")
+#
+library(tidyverse)
+library(ggrepel)
+df2 <- se_pkgs %>% 
+  mutate(csum = rev(cumsum(rev(N))), 
+         pos = N/2 + lead(csum, 1),
+         pos = if_else(is.na(pos), N/2, pos))
+#
+ggplot(se_pkgs, aes(x = "" , y = N, fill = fct_inorder(Field))) +
+  geom_col(width = 1, color = 1) +
+  coord_polar(theta = "y") +
+  scale_fill_brewer(palette = "Paired") +
+  geom_label_repel(data = df2, aes(y = pos, label = N), size = 4.5, nudge_x = 1, show.legend = FALSE) +
+  guides(fill = guide_legend(title = "Field")) +
+  theme_void()
+```
+
+##
+
+![](images/SE.png){fig-alt="SummarizedExperiment class" fig-align="center" width=10%}
+
+##
+
+![](images/paste-27F811B1.png)
+
+##
+
+![](images/paste-617FF710.png)
+
+##
+
+![](images/paste-AA8BAE15.png)
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+- **Side information**: extended capabilities & data types
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+- **Side information**: extended capabilities & data types
+- **Optimized**: for speed & memory
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+- **Side information**: extended capabilities & data types
+- **Optimized**: for speed & memory
+- **Integrated**: with other applications & frameworks
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+- **Side information**: extended capabilities & data types
+- **Optimized**: for speed & memory
+- **Integrated**: with other applications & frameworks
+
+
+_Reduce overlapping efforts, improve interoperability, ensure sustainability._
+
+## _phyloseq_
+
+- The first microbome data container from around 2010.
+- Has become standard for (16S) microbiome bioinformatics in R (J McMurdie, S Holmes et al.)
 
 ![](images/paste-43F123A2.png)
 
-## *TreeSummarizedExperiment*
-
+## _TreeSummarizedExperiment_
 ### New, alternative microbiome data container.
 
-Huang et al. F1000, 2021
+- Extension to SummarizedExperiment
+- Optimal for microbiome data
+- Links microbiome field to larger SummarizedExperiment family
 
-![](images/paste-14DB8F76.png)
+_Huang et al. F1000, 2021_
 
-## Current framework
+##
 
--   *(Tree)SummarizedExperiment* for single omics
--   *MultiAssayExperiment* for multi-omics
+![](images/SE.png){fig-alt="SummarizedExperiment class" fig-align="center" width=10%}
 
-## Benefits
+## 
 
--   Reduce overlapping efforts
-
--   Improve interoperability
-
--   Ensure sustainability
-
--   Transparency
-
--   Reproducibility
-
--   Collaboration
+![](images/TreeSE.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=10%}
 
 ##  {.smaller}
 
 **Orchestrating Microbiome Analysis with R and Bioconductor -- online book: beta version**
 
-::: columns
+::::: columns
 ::: {.column width="50%"}
 ![Figure source: Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology 12:11.](images/paste-4A871F15.png){width="231"}
 :::
@@ -83,30 +248,28 @@ Huang et al. F1000, 2021
 ::: {.column width="50%"}
 ![](images/paste-0C91D638.png){width="438"}
 :::
-:::
+:::::
 
-## Data containers
+## Current framework
 
-![](images/paste-27F811B1.png)
+- _(Tree)SummarizedExperiment_ for single omics
+- _MultiAssayExperiment_ for multi-omics
 
-## Data containers
+## MultiAssayExperiment
 
-![](images/paste-617FF710.png)
+- Links _(Tree)SummarizedExperiment_ objects
 
-## Data containers
+![](images/MultiAssayExperiment.png)
 
-![](images/paste-AA8BAE15.png)
-
-## Demo data
-
-Introduction of the afternoon assignment and data set: [HintikkaXOData](https://microbiome.github.io/OMA/containers.html#hintikka-desc)
+_Ramos et al. Cancer Res., 2017_
 
 ## Task: load microbiome data
 
 Load an example data set from the mia R package with:
 
 ```{r}
-#| echo: true
+#| label: show_demo_data1
+
 library(mia)
 data(HintikkaXOData)
 ```
@@ -118,66 +281,60 @@ Source: Hintikka et al. (2021). Xylo-oligosaccharides in prevention of hepatic s
 This is MultiAssayExperiment data object. Let us check what experiment it contains.
 
 ```{r}
-#| echo: true
+#| label: show_demo_data2
+
 mae <- HintikkaXOData
 experiments(mae)
 ```
 
 ## Task: load microbiome data
 
-Let us pick the microbiota data, which is TreeSummarizedExperiment object.
+Let us pick the microbiota data, which is _TreeSummarizedExperiment_ object.
 
 ```{r}
-#| echo: true
+#| label: show_demo_data3
+
 tse <- mae[["microbiota"]]
 tse
+```
+
+##
+
+We can then retrieve the abundance table.
+
+```{r}
+#| label: show_demo_data4
+
+assay(tse, "counts")[1:2, 1:5]
+```
+
+##
+
+And check sample metadata.
+
+```{r}
+#| label: show_demo_data5
+
+colData(tse)
+```
+
+##
+
+And access the feature metadata, i.e., taxonomy table.
+
+```{r}
+#| label: show_demo_data6
+
+rowData(tse)
 ```
 
 ## Open microbiome data resources
 
 Open microbiome data resources supporting *TreeSummarizedExperiment*:
 
--   R package data ([mia](https://microbiome.github.io/mia/reference/index.html), [miaViz](https://microbiome.github.io/miaViz/reference/index.html), [miaTime](https://microbiome.github.io/miaTime/reference/index.html))
--   Human studies: [curatedMetagenomicData](https://waldronlab.io/curatedMetagenomicData/articles/available-studies.html) (Pasolli *et al.* [Nat Meth 2017](https://doi.org/10.1038/nmeth.4468))
--   EBI MGnify: MGnifyR R package
--   Other studies: [microbiomeDataSets](https://microbiome.github.io/microbiomeDataSets/index.html) (Lahti et al.)
+- R package data ([mia](https://microbiome.github.io/mia/reference/index.html), [miaViz](https://microbiome.github.io/miaViz/reference/index.html), [miaTime](https://microbiome.github.io/miaTime/reference/index.html))
+- Human studies: [curatedMetagenomicData](https://waldronlab.io/curatedMetagenomicData/articles/available-studies.html) (Pasolli *et al.* [Nat Meth 2017](https://doi.org/10.1038/nmeth.4468))
+- EBI MGnify: [MGnifyR R package](https://ebi-metagenomics.github.io/MGnifyR/)
+- Other studies: [microbiomeDataSets](https://microbiome.github.io/microbiomeDataSets/index.html) (Lahti et al.)
 
-See also OMA chapter on available data sets
-
-## Julia packages
-
-![](images/paste-B31FD0DB.png){width="434"}
-
-```{=html}
-<!--
-
-## Data demo
-
-1.  Demo data in tables
-2.  Figure of treese
-3.  How it can be built 4, Every slot
-4.  miaverse packages
-5.  Dataset packages Break
-6.  OMA examples
-
-
-## Day 1: Basic data wrangling
-
-|  Time | Theme                                          |
-|------:|:-----------------------------------------------|
-| 09-10 | reproducible reporting & data science workflow |
-| 10-11 | data import & data containers                  |
-| 11-12 | data wrangling basics                          |
-|   12- | Summary, Q & A                                 |
-
-
-## R/Bioconductor
-
--   Overview of the afternoon assignment
--   phyloseq vs TreeSE; glimpse on MAE
--   Introduction to R/Bioconductor project in more detail
--   The role of data containers, R packages (miaverse), Tutorials, Community
--   Best practices in reproducible reporting and open science
-
--->
-```
+See also [OMA chapter](https://microbiome.github.io/OMA/docs/devel/pages/import.html#sec-example-data) on available data sets.
