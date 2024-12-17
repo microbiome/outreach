@@ -1,7 +1,6 @@
 ---
-title: "CSC Notebook "
+title: "CSC Notebook"
 format: revealjs
-editor: visual
 ---
 
 ## CSC Notebook
@@ -16,14 +15,16 @@ editor: visual
 -   Services: High-performance computing, data management, cloud, software.
 :::
 
+![](images/csc.png){fig-align="right" width="400"}
+
 ## Instructions to login
 
 ::: incremental
 -   Instructions to access the environment will be sent to the registered participants.
 
-1.  Read the [General instructions](https://docs.csc.fi/cloud/csc_notebooks/guide_for_students/)
+1.  Read the [General instructions](https://docs.csc.fi/cloud/noppe/guide_for_students/)
 
-2.  Go to the [CSC notebook front page](https://notebooks.rahtiapp.fi/welcome).
+2.  Go to the [CSC Noppe front page](https://noppe.2.rahtiapp.fi/welcome).
 
 3.  Login
 
