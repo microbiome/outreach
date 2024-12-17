@@ -1516,21 +1516,21 @@
     "href": "datacontainers.html#task-load-microbiome-data",
     "title": "Data containers in R/Bioconductor",
     "section": "Task: load microbiome data",
-    "text": "Task: load microbiome data\nLoad an example data set from the mia R package with:\nSource: Hintikka et al. (2021). Xylo-oligosaccharides in prevention of hepatic steatosis and adipose tissue inflammation: Associating taxonomic and metabolomic patterns in fecal microbiomes with biclustering. International Journal of Environmental Research and Public Health 18(8) https://doi.org/10.3390/ijerph18084049"
+    "text": "Task: load microbiome data\nLoad an example data set from the mia R package with:\n\nlibrary(mia)\ndata(HintikkaXOData)\n\nSource: Hintikka et al. (2021). Xylo-oligosaccharides in prevention of hepatic steatosis and adipose tissue inflammation: Associating taxonomic and metabolomic patterns in fecal microbiomes with biclustering. International Journal of Environmental Research and Public Health 18(8) https://doi.org/10.3390/ijerph18084049"
   },
   {
     "objectID": "datacontainers.html#task-load-microbiome-data-1",
     "href": "datacontainers.html#task-load-microbiome-data-1",
     "title": "Data containers in R/Bioconductor",
     "section": "Task: load microbiome data",
-    "text": "Task: load microbiome data\nThis is MultiAssayExperiment data object. Let us check what experiment it contains.\n\n\nExperimentList class object of length 3:\n [1] microbiota: TreeSummarizedExperiment with 12706 rows and 40 columns\n [2] metabolites: TreeSummarizedExperiment with 38 rows and 40 columns\n [3] biomarkers: TreeSummarizedExperiment with 39 rows and 40 columns"
+    "text": "Task: load microbiome data\nThis is MultiAssayExperiment data object. Let us check what experiment it contains.\n\nmae &lt;- HintikkaXOData\nexperiments(mae)\n\nExperimentList class object of length 3:\n [1] microbiota: TreeSummarizedExperiment with 12706 rows and 40 columns\n [2] metabolites: TreeSummarizedExperiment with 38 rows and 40 columns\n [3] biomarkers: TreeSummarizedExperiment with 39 rows and 40 columns"
   },
   {
     "objectID": "datacontainers.html#task-load-microbiome-data-2",
     "href": "datacontainers.html#task-load-microbiome-data-2",
     "title": "Data containers in R/Bioconductor",
     "section": "Task: load microbiome data",
-    "text": "Task: load microbiome data\nLet us pick the microbiota data, which is TreeSummarizedExperiment object.\n\n\nclass: TreeSummarizedExperiment \ndim: 12706 40 \nmetadata(0):\nassays(1): counts\nrownames(12706): GAYR01026362.62.2014 CVJT01000011.50.2173 ...\n  JRJTB:03787:02429 JRJTB:03787:02478\nrowData names(7): Phylum Class ... Species OTU\ncolnames(40): C1 C2 ... C39 C40\ncolData names(0):\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: NULL\nrowTree: NULL\ncolLinks: NULL\ncolTree: NULL"
+    "text": "Task: load microbiome data\nLet us pick the microbiota data, which is TreeSummarizedExperiment object.\n\ntse &lt;- mae[[\"microbiota\"]]\ntse\n\nclass: TreeSummarizedExperiment \ndim: 12706 40 \nmetadata(0):\nassays(1): counts\nrownames(12706): GAYR01026362.62.2014 CVJT01000011.50.2173 ...\n  JRJTB:03787:02429 JRJTB:03787:02478\nrowData names(7): Phylum Class ... Species OTU\ncolnames(40): C1 C2 ... C39 C40\ncolData names(0):\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: NULL\nrowTree: NULL\ncolLinks: NULL\ncolTree: NULL"
   },
   {
     "objectID": "datacontainers.html#open-microbiome-data-resources",

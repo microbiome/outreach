@@ -261,6 +261,7 @@ Load an example data set from the mia R package with:
 
 ```{r}
 #| label: show_demo_data1
+#| echo: true
 
 library(mia)
 data(HintikkaXOData)
@@ -274,6 +275,7 @@ This is MultiAssayExperiment data object. Let us check what experiment it contai
 
 ```{r}
 #| label: show_demo_data2
+#| echo: true
 
 mae <- HintikkaXOData
 experiments(mae)
@@ -285,6 +287,7 @@ Let us pick the microbiota data, which is _TreeSummarizedExperiment_ object.
 
 ```{r}
 #| label: show_demo_data3
+#| echo: true
 
 tse <- mae[["microbiota"]]
 tse
