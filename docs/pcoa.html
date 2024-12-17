@@ -10,7 +10,7 @@
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.5.57">
 
-  <title>Principal Coordinate Analysis</title>
+  <title>Multivariate analysis</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -390,167 +390,352 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Principal Coordinate Analysis</h1>
+  <h1 class="title">Multivariate analysis</h1>
 
 <div class="quarto-title-authors">
 </div>
 
 </section>
-<section id="why-pcoa" class="slide level2">
-<h2>Why PCoA?</h2>
-<p>Principal Coordinate Analysis (PCoA) is a method to study <strong>beta diversity</strong>, or the diversity between microbial communities from different samples.</p>
-
-<img data-src="images/tengeler_beta.png" class="quarto-figure quarto-figure-center r-stretch" width="330"></section>
-<section id="example-1.1" class="slide level2">
-<h2>Example 1.1</h2>
-<p>To get started, we import Tengeler2020 from mia and store it into a variable.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="co"># Load libraries and import dataset</span></span>
-<span id="cb1-2"><a></a><span class="fu">library</span>(mia)</span>
-<span id="cb1-3"><a></a><span class="fu">library</span>(scater)</span>
-<span id="cb1-4"><a></a></span>
-<span id="cb1-5"><a></a><span class="fu">data</span>(<span class="st">"Tengeler2020"</span>, <span class="at">package =</span> <span class="st">"mia"</span>)</span>
-<span id="cb1-6"><a></a>tse <span class="ot">&lt;-</span> Tengeler2020</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>After that, we transform the counts assay to relative abundances and store the new assay back into the TreeSE.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="co"># Transform counts to relative abundance</span></span>
-<span id="cb2-2"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse, <span class="at">method =</span> <span class="st">"relabundance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</section>
-<section id="example-1.2-ordination" class="slide level2">
-<h2>Example 1.2: Ordination</h2>
-<p>Here, we run PCoA on the relative abundance assay to reduce the dimensionality of the data. We set <code>method</code> to Bray-Curtis dissimilarity.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="co"># Run PCoA with Bray-Curtis dissimilarity</span></span>
-<span id="cb3-2"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">runMDS</span>(tse,</span>
-<span id="cb3-3"><a></a>              <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
-<span id="cb3-4"><a></a>              <span class="at">FUN =</span> vegan<span class="sc">::</span>vegdist,</span>
-<span id="cb3-5"><a></a>              <span class="at">method =</span> <span class="st">"bray"</span>,</span>
-<span id="cb3-6"><a></a>              <span class="at">name =</span> <span class="st">"Bray"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The reduced dimensions can be retrieved with <code>reducedDim</code>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a></a><span class="fu">head</span>(<span class="fu">reducedDim</span>(tse, <span class="st">"Bray"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>            [,1]        [,2]
-A110  0.35648020  0.11979800
-A12  -0.01837414 -0.35553853
-A15   0.14308108  0.36730630
-A19   0.03031075 -0.34670413
-A21   0.07539063 -0.31823525
-A23   0.17993859  0.09476674</code></pre>
-</div>
-</div>
-</section>
-<section id="example-1.2-visualisation" class="slide level2">
-<h2>Example 1.2: Visualisation</h2>
-<p>Then, we visualise the first two dimensions.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a></a><span class="co"># Visualise Bray-Curtis dissimilarity between samples</span></span>
-<span id="cb6-2"><a></a><span class="fu">plotReducedDim</span>(tse, <span class="st">"Bray"</span>, <span class="at">colour_by =</span> <span class="st">"patient_status"</span>, <span class="at">shape_by =</span> <span class="st">"cohort"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-</div>
-<img data-src="pcoa_files/figure-revealjs/unnamed-chunk-6-1.png" width="960" class="r-stretch"></section>
-<section id="exercise-1" class="slide level2">
-<h2>Exercise 1</h2>
+<section id="multivariate-analysis" class="slide level2">
+<h2>Multivariate analysis</h2>
 <ul>
-<li>retrieval of reduced dimensions: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#reduced-dimensions-retrieval" target="_blank">exercise 7.1</a></li>
-<li>PCoA: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#principal-coordinate-analysis-pcoa" target="_blank">exercise 7.3</a></li>
+<li>Multiple variables</li>
+<li>Different methods
+<ul>
+<li>Ordination-based methods</li>
+<li>Clustering</li>
+<li>Classification, …</li>
+</ul></li>
 </ul>
 </section>
-<section id="example-2.1-pca" class="slide level2">
-<h2>Example 2.1: PCA</h2>
-<p>When Euclidean distance is used, PCoA reduces to PCA.</p>
+<section id="ordination" class="slide level2 smaller">
+<h2>Ordination</h2>
+<ul>
+<li>Beta diversity: diversity between microbial communities</li>
+<li>Simplify and visualize high-dimensional data</li>
+<li>Projects data into lower dimensional latent space</li>
+</ul>
+
+<img data-src="pcoa_files/figure-revealjs/show_ordination-1.png" width="960" class="r-stretch"></section>
+<section id="section" class="slide level2">
+<h2></h2>
+
+<img data-src="images/hand_shadow.webp" class="quarto-figure quarto-figure-center r-stretch" width="330"></section>
+<section id="matrix-factorization" class="slide level2">
+<h2>Matrix factorization</h2>
+<ul>
+<li>Decomposes complex data into components</li>
+<li>Widely used and general technique</li>
+<li>Methods vary based on goals and constraints</li>
+</ul>
+</section>
+<section id="section-1" class="slide level2">
+<h2></h2>
+
+<img data-src="images/matrix_factorization.png" class="quarto-figure quarto-figure-center r-stretch" width="330"></section>
+<section id="ordination-methods" class="slide level2">
+<h2>Ordination methods</h2>
+<ul>
+<li>Different methods
+<ul>
+<li>PCA, PCoA/MDS, RDA, …</li>
+</ul></li>
+<li>Euclidean/non-Euclidean</li>
+<li>Unsupervised/supervised</li>
+</ul>
+</section>
+<section id="principal-component-analysis-pca" class="slide level2">
+<h2>Principal component analysis (PCA)</h2>
+<ul>
+<li>Goal: Maximize the variance</li>
+<li>Euclidean distance</li>
+<li>Aitchison distance: CLR + Euclidean distance</li>
+</ul>
+</section>
+<section id="example-1.1-pca" class="slide level2">
+<h2>Example 1.1: PCA</h2>
+<p>First we load an example dataset and apply robust clr transformation.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">runPCA</span>(tse,</span>
-<span id="cb7-2"><a></a>              <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
-<span id="cb7-3"><a></a>              <span class="at">ncomp =</span> <span class="dv">5</span>,</span>
-<span id="cb7-4"><a></a>              <span class="at">name =</span> <span class="st">"Euclidean"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a></a><span class="fu">library</span>(mia)</span>
+<span id="cb1-2"><a></a><span class="fu">data</span>(<span class="st">"Tengeler2020"</span>)</span>
+<span id="cb1-3"><a></a>tse <span class="ot">&lt;-</span> Tengeler2020</span>
+<span id="cb1-4"><a></a><span class="co"># Transform data</span></span>
+<span id="cb1-5"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse, <span class="at">method =</span> <span class="st">"rclr"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<p>We can retrieve a list of all reduced dimensions with <code>reducedDimNames</code>.</p>
+</section>
+<section id="section-2" class="slide level2">
+<h2></h2>
+<p>Then we perform PCA with <code>runPCA()</code>function available in <code>scater</code> package.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a></a><span class="fu">reducedDimNames</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a></a><span class="fu">library</span>(scater)</span>
+<span id="cb2-2"><a></a></span>
+<span id="cb2-3"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">runPCA</span>(</span>
+<span id="cb2-4"><a></a>    tse,</span>
+<span id="cb2-5"><a></a>    <span class="at">assay.type =</span> <span class="st">"rclr"</span></span>
+<span id="cb2-6"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="section-3" class="slide level2">
+<h2></h2>
+<p>We can retrieve a list of all reduced dimensions with <code>reducedDims()</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a></a><span class="fu">reducedDims</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "Bray"      "Euclidean"</code></pre>
+<pre><code>List of length 1
+names(1): PCA</code></pre>
 </div>
 </div>
-<p>If you need only their names, these can be accessed with <code>reducedDims</code>.</p>
+<p>If you need only their names, these can be accessed with <code>reducedDimNames()</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">reducedDims</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a></a><span class="fu">reducedDimNames</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
-<pre><code>List of length 2
-names(2): Bray Euclidean</code></pre>
+<pre><code>[1] "PCA"</code></pre>
 </div>
 </div>
 </section>
-<section id="example-2.2-pca-contributors" class="slide level2">
-<h2>Example 2.2: PCA Contributors</h2>
-<p>Some taxa contribute more than others to the generation of reduced dimensions. They can be determined from the PCA loadings.</p>
+<section id="section-4" class="slide level2">
+<h2></h2>
+<p>And the results can be accessed with <code>reducedDim(tse, "PCA")</code>.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="co"># Define function to visualise top contributors</span></span>
-<span id="cb12-2"><a></a>plot_loads <span class="ot">&lt;-</span> <span class="cf">function</span>(loads, comp, <span class="at">n =</span> <span class="dv">6</span>) {</span>
-<span id="cb12-3"><a></a></span>
-<span id="cb12-4"><a></a>  loads <span class="ot">&lt;-</span> <span class="fu">sort</span>(loads[ , comp], <span class="at">decreasing =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb12-5"><a></a>  loads <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">head</span>(loads, <span class="fu">round</span>(n <span class="sc">/</span> <span class="dv">2</span>)), <span class="fu">tail</span>(loads, <span class="fu">round</span>(n <span class="sc">/</span> <span class="dv">2</span>)))</span>
-<span id="cb12-6"><a></a>  </span>
-<span id="cb12-7"><a></a>  <span class="fu">barplot</span>(loads, <span class="at">horiz =</span> <span class="cn">TRUE</span>, <span class="at">las =</span> <span class="dv">1</span>,</span>
-<span id="cb12-8"><a></a>          <span class="at">cex.names =</span> <span class="fl">0.5</span>, <span class="at">main =</span> comp, <span class="at">xlab =</span> <span class="st">"Loadings"</span>)</span>
-<span id="cb12-9"><a></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a></a><span class="fu">reducedDim</span>(tse, <span class="st">"PCA"</span>) <span class="sc">|&gt;</span> <span class="fu">head</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
+<div class="cell-output cell-output-stdout">
+<pre><code>            PC1       PC2         PC3        PC4        PC5        PC6
+A110 -4.5035339 -2.456547 -2.11328100 -3.8634688  2.0123949 -0.3325532
+A12   2.4156363  4.982008 -0.07545471  0.1898264 -1.3925704  1.2237517
+A15  -2.7404749 -3.121391 -4.46833577  8.1698047 -2.5837119 -2.1243919
+A19   0.7358807  7.090486 -1.00797353 -1.2989823  0.1064523 -3.3824751
+A21   0.4648846  5.448022 -1.14685965 -0.8743427  1.2143298 -4.4323282
+A23  -2.0686346 -1.954092 -2.61287624 -2.5249816 -3.0007937 -2.4024629
+            PC7        PC8        PC9       PC10         PC11       PC12
+A110 -0.8342411  1.0193914 -4.2216208  1.1932256  0.172707622 -2.3565927
+A12  -0.3055218  0.7968376  0.4988079  2.7782003  0.551278116  0.4895880
+A15  -1.3546507  1.5617929 -0.7468926 -0.7977925 -0.002285458 -1.9595096
+A19   1.4979577  0.1788277 -0.9825262 -2.3851223 -2.018251650 -1.4132247
+A21   1.6593740  0.5619416  0.6748281 -0.2531164 -1.974152848  0.7930157
+A23  -2.5300350 -3.0190698  3.9427392  0.2632914  1.180388830  0.3831161
+           PC13       PC14       PC15        PC16       PC17       PC18
+A110  0.2449630 -1.2664497  1.4364113  0.89583856  0.8365374  0.4457789
+A12  -1.4948351 -2.5473097 -0.8648291 -1.48252017 -0.7839398  0.1476567
+A15   0.4154040 -0.2455156  0.1621916  0.33095787 -0.7875945 -0.0824129
+A19   0.1953649  0.9069244  0.2419303  0.38847386  1.4955734  0.3421782
+A21  -1.2728108  0.7827710 -0.8452163 -0.58884502 -1.9694914 -0.5016079
+A23  -0.8302655 -0.2890572  2.1834383  0.09925442  0.3728412 -1.4058642
+             PC19       PC20       PC21       PC22       PC23       PC24
+A110  0.987010794 -1.0053150 -0.9899730  0.8829111 -0.2200736 -0.2975089
+A12   0.114383997  0.5743782 -1.9702511 -0.4000117 -0.2989457 -1.0332134
+A15  -0.517904963  0.1558602 -0.2901768 -0.1773831 -0.4550756 -0.1875868
+A19   0.480395457  1.3345829  0.8691778 -0.5697885  0.2015948 -0.7871444
+A21   0.006978105 -1.8347856 -0.6948813  0.4662380 -0.3698014  0.5050710
+A23   0.516079026 -0.8406535  0.3192697  0.3128884 -0.1924474 -0.2425484
+            PC25        PC26
+A110 -0.60890560 -0.20643929
+A12   0.51342549 -1.06913557
+A15  -0.04222125  0.01149364
+A19   1.10441000 -0.77053190
+A21  -1.05782664  0.59576805
+A23   0.74942196 -0.01116033</code></pre>
 </div>
-<p>The top PCA loadings for the first and fourth dimension are visualised below.</p>
+</div>
+</section>
+<section id="example-1.2-visualize-pca" class="slide level2">
+<h2>Example 1.2: Visualize PCA</h2>
+<p>PCA or other ordination results are usually visualized with scatter plot.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="co"># Fetch feature loadings</span></span>
-<span id="cb13-2"><a></a>taxa_loads <span class="ot">&lt;-</span> <span class="fu">attr</span>(<span class="fu">reducedDim</span>(tse, <span class="st">"Euclidean"</span>), <span class="st">"rotation"</span>)</span>
-<span id="cb13-3"><a></a></span>
-<span id="cb13-4"><a></a><span class="co"># Plot loadings for PCA 1 and 4</span></span>
-<span id="cb13-5"><a></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb13-6"><a></a><span class="fu">plot_loads</span>(taxa_loads, <span class="st">"PC1"</span>)</span>
-<span id="cb13-7"><a></a><span class="fu">plot_loads</span>(taxa_loads, <span class="st">"PC4"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a></a><span class="fu">plotReducedDim</span>(</span>
+<span id="cb9-2"><a></a>    tse,</span>
+<span id="cb9-3"><a></a>    <span class="at">dimred =</span> <span class="st">"PCA"</span>,</span>
+<span id="cb9-4"><a></a>    <span class="at">colour_by =</span> <span class="st">"patient_status"</span></span>
+<span id="cb9-5"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
-<img data-src="pcoa_files/figure-revealjs/pca-load-1.png" width="960" class="r-stretch"></section>
-<section id="example-2.3-pcoa-contributors" class="slide level2">
-<h2>Example 2.3: PCoA Contributors</h2>
-<p>PCoA does not return feature loadings, but they can be estimated as the correlation between taxa and reduced dimensions.</p>
+<img data-src="pcoa_files/figure-revealjs/vis_pca-1.png" width="960" class="r-stretch"></section>
+<section id="example-1.3-pca-contributors" class="slide level2">
+<h2>Example 1.3: PCA contributors</h2>
+<p>Some taxa contribute more than others to the generation of reduced dimensions.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a></a><span class="co"># Compute correlation between features and reduced dimensions</span></span>
-<span id="cb14-2"><a></a>comp_loads <span class="ot">&lt;-</span> <span class="fu">apply</span>(</span>
-<span id="cb14-3"><a></a>    <span class="fu">assay</span>(tse, <span class="st">"relabundance"</span>),</span>
-<span id="cb14-4"><a></a>    <span class="at">MARGIN =</span> <span class="dv">1</span>, <span class="at">simplify =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb14-5"><a></a>    <span class="cf">function</span>(x) <span class="fu">cor</span>(x, <span class="fu">reducedDim</span>(tse, <span class="st">"Bray"</span>), <span class="at">method =</span> <span class="st">"kendall"</span>)</span>
-<span id="cb14-6"><a></a>)</span>
-<span id="cb14-7"><a></a></span>
-<span id="cb14-8"><a></a><span class="co"># Prepare matrix of feature loadings</span></span>
-<span id="cb14-9"><a></a>taxa_loads <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, comp_loads)</span>
-<span id="cb14-10"><a></a><span class="fu">colnames</span>(taxa_loads) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"Bray"</span>, <span class="fu">seq</span>(<span class="fu">ncol</span>(taxa_loads)))</span>
-<span id="cb14-11"><a></a><span class="fu">rownames</span>(taxa_loads) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a></a><span class="fu">library</span>(miaViz)</span>
+<span id="cb10-2"><a></a><span class="fu">plotLoadings</span>(tse, <span class="st">"PCA"</span>, <span class="at">ncomponents =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="pcoa_files/figure-revealjs/pca_load-1.png" width="960" class="r-stretch"></section>
+<section id="exercises-1-pca" class="slide level2">
+<h2>Exercises 1: PCA</h2>
+<ul>
+<li>29.7.1 Reduced dimensions retrieval</li>
+<li>29.7.2 Visualization basics with PCA</li>
+</ul>
+</section>
+<section id="principal-coordinate-analysis-pcoa" class="slide level2">
+<h2>Principal coordinate analysis (PCoA)</h2>
+<ul>
+<li>Goal: Preserve the dissimilarity structure</li>
+<li>Non-Euclidean</li>
+<li>Different dissimilarity metrics</li>
+</ul>
+<p><em>When Euclidean distance is used, PCoA reduces to PCA.</em></p>
+</section>
+<section id="example-2.1-pcoa" class="slide level2">
+<h2>Example 2.1: PCoA</h2>
+<p>We transform the counts assay to relative abundances and store the new assay back into the TreeSE.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a></a><span class="co"># Transform counts to relative abundance</span></span>
+<span id="cb11-2"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">transformAssay</span>(tse, <span class="at">method =</span> <span class="st">"relabundance"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+</section>
+<section id="section-5" class="slide level2">
+<h2></h2>
+<p>Here, we run PCoA on the relative abundance assay to reduce the dimensionality of the data. We set <code>method</code> to Bray-Curtis dissimilarity.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a></a><span class="co"># Run PCoA with Bray-Curtis dissimilarity</span></span>
+<span id="cb12-2"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">runMDS</span>(</span>
+<span id="cb12-3"><a></a>    tse,</span>
+<span id="cb12-4"><a></a>    <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
+<span id="cb12-5"><a></a>    <span class="at">FUN =</span> getDissimilarity,</span>
+<span id="cb12-6"><a></a>    <span class="at">method =</span> <span class="st">"bray"</span></span>
+<span id="cb12-7"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="section-6" class="slide level2">
+<h2></h2>
+<p>We can see that now there are additional results in <code>reducedDim</code>.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a></a><span class="fu">reducedDimNames</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "PCA" "MDS"</code></pre>
+</div>
+</div>
+</section>
+<section id="example-2.2-visualize-pcoa" class="slide level2">
+<h2>Example 2.2: Visualize PCoA</h2>
+<p>Similarly to PCA, we can visualize PCoA with scatter plot.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="fu">plotReducedDim</span>(</span>
+<span id="cb15-2"><a></a>    tse,</span>
+<span id="cb15-3"><a></a>    <span class="at">dimred =</span> <span class="st">"MDS"</span>,</span>
+<span id="cb15-4"><a></a>    <span class="at">colour_by =</span> <span class="st">"patient_status"</span></span>
+<span id="cb15-5"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="pcoa_files/figure-revealjs/vis_pcoa-1.png" width="960" class="r-stretch"></section>
+<section id="example-2.3-pcoa-contributors" class="slide level2">
+<h2>Example 2.3: PCoA contributors</h2>
+<p>Loadings of PCoA cannot be interpreted as directly as PCA: <em>“features that contribute the most to dissimilarity”</em>.</p>
+<p>Instead, we can calculate correlation between abundances and coordinates.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="co"># Compute correlation between features and reduced dimensions</span></span>
+<span id="cb16-2"><a></a>comp_loads <span class="ot">&lt;-</span> <span class="fu">apply</span>(</span>
+<span id="cb16-3"><a></a>    <span class="fu">assay</span>(tse, <span class="st">"relabundance"</span>),</span>
+<span id="cb16-4"><a></a>    <span class="at">MARGIN =</span> <span class="dv">1</span>, <span class="at">simplify =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb16-5"><a></a>    <span class="cf">function</span>(x) <span class="fu">cor</span>(x, <span class="fu">reducedDim</span>(tse, <span class="st">"MDS"</span>), <span class="at">method =</span> <span class="st">"kendall"</span>)</span>
+<span id="cb16-6"><a></a>)</span>
+<span id="cb16-7"><a></a></span>
+<span id="cb16-8"><a></a><span class="co"># Prepare matrix of feature loadings</span></span>
+<span id="cb16-9"><a></a>taxa_loads <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, comp_loads)</span>
+<span id="cb16-10"><a></a><span class="fu">colnames</span>(taxa_loads) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"MDS"</span>, <span class="fu">seq</span>(<span class="fu">ncol</span>(taxa_loads)))</span>
+<span id="cb16-11"><a></a><span class="fu">rownames</span>(taxa_loads) <span class="ot">&lt;-</span> <span class="fu">rownames</span>(tse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="section-7" class="slide level2">
+<h2></h2>
 <p>The top PCoA loadings for the first two dimensions are visualised below.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a></a><span class="co"># Visualise loadings for PCoA 1 and 2</span></span>
-<span id="cb15-2"><a></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb15-3"><a></a><span class="fu">plot_loads</span>(taxa_loads, <span class="st">"Bray1"</span>)</span>
-<span id="cb15-4"><a></a><span class="fu">plot_loads</span>(taxa_loads, <span class="st">"Bray2"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="fu">plotLoadings</span>(taxa_loads, <span class="at">ncomponents =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
-<img data-src="pcoa_files/figure-revealjs/pcoa-load2-1.png" width="960" class="r-stretch"></section>
-<section id="exercise-2" class="slide level2">
-<h2>Exercise 2</h2>
+<img data-src="pcoa_files/figure-revealjs/pcoa_load2-1.png" width="960" class="r-stretch"></section>
+<section id="exercises-2-pcoa" class="slide level2">
+<h2>Exercises 2: PCoA</h2>
 <ul>
-<li>PCA: <a href="https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#visualization-basics-with-pca" target="_blank">exercise 7.2</a></li>
+<li>29.7.3 Principal Coordinate Analysis (PCoA)</li>
+</ul>
+</section>
+<section id="redundancy-analysis-rda" class="slide level2">
+<h2>Redundancy analysis (RDA)</h2>
+<ul>
+<li>Supervised</li>
+<li>How much covariate explains the differences in microbial profile?</li>
+<li>Two steps
+<ol type="1">
+<li>Principal Coordinate Analysis (PCoA)</li>
+<li>Maximizes the variance explained by covariates</li>
+</ol></li>
+</ul>
+</section>
+<section id="example-2.1-dbrda" class="slide level2">
+<h2>Example 2.1: dbRDA</h2>
+<p>We can apply dbRDA with <code>runRDA()</code> function. <code>formula</code> tells how the method is applied; here “patient_status” and cohort are the explanatory variables.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="co"># Run PCoA with Bray-Curtis dissimilarity</span></span>
+<span id="cb18-2"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">addRDA</span>(</span>
+<span id="cb18-3"><a></a>    tse,</span>
+<span id="cb18-4"><a></a>    <span class="at">formula =</span> x <span class="sc">~</span> patient_status <span class="sc">+</span> cohort,</span>
+<span id="cb18-5"><a></a>    <span class="at">assay.type =</span> <span class="st">"relabundance"</span>,</span>
+<span id="cb18-6"><a></a>    <span class="at">method =</span> <span class="st">"bray"</span></span>
+<span id="cb18-7"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="example-2.2.-visualize-dbrda" class="slide level2">
+<h2>Example 2.2.: Visualize dbRDA</h2>
+<p>We can visualize dbRDA results with <code>plotReducedDim()</code> or <code>plotRDA()</code> which have additional features.</p>
+<div class="cell">
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a></a><span class="fu">plotRDA</span>(</span>
+<span id="cb19-2"><a></a>    tse,</span>
+<span id="cb19-3"><a></a>    <span class="at">dimred =</span> <span class="st">"RDA"</span>,</span>
+<span id="cb19-4"><a></a>    <span class="at">colour_by =</span> <span class="st">"patient_status"</span></span>
+<span id="cb19-5"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+
+</div>
+<img data-src="pcoa_files/figure-revealjs/vis_rda-1.png" width="960" class="r-stretch"></section>
+<section id="exercises-3-dbrda" class="slide level2">
+<h2>Exercises 3: dbRDA</h2>
+<ul>
+<li>29.7.5 Redundancy analysis (RDA)</li>
+<li>29.7.6 Beta diversity analysis</li>
 </ul>
 <p>Extra:</p>
 <p>Find the top 5 contributor taxa for principal component 1.</p>
@@ -559,35 +744,51 @@ names(2): Bray Euclidean</code></pre>
 <h2>Example 3.1: Other Distances</h2>
 <p>A different distance function can be specified with <code>FUN</code>, such as phylogenetic distance.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a></a><span class="co"># Run PCoA with Unifrac distance</span></span>
-<span id="cb16-2"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">runMDS</span>(tse, <span class="at">assay.type =</span> <span class="st">"counts"</span>, <span class="at">name =</span> <span class="st">"Unifrac"</span>, <span class="at">ncomp =</span> <span class="dv">3</span>,</span>
-<span id="cb16-3"><a></a>              <span class="at">FUN =</span> mia<span class="sc">::</span>calculateUnifrac, <span class="at">tree =</span> <span class="fu">rowTree</span>(tse))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a></a><span class="co"># Run PCoA with Unifrac distance</span></span>
+<span id="cb20-2"><a></a>tse <span class="ot">&lt;-</span> <span class="fu">runMDS</span>(</span>
+<span id="cb20-3"><a></a>    tse,</span>
+<span id="cb20-4"><a></a>    <span class="at">assay.type =</span> <span class="st">"counts"</span>,</span>
+<span id="cb20-5"><a></a>    <span class="at">FUN =</span> getDissimilarity,</span>
+<span id="cb20-6"><a></a>    <span class="at">method =</span> <span class="st">"unifrac"</span>,</span>
+<span id="cb20-7"><a></a>    <span class="at">tree =</span> <span class="fu">rowTree</span>(tse),</span>
+<span id="cb20-8"><a></a>    <span class="at">ncomponents =</span> <span class="dv">3</span>,</span>
+<span id="cb20-9"><a></a>    <span class="at">name =</span> <span class="st">"Unifrac"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
-<p>The number of dimensions to visualise can also be adjusted with <code>ncomp</code>.</p>
+<p>The number of dimensions to visualise can also be adjusted with <code>ncomponents</code>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a></a><span class="co"># Visualise Unifrac distance between samples</span></span>
-<span id="cb17-2"><a></a><span class="fu">plotReducedDim</span>(tse, <span class="st">"Unifrac"</span>, <span class="at">ncomp =</span> <span class="dv">3</span>, <span class="at">colour_by =</span> <span class="st">"patient_status"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>Show code</summary>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a></a><span class="co"># Visualise Unifrac distance between samples</span></span>
+<span id="cb21-2"><a></a><span class="fu">plotReducedDim</span>(</span>
+<span id="cb21-3"><a></a>    tse,</span>
+<span id="cb21-4"><a></a>    <span class="st">"Unifrac"</span>,</span>
+<span id="cb21-5"><a></a>    <span class="at">ncomponents =</span> <span class="dv">3</span>,</span>
+<span id="cb21-6"><a></a>    <span class="at">colour_by =</span> <span class="st">"patient_status"</span></span>
+<span id="cb21-7"><a></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 
 </div>
-<img data-src="pcoa_files/figure-revealjs/unnamed-chunk-15-1.png" width="960" class="r-stretch"></section>
+<img data-src="pcoa_files/figure-revealjs/show_unifrac-1.png" width="960" class="r-stretch"></section>
 <section id="example-3.2-comparison" class="slide level2">
 <h2>Example 3.2: Comparison</h2>
 <p>Different ordination methods return considerably different results, which can be compared to achieve a better understanding of the data.</p>
 <div class="cell">
 <details class="code-fold">
 <summary>Show code</summary>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb18-2"><a></a></span>
-<span id="cb18-3"><a></a><span class="co"># Generate plots for </span></span>
-<span id="cb18-4"><a></a>plots <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">reducedDimNames</span>(tse),</span>
-<span id="cb18-5"><a></a>                plotReducedDim,</span>
-<span id="cb18-6"><a></a>                <span class="at">object =</span> tse,</span>
-<span id="cb18-7"><a></a>                <span class="at">colour_by =</span> <span class="st">"patient_status"</span>)</span>
-<span id="cb18-8"><a></a></span>
-<span id="cb18-9"><a></a><span class="co"># Generate multi-panel plot</span></span>
-<span id="cb18-10"><a></a><span class="fu">wrap_plots</span>(plots) <span class="sc">+</span></span>
-<span id="cb18-11"><a></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">+</span></span>
-<span id="cb18-12"><a></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"A"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb22-2"><a></a></span>
+<span id="cb22-3"><a></a><span class="co"># Generate plots for </span></span>
+<span id="cb22-4"><a></a>plots <span class="ot">&lt;-</span> <span class="fu">lapply</span>(<span class="fu">reducedDimNames</span>(tse), <span class="cf">function</span>(name){</span>
+<span id="cb22-5"><a></a>    <span class="fu">plotReducedDim</span>(tse, name, <span class="at">colour_by =</span> <span class="st">"patient_status"</span>)</span>
+<span id="cb22-6"><a></a>})</span>
+<span id="cb22-7"><a></a></span>
+<span id="cb22-8"><a></a><span class="co"># Generate multi-panel plot</span></span>
+<span id="cb22-9"><a></a><span class="fu">wrap_plots</span>(plots) <span class="sc">+</span></span>
+<span id="cb22-10"><a></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">+</span></span>
+<span id="cb22-11"><a></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">"A"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 
 </div>
@@ -602,7 +803,6 @@ names(2): Bray Euclidean</code></pre>
 <h2>Resources</h2>
 <ul>
 <li><a href="https://microbiome.github.io/OMA/docs/devel/pages/20_beta_diversity.html" target="_blank">OMA Chapter - Community Similarity</a></li>
-<li><a href="https://www.rdocumentation.org/packages/vegan/versions/2.6-6.1/topics/vegdist" target="_blank">vegan::vegdist vignettes</a></li>
 </ul>
 
 <div class="quarto-auto-generated-content">
@@ -642,7 +842,7 @@ names(2): Bray Euclidean</code></pre>
 'autoAnimateDuration': 1,
 'autoAnimateUnmatched': true,
 'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
-'smaller': true,
+'smaller': false,
  
         // Display controls in the bottom right corner
         controls: false,

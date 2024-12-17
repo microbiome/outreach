@@ -1,8 +1,6 @@
 ---
-title: "Principal Coordinate Analysis"
+title: "Multivariate analysis"
 format: revealjs
-editor: visual
-smaller: true
 bibliography: references.bib
 ---
 
@@ -12,164 +10,320 @@ bibliography: references.bib
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
 ```
 
-## Why PCoA?
+## Multivariate analysis
 
-Principal Coordinate Analysis (PCoA) is a method to study **beta diversity**, or
-the diversity between microbial communities from different samples.
+- Multiple variables
+- Different methods
+   - Ordination-based methods
+   - Clustering
+   - Classification, ...
 
-![](images/tengeler_beta.png){fig-align="center" width="330"}
+## Ordination {.smaller}
 
-## Example 1.1
-
-To get started, we import Tengeler2020 from mia and store it into a variable.
+- Beta diversity: diversity between microbial communities
+- Simplify and visualize high-dimensional data
+- Projects data into lower dimensional latent space
 
 ```{r}
-#| label: import-tengeler
-# Load libraries and import dataset
+#| label: show_ordination
+#| echo: false
+
 library(mia)
 library(scater)
-
-data("Tengeler2020", package = "mia")
-tse <- Tengeler2020
+data("GlobalPatterns")
+tse <- GlobalPatterns
+tse <- transformAssay(tse, method = "rclr")
+tse <- runPCA(tse, assay.type = "rclr")
+plotReducedDim(tse, "PCA", colour_by = "SampleType")
 ```
 
-After that, we transform the counts assay to relative abundances and store the new assay back into the TreeSE.
+##
+
+![](images/hand_shadow.webp){fig-align="center" width="330"}
+
+## Matrix factorization
+
+- Decomposes complex data into components
+- Widely used and general technique
+- Methods vary based on goals and constraints
+
+## 
+
+![](images/matrix_factorization.png){fig-align="center" width="330"}
+
+## Ordination methods
+
+- Different methods
+    - PCA, PCoA/MDS, RDA, ...
+- Euclidean/non-Euclidean
+- Unsupervised/supervised
+
+## Principal component analysis (PCA)
+
+- Goal: Maximize the variance
+- Euclidean distance
+- Aitchison distance: CLR + Euclidean distance
+
+## Example 1.1: PCA
+
+First we load an example dataset and apply robust clr transformation.
 
 ```{r}
-#| label: transform-relabundance
+#| label: load_data
+#| code-fold: true
+#| code-summary: "Show code"
+
+library(mia)
+data("Tengeler2020")
+tse <- Tengeler2020
+# Transform data
+tse <- transformAssay(tse, method = "rclr")
+```
+
+##
+
+Then we perform PCA with `runPCA()`function available in `scater` package.
+
+```{r}
+#| label: calculate_pca
+#| code-fold: true
+#| code-summary: "Show code"
+
+library(scater)
+
+tse <- runPCA(
+    tse,
+    assay.type = "rclr"
+    )
+```
+
+##
+
+We can retrieve a list of all reduced dimensions with `reducedDims()`.
+
+```{r}
+#| label: show_pca1
+#| code-fold: true
+#| code-summary: "Show code"
+
+reducedDims(tse)
+```
+
+If you need only their names, these can be accessed with `reducedDimNames()`.
+
+```{r}
+#| label: show_pca2
+#| code-fold: true
+#| code-summary: "Show code"
+
+reducedDimNames(tse)
+```
+
+##
+
+And the results can be accessed with `reducedDim(tse, "PCA")`.
+
+```{r}
+#| label: show_pca3
+#| code-fold: true
+#| code-summary: "Show code"
+
+reducedDim(tse, "PCA") |> head()
+```
+
+## Example 1.2: Visualize PCA
+
+PCA or other ordination results are usually visualized with scatter plot.
+
+```{r}
+#| label: vis_pca
+#| code-fold: true
+#| code-summary: "Show code"
+
+plotReducedDim(
+    tse,
+    dimred = "PCA",
+    colour_by = "patient_status"
+    )
+```
+
+## Example 1.3: PCA contributors
+
+Some taxa contribute more than others to the generation of reduced dimensions.
+
+```{r}
+#| label: pca_load
+#| code-fold: true
+#| code-summary: "Show code"
+
+library(miaViz)
+plotLoadings(tse, "PCA", ncomponents = 2)
+```
+
+## Exercises 1: PCA
+
+- 29.7.1 Reduced dimensions retrieval
+- 29.7.2 Visualization basics with PCA
+
+## Principal coordinate analysis (PCoA)
+
+- Goal: Preserve the dissimilarity structure
+- Non-Euclidean
+- Different dissimilarity metrics
+
+_When Euclidean distance is used, PCoA reduces to PCA._
+
+## Example 2.1: PCoA
+
+We transform the counts assay to relative abundances and store the new assay
+back into the TreeSE.
+
+```{r}
+#| label: transform_relabundance
+#| code-fold: true
+#| code-summary: "Show code"
+
 # Transform counts to relative abundance
 tse <- transformAssay(tse, method = "relabundance")
 ```
 
-## Example 1.2: Ordination
+##
 
-Here, we run PCoA on the relative abundance assay to reduce the dimensionality of the data. We set `method` to Bray-Curtis dissimilarity.
+Here, we run PCoA on the relative abundance assay to reduce the dimensionality
+of the data. We set `method` to Bray-Curtis dissimilarity.
 
 ```{r}
-#| label: run-bray
+#| label: run_pcoa
+#| code-fold: true
+#| code-summary: "Show code"
+
 # Run PCoA with Bray-Curtis dissimilarity
-tse <- runMDS(tse,
-              assay.type = "relabundance",
-              FUN = vegan::vegdist,
-              method = "bray",
-              name = "Bray")
+tse <- runMDS(
+    tse,
+    assay.type = "relabundance",
+    FUN = getDissimilarity,
+    method = "bray"
+    )
 ```
 
-The reduced dimensions can be retrieved with `reducedDim`.
+##
+
+We can see that now there are additional results in `reducedDim`.
 
 ```{r}
-head(reducedDim(tse, "Bray"))
-```
+#| label: show_pcoa
+#| code-fold: true
+#| code-summary: "Show code"
 
-## Example 1.2: Visualisation
-
-Then, we visualise the first two dimensions.
-
-```{r}
-# Visualise Bray-Curtis dissimilarity between samples
-plotReducedDim(tse, "Bray", colour_by = "patient_status", shape_by = "cohort")
-```
-
-## Exercise 1
-
--   retrieval of reduced dimensions: [exercise 7.1](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#reduced-dimensions-retrieval){target="_blank"}
--   PCoA: [exercise 7.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#principal-coordinate-analysis-pcoa){target="_blank"}
-
-## Example 2.1: PCA
-
-When Euclidean distance is used, PCoA reduces to PCA.
-
-```{r}
-tse <- runPCA(tse,
-              assay.type = "relabundance",
-              ncomp = 5,
-              name = "Euclidean")
-```
-
-We can retrieve a list of all reduced dimensions with `reducedDimNames`.
-
-```{r}
 reducedDimNames(tse)
 ```
 
-If you need only their names, these can be accessed with `reducedDims`.
+## Example 2.2: Visualize PCoA
+
+Similarly to PCA, we can visualize PCoA with scatter plot.
 
 ```{r}
-reducedDims(tse)
-```
-
-## Example 2.2: PCA Contributors
-
-Some taxa contribute more than others to the generation of reduced dimensions.
-They can be determined from the PCA loadings.
-
-```{r}
-#| label: load-fun
+#| label: vis_pcoa
 #| code-fold: true
 #| code-summary: "Show code"
-# Define function to visualise top contributors
-plot_loads <- function(loads, comp, n = 6) {
 
-  loads <- sort(loads[ , comp], decreasing = TRUE)
-  loads <- c(head(loads, round(n / 2)), tail(loads, round(n / 2)))
-  
-  barplot(loads, horiz = TRUE, las = 1,
-          cex.names = 0.5, main = comp, xlab = "Loadings")
-}
+plotReducedDim(
+    tse,
+    dimred = "MDS",
+    colour_by = "patient_status"
+    )
 ```
 
-The top PCA loadings for the first and fourth dimension are visualised below.
+## Example 2.3: PCoA contributors
+
+Loadings of PCoA cannot be interpreted as directly as PCA:
+_"features that contribute the most to dissimilarity"_.
+
+Instead, we can calculate correlation between abundances and coordinates.
 
 ```{r}
-#| label: pca-load
+#| label: pcoa_load1
 #| code-fold: true
 #| code-summary: "Show code"
-# Fetch feature loadings
-taxa_loads <- attr(reducedDim(tse, "Euclidean"), "rotation")
 
-# Plot loadings for PCA 1 and 4
-par(mfrow = c(1, 2))
-plot_loads(taxa_loads, "PC1")
-plot_loads(taxa_loads, "PC4")
-```
-
-## Example 2.3: PCoA Contributors
-
-PCoA does not return feature loadings, but they can be estimated as the
-correlation between taxa and reduced dimensions.
-
-```{r}
-#| label: pcoa-load1
-#| code-fold: true
-#| code-summary: "Show code"
 # Compute correlation between features and reduced dimensions
 comp_loads <- apply(
     assay(tse, "relabundance"),
     MARGIN = 1, simplify = FALSE,
-    function(x) cor(x, reducedDim(tse, "Bray"), method = "kendall")
+    function(x) cor(x, reducedDim(tse, "MDS"), method = "kendall")
 )
 
 # Prepare matrix of feature loadings
 taxa_loads <- do.call(rbind, comp_loads)
-colnames(taxa_loads) <- paste0("Bray", seq(ncol(taxa_loads)))
+colnames(taxa_loads) <- paste0("MDS", seq(ncol(taxa_loads)))
 rownames(taxa_loads) <- rownames(tse)
 ```
+
+##
 
 The top PCoA loadings for the first two dimensions are visualised below.
 
 ```{r}
-#| label: pcoa-load2
+#| label: pcoa_load2
 #| code-fold: true
 #| code-summary: "Show code"
-# Visualise loadings for PCoA 1 and 2
-par(mfrow = c(1, 2))
-plot_loads(taxa_loads, "Bray1")
-plot_loads(taxa_loads, "Bray2")
+
+plotLoadings(taxa_loads, ncomponents = 2)
 ```
 
-## Exercise 2
+## Exercises 2: PCoA
 
--   PCA: [exercise 7.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#visualization-basics-with-pca){target="_blank"}
+- 29.7.3 Principal Coordinate Analysis (PCoA)
+
+
+## Redundancy analysis (RDA)
+
+- Supervised
+- How much covariate explains the differences in microbial profile?
+- Two steps
+    1. Principal Coordinate Analysis (PCoA)
+    2. Maximizes the variance explained by covariates
+
+## Example 2.1: dbRDA
+
+We can apply dbRDA with `runRDA()` function. `formula` tells how
+the method is applied; here "patient_status" and cohort are the explanatory variables.
+
+```{r}
+#| label: run_rda
+#| code-fold: true
+#| code-summary: "Show code"
+
+# Run PCoA with Bray-Curtis dissimilarity
+tse <- addRDA(
+    tse,
+    formula = x ~ patient_status + cohort,
+    assay.type = "relabundance",
+    method = "bray"
+    )
+```
+
+## Example 2.2.: Visualize dbRDA
+
+We can visualize dbRDA results with `plotReducedDim()` or `plotRDA()`
+which have additional features.
+
+```{r}
+#| label: vis_rda
+#| code-fold: true
+#| code-summary: "Show code"
+
+plotRDA(
+    tse,
+    dimred = "RDA",
+    colour_by = "patient_status"
+    )
+```
+
+## Exercises 3: dbRDA
+
+- 29.7.5 Redundancy analysis (RDA)
+- 29.7.6 Beta diversity analysis
 
 Extra:
 
@@ -177,21 +331,40 @@ Find the top 5 contributor taxa for principal component 1.
 
 ## Example 3.1: Other Distances
 
-A different distance function can be specified with `FUN`, such as phylogenetic
-distance.
+A different distance function can be specified with `FUN`, such as phylogenetic distance.
 
 ```{r}
-#| label: run-unifrac
+#| label: run_unifrac
+#| code-fold: true
+#| code-summary: "Show code"
+
 # Run PCoA with Unifrac distance
-tse <- runMDS(tse, assay.type = "counts", name = "Unifrac", ncomp = 3,
-              FUN = mia::calculateUnifrac, tree = rowTree(tse))
+tse <- runMDS(
+    tse,
+    assay.type = "counts",
+    FUN = getDissimilarity,
+    method = "unifrac",
+    tree = rowTree(tse),
+    ncomponents = 3,
+    name = "Unifrac")
 ```
 
-The number of dimensions to visualise can also be adjusted with `ncomp`.
+## 
+
+The number of dimensions to visualise can also be adjusted with `ncomponents`.
 
 ```{r}
+#| label: show_unifrac
+#| code-fold: true
+#| code-summary: "Show code"
+
 # Visualise Unifrac distance between samples
-plotReducedDim(tse, "Unifrac", ncomp = 3, colour_by = "patient_status")
+plotReducedDim(
+    tse,
+    "Unifrac",
+    ncomponents = 3,
+    colour_by = "patient_status"
+    )
 ```
 
 ## Example 3.2: Comparison
@@ -202,13 +375,13 @@ Different ordination methods return considerably different results, which can be
 #| label: compare
 #| code-fold: true
 #| code-summary: "Show code"
+
 library(patchwork)
 
 # Generate plots for 
-plots <- lapply(reducedDimNames(tse),
-                plotReducedDim,
-                object = tse,
-                colour_by = "patient_status")
+plots <- lapply(reducedDimNames(tse), function(name){
+    plotReducedDim(tse, name, colour_by = "patient_status")
+})
 
 # Generate multi-panel plot
 wrap_plots(plots) +
@@ -218,15 +391,12 @@ wrap_plots(plots) +
 
 ## Exercise 3
 
-Run MDS on the CLR assay with Euclidean distance and compare the results with
-the previous PCoA and PCA.
+Run MDS on the CLR assay with Euclidean distance and compare the results with the previous PCoA and PCA.
 
 Extra:
 
-Make a plot with the first three dimensions, and a plot with the second and
-fourth dimensions.
+Make a plot with the first three dimensions, and a plot with the second and fourth dimensions.
 
 ## Resources
 
 -   [OMA Chapter - Community Similarity](https://microbiome.github.io/OMA/docs/devel/pages/20_beta_diversity.html){target="_blank"}
--   [vegan::vegdist vignettes](https://www.rdocumentation.org/packages/vegan/versions/2.6-6.1/topics/vegdist){target="_blank"}

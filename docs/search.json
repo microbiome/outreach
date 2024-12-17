@@ -1654,92 +1654,288 @@
   {
     "objectID": "pcoa.html#why-pcoa",
     "href": "pcoa.html#why-pcoa",
-    "title": "Principal Coordinate Analysis",
+    "title": "Multivariate analysis",
     "section": "Why PCoA?",
     "text": "Why PCoA?\nPrincipal Coordinate Analysis (PCoA) is a method to study beta diversity, or the diversity between microbial communities from different samples."
   },
   {
     "objectID": "pcoa.html#example-1.1",
     "href": "pcoa.html#example-1.1",
-    "title": "Principal Coordinate Analysis",
+    "title": "Multivariate analysis",
     "section": "Example 1.1",
     "text": "Example 1.1\nTo get started, we import Tengeler2020 from mia and store it into a variable.\n\n# Load libraries and import dataset\nlibrary(mia)\nlibrary(scater)\n\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\nAfter that, we transform the counts assay to relative abundances and store the new assay back into the TreeSE.\n\n# Transform counts to relative abundance\ntse &lt;- transformAssay(tse, method = \"relabundance\")"
   },
   {
     "objectID": "pcoa.html#example-1.2-ordination",
     "href": "pcoa.html#example-1.2-ordination",
-    "title": "Principal Coordinate Analysis",
+    "title": "Multivariate analysis",
     "section": "Example 1.2: Ordination",
-    "text": "Example 1.2: Ordination\nHere, we run PCoA on the relative abundance assay to reduce the dimensionality of the data. We set method to Bray-Curtis dissimilarity.\n\n# Run PCoA with Bray-Curtis dissimilarity\ntse &lt;- runMDS(tse,\n              assay.type = \"relabundance\",\n              FUN = vegan::vegdist,\n              method = \"bray\",\n              name = \"Bray\")\n\nThe reduced dimensions can be retrieved with reducedDim.\n\nhead(reducedDim(tse, \"Bray\"))\n\n            [,1]        [,2]\nA110  0.35648020  0.11979800\nA12  -0.01837414 -0.35553853\nA15   0.14308108  0.36730630\nA19   0.03031075 -0.34670413\nA21   0.07539063 -0.31823525\nA23   0.17993859  0.09476674"
+    "text": "Example 1.2: Ordination\nHere, we run PCoA on the relative abundance assay to reduce the dimensionality of the data. We set method to Bray-Curtis dissimilarity.\n\n# Run PCoA with Bray-Curtis dissimilarity\ntse &lt;- runMDS(\n    tse,\n    assay.type = \"relabundance\",\n    FUN = getDissimilarity,\n    method = \"bray\"\n    )\n\nThe reduced dimensions can be retrieved with reducedDim.\n\nhead(reducedDim(tse, \"MDS\"))\n\n            [,1]        [,2]\nA110  0.35648020  0.11979800\nA12  -0.01837414 -0.35553853\nA15   0.14308108  0.36730630\nA19   0.03031075 -0.34670413\nA21   0.07539063 -0.31823525\nA23   0.17993859  0.09476674"
   },
   {
     "objectID": "pcoa.html#example-1.2-visualisation",
     "href": "pcoa.html#example-1.2-visualisation",
-    "title": "Principal Coordinate Analysis",
+    "title": "Multivariate analysis",
     "section": "Example 1.2: Visualisation",
-    "text": "Example 1.2: Visualisation\nThen, we visualise the first two dimensions.\n\n# Visualise Bray-Curtis dissimilarity between samples\nplotReducedDim(tse, \"Bray\", colour_by = \"patient_status\", shape_by = \"cohort\")"
+    "text": "Example 1.2: Visualisation\nThen, we visualise the first two dimensions.\n\n# Visualise Bray-Curtis dissimilarity between samples\nplotReducedDim(tse, \"MDS\", colour_by = \"patient_status\", shape_by = \"cohort\")"
   },
   {
     "objectID": "pcoa.html#exercise-1",
     "href": "pcoa.html#exercise-1",
-    "title": "Principal Coordinate Analysis",
+    "title": "Multivariate analysis",
     "section": "Exercise 1",
     "text": "Exercise 1\n\nretrieval of reduced dimensions: exercise 7.1\nPCoA: exercise 7.3"
   },
   {
     "objectID": "pcoa.html#example-2.1-pca",
     "href": "pcoa.html#example-2.1-pca",
-    "title": "Principal Coordinate Analysis",
+    "title": "Multivariate analysis",
     "section": "Example 2.1: PCA",
-    "text": "Example 2.1: PCA\nWhen Euclidean distance is used, PCoA reduces to PCA.\n\ntse &lt;- runPCA(tse,\n              assay.type = \"relabundance\",\n              ncomp = 5,\n              name = \"Euclidean\")\n\nWe can retrieve a list of all reduced dimensions with reducedDimNames.\n\nreducedDimNames(tse)\n\n[1] \"Bray\"      \"Euclidean\"\n\n\nIf you need only their names, these can be accessed with reducedDims.\n\nreducedDims(tse)\n\nList of length 2\nnames(2): Bray Euclidean"
+    "text": "Example 2.1: PCA\nWhen Euclidean distance is used, PCoA reduces to PCA.\n\ntse &lt;- runPCA(\n    tse,\n    assay.type = \"relabundance\",\n    ncomp = 5,\n    name = \"Euclidean\")\n\nWe can retrieve a list of all reduced dimensions with reducedDimNames.\n\nreducedDimNames(tse)\n\n[1] \"MDS\"       \"Euclidean\"\n\n\nIf you need only their names, these can be accessed with reducedDims.\n\nreducedDims(tse)\n\nList of length 2\nnames(2): MDS Euclidean"
   },
   {
     "objectID": "pcoa.html#example-2.2-pca-contributors",
     "href": "pcoa.html#example-2.2-pca-contributors",
-    "title": "Principal Coordinate Analysis",
+    "title": "Multivariate analysis",
     "section": "Example 2.2: PCA Contributors",
-    "text": "Example 2.2: PCA Contributors\nSome taxa contribute more than others to the generation of reduced dimensions. They can be determined from the PCA loadings.\n\n\nShow code\n# Define function to visualise top contributors\nplot_loads &lt;- function(loads, comp, n = 6) {\n\n  loads &lt;- sort(loads[ , comp], decreasing = TRUE)\n  loads &lt;- c(head(loads, round(n / 2)), tail(loads, round(n / 2)))\n  \n  barplot(loads, horiz = TRUE, las = 1,\n          cex.names = 0.5, main = comp, xlab = \"Loadings\")\n}\n\n\nThe top PCA loadings for the first and fourth dimension are visualised below.\n\n\nShow code\n# Fetch feature loadings\ntaxa_loads &lt;- attr(reducedDim(tse, \"Euclidean\"), \"rotation\")\n\n# Plot loadings for PCA 1 and 4\npar(mfrow = c(1, 2))\nplot_loads(taxa_loads, \"PC1\")\nplot_loads(taxa_loads, \"PC4\")"
+    "text": "Example 2.2: PCA Contributors\nSome taxa contribute more than others to the generation of reduced dimensions. They can be determined from the PCA loadings.\n\n\nShow code\n# Define function to visualise top contributors\nplot_loads &lt;- function(loads, comp, n = 6) {\n\n  loads &lt;- sort(loads[ , comp], decreasing = TRUE)\n  loads &lt;- c(head(loads, round(n / 2)), tail(loads, round(n / 2)))\n  \n  barplot(loads, horiz = TRUE, las = 1,\n          cex.names = 0.5, main = comp, xlab = \"Loadings\")\n}\n\n\nThe top PCA loadings for the first two dimensions are visualised below.\n\n\nShow code\nlibrary(miaViz)\nplotLoadings(tse, \"Euclidean\", ncomponents = 2)"
   },
   {
     "objectID": "pcoa.html#example-2.3-pcoa-contributors",
     "href": "pcoa.html#example-2.3-pcoa-contributors",
-    "title": "Principal Coordinate Analysis",
-    "section": "Example 2.3: PCoA Contributors",
-    "text": "Example 2.3: PCoA Contributors\nPCoA does not return feature loadings, but they can be estimated as the correlation between taxa and reduced dimensions.\n\n\nShow code\n# Compute correlation between features and reduced dimensions\ncomp_loads &lt;- apply(\n    assay(tse, \"relabundance\"),\n    MARGIN = 1, simplify = FALSE,\n    function(x) cor(x, reducedDim(tse, \"Bray\"), method = \"kendall\")\n)\n\n# Prepare matrix of feature loadings\ntaxa_loads &lt;- do.call(rbind, comp_loads)\ncolnames(taxa_loads) &lt;- paste0(\"Bray\", seq(ncol(taxa_loads)))\nrownames(taxa_loads) &lt;- rownames(tse)\n\n\nThe top PCoA loadings for the first two dimensions are visualised below.\n\n\nShow code\n# Visualise loadings for PCoA 1 and 2\npar(mfrow = c(1, 2))\nplot_loads(taxa_loads, \"Bray1\")\nplot_loads(taxa_loads, \"Bray2\")"
+    "title": "Multivariate analysis",
+    "section": "Example 2.3: PCoA contributors",
+    "text": "Example 2.3: PCoA contributors\nLoadings of PCoA cannot be interpreted as directly as PCA: “features that contribute the most to dissimilarity”.\nInstead, we can calculate correlation between abundances and coordinates.\n\n\nShow code\n# Compute correlation between features and reduced dimensions\ncomp_loads &lt;- apply(\n    assay(tse, \"relabundance\"),\n    MARGIN = 1, simplify = FALSE,\n    function(x) cor(x, reducedDim(tse, \"MDS\"), method = \"kendall\")\n)\n\n# Prepare matrix of feature loadings\ntaxa_loads &lt;- do.call(rbind, comp_loads)\ncolnames(taxa_loads) &lt;- paste0(\"MDS\", seq(ncol(taxa_loads)))\nrownames(taxa_loads) &lt;- rownames(tse)"
   },
   {
     "objectID": "pcoa.html#exercise-2",
     "href": "pcoa.html#exercise-2",
-    "title": "Principal Coordinate Analysis",
+    "title": "Multivariate analysis",
     "section": "Exercise 2",
     "text": "Exercise 2\n\nPCA: exercise 7.2\n\nExtra:\nFind the top 5 contributor taxa for principal component 1."
   },
   {
     "objectID": "pcoa.html#example-3.1-other-distances",
     "href": "pcoa.html#example-3.1-other-distances",
-    "title": "Principal Coordinate Analysis",
+    "title": "Multivariate analysis",
     "section": "Example 3.1: Other Distances",
-    "text": "Example 3.1: Other Distances\nA different distance function can be specified with FUN, such as phylogenetic distance.\n\n# Run PCoA with Unifrac distance\ntse &lt;- runMDS(tse, assay.type = \"counts\", name = \"Unifrac\", ncomp = 3,\n              FUN = mia::calculateUnifrac, tree = rowTree(tse))\n\nThe number of dimensions to visualise can also be adjusted with ncomp.\n\n# Visualise Unifrac distance between samples\nplotReducedDim(tse, \"Unifrac\", ncomp = 3, colour_by = \"patient_status\")"
+    "text": "Example 3.1: Other Distances\nA different distance function can be specified with FUN, such as phylogenetic distance.\n\n\nShow code\n# Run PCoA with Unifrac distance\ntse &lt;- runMDS(\n    tse,\n    assay.type = \"counts\",\n    FUN = getDissimilarity,\n    method = \"unifrac\",\n    tree = rowTree(tse),\n    ncomponents = 3,\n    name = \"Unifrac\")\n\n\nThe number of dimensions to visualise can also be adjusted with ncomponents.\n\n\nShow code\n# Visualise Unifrac distance between samples\nplotReducedDim(\n    tse,\n    \"Unifrac\",\n    ncomponents = 3,\n    colour_by = \"patient_status\"\n    )"
   },
   {
     "objectID": "pcoa.html#example-3.2-comparison",
     "href": "pcoa.html#example-3.2-comparison",
-    "title": "Principal Coordinate Analysis",
+    "title": "Multivariate analysis",
     "section": "Example 3.2: Comparison",
-    "text": "Example 3.2: Comparison\nDifferent ordination methods return considerably different results, which can be compared to achieve a better understanding of the data.\n\n\nShow code\nlibrary(patchwork)\n\n# Generate plots for \nplots &lt;- lapply(reducedDimNames(tse),\n                plotReducedDim,\n                object = tse,\n                colour_by = \"patient_status\")\n\n# Generate multi-panel plot\nwrap_plots(plots) +\n  plot_layout(guides = \"collect\") +\n  plot_annotation(tag_levels = \"A\")"
+    "text": "Example 3.2: Comparison\nDifferent ordination methods return considerably different results, which can be compared to achieve a better understanding of the data.\n\n\nShow code\nlibrary(patchwork)\n\n# Generate plots for \nplots &lt;- lapply(reducedDimNames(tse), function(name){\n    plotReducedDim(tse, name, colour_by = \"patient_status\")\n})\n\n# Generate multi-panel plot\nwrap_plots(plots) +\n  plot_layout(guides = \"collect\") +\n  plot_annotation(tag_levels = \"A\")"
   },
   {
     "objectID": "pcoa.html#exercise-3",
     "href": "pcoa.html#exercise-3",
-    "title": "Principal Coordinate Analysis",
+    "title": "Multivariate analysis",
     "section": "Exercise 3",
     "text": "Exercise 3\nRun MDS on the CLR assay with Euclidean distance and compare the results with the previous PCoA and PCA.\nExtra:\nMake a plot with the first three dimensions, and a plot with the second and fourth dimensions."
   },
   {
     "objectID": "pcoa.html#resources",
     "href": "pcoa.html#resources",
-    "title": "Principal Coordinate Analysis",
+    "title": "Multivariate analysis",
     "section": "Resources",
-    "text": "Resources\n\nOMA Chapter - Community Similarity\nvegan::vegdist vignettes"
+    "text": "Resources\n\nOMA Chapter - Community Similarity"
+  },
+  {
+    "objectID": "pcoa.html#multivariate-analysis",
+    "href": "pcoa.html#multivariate-analysis",
+    "title": "Multivariate analysis",
+    "section": "Multivariate analysis",
+    "text": "Multivariate analysis\n\nMultiple variables\nDifferent methods\n\nOrdination-based methods\nClustering\nClassification, …"
+  },
+  {
+    "objectID": "pcoa.html#ordination",
+    "href": "pcoa.html#ordination",
+    "title": "Multivariate analysis",
+    "section": "Ordination",
+    "text": "Ordination\n\nBeta diversity: diversity between microbial communities\nSimplify and visualize high-dimensional data\nProjects data into lower dimensional latent space"
+  },
+  {
+    "objectID": "pcoa.html#ordination-1",
+    "href": "pcoa.html#ordination-1",
+    "title": "Multivariate analysis",
+    "section": "Ordination",
+    "text": "Ordination"
+  },
+  {
+    "objectID": "pcoa.html#matrix-factorization",
+    "href": "pcoa.html#matrix-factorization",
+    "title": "Multivariate analysis",
+    "section": "Matrix factorization",
+    "text": "Matrix factorization\n\nDecomposes complex data into components\nWidely used and general technique\nMethods vary based on goals and constraints"
+  },
+  {
+    "objectID": "pcoa.html#matrix-factorization-1",
+    "href": "pcoa.html#matrix-factorization-1",
+    "title": "Multivariate analysis",
+    "section": "Matrix factorization",
+    "text": "Matrix factorization\n\\[\n\\mathbf{X} \\approx \\mathbf{A} \\mathbf{B}\n\\]\nWhere:\n\n\\(\\mathbf{X}\\) is the original \\(m \\times n\\) data matrix.\n\n\\(m\\) is the number of samples.\n\\(n\\) is the number of features.\n\n\\(\\mathbf{A}\\) is an \\(m \\times k\\) matrix representing the components or latent factors (e.g., patterns or metafeatures).\n\\(\\mathbf{B}\\) is a \\(k \\times n\\) matrix representing the weights or contributions of each basis component.\n\\(k\\) is the number of latent factors."
+  },
+  {
+    "objectID": "pcoa.html#matrix-factorization-2",
+    "href": "pcoa.html#matrix-factorization-2",
+    "title": "Multivariate analysis",
+    "section": "Matrix factorization",
+    "text": "Matrix factorization\n\nBreak complex data into simpler “building blocks”"
+  },
+  {
+    "objectID": "pcoa.html#matrix-factorization-3",
+    "href": "pcoa.html#matrix-factorization-3",
+    "title": "Multivariate analysis",
+    "section": "Matrix factorization",
+    "text": "Matrix factorization\n\nBreak complex data into simpler “building blocks”"
+  },
+  {
+    "objectID": "pcoa.html#ordination-methods",
+    "href": "pcoa.html#ordination-methods",
+    "title": "Multivariate analysis",
+    "section": "Ordination methods",
+    "text": "Ordination methods\n\nDifferent methods\n\nPCA, PCoA/MDS, RDA, …\n\nEuclidean/non-Euclidean\nUnsupervised/supervised"
+  },
+  {
+    "objectID": "pcoa.html#principal-component-analysis-pca",
+    "href": "pcoa.html#principal-component-analysis-pca",
+    "title": "Multivariate analysis",
+    "section": "Principal component analysis (PCA)",
+    "text": "Principal component analysis (PCA)\n\nGoal: Maximize the variance\nEuclidean distance\nAitchison distance: CLR + Euclidean distance"
+  },
+  {
+    "objectID": "pcoa.html#principal-coordinate-analysis-pcoa",
+    "href": "pcoa.html#principal-coordinate-analysis-pcoa",
+    "title": "Multivariate analysis",
+    "section": "Principal coordinate analysis (PCoA)",
+    "text": "Principal coordinate analysis (PCoA)\n\nGoal: Preserve the dissimilarity structure\nNon-Euclidean\nDifferent dissimilarity metrics\n\nWhen Euclidean distance is used, PCoA reduces to PCA."
+  },
+  {
+    "objectID": "pcoa.html#redundancy-analysis-rda",
+    "href": "pcoa.html#redundancy-analysis-rda",
+    "title": "Multivariate analysis",
+    "section": "Redundancy analysis (RDA)",
+    "text": "Redundancy analysis (RDA)\n\nSupervised\nHow much covariate explains the differences in microbial profile?\nTwo steps\n\nPrincipal Coordinate Analysis (PCoA)\nMaximizes the variance explained by covariates"
+  },
+  {
+    "objectID": "pcoa.html#example-1.1-pca",
+    "href": "pcoa.html#example-1.1-pca",
+    "title": "Multivariate analysis",
+    "section": "Example 1.1: PCA",
+    "text": "Example 1.1: PCA\nFirst we load an example dataset and apply robust clr transformation.\n\n\nShow code\nlibrary(mia)\ndata(\"Tengeler2020\")\ntse &lt;- Tengeler2020\n# Transform data\ntse &lt;- transformAssay(tse, method = \"rclr\")"
+  },
+  {
+    "objectID": "pcoa.html#example-1.2-visualize-pca",
+    "href": "pcoa.html#example-1.2-visualize-pca",
+    "title": "Multivariate analysis",
+    "section": "Example 1.2: Visualize PCA",
+    "text": "Example 1.2: Visualize PCA\nPCA or other ordination results are usually visualized with scatter plot.\n\n\nShow code\nplotReducedDim(\n    tse,\n    dimred = \"PCA\",\n    colour_by = \"patient_status\"\n    )"
+  },
+  {
+    "objectID": "pcoa.html#example-1.3-pca-contributors",
+    "href": "pcoa.html#example-1.3-pca-contributors",
+    "title": "Multivariate analysis",
+    "section": "Example 1.3: PCA contributors",
+    "text": "Example 1.3: PCA contributors\nSome taxa contribute more than others to the generation of reduced dimensions.\n\n\nShow code\nlibrary(miaViz)\nplotLoadings(tse, \"PCA\", ncomponents = 2)"
+  },
+  {
+    "objectID": "pcoa.html#exercises-1-pca",
+    "href": "pcoa.html#exercises-1-pca",
+    "title": "Multivariate analysis",
+    "section": "Exercises 1: PCA",
+    "text": "Exercises 1: PCA\n\n29.7.1 Reduced dimensions retrieval\n29.7.2 Visualization basics with PCA"
+  },
+  {
+    "objectID": "pcoa.html#example-2.1-pcoa",
+    "href": "pcoa.html#example-2.1-pcoa",
+    "title": "Multivariate analysis",
+    "section": "Example 2.1: PCoA",
+    "text": "Example 2.1: PCoA\nWe transform the counts assay to relative abundances and store the new assay back into the TreeSE.\n\n\nShow code\n# Transform counts to relative abundance\ntse &lt;- transformAssay(tse, method = \"relabundance\")"
+  },
+  {
+    "objectID": "pcoa.html#example-2.2.-visualize-pcoa",
+    "href": "pcoa.html#example-2.2.-visualize-pcoa",
+    "title": "Multivariate analysis",
+    "section": "Example 2.2.: Visualize PCoA",
+    "text": "Example 2.2.: Visualize PCoA\nSimilarly to PCA, we can visualize PCoA with scater plot.\n\nplotReducedDim(\n    tse,\n    dimred = \"MDS\",\n    colour_by = \"patient_status\"\n    )"
+  },
+  {
+    "objectID": "pcoa.html#exercises-2-pcoa",
+    "href": "pcoa.html#exercises-2-pcoa",
+    "title": "Multivariate analysis",
+    "section": "Exercises 2: PCoA",
+    "text": "Exercises 2: PCoA\n\n29.7.3 Principal Coordinate Analysis (PCoA)"
+  },
+  {
+    "objectID": "pcoa.html#example-2.1-dbrda",
+    "href": "pcoa.html#example-2.1-dbrda",
+    "title": "Multivariate analysis",
+    "section": "Example 2.1: dbRDA",
+    "text": "Example 2.1: dbRDA\nWe can apply dbRDA with runRDA() function. formula tells how the method is applied; here “patient_status” and cohort are the explanatory variables.\n\n\nShow code\n# Run PCoA with Bray-Curtis dissimilarity\ntse &lt;- addRDA(\n    tse,\n    formula = x ~ patient_status + cohort,\n    assay.type = \"relabundance\",\n    method = \"bray\"\n    )"
+  },
+  {
+    "objectID": "pcoa.html#example-2.2.-visualize-dbrda",
+    "href": "pcoa.html#example-2.2.-visualize-dbrda",
+    "title": "Multivariate analysis",
+    "section": "Example 2.2.: Visualize dbRDA",
+    "text": "Example 2.2.: Visualize dbRDA\nWe can visualize dbRDA results with plotReducedDim() or plotRDA() which have additional features.\n\n\nShow code\nplotRDA(\n    tse,\n    dimred = \"RDA\",\n    colour_by = \"patient_status\"\n    )"
+  },
+  {
+    "objectID": "pcoa.html#exercises-3-dbrda",
+    "href": "pcoa.html#exercises-3-dbrda",
+    "title": "Multivariate analysis",
+    "section": "Exercises 3: dbRDA",
+    "text": "Exercises 3: dbRDA\n\n29.7.5 Redundancy analysis (RDA)\n29.7.6 Beta diversity analysis\n\nExtra:\nFind the top 5 contributor taxa for principal component 1."
+  },
+  {
+    "objectID": "pcoa.html#section-2",
+    "href": "pcoa.html#section-2",
+    "title": "Multivariate analysis",
+    "section": "",
+    "text": "Then we perform PCA with runPCA()function available in scater package.\n\n\nShow code\nlibrary(scater)\n\ntse &lt;- runPCA(\n    tse,\n    assay.type = \"rclr\"\n    )"
+  },
+  {
+    "objectID": "pcoa.html#section-3",
+    "href": "pcoa.html#section-3",
+    "title": "Multivariate analysis",
+    "section": "",
+    "text": "We can retrieve a list of all reduced dimensions with reducedDims().\n\n\nShow code\nreducedDims(tse)\n\n\nList of length 1\nnames(1): PCA\n\n\nIf you need only their names, these can be accessed with reducedDimNames().\n\n\nShow code\nreducedDimNames(tse)\n\n\n[1] \"PCA\""
+  },
+  {
+    "objectID": "pcoa.html#section-4",
+    "href": "pcoa.html#section-4",
+    "title": "Multivariate analysis",
+    "section": "",
+    "text": "And the results can be accessed with reducedDim(tse, \"PCA\").\n\n\nShow code\nreducedDim(tse, \"PCA\") |&gt; head()\n\n\n            PC1       PC2         PC3        PC4        PC5        PC6\nA110 -4.5035339 -2.456547 -2.11328100 -3.8634688  2.0123949 -0.3325532\nA12   2.4156363  4.982008 -0.07545471  0.1898264 -1.3925704  1.2237517\nA15  -2.7404749 -3.121391 -4.46833577  8.1698047 -2.5837119 -2.1243919\nA19   0.7358807  7.090486 -1.00797353 -1.2989823  0.1064523 -3.3824751\nA21   0.4648846  5.448022 -1.14685965 -0.8743427  1.2143298 -4.4323282\nA23  -2.0686346 -1.954092 -2.61287624 -2.5249816 -3.0007937 -2.4024629\n            PC7        PC8        PC9       PC10         PC11       PC12\nA110 -0.8342411  1.0193914 -4.2216208  1.1932256  0.172707622 -2.3565927\nA12  -0.3055218  0.7968376  0.4988079  2.7782003  0.551278116  0.4895880\nA15  -1.3546507  1.5617929 -0.7468926 -0.7977925 -0.002285458 -1.9595096\nA19   1.4979577  0.1788277 -0.9825262 -2.3851223 -2.018251650 -1.4132247\nA21   1.6593740  0.5619416  0.6748281 -0.2531164 -1.974152848  0.7930157\nA23  -2.5300350 -3.0190698  3.9427392  0.2632914  1.180388830  0.3831161\n           PC13       PC14       PC15        PC16       PC17       PC18\nA110  0.2449630 -1.2664497  1.4364113  0.89583856  0.8365374  0.4457789\nA12  -1.4948351 -2.5473097 -0.8648291 -1.48252017 -0.7839398  0.1476567\nA15   0.4154040 -0.2455156  0.1621916  0.33095787 -0.7875945 -0.0824129\nA19   0.1953649  0.9069244  0.2419303  0.38847386  1.4955734  0.3421782\nA21  -1.2728108  0.7827710 -0.8452163 -0.58884502 -1.9694914 -0.5016079\nA23  -0.8302655 -0.2890572  2.1834383  0.09925442  0.3728412 -1.4058642\n             PC19       PC20       PC21       PC22       PC23       PC24\nA110  0.987010794 -1.0053150 -0.9899730  0.8829111 -0.2200736 -0.2975089\nA12   0.114383997  0.5743782 -1.9702511 -0.4000117 -0.2989457 -1.0332134\nA15  -0.517904963  0.1558602 -0.2901768 -0.1773831 -0.4550756 -0.1875868\nA19   0.480395457  1.3345829  0.8691778 -0.5697885  0.2015948 -0.7871444\nA21   0.006978105 -1.8347856 -0.6948813  0.4662380 -0.3698014  0.5050710\nA23   0.516079026 -0.8406535  0.3192697  0.3128884 -0.1924474 -0.2425484\n            PC25        PC26\nA110 -0.60890560 -0.20643929\nA12   0.51342549 -1.06913557\nA15  -0.04222125  0.01149364\nA19   1.10441000 -0.77053190\nA21  -1.05782664  0.59576805\nA23   0.74942196 -0.01116033"
+  },
+  {
+    "objectID": "pcoa.html#section-5",
+    "href": "pcoa.html#section-5",
+    "title": "Multivariate analysis",
+    "section": "",
+    "text": "Here, we run PCoA on the relative abundance assay to reduce the dimensionality of the data. We set method to Bray-Curtis dissimilarity.\n\n\nShow code\n# Run PCoA with Bray-Curtis dissimilarity\ntse &lt;- runMDS(\n    tse,\n    assay.type = \"relabundance\",\n    FUN = getDissimilarity,\n    method = \"bray\"\n    )"
+  },
+  {
+    "objectID": "pcoa.html#section-6",
+    "href": "pcoa.html#section-6",
+    "title": "Multivariate analysis",
+    "section": "",
+    "text": "We can see that now there are additional results in reducedDim.\n\n\nShow code\nreducedDimNames(tse)\n\n\n[1] \"PCA\" \"MDS\""
+  },
+  {
+    "objectID": "pcoa.html#section-7",
+    "href": "pcoa.html#section-7",
+    "title": "Multivariate analysis",
+    "section": "",
+    "text": "The top PCoA loadings for the first two dimensions are visualised below.\n\n\nShow code\nplotLoadings(taxa_loads, ncomponents = 2)"
+  },
+  {
+    "objectID": "pcoa.html#example-2.2-visualize-pcoa",
+    "href": "pcoa.html#example-2.2-visualize-pcoa",
+    "title": "Multivariate analysis",
+    "section": "Example 2.2: Visualize PCoA",
+    "text": "Example 2.2: Visualize PCoA\nSimilarly to PCA, we can visualize PCoA with scatter plot.\n\n\nShow code\nplotReducedDim(\n    tse,\n    dimred = \"MDS\",\n    colour_by = \"patient_status\"\n    )"
   }
 ]
