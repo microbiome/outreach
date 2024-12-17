@@ -349,7 +349,7 @@ tse <- runMDS(
     name = "Unifrac")
 ```
 
-## 
+##
 
 The number of dimensions to visualise can also be adjusted with `ncomponents`.
 
