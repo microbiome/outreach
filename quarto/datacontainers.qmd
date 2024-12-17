@@ -240,15 +240,7 @@ _Huang et al. F1000, 2021_
 
 **Orchestrating Microbiome Analysis with R and Bioconductor -- online book: beta version**
 
-::::: columns
-::: {.column width="50%"}
-![Figure source: Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology 12:11.](images/paste-4A871F15.png){width="231"}
-:::
-
-::: {.column width="50%"}
-![](images/paste-0C91D638.png){width="438"}
-:::
-:::::
+![](images/OMA_ss.png){width="500"}
 
 ## Current framework
 
