@@ -133,60 +133,46 @@
     "text": "Resources\n\nOMA Chapter - Community Composition\nOMA Chapter - Visualisation\nComplexHeatmap Complete Reference"
   },
   {
-    "objectID": "quarto.html#example-1.1-markdown-syntax",
-    "href": "quarto.html#example-1.1-markdown-syntax",
-    "title": "Reproducible Reporting with Quarto",
-    "section": "Example 1.1: # Markdown Syntax",
-    "text": "Example 1.1: # Markdown Syntax\nIn Markdown syntax, you can do the following and more.\n\nHeadings: # My title, ## My subtitle, ### My subsubtitle\nUnordered lists:\n\n-   item 1\n-   item 2\n\nOrdered lists:\n\n1.  item 1\n2.  item 2\n\nFont: *italic*, **bold**, `monospaced`\nLinks: [text](url)\nCross-references: @chunk-label"
+    "objectID": "differential_abundance.html#overview",
+    "href": "differential_abundance.html#overview",
+    "title": "Differential Abundance",
+    "section": "Overview",
+    "text": "Overview\nDifferential Abundance (DA) analysis is used to identify taxa that are significantly more or less abundant in the condition compared to control.\nMany methods are available including:\n\nALDEx2\nANCOMBC\nLinDA\n\nA few things to keep in minds when performing DAA involve:\n\nDAA software normally takes the counts assay as input, because they apply normalisation suitable for count data\nDAA results will be more reproducible if the extremely rare taxa and singletons are removed in advance\nIt is recommended to run different methods on the same data and compare the results"
   },
   {
-    "objectID": "quarto.html#example-1.2-running-code",
-    "href": "quarto.html#example-1.2-running-code",
-    "title": "Reproducible Reporting with Quarto",
-    "section": "Example 1.2: Running Code",
-    "text": "Example 1.2: Running Code\nAdd code chunks with alt + cmd + i and click Render to generate a report with both text and code output.\n\n# R code\ncitation(\"mia\")\n\nTo cite package 'mia' in publications use:\n\n  Borman T, Ernst F, Shetty S, Lahti L (2024). _mia: Microbiome\n  analysis_. R package version 1.15.3, commit\n  161b2096a2ab2c1791eb02e2ccf3564defe39e40,\n  &lt;https://github.com/microbiome/mia&gt;.\n\nA BibTeX entry for LaTeX users is\n\n  @Manual{,\n    title = {mia: Microbiome analysis},\n    author = {Tuomas Borman and Felix G.M. Ernst and Sudarshan A. Shetty and Leo Lahti},\n    year = {2024},\n    note = {R package version 1.15.3, commit 161b2096a2ab2c1791eb02e2ccf3564defe39e40},\n    url = {https://github.com/microbiome/mia},\n  }"
+    "objectID": "differential_abundance.html#example-1.1-preparing-for-da",
+    "href": "differential_abundance.html#example-1.1-preparing-for-da",
+    "title": "Differential Abundance",
+    "section": "Example 1.1: Preparing for DA",
+    "text": "Example 1.1: Preparing for DA\nFirst, we import Tengeler2020 and load the DA library MicrobiomeStats.\n\nlibrary(mia)\nlibrary(MicrobiomeStat)\nlibrary(tidyverse)\n\n# Import Tengeler2020\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\n\n\nShow code\nmean_abund &lt;- round(mean(rowMeans(assay(tse, \"counts\"))), 2)\npaste0(\"Taxa: \", nrow(tse), \", Mean abundance: \", mean_abund)\n\n\n[1] \"Taxa: 151, Mean abundance: 119.19\"\n\n\nFor DA analysis, it is preferable to reduce the dimensionality and sparsity of the data.\n\n# Agglomerate by Genus and filter by prevalence and detection\ntse_genus &lt;- agglomerateByPrevalence(tse,\n                                     rank = \"Genus\",\n                                     detection = 0.001,\n                                     prevalence = 0.1)\n\n\n\nShow code\nmean_abund_genus &lt;- round(mean(rowMeans(assay(tse_genus, \"counts\"))), 2)\npaste0(\"Taxa: \", nrow(tse_genus), \", Mean abundance: \", mean_abund_genus)\n\n\n[1] \"Taxa: 49, Mean abundance: 355.52\""
   },
   {
-    "objectID": "quarto.html#exercise-1",
-    "href": "quarto.html#exercise-1",
-    "title": "Reproducible Reporting with Quarto",
+    "objectID": "differential_abundance.html#example-1.2-performing-da",
+    "href": "differential_abundance.html#example-1.2-performing-da",
+    "title": "Differential Abundance",
+    "section": "Example 1.2: Performing DA",
+    "text": "Example 1.2: Performing DA\nHere, we run LinDA. We first extract the counts assay and convert it into a dataframe.\n\notu.tab &lt;- assay(tse_genus, \"counts\") |&gt;\n  as.data.frame()\n\nWe also need to select the columns of the colData which contain the independent variables you want to include in the model.\n\nmeta &lt;- colData(tse) |&gt;\n  as.data.frame() |&gt;\n  select(patient_status, cohort)\n\nWe are ready to run LinDA, which takes the assay count (otu.tab) and the variable arrays (meta). A formula for the model with main independent variable + covariates should be defined. The other arguments are optional but good to know.\n\nres &lt;- linda(otu.tab, meta,\n             formula = \"~ patient_status + cohort\", \n             feature.dat.type = \"count\")\n\n0  features are filtered!\nThe filtered data has  27  samples and  49  features will be tested!\nImputation approach is used.\nFit linear models ...\nCompleted."
+  },
+  {
+    "objectID": "differential_abundance.html#example-1.3-interpreting-results",
+    "href": "differential_abundance.html#example-1.3-interpreting-results",
+    "title": "Differential Abundance",
+    "section": "Example 1.3: Interpreting Results",
+    "text": "Example 1.3: Interpreting Results\nFinally, we select significantly DA taxa and list it in Table 1.\n\nsignif_res &lt;- res$output$patient_statusControl |&gt;\n  filter(reject) |&gt;\n  select(stat, padj) |&gt;\n  arrange(padj)\n\nknitr::kable(signif_res)\n\n\n\nTable 1: DA bacterial genera. If stat &gt; 0, abundance is higher in control, otherwise it is higher in ADHD.\n\n\n\n\n\n\n\nstat\npadj\n\n\n\n\n[Ruminococcus]_gauvreauii_group\n4.891159\n0.0024419\n\n\nFaecalibacterium\n-4.694520\n0.0024419\n\n\nCatabacter\n-3.616601\n0.0236808\n\n\nErysipelatoclostridium\n3.357042\n0.0334163\n\n\nRuminococcaceae_UCG-014\n-3.224143\n0.0368033"
+  },
+  {
+    "objectID": "differential_abundance.html#exercise-1",
+    "href": "differential_abundance.html#exercise-1",
+    "title": "Differential Abundance",
     "section": "Exercise 1",
-    "text": "Exercise 1\n\nnew document: exercise 2.1\ncode chunks: exercise 2.2"
+    "text": "Exercise 1\n\nDA analysis with LinDA: exercise 8.2\nDA analysis with ALDEx2: exercise 8.1\n\nExtra:\n\ncomparing DA methods: exercise 8.3"
   },
   {
-    "objectID": "quarto.html#example-2.1-knitr-options",
-    "href": "quarto.html#example-2.1-knitr-options",
-    "title": "Reproducible Reporting with Quarto",
-    "section": "Example 2.1: knitr options",
-    "text": "Example 2.1: knitr options\nYou can add options to code chunks to change their behaviour.\n\nOriginal chunk\n\n\nprint(\"I love my microbiome\")\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| echo: false\n\n\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| eval: false\n\n\nprint(\"I love my microbiome\")\n\n\nAfter adding #| code-fold: true\n\n\n\nShow code\nprint(\"I love my microbiome\")\n\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| include: false"
-  },
-  {
-    "objectID": "quarto.html#example-2.2-more-about-knitr-options",
-    "href": "quarto.html#example-2.2-more-about-knitr-options",
-    "title": "Reproducible Reporting with Quarto",
-    "section": "Example 2.2: More about knitr options",
-    "text": "Example 2.2: More about knitr options\nIf you want an option to affect all chunks in a script, you can set it globally.\n\n# Turn off chunk visibility and warnings\nknitr::opts_chunk$set(echo = FALSE, warning = FALSE)\n\nYou can label figures (or tables) with #| label: fig-name and cross-reference them with @fig-name (Figure 1).\n\ndata(iris)\nboxplot(Sepal.Length ~ Species, data = iris)\n\n\n\nFigure 1: A boxplot of the sepal length distribution by species."
-  },
-  {
-    "objectID": "quarto.html#example-2.3-yaml-parameters",
-    "href": "quarto.html#example-2.3-yaml-parameters",
-    "title": "Reproducible Reporting with Quarto",
-    "section": "Example 2.3: YAML Parameters",
-    "text": "Example 2.3: YAML Parameters\nAt the beginning of any Quarto document, there is a box delimited by ---. There you can define document metadata, such as title, author, date, output format, bibliography, citation style, theme, font size and many others.\n---\ntitle: “Around the gut in 24 hours”\nformat: html\neditor: visual\nsmaller: true\nauthor: Escherichia coli\ndate: 2024-12-17\n---"
-  },
-  {
-    "objectID": "quarto.html#exercise-2",
-    "href": "quarto.html#exercise-2",
-    "title": "Reproducible Reporting with Quarto",
-    "section": "Exercise 2",
-    "text": "Exercise 2\n\nknitr options: exercise 2.3\nYAML parameters: exercise 2.4\n\nExtra:\n\nQuarto parameters: exercise 2.5"
-  },
-  {
-    "objectID": "quarto.html#resources",
-    "href": "quarto.html#resources",
-    "title": "Reproducible Reporting with Quarto",
+    "objectID": "differential_abundance.html#resources",
+    "href": "differential_abundance.html#resources",
+    "title": "Differential Abundance",
     "section": "Resources",
-    "text": "Resources\n\nOMA Section - Quarto\nChunk Option Catalogue\nCross References\nYAML Parameter Catalogue"
+    "text": "Resources\n\nOMA Chapter - Differential Abundance"
   },
   {
     "objectID": "oma.html#outline",
@@ -942,14 +928,14 @@
     "href": "index.html",
     "title": "Quarto Presentations",
     "section": "",
-    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\n\n\nIntro\nBioconductor project\nOrchestrating Microbiome Analysis with Bioconductor\n\n\n\n\n\nReproducible workflow with Quarto\nLearning environment\nWorkflow\n\n\n\n\n\nMGnifyR: An R package for accessing MGnify microbiome data\n\n\n\n\n\nOrchestrating microbiome multi-omics with R & Bioconductor\nData containers\nSummarizedExperiment\nTreeSummarizedExperiment\n\n\n\n\n\nHintikkaXOData\nTengeler2020\n\n\n\n\n\nData Manipulation\nIntroduction to Quarto\nAlpha Diversity\nOrdination\ndbRDA\nCompositional Heatmaps\nDifferential Abundance\nDay 2"
+    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\n\n\nIntro\nBioconductor project\nOrchestrating Microbiome Analysis with Bioconductor\n\n\n\n\n\nReproducible workflow with Quarto\nLearning environment\nWorkflow\n\n\n\n\n\nMGnifyR: An R package for accessing MGnify microbiome data\n\n\n\n\n\nOrchestrating microbiome multi-omics with R & Bioconductor\nData containers\nSummarizedExperiment\nTreeSummarizedExperiment\n\n\n\n\n\nHintikkaXOData\nTengeler2020\n\n\n\n\n\nData Manipulation\nIntroduction to Quarto\nAlpha Diversity\nOrdination\nCompositional Heatmaps\nDifferential Abundance\nDay 2"
   },
   {
     "objectID": "index.html#overview",
     "href": "index.html#overview",
     "title": "Quarto Presentations",
     "section": "",
-    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\n\n\nIntro\nBioconductor project\nOrchestrating Microbiome Analysis with Bioconductor\n\n\n\n\n\nReproducible workflow with Quarto\nLearning environment\nWorkflow\n\n\n\n\n\nMGnifyR: An R package for accessing MGnify microbiome data\n\n\n\n\n\nOrchestrating microbiome multi-omics with R & Bioconductor\nData containers\nSummarizedExperiment\nTreeSummarizedExperiment\n\n\n\n\n\nHintikkaXOData\nTengeler2020\n\n\n\n\n\nData Manipulation\nIntroduction to Quarto\nAlpha Diversity\nOrdination\ndbRDA\nCompositional Heatmaps\nDifferential Abundance\nDay 2"
+    "text": "This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:\n\n\n\nIntro\nBioconductor project\nOrchestrating Microbiome Analysis with Bioconductor\n\n\n\n\n\nReproducible workflow with Quarto\nLearning environment\nWorkflow\n\n\n\n\n\nMGnifyR: An R package for accessing MGnify microbiome data\n\n\n\n\n\nOrchestrating microbiome multi-omics with R & Bioconductor\nData containers\nSummarizedExperiment\nTreeSummarizedExperiment\n\n\n\n\n\nHintikkaXOData\nTengeler2020\n\n\n\n\n\nData Manipulation\nIntroduction to Quarto\nAlpha Diversity\nOrdination\nCompositional Heatmaps\nDifferential Abundance\nDay 2"
   },
   {
     "objectID": "index.html#contributions",
@@ -1414,48 +1400,6 @@
     "text": "Resources\n\nOMA Chapter - Community Diversity\nOMA Chapter - Visualisation"
   },
   {
-    "objectID": "differential_abundance.html#overview",
-    "href": "differential_abundance.html#overview",
-    "title": "Differential Abundance",
-    "section": "Overview",
-    "text": "Overview\nDifferential Abundance (DA) analysis is used to identify taxa that are significantly more or less abundant in the condition compared to control.\nMany methods are available including:\n\nALDEx2\nANCOMBC\nLinDA\n\nA few things to keep in minds when performing DAA involve:\n\nDAA software normally takes the counts assay as input, because they apply normalisation suitable for count data\nDAA results will be more reproducible if the extremely rare taxa and singletons are removed in advance\nIt is recommended to run different methods on the same data and compare the results"
-  },
-  {
-    "objectID": "differential_abundance.html#example-1.1-preparing-for-da",
-    "href": "differential_abundance.html#example-1.1-preparing-for-da",
-    "title": "Differential Abundance",
-    "section": "Example 1.1: Preparing for DA",
-    "text": "Example 1.1: Preparing for DA\nFirst, we import Tengeler2020 and load the DA library MicrobiomeStats.\n\nlibrary(mia)\nlibrary(MicrobiomeStat)\nlibrary(tidyverse)\n\n# Import Tengeler2020\ndata(\"Tengeler2020\", package = \"mia\")\ntse &lt;- Tengeler2020\n\n\n\nShow code\nmean_abund &lt;- round(mean(rowMeans(assay(tse, \"counts\"))), 2)\npaste0(\"Taxa: \", nrow(tse), \", Mean abundance: \", mean_abund)\n\n\n[1] \"Taxa: 151, Mean abundance: 119.19\"\n\n\nFor DA analysis, it is preferable to reduce the dimensionality and sparsity of the data.\n\n# Agglomerate by Genus and filter by prevalence and detection\ntse_genus &lt;- agglomerateByPrevalence(tse,\n                                     rank = \"Genus\",\n                                     detection = 0.001,\n                                     prevalence = 0.1)\n\n\n\nShow code\nmean_abund_genus &lt;- round(mean(rowMeans(assay(tse_genus, \"counts\"))), 2)\npaste0(\"Taxa: \", nrow(tse_genus), \", Mean abundance: \", mean_abund_genus)\n\n\n[1] \"Taxa: 49, Mean abundance: 355.52\""
-  },
-  {
-    "objectID": "differential_abundance.html#example-1.2-performing-da",
-    "href": "differential_abundance.html#example-1.2-performing-da",
-    "title": "Differential Abundance",
-    "section": "Example 1.2: Performing DA",
-    "text": "Example 1.2: Performing DA\nHere, we run LinDA. We first extract the counts assay and convert it into a dataframe.\n\notu.tab &lt;- assay(tse_genus, \"counts\") |&gt;\n  as.data.frame()\n\nWe also need to select the columns of the colData which contain the independent variables you want to include in the model.\n\nmeta &lt;- colData(tse) |&gt;\n  as.data.frame() |&gt;\n  select(patient_status, cohort)\n\nWe are ready to run LinDA, which takes the assay count (otu.tab) and the variable arrays (meta). A formula for the model with main independent variable + covariates should be defined. The other arguments are optional but good to know.\n\nres &lt;- linda(otu.tab, meta,\n             formula = \"~ patient_status + cohort\", \n             feature.dat.type = \"count\")\n\n0  features are filtered!\nThe filtered data has  27  samples and  49  features will be tested!\nImputation approach is used.\nFit linear models ...\nCompleted."
-  },
-  {
-    "objectID": "differential_abundance.html#example-1.3-interpreting-results",
-    "href": "differential_abundance.html#example-1.3-interpreting-results",
-    "title": "Differential Abundance",
-    "section": "Example 1.3: Interpreting Results",
-    "text": "Example 1.3: Interpreting Results\nFinally, we select significantly DA taxa and list it in Table 1.\n\nsignif_res &lt;- res$output$patient_statusControl |&gt;\n  filter(reject) |&gt;\n  select(stat, padj) |&gt;\n  arrange(padj)\n\nknitr::kable(signif_res)\n\n\n\nTable 1: DA bacterial genera. If stat &gt; 0, abundance is higher in control, otherwise it is higher in ADHD.\n\n\n\n\n\n\n\nstat\npadj\n\n\n\n\n[Ruminococcus]_gauvreauii_group\n4.891159\n0.0024419\n\n\nFaecalibacterium\n-4.694520\n0.0024419\n\n\nCatabacter\n-3.616601\n0.0236808\n\n\nErysipelatoclostridium\n3.357042\n0.0334163\n\n\nRuminococcaceae_UCG-014\n-3.224143\n0.0368033"
-  },
-  {
-    "objectID": "differential_abundance.html#exercise-1",
-    "href": "differential_abundance.html#exercise-1",
-    "title": "Differential Abundance",
-    "section": "Exercise 1",
-    "text": "Exercise 1\n\nDA analysis with LinDA: exercise 8.2\nDA analysis with ALDEx2: exercise 8.1\n\nExtra:\n\ncomparing DA methods: exercise 8.3"
-  },
-  {
-    "objectID": "differential_abundance.html#resources",
-    "href": "differential_abundance.html#resources",
-    "title": "Differential Abundance",
-    "section": "Resources",
-    "text": "Resources\n\nOMA Chapter - Differential Abundance"
-  },
-  {
     "objectID": "datacontainers.html#stuctured-way-to-represent-data",
     "href": "datacontainers.html#stuctured-way-to-represent-data",
     "title": "Data containers in R/Bioconductor",
@@ -1589,32 +1533,67 @@
     "text": "Task: load microbiome data\nLet us pick the microbiota data, which is TreeSummarizedExperiment object.\n\n\nclass: TreeSummarizedExperiment \ndim: 12706 40 \nmetadata(0):\nassays(1): counts\nrownames(12706): GAYR01026362.62.2014 CVJT01000011.50.2173 ...\n  JRJTB:03787:02429 JRJTB:03787:02478\nrowData names(7): Phylum Class ... Species OTU\ncolnames(40): C1 C2 ... C39 C40\ncolData names(0):\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: NULL\nrowTree: NULL\ncolLinks: NULL\ncolTree: NULL"
   },
   {
-    "objectID": "datacontainers.html#section-9",
-    "href": "datacontainers.html#section-9",
-    "title": "Data containers in R/Bioconductor",
-    "section": "",
-    "text": "We can then retrieve the abundance table.\n\n\n                     C1 C2 C3 C4 C5\nGAYR01026362.62.2014  0  0  0  0  0\nCVJT01000011.50.2173  1  0  1  1  0"
-  },
-  {
-    "objectID": "datacontainers.html#section-10",
-    "href": "datacontainers.html#section-10",
-    "title": "Data containers in R/Bioconductor",
-    "section": "",
-    "text": "And check sample metadata.\n\n\nDataFrame with 40 rows and 0 columns"
-  },
-  {
-    "objectID": "datacontainers.html#section-11",
-    "href": "datacontainers.html#section-11",
-    "title": "Data containers in R/Bioconductor",
-    "section": "",
-    "text": "And access the feature metadata, i.e., taxonomy table.\n\n\nDataFrame with 12706 rows and 7 columns\n                                    Phylum                  Class\n                               &lt;character&gt;            &lt;character&gt;\nGAYR01026362.62.2014   D_1__Proteobacteria D_2__Alphaproteobact..\nCVJT01000011.50.2173       D_1__Firmicutes           D_2__Bacilli\nKF625183.1.1786        D_1__Proteobacteria D_2__Gammaproteobact..\nAYSG01000002.292.2076      D_1__Firmicutes           D_2__Bacilli\nCCPS01000022.154.1916  D_1__Proteobacteria D_2__Gammaproteobact..\n...                                    ...                    ...\nJRJTB:03786:02940     D_1__Verrucomicrobia  D_2__Verrucomicrobiae\nJRJTB:03786:03034          D_1__Firmicutes        D_2__Clostridia\nJRJTB:03787:02353          D_1__Firmicutes        D_2__Clostridia\nJRJTB:03787:02429       D_1__Bacteroidetes       D_2__Bacteroidia\nJRJTB:03787:02478       D_1__Bacteroidetes       D_2__Bacteroidia\n                                       Order                 Family\n                                 &lt;character&gt;            &lt;character&gt;\nGAYR01026362.62.2014      D_3__Rickettsiales      D_4__Mitochondria\nCVJT01000011.50.2173         D_3__Bacillales D_4__Staphylococcaceae\nKF625183.1.1786       D_3__Enterobacteriales D_4__Enterobacteriac..\nAYSG01000002.292.2076   D_3__Lactobacillales  D_4__Streptococcaceae\nCCPS01000022.154.1916 D_3__Enterobacteriales D_4__Enterobacteriac..\n...                                      ...                    ...\nJRJTB:03786:02940     D_3__Verrucomicrobia..   D_4__Akkermansiaceae\nJRJTB:03786:03034         D_3__Clostridiales   D_4__Ruminococcaceae\nJRJTB:03787:02353         D_3__Clostridiales       D_4__Family XIII\nJRJTB:03787:02429         D_3__Bacteroidales    D_4__Muribaculaceae\nJRJTB:03787:02478         D_3__Bacteroidales    D_4__Muribaculaceae\n                                       Genus                Species\n                                 &lt;character&gt;            &lt;character&gt;\nGAYR01026362.62.2014  D_5__Solanum melonge.. D_6__Solanum melonge..\nCVJT01000011.50.2173     D_5__Staphylococcus D_6__Staphylococcus ..\nKF625183.1.1786              D_5__Klebsiella D_6__Klebsiella oxyt..\nAYSG01000002.292.2076     D_5__Streptococcus D_6__Streptococcus t..\nCCPS01000022.154.1916 D_5__Escherichia-Shi..  D_6__Escherichia coli\n...                                      ...                    ...\nJRJTB:03786:02940           D_5__Akkermansia                     NA\nJRJTB:03786:03034     D_5__Ruminococcaceae.. D_6__uncultured bact..\nJRJTB:03787:02353     D_5__Family XIII AD3.. D_6__uncultured bact..\nJRJTB:03787:02429     D_5__uncultured bact.. D_6__uncultured bact..\nJRJTB:03787:02478     D_5__uncultured bact.. D_6__uncultured bact..\n                                        OTU\n                                &lt;character&gt;\nGAYR01026362.62.2014   GAYR01026362.62.2014\nCVJT01000011.50.2173   CVJT01000011.50.2173\nKF625183.1.1786             KF625183.1.1786\nAYSG01000002.292.2076 AYSG01000002.292.2076\nCCPS01000022.154.1916 CCPS01000022.154.1916\n...                                     ...\nJRJTB:03786:02940         JRJTB:03786:02940\nJRJTB:03786:03034         JRJTB:03786:03034\nJRJTB:03787:02353         JRJTB:03787:02353\nJRJTB:03787:02429         JRJTB:03787:02429\nJRJTB:03787:02478         JRJTB:03787:02478"
-  },
-  {
     "objectID": "datacontainers.html#open-microbiome-data-resources",
     "href": "datacontainers.html#open-microbiome-data-resources",
     "title": "Data containers in R/Bioconductor",
     "section": "Open microbiome data resources",
     "text": "Open microbiome data resources\nOpen microbiome data resources supporting TreeSummarizedExperiment:\n\nR package data (mia, miaViz, miaTime)\nHuman studies: curatedMetagenomicData (Pasolli et al. Nat Meth 2017)\nEBI MGnify: MGnifyR R package\nOther studies: microbiomeDataSets (Lahti et al.)\n\nSee also OMA chapter on available data sets."
+  },
+  {
+    "objectID": "quarto.html#example-1.1-markdown-syntax",
+    "href": "quarto.html#example-1.1-markdown-syntax",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 1.1: # Markdown Syntax",
+    "text": "Example 1.1: # Markdown Syntax\nIn Markdown syntax, you can do the following and more.\n\nHeadings: # My title, ## My subtitle, ### My subsubtitle\nUnordered lists:\n\n-   item 1\n-   item 2\n\nOrdered lists:\n\n1.  item 1\n2.  item 2\n\nFont: *italic*, **bold**, `monospaced`\nLinks: [text](url)\nCross-references: @chunk-label"
+  },
+  {
+    "objectID": "quarto.html#example-1.2-running-code",
+    "href": "quarto.html#example-1.2-running-code",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 1.2: Running Code",
+    "text": "Example 1.2: Running Code\nAdd code chunks with alt + cmd + i and click Render to generate a report with both text and code output.\n\n# R code\ncitation(\"mia\")\n\nTo cite package 'mia' in publications use:\n\n  Borman T, Ernst F, Shetty S, Lahti L (2024). _mia: Microbiome\n  analysis_. R package version 1.15.3, commit\n  161b2096a2ab2c1791eb02e2ccf3564defe39e40,\n  &lt;https://github.com/microbiome/mia&gt;.\n\nA BibTeX entry for LaTeX users is\n\n  @Manual{,\n    title = {mia: Microbiome analysis},\n    author = {Tuomas Borman and Felix G.M. Ernst and Sudarshan A. Shetty and Leo Lahti},\n    year = {2024},\n    note = {R package version 1.15.3, commit 161b2096a2ab2c1791eb02e2ccf3564defe39e40},\n    url = {https://github.com/microbiome/mia},\n  }"
+  },
+  {
+    "objectID": "quarto.html#exercise-1",
+    "href": "quarto.html#exercise-1",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Exercise 1",
+    "text": "Exercise 1\n\nnew document: exercise 2.1\ncode chunks: exercise 2.2"
+  },
+  {
+    "objectID": "quarto.html#example-2.1-knitr-options",
+    "href": "quarto.html#example-2.1-knitr-options",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 2.1: knitr options",
+    "text": "Example 2.1: knitr options\nYou can add options to code chunks to change their behaviour.\n\nOriginal chunk\n\n\nprint(\"I love my microbiome\")\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| echo: false\n\n\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| eval: false\n\n\nprint(\"I love my microbiome\")\n\n\nAfter adding #| code-fold: true\n\n\n\nShow code\nprint(\"I love my microbiome\")\n\n\n[1] \"I love my microbiome\"\n\n\n\nAfter adding #| include: false"
+  },
+  {
+    "objectID": "quarto.html#example-2.2-more-about-knitr-options",
+    "href": "quarto.html#example-2.2-more-about-knitr-options",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 2.2: More about knitr options",
+    "text": "Example 2.2: More about knitr options\nIf you want an option to affect all chunks in a script, you can set it globally.\n\n# Turn off chunk visibility and warnings\nknitr::opts_chunk$set(echo = FALSE, warning = FALSE)\n\nYou can label figures (or tables) with #| label: fig-name and cross-reference them with @fig-name (Figure 1).\n\ndata(iris)\nboxplot(Sepal.Length ~ Species, data = iris)\n\n\n\nFigure 1: A boxplot of the sepal length distribution by species."
+  },
+  {
+    "objectID": "quarto.html#example-2.3-yaml-parameters",
+    "href": "quarto.html#example-2.3-yaml-parameters",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Example 2.3: YAML Parameters",
+    "text": "Example 2.3: YAML Parameters\nAt the beginning of any Quarto document, there is a box delimited by ---. There you can define document metadata, such as title, author, date, output format, bibliography, citation style, theme, font size and many others.\n---\ntitle: “Around the gut in 24 hours”\nformat: html\neditor: visual\nsmaller: true\nauthor: Escherichia coli\ndate: 2024-12-17\n---"
+  },
+  {
+    "objectID": "quarto.html#exercise-2",
+    "href": "quarto.html#exercise-2",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Exercise 2",
+    "text": "Exercise 2\n\nknitr options: exercise 2.3\nYAML parameters: exercise 2.4\n\nExtra:\n\nQuarto parameters: exercise 2.5"
+  },
+  {
+    "objectID": "quarto.html#resources",
+    "href": "quarto.html#resources",
+    "title": "Reproducible Reporting with Quarto",
+    "section": "Resources",
+    "text": "Resources\n\nOMA Section - Quarto\nChunk Option Catalogue\nCross References\nYAML Parameter Catalogue"
   },
   {
     "objectID": "hintikkaxo_presentation.html#study-design",

@@ -42,7 +42,6 @@ This website hosts quarto presentations about microbiome analysis and data integ
 -   [Introduction to Quarto](https://microbiome.github.io/outreach/quarto.html){target="_blank"}
 -   [Alpha Diversity](https://microbiome.github.io/outreach/alpha_diversity.html){target="_blank"}
 -   [Ordination](https://microbiome.github.io/outreach/ordination.html){target="_blank"}
--   [dbRDA](https://microbiome.github.io/outreach/dbrda.html){target="_blank"}
 -   [Compositional Heatmaps](https://microbiome.github.io/outreach/compositional_heatmap.html){target="_blank"}
 -   [Differential Abundance](https://microbiome.github.io/outreach/differential_abundance.html){target="_blank"}
 -   [Day 2](https://microbiome.github.io/outreach/day2.html){target="_blank"}

@@ -298,36 +298,6 @@ tse <- mae[["microbiota"]]
 tse
 ```
 
-##
-
-We can then retrieve the abundance table.
-
-```{r}
-#| label: show_demo_data4
-
-assay(tse, "counts")[1:2, 1:5]
-```
-
-##
-
-And check sample metadata.
-
-```{r}
-#| label: show_demo_data5
-
-colData(tse)
-```
-
-##
-
-And access the feature metadata, i.e., taxonomy table.
-
-```{r}
-#| label: show_demo_data6
-
-rowData(tse)
-```
-
 ## Open microbiome data resources
 
 Open microbiome data resources supporting *TreeSummarizedExperiment*:
