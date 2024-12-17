@@ -1,9 +1,9 @@
 ---
-title: "CSC Notebook"
+title: "CSC Noppe"
 format: revealjs
 ---
 
-## CSC Notebook
+## CSC Noppe
 
 ::: incremental
 -   Offers web applications for self-learning, hosting courses and collaboration provided by CSC.
