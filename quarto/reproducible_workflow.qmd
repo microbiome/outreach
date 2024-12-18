@@ -45,7 +45,7 @@ Let us first demonstrate Quarto.
 
 OMA Exercise:
 
-21.2.1 Reproducible reporting with Quarto
+29.2.1 Reproducible reporting with Quarto
 
 ## Task 1: Reproducible reporting {.smaller}
 
