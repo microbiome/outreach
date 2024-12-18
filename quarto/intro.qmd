@@ -1,12 +1,11 @@
 ---
 title: "Intro & practicals"
 format: revealjs
-editor: visual
 ---
 
 ## Learning goals {.smaller}
 
-::: columns
+::::: columns
 ::: {.column width="70%"}
 **Introduction to R/Bioconductor, a popular open-source environment for life science informatics, with a focus on microbiome analysis**
 
@@ -22,18 +21,15 @@ After the course, you will know how to:
 ::: {.column width="30%"}
 ![Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.](images/paste-DD45BC4A.png)
 :::
-:::
-
+:::::
 
 ## Target audience
-
 
 -   Advanced MSc, PhD & postdoctoral researchers who wish to learn new skills in scientific programming
 
 -   Earlier experience with R is expected
 
 ![](images/bioconductor_logo_rgb.jpg){width="200"}
-
 
 Welcome!
 
@@ -54,7 +50,6 @@ Bioconductor community values an open approach to science that promotes
 By participating in this community, you agree not to engage in behavior contrary to these values at any Bioconductor-sponsored event or electronic communication channel.
 
 For the full CoC, see: [https://bioconductor.github.io/bioc_coc_multilingual](https://bioconductor.github.io/bioc_coc_multilingual/)
-
 
 ## Schedule
 
@@ -86,14 +81,13 @@ For the full CoC, see: [https://bioconductor.github.io/bioc_coc_multilingual](ht
 
 -   Post-it stickers
 
--   Online chat (Gitter) <https://gitter.im/microbiome/miaverse>
+-   Online chat (GitHub Discussions) <https://github.com/microbiome/OMA/discussions>
 
 -   [Google Doc](https://docs.google.com/document/d/1CEQ2d5g-zMoANhtHGbcKbW4DhElovPHz6iChjSX6Md8/edit?usp=sharing) **Questions at the end of the gdoc are welcome**
 
 -   Feedback at the end of each day using minute cards
 
 ![](images/paste-345FB942.png){width="282"}
-
 
 ## Other points
 
