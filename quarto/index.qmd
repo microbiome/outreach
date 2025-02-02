@@ -22,7 +22,8 @@ This website hosts quarto presentations about microbiome analysis and data integ
 
 ### Packages
 
-- [MGnifyR: An R package for accessing MGnify microbiome data](https://microbiome.github.io/outreach/mgnifyr.html)
+-   [MGnifyR: An R package for accessing MGnify microbiome data](https://microbiome.github.io/outreach/mgnifyr.html){target="_blank"}
+-   [miaDash: Microbiome Analysis Dashboard](https://microbiome.github.io/outreach/miadash.html){target="_blank"}
 
 ### Data containers
 
