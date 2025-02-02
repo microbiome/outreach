@@ -1629,5 +1629,54 @@
     "title": "A brief introduction to HintikkaXOData",
     "section": "References",
     "text": "References\n\n\n\n\n\n\n\n\nHintikka, Jukka, Sanna Lensu, Elina Mäkinen, Sira Karvinen, Marjaana Honkanen, Jere Lindén, Tim Garrels, Satu Pekkala, and Leo Lahti. 2021. “Xylo-Oligosaccharides in Prevention of Hepatic Steatosis and Adipose Tissue Inflammation: Associating Taxonomic and Metabolomic Patterns in Fecal Microbiomes with Biclustering.” International Journal of Environmental Research and Public Health 18 (8): 4049. https://doi.org/10.3390/ijerph18084049."
+  },
+  {
+    "objectID": "miadash.html#origins",
+    "href": "miadash.html#origins",
+    "title": "Microbiome Analysis Dashboard",
+    "section": "Origins",
+    "text": "Origins\nWhile attending workshops at EuroBioc2023, I got to play with iSEE."
+  },
+  {
+    "objectID": "miadash.html#isee",
+    "href": "miadash.html#isee",
+    "title": "Microbiome Analysis Dashboard",
+    "section": "iSEE",
+    "text": "iSEE\niSEE is a very nice app that lets you visualise SummarizedExperiment objects in an interactive way (Rue-Albrecht et al. 2018). However it had no support for 🦠🦠🦠."
+  },
+  {
+    "objectID": "miadash.html#iseetree",
+    "href": "miadash.html#iseetree",
+    "title": "Microbiome Analysis Dashboard",
+    "section": "iSEEtree",
+    "text": "iSEEtree\nSo we thought why not adding support for 🦠🦠🦠, and we developed iSEEtree to visualise TreeSummarizedExperiment objects in an interactive way (Benedetti et al. 2024)."
+  },
+  {
+    "objectID": "miadash.html#miadash",
+    "href": "miadash.html#miadash",
+    "title": "Microbiome Analysis Dashboard",
+    "section": "miaDash",
+    "text": "miaDash\nAn app that translates the mia functionality to a graphical user interface."
+  },
+  {
+    "objectID": "miadash.html#try-the-app",
+    "href": "miadash.html#try-the-app",
+    "title": "Microbiome Analysis Dashboard",
+    "section": "Try the app",
+    "text": "Try the app\nVisit miaDash at this address or by scanning the QR code below."
+  },
+  {
+    "objectID": "miadash.html#references",
+    "href": "miadash.html#references",
+    "title": "Microbiome Analysis Dashboard",
+    "section": "References",
+    "text": "References\n\n\n\n\n\n\n\n\nBenedetti, Giulio, Ely Seraidarian, Theotime Pralas, Akewak Jeba, Tuomas Borman, and Leo Lahti. 2024. “iSEEtree: Interactive Explorer for Hierarchical Data.” https://arxiv.org/abs/2412.02882.\n\n\nRue-Albrecht, Kevin, Federico Marini, Charlotte Soneson, and Aaron TL Lun. 2018. “iSEE: Interactive Summarizedexperiment Explorer.” F1000Research 7. https://doi.org/10.12688/f1000research.14966.1."
+  },
+  {
+    "objectID": "miadash.html#half-way-there",
+    "href": "miadash.html#half-way-there",
+    "title": "Microbiome Analysis Dashboard",
+    "section": "Half-way there!",
+    "text": "Half-way there!\niSEEtree is very nice, but why not having a graphical user interface with full mia functionality, from importing data to plotting results?"
   }
 ]
