@@ -388,32 +388,6 @@ _Allows us to develop efficient microbiome data science workflows_
 [microbiome.github.io/OMA](https://microbiome.github.io/OMA/docs/devel/){preview-link="true"}
 :::
 
-## Poem of the day
-
-::: columns
-::: {.column width="60%"}
-
-_Put it in the book, make it clear,_  
-_mia framework’s waiting here._
-
-
-_OMA’s guide will light the way,_  
-_helping you every step of the day._
-
-:::
-
-::: {.column width="40%"}
-
-![](images/book.webp){fig-alt="Book" fig-align="center" width=30%}
-![](images/paste-14DB8F76.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=50%}
-
-![](images/mia_logo.png){fig-alt="mia logo." fig-align="center" width=30%}
-
-:::
-
-:::
-
-
 ## Thank you for your time! {.smaller}
 
 ::: columns
