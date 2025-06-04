@@ -1678,5 +1678,138 @@
     "title": "Microbiome Analysis Dashboard",
     "section": "Half-way there!",
     "text": "Half-way there!\niSEEtree is very nice, but why not having a graphical user interface with full mia functionality, from importing data to plotting results?"
+  },
+  {
+    "objectID": "gbcc2025.html#orchestrating-microbiome-analysis-with-bioconductor",
+    "href": "gbcc2025.html#orchestrating-microbiome-analysis-with-bioconductor",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Orchestrating Microbiome Analysis with Bioconductor",
+    "text": "Orchestrating Microbiome Analysis with Bioconductor\n\nData containers\nTreeSummarizedExperiment class\nmia ecosystem"
+  },
+  {
+    "objectID": "gbcc2025.html#data-containers",
+    "href": "gbcc2025.html#data-containers",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Data containers",
+    "text": "Data containers\n\nData containers form the core of software\nModular, efficient workflows"
+  },
+  {
+    "objectID": "gbcc2025.html#summarizedexperiment",
+    "href": "gbcc2025.html#summarizedexperiment",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "SummarizedExperiment",
+    "text": "SummarizedExperiment\n(Huber et al. 2015)"
+  },
+  {
+    "objectID": "gbcc2025.html#microbiome-data-science",
+    "href": "gbcc2025.html#microbiome-data-science",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Microbiome data science",
+    "text": "Microbiome data science\n\n\n\nSequencing data - Other omics regularly incorporated\nPreviously based on phyloseq\n\n\n\n\n\n(Moreno-Indias et al. 2021)"
+  },
+  {
+    "objectID": "gbcc2025.html#optimal-container-for-microbiome-data",
+    "href": "gbcc2025.html#optimal-container-for-microbiome-data",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?"
+  },
+  {
+    "objectID": "gbcc2025.html#optimal-container-for-microbiome-data-1",
+    "href": "gbcc2025.html#optimal-container-for-microbiome-data-1",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking"
+  },
+  {
+    "objectID": "gbcc2025.html#optimal-container-for-microbiome-data-2",
+    "href": "gbcc2025.html#optimal-container-for-microbiome-data-2",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features"
+  },
+  {
+    "objectID": "gbcc2025.html#optimal-container-for-microbiome-data-3",
+    "href": "gbcc2025.html#optimal-container-for-microbiome-data-3",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types"
+  },
+  {
+    "objectID": "gbcc2025.html#optimal-container-for-microbiome-data-4",
+    "href": "gbcc2025.html#optimal-container-for-microbiome-data-4",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\nOptimized: for speed & memory"
+  },
+  {
+    "objectID": "gbcc2025.html#optimal-container-for-microbiome-data-5",
+    "href": "gbcc2025.html#optimal-container-for-microbiome-data-5",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\nOptimized: for speed & memory\nIntegrated: with other applications & frameworks"
+  },
+  {
+    "objectID": "gbcc2025.html#optimal-container-for-microbiome-data-6",
+    "href": "gbcc2025.html#optimal-container-for-microbiome-data-6",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\nOptimized: for speed & memory\nIntegrated: with other applications & frameworks\n\nReduce overlapping efforts, improve interoperability, ensure sustainability."
+  },
+  {
+    "objectID": "gbcc2025.html#treesummarizedexperiment",
+    "href": "gbcc2025.html#treesummarizedexperiment",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "TreeSummarizedExperiment",
+    "text": "TreeSummarizedExperiment\n(Huang et al. 2021)"
+  },
+  {
+    "objectID": "gbcc2025.html#microbiome-analysis-mia",
+    "href": "gbcc2025.html#microbiome-analysis-mia",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Microbiome Analysis (mia)",
+    "text": "Microbiome Analysis (mia)\n\nMicrobiome data science in SummarizedExperiment ecosystem\nDistributed through several R packages\nmia package top 8.1% Bioconductor downloads"
+  },
+  {
+    "objectID": "gbcc2025.html#community-driven-ecosystem-of-tools",
+    "href": "gbcc2025.html#community-driven-ecosystem-of-tools",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Community-driven ecosystem of tools",
+    "text": "Community-driven ecosystem of tools\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEETree (Interactive visualization)\nExpanded by independent developers"
+  },
+  {
+    "objectID": "gbcc2025.html#community-driven-ecosystem-of-tools-1",
+    "href": "gbcc2025.html#community-driven-ecosystem-of-tools-1",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Community-driven ecosystem of tools",
+    "text": "Community-driven ecosystem of tools\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEETree (Interactive visualization)\nExpanded by independent developers\n\nInteroperable with the SummarizedExperiment ecosystem"
+  },
+  {
+    "objectID": "gbcc2025.html#online-book",
+    "href": "gbcc2025.html#online-book",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Online book",
+    "text": "Online book\n\nResources and tutorials for microbiome analysis\nCommunity-built best practices\nOpen to contributions!"
+  },
+  {
+    "objectID": "gbcc2025.html#acknowledgements",
+    "href": "gbcc2025.html#acknowledgements",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\n\n\n\nGiulio Benedetti\nMuluh Geraldson\nAura Raulo\nAkewak Jeba\nFelix M. Ernst\nSudarshan Shetty\nChristian L. Müller\nAki Havulinna\nLevi Waldron\nThomaz Bastiaanssen\nLeo Lahti\nand others"
+  },
+  {
+    "objectID": "gbcc2025.html#thank-you-for-your-time",
+    "href": "gbcc2025.html#thank-you-for-your-time",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Thank you for your time!",
+    "text": "Thank you for your time!\n\nMoreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology."
+  },
+  {
+    "objectID": "gbcc2025.html#references",
+    "href": "gbcc2025.html#references",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure [Version 2; Peer Review: 3 Approved].” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html.\n\n\nMoreno-Indias, Isabel, Leo Lahti, Miroslava Nedyalkova, Ilze Elbere, Gennady V. Roshchupkin, Muhamed Adilovic, Onder Aydemir, et al. 2021. “Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions.” Frontiers in Microbiology 12: 277. https://doi.org/10.3389/fmicb.2021.635781."
   }
 ]
