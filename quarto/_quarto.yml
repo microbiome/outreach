@@ -24,3 +24,4 @@ project:
     - compositional_heatmap.qmd
     - differential_abundance.qmd
     - oma.qmd
+    - gbcc2025.qmd

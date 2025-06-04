@@ -1,0 +1,463 @@
+---
+title: "Orchestrating Microbiome Analysis with Bioconductor"
+author: Tuomas Borman
+format:
+  revealjs: 
+    slide-number: true
+    chalkboard: 
+      buttons: false
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+title-slide-attributes: 
+  data-background-image: images/gbcc_logo_transparent.png
+  data-background-size: 15%
+  data-background-position: 2% 2%
+bibliography: references.bib
+---
+
+##
+
+```{r}
+#| label: map1
+#| eval: false
+
+library(ggplot2)
+library(ggimage)
+library(maps)
+library(dplyr)
+
+# Define points
+locations <- data.frame(
+    name = c("Rovaniemi", "Turku", "New York"),
+    lon = c(25.7294, 22.3, -74.006),
+    lat = c(66.5039, 60.5, 40.7128),
+    image = c(
+        "https://upload.wikimedia.org/wikipedia/commons/d/d2/Jolly-old-saint-nick.gif",  # Rovaniemi
+        "https://avatars.githubusercontent.com/u/60338854?v=4",  # Turku
+        "https://gbcc2025.bioconductor.org/img/gbcc_logo_transparent.png"   # New York
+    ),
+    size = c(0.15, 0.15, 0.25)  # larger only for New York
+)
+
+# Airplane icon (above line)
+plane_icon <- "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Airplane_silhouette_S%2C_flipped.png/1024px-Airplane_silhouette_S%2C_flipped.png"
+
+# Midpoint for airplane placement
+midpoint <- data.frame(
+    lon = mean(c(22.3, -74.006)),
+    lat = mean(c(90, 40.7128)),
+    image = plane_icon
+)
+
+# Base world map
+world_map <- map_data("world")
+
+# Zoomed-in map of Finland
+finland_plot <- ggplot() +
+    theme_void() +
+    theme(
+        plot.background = element_rect(fill = "#a6cee3", color = NA),
+        panel.background = element_rect(fill = "#a6cee3", color = NA)
+    ) +
+    # Land polygons with natural fill
+    geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+                 fill = "#e0d8c3", color = "gray60", size = 0.2) +
+    geom_image(data = locations[1:2, ], aes(x = lon, y = lat, image = image), size = 0.2) +
+    coord_fixed(xlim = c(20, 32), ylim = c(59, 70))
+
+finland_plot
+```
+
+## {auto-animate=true}
+
+```{r}
+#| label: map2
+#| eval: false
+
+# Zoomed-out map with flight path
+flight_plot <- ggplot() +
+    theme_void() +
+    theme(
+        plot.background = element_rect(fill = "#a6cee3", color = NA),
+        panel.background = element_rect(fill = "#a6cee3", color = NA)
+    ) +
+    # Land polygons with natural fill
+    geom_polygon(data = world_map, aes(x = long, y = lat, group = group),
+                 fill = "#e0d8c3", color = "gray60", size = 0.2) +
+    geom_image(data = locations, aes(x = lon, y = lat, image = image, size = size), inherit.aes = FALSE) +
+    scale_size_identity() +
+    geom_image(data = midpoint, aes(x = lon, y = lat, image = image), size = 0.15) +
+    geom_curve(aes(x = 22.3, y = 60.5, xend = -74.006, yend = 40.7128),
+               curvature = 0.2, color = "black", size = 1.2, arrow = arrow(length = unit(0.2, "inches"))) +
+    coord_fixed(xlim = c(-90, 40), ylim = c(30, 70))
+
+flight_plot
+```
+
+## Orchestrating Microbiome Analysis with Bioconductor
+
+- Data containers
+- `r BiocStyle::Biocpkg("TreeSummarizedExperiment")` class
+- `r BiocStyle::Biocpkg("mia")` ecosystem
+
+<div style="text-align: right;">
+  <img src="images/BioconductorSticker1.png" alt="Bioconductor sticker" width="200" style="margin-left: 10px;">
+  <img src="images/mia_logo.png" alt="mia logo" width="200">
+</div>
+
+## Data containers
+- Data containers form the core of software
+- Modular, efficient workflows
+
+```{r}
+#| label: data_container
+
+# Load libraries
+library(ggplot2)
+library(ggforce)
+
+# Adjusting the text positions for better alignment
+ellipse_data <- data.frame(
+    x = c(0, 0, 0),         # Centers of ellipses
+    y = c(2, 1, 0),         # Centers of ellipses
+    a = c(4, 3, 2),         # Widths of ellipses
+    b = c(3, 2, 1),         # Heights of ellipses
+    label = c("COMMUNITY", "METHODS", "DATA CONTAINER"),  # Labels for each ellipse
+    label_y = c(4, 1.75, 0) # Adjusted vertical positions for labels
+)
+
+# Plot with adjusted labels
+ggplot() +
+    geom_ellipse(data = ellipse_data, 
+                 aes(x0 = x, y0 = y, a = a, b = b, angle = 0),
+                 color = "darkgreen", fill = "grey90", alpha = 0.7) +
+    geom_text(data = ellipse_data, 
+              aes(x = x, y = label_y, label = label), 
+              size = 5, fontface = "bold") +
+    coord_fixed() +
+    theme_void()
+```
+
+## `r BiocStyle::Biocpkg("SummarizedExperiment")`
+<small>[@Huber2015]</small>
+
+```{r}
+#| label: bioc_packages
+#| eval: true
+
+if( !require("BiocManager") ){
+    install("BiocManager")
+}
+pkgs <- c("BiocPkgTools", "lubridate", "tidyverse")
+temp <- sapply(pkgs, function(pkg){
+    if( !require(pkg, character.only = TRUE) ){
+        BiocManager::install(pkg)
+        library(pkg, character.only = TRUE)
+    }
+})
+
+# Get packages and info based on their BiocViews
+pkgs <- biocPkgList()
+#
+pkgs[["SE"]] <- sapply(pkgs[["Depends"]], function(x) any(grepl("summarizedexperiment", x, ignore.case = TRUE)) )
+pkgs <- pkgs[pkgs[["SE"]], ]
+fields <- sapply(pkgs$biocViews, function(x){
+    field <- "Other"
+    if( any(grepl("genomic|genetic|gene|genom|DNA", x, ignore.case = TRUE)) ){
+        field <- "Genomics"
+    }
+    if( any(grepl("proteomics|protein", x, ignore.case = TRUE)) ){
+        field <- "Proteomics"
+    }
+    if( any(grepl("metabolomics|metabolome|metabolite|Lipidom|massspectro", x, ignore.case = TRUE)) ){
+        field <- "Metabolomics"
+    }
+    if( any(grepl("transcripto|RNA-seq|RNA", x, ignore.case = TRUE)) ){
+        field <- "Transcriptomics"
+    }
+    if( any(grepl("immuno", x, ignore.case = TRUE)) ){
+        field <- "Immunology"
+    }
+    if( any(grepl("cytom", x, ignore.case = TRUE)) ){
+        field <- "Cytometrics"
+    }
+    if( any(grepl("microarray|chip", x, ignore.case = TRUE)) ){
+        field <- "Microarray"
+    }
+    if( any(grepl("single-cell|singlecell", x, ignore.case = TRUE)) ){
+        field <- "Single-cell"
+    }
+    if( any(grepl("metagenom|microbiome|16S|microbiota|amplicon|shotgun|microb|metatranscript|metametabolo|metaproteo", x, ignore.case = TRUE)) ){
+        field <- "Microbiome"
+    }
+    return(field)
+})
+pkgs[["Field"]] <- fields
+pkgs[pkgs[["Package"]] %in% c("mia", "miaViz", "miaSim", "iSEEtree", "HoloFoodR", "MGnifyR"), "Field"] <- "Microbiome"
+# Get download stats 
+df <- biocDownloadStats()
+# Subset to include only packages which BiocView we have
+df <- df[df[["Package"]] %in% pkgs$Package, ]
+# Add field info
+df[["Field"]] <- pkgs[match(df[["Package"]], pkgs[["Package"]]), "Field"][[1]]
+# df <- df[df$Package %in% pkgs$Package, ] # Take into account only current packages
+pkgs <- pkgs[, c("Package", "SE", "Field")]
+# Get table that shows which package is available in each date
+dates <- df$Date |> unique()
+dates <- dates[ dates < floor_date(Sys.time(), "month") ]
+available <- lapply(dates, function(date){
+    temp <- df[df[["Date"]] == date, ]
+    temp <- temp[match(unique(df$Package), temp$Package), ]
+    temp <- temp[["Nb_of_distinct_IPs"]] > 0 | temp[["Nb_of_downloads"]] > 0
+    temp[is.na(temp)] <- FALSE
+    temp <- as.numeric(temp)
+    return(temp)
+})
+available <- do.call(cbind, available) |> as.data.frame()
+rownames(available) <- unique(df[["Package"]])
+colnames(available) <- dates
+#
+ind <- pkgs[match(unique(df[["Package"]]), pkgs[["Package"]]), "Field"][[1]]
+pkgs_date <- rowsum(available, group = ind)
+# Put into long format
+pkgs_date <- pkgs_date |>
+    rownames_to_column("Field") |>
+    pivot_longer(
+        cols = colnames(pkgs_date)[ !colnames(pkgs_date) %in% c("Field")], 
+        names_to = "Date",
+        values_to = "N"
+    )
+pkgs_date[["Date"]] <- pkgs_date[["Date"]] |> as.Date()
+
+# When SE was published?
+dls <- biocDownloadStats()
+df2 <- firstInBioc(dls)
+
+# Create a plot that shows number of package through date
+p <- ggplot(pkgs_date, aes(x = Date, y = N, fill = Field)) +
+    geom_area() + theme_classic() + scale_fill_brewer(palette = "Paired") +
+    labs(x = "Year", y = "Number of packages") +
+    scale_y_continuous(expand = c(0, 0), limits = c(0, NA)) +
+    geom_vline(
+      xintercept = as.Date(df2[df2[["Package"]] %in% c("SummarizedExperiment"), "Date"][[1L]]),
+      linetype = 2
+      )
+p
+```
+
+## Microbiome data science
+
+::: columns
+::: {.column width="50%"}
+
+- Sequencing data
+    <small>- Other omics regularly incorporated</small>
+- Previously based on _phyloseq_
+
+:::
+
+::: {.column width="50%"}
+
+<figure style="font-size: 0.5em;">
+  <img src="images/paste-DD45BC4A.png" alt="Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.">
+  <figcaption>[@MorenoIndias2021]</figcaption>
+</figure>
+
+:::
+
+:::
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+- **Side information**: extended capabilities & data types
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+- **Side information**: extended capabilities & data types
+- **Optimized**: for speed & memory
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+- **Side information**: extended capabilities & data types
+- **Optimized**: for speed & memory
+- **Integrated**: with other applications & frameworks
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+- **Side information**: extended capabilities & data types
+- **Optimized**: for speed & memory
+- **Integrated**: with other applications & frameworks
+
+_Reduce overlapping efforts, improve interoperability, ensure sustainability._
+
+## `r BiocStyle::Biocpkg("TreeSummarizedExperiment")`
+<small>[@Huang2021]</small>
+
+![](images/TreeSE.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=10%}
+
+## Microbiome Analysis (mia)
+
+```{r}
+#| label: mia_stats
+#| eval: true
+
+df <- BiocPkgTools::biocDownloadStats()
+df <- as.data.frame(df)
+df <- df[df[["Date"]] >= lubridate::floor_date(Sys.time(), "year"), ]
+df <- rowsum(df[, "Nb_of_downloads"], df$Package)
+pkgs <- BiocPkgTools::biocPkgList()
+df <- df[match(pkgs[["Package"]], rownames(df)), , drop = FALSE]
+df <- df[order(df[, 1], decreasing = TRUE), ,  drop = FALSE]
+perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
+
+```
+
+- Microbiome data science in SummarizedExperiment ecosystem
+- Distributed through several R packages
+- `r BiocStyle::Biocpkg("mia")` package top `r if(exists("perc")) perc else "*ERROR*"` Bioconductor downloads
+
+![](images/mia_logo.png){fig-alt="mia logo." fig-align="right" width=10%}
+
+## Community-driven ecosystem of tools {.smaller}
+
+::: columns
+::: {.column width="70%"}
+
+- `r BiocStyle::Biocpkg("mia")` (Data analysis)
+- `r BiocStyle::Biocpkg("miaViz")` (Visualization)
+- `r BiocStyle::Biocpkg("miaSim")` (Simulation)
+- [miaTime](https://github.com/microbiome/miaTime) (Time series analysis)
+- `r BiocStyle::Biocpkg("miaDash")` (Graphical user interface)
+- `r BiocStyle::Biocpkg("iSEETree")` (Interactive visualization)
+- [Expanded by independent developers](https://microbiome.github.io/OMA/docs/devel/pages/miaverse.html#sec-packages)
+
+:::
+
+::: {.column width="30%"}
+
+![](https://raw.githubusercontent.com/microbiome/mia/refs/heads/devel/man/figures/mia_logo.png){fig-alt="mia logo." width=20%} ![](https://raw.githubusercontent.com/EBI-Metagenomics/MGnifyR/refs/heads/devel/man/figures/mgnifyr_logo.png){fig-alt="MGnifyR logo." width=20%}
+![](https://raw.githubusercontent.com/EBI-Metagenomics/HoloFoodR/refs/heads/devel/man/figures/holofoodr_logo.png){fig-alt="HoloFoodR logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/iSEE/iSEE.png){fig-alt="iSEE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/MultiAssayExperiment/MultiAssayExperiment.png){fig-alt="MAE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SummarizedExperiment/SummarizedExperiment.png){fig-alt="SE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SingleCellExperiment/SingleCellExperiment.png){fig-alt="SCE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/scater/scater.png){fig-alt="scater logo." width=20%}
+![](https://pbs.twimg.com/media/FDNU5KgWYAcnU8w.jpg){fig-alt="benchdamic logo." width=20%}
+![](https://stefpeschel.de/media/logos/NetCoMi_Logo.svg){fig-alt="netcomi logo." width=20%}
+![](https://raw.githubusercontent.com/statdivlab/radEmu/refs/heads/main/man/figures/logo.png){fig-alt="radEmu logo." width=20%}
+![](https://mikelove.github.io/assets/DESeq2.png){fig-alt="DESeq2 logo." width=20%}
+![](https://avatars.githubusercontent.com/u/18152373?s=280&v=4){fig-alt="Biobakery logo." width=20%}
+:::
+
+:::
+
+## Community-driven ecosystem of tools {.smaller auto-animate=true}
+
+::: columns
+::: {.column width="70%"}
+
+- `r BiocStyle::Biocpkg("mia")` (Data analysis)
+- `r BiocStyle::Biocpkg("miaViz")` (Visualization)
+- `r BiocStyle::Biocpkg("miaSim")` (Simulation)
+- [miaTime](https://github.com/microbiome/miaTime) (Time series analysis)
+- `r BiocStyle::Biocpkg("miaDash")` (Graphical user interface)
+- `r BiocStyle::Biocpkg("iSEETree")` (Interactive visualization)
+- [Expanded by independent developers](https://microbiome.github.io/OMA/docs/devel/pages/miaverse.html#sec-packages)
+
+**Interoperable with the `r BiocStyle::Biocpkg("SummarizedExperiment")` ecosystem**
+
+:::
+
+::: {.column width="30%"}
+
+![](https://raw.githubusercontent.com/microbiome/mia/refs/heads/devel/man/figures/mia_logo.png){fig-alt="mia logo." width=20%} ![](https://raw.githubusercontent.com/EBI-Metagenomics/MGnifyR/refs/heads/devel/man/figures/mgnifyr_logo.png){fig-alt="MGnifyR logo." width=20%}
+![](https://raw.githubusercontent.com/EBI-Metagenomics/HoloFoodR/refs/heads/devel/man/figures/holofoodr_logo.png){fig-alt="HoloFoodR logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/iSEE/iSEE.png){fig-alt="iSEE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/MultiAssayExperiment/MultiAssayExperiment.png){fig-alt="MAE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SummarizedExperiment/SummarizedExperiment.png){fig-alt="SE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SingleCellExperiment/SingleCellExperiment.png){fig-alt="SCE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/scater/scater.png){fig-alt="scater logo." width=20%}
+![](https://pbs.twimg.com/media/FDNU5KgWYAcnU8w.jpg){fig-alt="benchdamic logo." width=20%}
+![](https://stefpeschel.de/media/logos/NetCoMi_Logo.svg){fig-alt="netcomi logo." width=20%}
+![](https://raw.githubusercontent.com/statdivlab/radEmu/refs/heads/main/man/figures/logo.png){fig-alt="radEmu logo." width=20%}
+![](https://mikelove.github.io/assets/DESeq2.png){fig-alt="DESeq2 logo." width=20%}
+![](https://avatars.githubusercontent.com/u/18152373?s=280&v=4){fig-alt="Biobakery logo." width=20%}
+:::
+
+:::
+
+## Online book
+
+- Resources and tutorials for microbiome analysis
+- Community-built best practices
+- Open to contributions!
+
+<p style="text-align: right;">
+  [![](images/OMA_ss.png){width=500px}](https://microbiome.github.io/OMA/docs/devel/){preview-link="true"}
+</p>
+
+
+## Acknowledgements {.smaller}
+
+::: columns
+::: {.column width="50%"}
+
+- Giulio Benedetti
+- Muluh Geraldson
+- Aura Raulo
+- Akewak Jeba
+- Felix M. Ernst
+- Sudarshan Shetty
+- Christian L. Müller
+- Aki Havulinna
+- Levi Waldron
+- Thomaz Bastiaanssen
+- Leo Lahti
+- and others
+
+:::
+
+::: {.column width="50%"}
+
+![](https://apps.utu.fi/media/logo/UTU_logo_EN_RGB.png){fig-alt="University of Turku logo" width="150" fig-align="center"}
+
+
+![](https://www.ebi.ac.uk/metagenomics/static/50d6b60518ea8b4816b9.png){fig-alt="UTU logo" width="150" fig-align="center"}
+
+
+![](https://media.aka.fi/api/v3/public/file/497671429c8b0783/thumbnail.jpg?version=e5566c3f8491a9bcc65c74594efa47c0){fig-alt="Research Council of Finland logo" width="150" fig-align="center"}
+
+
+![](https://biocityturku.fi/wp-content/uploads/2023/06/CompLifeSci-color-balck-01-2-720x217.png){fig-alt="CompLifeSci logo" width="150" fig-align="center"}
+
+
+![](https://www.yliopistosaatio.fi/wp-content/uploads/2024/02/logo-vaaka-turun-yliopistosatio.webp){fig-alt="Turun yliopistosäätiö logo" width="150" fig-align="center"}
+:::
+
+:::
+
+## Thank you for your time! {.smaller}
+
+![Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.](images/paste-DD45BC4A.png)
+
+## References
