@@ -1719,42 +1719,42 @@
     "href": "gbcc2025.html#optimal-container-for-microbiome-data-1",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Optimal container for microbiome data?",
-    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking"
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: taxonomic and functional profiles"
   },
   {
     "objectID": "gbcc2025.html#optimal-container-for-microbiome-data-2",
     "href": "gbcc2025.html#optimal-container-for-microbiome-data-2",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Optimal container for microbiome data?",
-    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features"
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: taxonomic and functional profiles\nHierarchical data: phylogenetic tree"
   },
   {
     "objectID": "gbcc2025.html#optimal-container-for-microbiome-data-3",
     "href": "gbcc2025.html#optimal-container-for-microbiome-data-3",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Optimal container for microbiome data?",
-    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types"
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: taxonomic and functional profiles\nHierarchical data: phylogenetic tree\nSide information: sample and feature metadata"
   },
   {
     "objectID": "gbcc2025.html#optimal-container-for-microbiome-data-4",
     "href": "gbcc2025.html#optimal-container-for-microbiome-data-4",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Optimal container for microbiome data?",
-    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\nOptimized: for speed & memory"
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: taxonomic and functional profiles\nHierarchical data: phylogenetic tree\nSide information: sample and feature metadata\nOptimized: for speed and memory"
   },
   {
     "objectID": "gbcc2025.html#optimal-container-for-microbiome-data-5",
     "href": "gbcc2025.html#optimal-container-for-microbiome-data-5",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Optimal container for microbiome data?",
-    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\nOptimized: for speed & memory\nIntegrated: with other applications & frameworks"
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: taxonomic and functional profiles\nHierarchical data: phylogenetic tree\nSide information: sample and feature metadata\nOptimized: for speed and memory\nInteroperable: with other applications and frameworks"
   },
   {
     "objectID": "gbcc2025.html#optimal-container-for-microbiome-data-6",
     "href": "gbcc2025.html#optimal-container-for-microbiome-data-6",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Optimal container for microbiome data?",
-    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\nOptimized: for speed & memory\nIntegrated: with other applications & frameworks\n\nReduce overlapping efforts, improve interoperability, ensure sustainability."
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: taxonomic and functional profiles\nHierarchical data: phylogenetic tree\nSide information: sample and feature metadata\nOptimized: for speed and memory\nInteroperable: with other applications and frameworks\n\nReduce overlapping efforts, improve interoperability, ensure sustainability."
   },
   {
     "objectID": "gbcc2025.html#treesummarizedexperiment",
@@ -1810,6 +1810,6 @@
     "href": "gbcc2025.html#references",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "References",
-    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure [Version 2; Peer Review: 3 Approved].” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html.\n\n\nMoreno-Indias, Isabel, Leo Lahti, Miroslava Nedyalkova, Ilze Elbere, Gennady V. Roshchupkin, Muhamed Adilovic, Onder Aydemir, et al. 2021. “Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions.” Frontiers in Microbiology 12: 277. https://doi.org/10.3389/fmicb.2021.635781."
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html.\n\n\nMoreno-Indias, Isabel, Leo Lahti, Miroslava Nedyalkova, Ilze Elbere, Gennady V. Roshchupkin, Muhamed Adilovic, Onder Aydemir, et al. 2021. “Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions.” Frontiers in Microbiology 12: 277. https://doi.org/10.3389/fmicb.2021.635781."
   }
 ]

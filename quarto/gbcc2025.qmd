@@ -272,41 +272,41 @@ p
 
 ## Optimal container for microbiome data? {auto-animate=true}
 
-- **Multiple assays**: seamless interlinking
+- **Multiple assays**: taxonomic and functional profiles
 
 ## Optimal container for microbiome data? {auto-animate=true}
 
-- **Multiple assays**: seamless interlinking
-- **Hierarchical data**: supporting samples & features
+- **Multiple assays**: taxonomic and functional profiles
+- **Hierarchical data**: phylogenetic tree
 
 ## Optimal container for microbiome data? {auto-animate=true}
 
-- **Multiple assays**: seamless interlinking
-- **Hierarchical data**: supporting samples & features
-- **Side information**: extended capabilities & data types
+- **Multiple assays**: taxonomic and functional profiles
+- **Hierarchical data**: phylogenetic tree
+- **Side information**: sample and feature metadata
 
 ## Optimal container for microbiome data? {auto-animate=true}
 
-- **Multiple assays**: seamless interlinking
-- **Hierarchical data**: supporting samples & features
-- **Side information**: extended capabilities & data types
-- **Optimized**: for speed & memory
+- **Multiple assays**: taxonomic and functional profiles
+- **Hierarchical data**: phylogenetic tree
+- **Side information**: sample and feature metadata
+- **Optimized**: for speed and memory
 
 ## Optimal container for microbiome data? {auto-animate=true}
 
-- **Multiple assays**: seamless interlinking
-- **Hierarchical data**: supporting samples & features
-- **Side information**: extended capabilities & data types
-- **Optimized**: for speed & memory
-- **Integrated**: with other applications & frameworks
+- **Multiple assays**: taxonomic and functional profiles
+- **Hierarchical data**: phylogenetic tree
+- **Side information**: sample and feature metadata
+- **Optimized**: for speed and memory
+- **Interoperable**: with other applications and frameworks
 
 ## Optimal container for microbiome data? {auto-animate=true}
 
-- **Multiple assays**: seamless interlinking
-- **Hierarchical data**: supporting samples & features
-- **Side information**: extended capabilities & data types
-- **Optimized**: for speed & memory
-- **Integrated**: with other applications & frameworks
+- **Multiple assays**: taxonomic and functional profiles
+- **Hierarchical data**: phylogenetic tree
+- **Side information**: sample and feature metadata
+- **Optimized**: for speed and memory
+- **Interoperable**: with other applications and frameworks
 
 _Reduce overlapping efforts, improve interoperability, ensure sustainability._
 
