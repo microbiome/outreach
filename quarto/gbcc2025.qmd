@@ -115,14 +115,25 @@ flight_plot
 
 ## Challenges
 
+::: columns
+::: {.column width="50%"}
+
 - Lack of standardization
 - Scalability, support for multi-table data
 - Interoperability with other domains
 
-<div style="text-align: right;">
-  <img src="images/BioconductorSticker1.png" alt="Bioconductor sticker" width="200" style="margin-left: 10px;">
-  <img src="images/mia_logo.png" alt="mia logo" width="200">
-</div>
+:::
+
+::: {.column width="50%"}
+
+<figure style="font-size: 0.5em;">
+  <img src="images/paste-DD45BC4A.png" alt="Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.">
+  <figcaption>[@MorenoIndias2021]</figcaption>
+</figure>
+
+:::
+
+:::
 
 ## Data containers
 - Structured, standardized way to manage complex data
@@ -414,7 +425,10 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 - Distributed through several R packages
 - `r BiocStyle::Biocpkg("mia")` package top `r if(exists("perc")) perc else "*ERROR*"` Bioconductor downloads
 
-![](images/mia_logo.png){fig-alt="mia logo." fig-align="right" width=10%}
+<div style="text-align: right;">
+  <img src="images/BioconductorSticker1.png" alt="Bioconductor sticker" width="200" style="margin-left: 10px;">
+  <img src="images/mia_logo.png" alt="mia logo" width="200">
+</div>
 
 ## Community-driven ecosystem of tools {.smaller}
 
