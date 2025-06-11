@@ -359,43 +359,13 @@ Tuomas Borman
 </div>
 
 </section>
-<section id="section" class="slide level2">
-<h2></h2>
-</section>
-<section id="section-1" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title"></h2>
-</section>
-<section id="orchestrating-microbiome-analysis-with-bioconductor" class="slide level2">
-<h2>Orchestrating Microbiome Analysis with Bioconductor</h2>
-<ul>
-<li>Data containers</li>
-<li><em><a href="https://bioconductor.org/packages/3.22/TreeSummarizedExperiment">TreeSummarizedExperiment</a></em> class</li>
-<li><em><a href="https://bioconductor.org/packages/3.22/mia">mia</a></em> ecosystem</li>
-</ul>
-<div style="text-align: right;">
-<p><img src="images/BioconductorSticker1.png" alt="Bioconductor sticker" width="200" style="margin-left: 10px;"> <img src="images/mia_logo.png" alt="mia logo" width="200"></p>
-</div>
-</section>
-<section id="data-containers" class="slide level2">
-<h2>Data containers</h2>
-<ul>
-<li>Data containers form the core of software</li>
-<li>Modular, efficient workflows</li>
-</ul>
-
-<img data-src="gbcc2025_files/figure-revealjs/data_container-1.png" width="960" class="r-stretch"></section>
-<section id="summarizedexperiment" class="slide level2">
-<h2><em><a href="https://bioconductor.org/packages/3.22/SummarizedExperiment">SummarizedExperiment</a></em></h2>
-<p><small><span class="citation" data-cites="Huber2015">(<a href="#/references" role="doc-biblioref" onclick="">Huber et al. 2015</a>)</span></small></p>
-
-<img data-src="gbcc2025_files/figure-revealjs/bioc_packages-1.png" width="960" class="r-stretch"></section>
 <section id="microbiome-data-science" class="slide level2">
 <h2>Microbiome data science</h2>
 <div class="columns">
 <div class="column" style="width:50%;">
 <ul>
+<li>Interactions between microbes and host</li>
 <li>Sequencing data <small>- Other omics regularly incorporated</small></li>
-<li>Previously based on <em>phyloseq</em></li>
 </ul>
 </div><div class="column" style="width:50%;">
 <figure style="font-size: 0.5em;">
@@ -406,6 +376,31 @@ Tuomas Borman
 </figure>
 </div></div>
 </section>
+<section id="challenges" class="slide level2">
+<h2>Challenges</h2>
+<ul>
+<li>Lack of standardization</li>
+<li>Scalability, support for multi-table data</li>
+<li>Interoperability with other domains</li>
+</ul>
+<div style="text-align: right;">
+<p><img src="images/BioconductorSticker1.png" alt="Bioconductor sticker" width="200" style="margin-left: 10px;"> <img src="images/mia_logo.png" alt="mia logo" width="200"></p>
+</div>
+</section>
+<section id="data-containers" class="slide level2">
+<h2>Data containers</h2>
+<ul>
+<li>Structured, standardized way to manage complex data</li>
+<li>The core of software</li>
+<li>Enables modular, efficient workflows</li>
+</ul>
+
+<img data-src="gbcc2025_files/figure-revealjs/data_container-1.png" width="960" class="r-stretch"></section>
+<section id="summarizedexperiment" class="slide level2">
+<h2><em><a href="https://bioconductor.org/packages/3.22/SummarizedExperiment">SummarizedExperiment</a></em></h2>
+<p><small><span class="citation" data-cites="Huber2015">(<a href="#/references" role="doc-biblioref" onclick="">Huber et al. 2015</a>)</span></small></p>
+
+<img data-src="gbcc2025_files/figure-revealjs/se_field-1.png" class="quarto-figure quarto-figure-right r-stretch" width="960"></section>
 <section id="optimal-container-for-microbiome-data" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Optimal container for microbiome data?</h2>
 </section>
@@ -448,17 +443,6 @@ Tuomas Borman
 <li><strong>Optimized</strong>: for speed and memory</li>
 <li><strong>Interoperable</strong>: with other applications and frameworks</li>
 </ul>
-</section>
-<section id="optimal-container-for-microbiome-data-6" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Optimal container for microbiome data?</h2>
-<ul>
-<li><strong>Multiple assays</strong>: taxonomic and functional profiles</li>
-<li><strong>Hierarchical data</strong>: phylogenetic tree</li>
-<li><strong>Side information</strong>: sample and feature metadata</li>
-<li><strong>Optimized</strong>: for speed and memory</li>
-<li><strong>Interoperable</strong>: with other applications and frameworks</li>
-</ul>
-<p><em>Reduce overlapping efforts, improve interoperability, ensure sustainability.</em></p>
 </section>
 <section id="treesummarizedexperiment" class="slide level2">
 <h2><em><a href="https://bioconductor.org/packages/3.22/TreeSummarizedExperiment">TreeSummarizedExperiment</a></em></h2>
@@ -568,8 +552,29 @@ Tuomas Borman
 </section>
 <section id="thank-you-for-your-time" class="slide level2 smaller">
 <h2>Thank you for your time!</h2>
-
-<img data-src="images/paste-DD45BC4A.png" class="r-stretch quarto-figure-center"><p class="caption">Moreno-Indias et al.&nbsp;(2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.</p></section>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/paste-DD45BC4A.png"></p>
+<figcaption>Moreno-Indias et al.&nbsp;(2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.</figcaption>
+</figure>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="gbcc2025_files/figure-revealjs/qrcode-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<center>
+<em>Orchestrating Microbiome Analysis</em> online book
+</center>
+</div></div>
+</section>
 <section id="references" class="slide level2 smaller scrollable">
 <h2>References</h2>
 

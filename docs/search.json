@@ -1691,7 +1691,7 @@
     "href": "gbcc2025.html#data-containers",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Data containers",
-    "text": "Data containers\n\nData containers form the core of software\nModular, efficient workflows"
+    "text": "Data containers\n\nStructured, standardized way to manage complex data\nThe core of software\nEnables modular, efficient workflows"
   },
   {
     "objectID": "gbcc2025.html#summarizedexperiment",
@@ -1705,7 +1705,7 @@
     "href": "gbcc2025.html#microbiome-data-science",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Microbiome data science",
-    "text": "Microbiome data science\n\n\n\nSequencing data - Other omics regularly incorporated\nPreviously based on phyloseq\n\n\n\n\n\n(Moreno-Indias et al. 2021)"
+    "text": "Microbiome data science\n\n\n\nInteractions between microbes and host\nSequencing data - Other omics regularly incorporated\n\n\n\n\n\n(Moreno-Indias et al. 2021)"
   },
   {
     "objectID": "gbcc2025.html#optimal-container-for-microbiome-data",
@@ -1803,7 +1803,7 @@
     "href": "gbcc2025.html#thank-you-for-your-time",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Thank you for your time!",
-    "text": "Thank you for your time!\n\nMoreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology."
+    "text": "Thank you for your time!\n\n\n\n\n\nMoreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.\n\n\n\n\n\n\n\n\n\n\n\n\n\nOrchestrating Microbiome Analysis online book"
   },
   {
     "objectID": "gbcc2025.html#references",
@@ -1811,5 +1811,19 @@
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "References",
     "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html.\n\n\nMoreno-Indias, Isabel, Leo Lahti, Miroslava Nedyalkova, Ilze Elbere, Gennady V. Roshchupkin, Muhamed Adilovic, Onder Aydemir, et al. 2021. “Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions.” Frontiers in Microbiology 12: 277. https://doi.org/10.3389/fmicb.2021.635781."
+  },
+  {
+    "objectID": "gbcc2025.html#challenges-in-microbiome-data-science",
+    "href": "gbcc2025.html#challenges-in-microbiome-data-science",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Challenges in microbiome data science",
+    "text": "Challenges in microbiome data science\n\nLack of standardization\nScalability, support for multi-table data\nInteroperability with other domains"
+  },
+  {
+    "objectID": "gbcc2025.html#challenges",
+    "href": "gbcc2025.html#challenges",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Challenges",
+    "text": "Challenges\n\nLack of standardization\nScalability, support for multi-table data\nInteroperability with other domains"
   }
 ]

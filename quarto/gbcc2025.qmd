@@ -16,8 +16,6 @@ title-slide-attributes:
 bibliography: references.bib
 ---
 
-##
-
 ```{r}
 #| label: map1
 #| eval: false
@@ -69,8 +67,6 @@ finland_plot <- ggplot() +
 finland_plot
 ```
 
-## {auto-animate=true}
-
 ```{r}
 #| label: map2
 #| eval: false
@@ -95,11 +91,33 @@ flight_plot <- ggplot() +
 flight_plot
 ```
 
-## Orchestrating Microbiome Analysis with Bioconductor
+## Microbiome data science
 
-- Data containers
-- `r BiocStyle::Biocpkg("TreeSummarizedExperiment")` class
-- `r BiocStyle::Biocpkg("mia")` ecosystem
+::: columns
+::: {.column width="50%"}
+
+- Interactions between microbes and host
+- Sequencing data
+    <small>- Other omics regularly incorporated</small>
+
+:::
+
+::: {.column width="50%"}
+
+<figure style="font-size: 0.5em;">
+  <img src="images/paste-DD45BC4A.png" alt="Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.">
+  <figcaption>[@MorenoIndias2021]</figcaption>
+</figure>
+
+:::
+
+:::
+
+## Challenges
+
+- Lack of standardization
+- Scalability, support for multi-table data
+- Interoperability with other domains
 
 <div style="text-align: right;">
   <img src="images/BioconductorSticker1.png" alt="Bioconductor sticker" width="200" style="margin-left: 10px;">
@@ -107,8 +125,9 @@ flight_plot
 </div>
 
 ## Data containers
-- Data containers form the core of software
-- Modular, efficient workflows
+- Structured, standardized way to manage complex data
+- The core of software
+- Enables modular, efficient workflows
 
 ```{r}
 #| label: data_container
@@ -143,8 +162,92 @@ ggplot() +
 <small>[@Huber2015]</small>
 
 ```{r}
-#| label: bioc_packages
+#| label: se_field
+#| fig-align: "right"
 #| eval: true
+
+if( !require("BiocManager") ){
+    install("BiocManager")
+}
+pkgs <- c("BiocPkgTools", "ggrepel", "tidyverse")
+temp <- sapply(pkgs, function(pkg){
+    if( !require(pkg, character.only = TRUE) ){
+        BiocManager::install(pkg)
+        library(pkg, character.only = TRUE)
+    }
+})
+
+# Get packages and info based on their BiocViews
+pkgs <- biocPkgList()
+#
+pkgs[["SE"]] <- sapply(pkgs$Depends, function(x) any(grepl("summarizedexperiment", x, ignore.case = TRUE)) )
+pkgs <- pkgs[pkgs[["SE"]], ]
+fields <- sapply(pkgs$biocViews, function(x){
+    field <- "Other"
+    if( any(grepl("genomic|genetic|gene|genom|DNA", x, ignore.case = TRUE)) ){
+        field <- "Genomics"
+    }
+    if( any(grepl("proteomics|protein", x, ignore.case = TRUE)) ){
+        field <- "Proteomics"
+    }
+    if( any(grepl("metabolomics|metabolome|metabolite|Lipidom|massspectro", x, ignore.case = TRUE)) ){
+        field <- "Metabolomics"
+    }
+    if( any(grepl("transcripto|RNA-seq|RNA", x, ignore.case = TRUE)) ){
+        field <- "Transcriptomics"
+    }
+    if( any(grepl("immuno", x, ignore.case = TRUE)) ){
+        field <- "Immunology"
+    }
+    if( any(grepl("cytom", x, ignore.case = TRUE)) ){
+        field <- "Cytometrics"
+    }
+    if( any(grepl("microarray|chip", x, ignore.case = TRUE)) ){
+        field <- "Microarray"
+    }
+    if( any(grepl("single-cell|singlecell", x, ignore.case = TRUE)) ){
+        field <- "Single-cell"
+    }
+    if( any(grepl("metagenom|microbiome|16S|microbiota|amplicon|shotgun|microb|metatranscript|metametabolo|metaproteo", x, ignore.case = TRUE)) ){
+        field <- "Microbiome"
+    }
+    return(field)
+})
+pkgs[["Field"]] <- fields
+pkgs[pkgs[["Package"]] %in% c("mia", "miaViz", "miaSim", "iSEEtree", "HoloFoodR", "MGnifyR"), "Field"] <- "Microbiome"
+#
+se_pkgs <- data.frame(table(pkgs$Field))
+colnames(se_pkgs) <- c("Field", "N")
+#
+# df2 <- se_pkgs |>
+#     mutate(
+#         csum = rev(cumsum(rev(N))), 
+#         pos = N/2 + lead(csum, 1),
+#         pos = if_else(is.na(pos), N/2, pos))
+# #
+# ggplot(se_pkgs, aes(x = "" , y = N, fill = fct_inorder(Field))) +
+#     geom_col(width = 1, color = 1) +
+#     coord_polar(theta = "y") +
+#     scale_fill_brewer(palette = "Paired") +
+#     geom_label_repel(data = df2, aes(y = pos, label = N), size = 4.5, nudge_x = 1, show.legend = FALSE) +
+#     guides(fill = guide_legend(title = "Field")) +
+#     theme_void()
+
+se_pkgs <- se_pkgs[order(se_pkgs[["N"]], decreasing = TRUE), , drop = FALSE]
+se_pkgs[["Field"]] <- factor(se_pkgs[["Field"]])
+ggplot(se_pkgs, aes(x = N, y = fct_inorder(Field), fill = fct_inorder(Field))) +
+    geom_col(width = 0.7, colour = "black") +
+    scale_fill_brewer(palette = "Paired", name = "Field") +
+    geom_text(aes(label = N), hjust = -0.5, size = 4.5) +  # labels at bar ends
+    labs(x = "Number of packages", y = NULL) +
+    coord_cartesian(clip = "off") +            # allow labels past bar end
+    theme_classic(base_size = 14) +
+    theme(legend.position = "none")
+```
+
+```{r}
+#| label: bioc_packages
+#| eval: false
 
 if( !require("BiocManager") ){
     install("BiocManager")
@@ -253,28 +356,6 @@ p <- ggplot(pkgs_date, aes(x = Date, y = N, fill = Field)) +
 p
 ```
 
-## Microbiome data science
-
-::: columns
-::: {.column width="50%"}
-
-- Sequencing data
-    <small>- Other omics regularly incorporated</small>
-- Previously based on _phyloseq_
-
-:::
-
-::: {.column width="50%"}
-
-<figure style="font-size: 0.5em;">
-  <img src="images/paste-DD45BC4A.png" alt="Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.">
-  <figcaption>[@MorenoIndias2021]</figcaption>
-</figure>
-
-:::
-
-:::
-
 ## Optimal container for microbiome data? {auto-animate=true}
 
 ## Optimal container for microbiome data? {auto-animate=true}
@@ -306,16 +387,6 @@ p
 - **Side information**: sample and feature metadata
 - **Optimized**: for speed and memory
 - **Interoperable**: with other applications and frameworks
-
-## Optimal container for microbiome data? {auto-animate=true}
-
-- **Multiple assays**: taxonomic and functional profiles
-- **Hierarchical data**: phylogenetic tree
-- **Side information**: sample and feature metadata
-- **Optimized**: for speed and memory
-- **Interoperable**: with other applications and frameworks
-
-_Reduce overlapping efforts, improve interoperability, ensure sustainability._
 
 ## `r BiocStyle::Biocpkg("TreeSummarizedExperiment")`
 <small>[@Huang2021]</small>
@@ -465,6 +536,27 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 
 ## Thank you for your time! {.smaller}
 
+:::{.columns}
+
+::: {.column width="60%"}
 ![Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.](images/paste-DD45BC4A.png)
+:::
+
+::: {.column width="40%"}
+```{r}
+#| label: qrcode
+#| fig-align: center
+#| echo: false
+
+library(qrcode)
+qr_code("https://microbiome.github.io/OMA/docs/devel/") |> plot()
+```
+
+<center><em>Orchestrating Microbiome Analysis</em> online book</center>
+
+:::
+
+:::
 
 ## References
+
