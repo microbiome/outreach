@@ -177,10 +177,11 @@ ggplot() +
 #| fig-align: "right"
 #| eval: true
 
+
 if( !require("BiocManager") ){
     install("BiocManager")
 }
-pkgs <- c("BiocPkgTools", "ggrepel", "tidyverse")
+pkgs <- c("BiocPkgTools", "lubridate", "tidyverse")
 temp <- sapply(pkgs, function(pkg){
     if( !require(pkg, character.only = TRUE) ){
         BiocManager::install(pkg)
@@ -191,7 +192,7 @@ temp <- sapply(pkgs, function(pkg){
 # Get packages and info based on their BiocViews
 pkgs <- biocPkgList()
 #
-pkgs[["SE"]] <- sapply(pkgs$Depends, function(x) any(grepl("summarizedexperiment", x, ignore.case = TRUE)) )
+pkgs[["SE"]] <- sapply(pkgs[["Depends"]], function(x) any(grepl("summarizedexperiment", x, ignore.case = TRUE)) )
 pkgs <- pkgs[pkgs[["SE"]], ]
 fields <- sapply(pkgs$biocViews, function(x){
     field <- "Other"
@@ -226,34 +227,49 @@ fields <- sapply(pkgs$biocViews, function(x){
 })
 pkgs[["Field"]] <- fields
 pkgs[pkgs[["Package"]] %in% c("mia", "miaViz", "miaSim", "iSEEtree", "HoloFoodR", "MGnifyR"), "Field"] <- "Microbiome"
+# Get download stats 
+df <- biocDownloadStats()
+# Subset to include only packages which BiocView we have
+df <- df[df[["Package"]] %in% pkgs$Package, ]
+# Add field info
+df[["Field"]] <- pkgs[match(df[["Package"]], pkgs[["Package"]]), "Field"][[1]]
+# df <- df[df$Package %in% pkgs$Package, ] # Take into account only current packages
+pkgs <- pkgs[, c("Package", "SE", "Field")]
+# Get table that shows which package is available in each date
+dates <- df$Date |> unique()
+dates <- dates[ dates < floor_date(Sys.time(), "month") ]
+available <- lapply(dates, function(date){
+    temp <- df[df[["Date"]] == date, ]
+    temp <- temp[match(unique(df$Package), temp$Package), ]
+    temp <- temp[["Nb_of_distinct_IPs"]] > 0 | temp[["Nb_of_downloads"]] > 0
+    temp[is.na(temp)] <- FALSE
+    temp <- as.numeric(temp)
+    return(temp)
+})
+available <- do.call(cbind, available) |> as.data.frame()
+rownames(available) <- unique(df[["Package"]])
+colnames(available) <- dates
 #
-se_pkgs <- data.frame(table(pkgs$Field))
-colnames(se_pkgs) <- c("Field", "N")
-#
-# df2 <- se_pkgs |>
-#     mutate(
-#         csum = rev(cumsum(rev(N))), 
-#         pos = N/2 + lead(csum, 1),
-#         pos = if_else(is.na(pos), N/2, pos))
-# #
-# ggplot(se_pkgs, aes(x = "" , y = N, fill = fct_inorder(Field))) +
-#     geom_col(width = 1, color = 1) +
-#     coord_polar(theta = "y") +
-#     scale_fill_brewer(palette = "Paired") +
-#     geom_label_repel(data = df2, aes(y = pos, label = N), size = 4.5, nudge_x = 1, show.legend = FALSE) +
-#     guides(fill = guide_legend(title = "Field")) +
-#     theme_void()
+ind <- pkgs[match(unique(df[["Package"]]), pkgs[["Package"]]), "Field"][[1]]
+pkgs_date <- rowsum(available, group = ind)
+# Put into long format
+pkgs_date <- pkgs_date |>
+    rownames_to_column("Field") |>
+    pivot_longer(
+        cols = colnames(pkgs_date)[ !colnames(pkgs_date) %in% c("Field")], 
+        names_to = "Date",
+        values_to = "N"
+    )
+pkgs_date[["Date"]] <- pkgs_date[["Date"]] |> as.Date()
 
-se_pkgs <- se_pkgs[order(se_pkgs[["N"]], decreasing = TRUE), , drop = FALSE]
-se_pkgs[["Field"]] <- factor(se_pkgs[["Field"]])
-ggplot(se_pkgs, aes(x = N, y = fct_inorder(Field), fill = fct_inorder(Field))) +
-    geom_col(width = 0.7, colour = "black") +
-    scale_fill_brewer(palette = "Paired", name = "Field") +
-    geom_text(aes(label = N), hjust = -0.5, size = 4.5) +  # labels at bar ends
-    labs(x = "Number of packages", y = NULL) +
-    coord_cartesian(clip = "off") +            # allow labels past bar end
-    theme_classic(base_size = 14) +
-    theme(legend.position = "none")
+# Create a plot that shows number of package through date
+p <- ggplot(pkgs_date, aes(x = Date, y = N, fill = Field)) +
+    geom_area() +
+    theme_classic(base_size = 18) +
+    scale_fill_brewer(palette = "Paired") +
+    labs(x = "Year", y = "Number of packages") +
+    scale_y_continuous(expand = c(0, 0), limits = c(0, NA))
+p
 ```
 
 ```{r}
@@ -514,19 +530,59 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 ::: columns
 ::: {.column width="50%"}
 
-- Giulio Benedetti
-- Muluh Geraldson
-- Aura Raulo
-- Akewak Jeba
-- Felix M. Ernst
-- Sudarshan Shetty
-- Christian L. Müller
-- Aki Havulinna
-- Levi Waldron
-- Thomaz Bastiaanssen
-- Leo Lahti
-- and others
-
+Leo Lahti,
+Felix M. Ernst,
+Giulio Benedetti,
+Sudarshan Shetty,
+Muluh Geraldson,
+Akewak Jeba,
+Thomaz Bastiaanssen,
+Aura Raulo,
+Levi Waldron,
+Henrik Eckermann,
+Chouaib Benchraka,
+Yağmur Şimşek,
+Basil Courbayre,
+Matti Ruuskanen,
+Stefanie Peschel,
+Christian L. Müller,
+Aki Havulinna,
+Shigdel Rajesh,
+Artur Sannikov,
+Himmi Lindgren,
+Lu Yang,
+Katariina Pärnänen,
+Noah de Gunst,
+Axel Dagnaud,
+Ely Seraidarian,
+Théotime Pralas,
+Jiya Chaudhary,
+Elina Chiesa,
+Pande Erawijantari,
+Shadman Ishraq,
+Sam Hillman,
+Matteo Calgaro,
+Basil Courbayre Dussau,
+Yang Cao,
+Eineje Ameh,
+Domenick J. Braccia,
+Renuka Potbhare,
+Hervé Pagès,
+Moritz E. Beber,
+Vivian Ikeh,
+Yu Gao,
+Daniel Garza,
+Karoline Faust,
+Jacques Serizay,
+Himel Mallick,
+Yihan Liu,
+Danielle Callan,
+Ben Allen,
+Teo Dallier,
+Elliot Gaudron-Parry,
+Inès Benseddik,
+Jesse Pasanen,
+Benjamin Valderrama
 :::
 
 ::: {.column width="50%"}
