@@ -1,0 +1,5 @@
+Title:
+Orchestrating Microbiome Analysis with Bioconductor
+
+Description:
+This training session introduces Bioconductor tools for microbiome data science through a practical case study. It focuses on a framework built around the TreeSummarizedExperiment data container, designed for improved efficiency, scalability, and data integration. Participants will gain hands-on experience with common analysis and visualization methods using the mia package family, along with other interoperable tools from the Bioconductor ecosystem. After the session, participants can continue learning through the freely available "Orchestrating Microbiome Analysis with Bioconductor" online book.

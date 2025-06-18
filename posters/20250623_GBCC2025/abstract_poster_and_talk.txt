@@ -1,0 +1,12 @@
+Title
+
+Orchestrating Microbiome Analysis with Bioconductor
+
+Abstract
+
+Bioconductor has strong emphasis on data containers which facilitate efficient analysis and development of workflows that are standardized, reproducible and transparent. The most widely used data container in Bioconductor is the SummarizedExperiment class. This multi-purpose data container is optimized for biological data analysis, and it has been further extended to meet specific needs of application area such as single cell analysis and metabolomics. A common data container reduces overlapping efforts, and facilitates both collaboration and innovation across different fields.
+
+SummarizedExperiment ecosystem is extended to microbiome field via TreeSummarizedExperiment class. It expands the functionality of SummarizedExperiment by incorporating support for diverse data types commonly used in microbiome analysis, including hierarchical data structures. To facilitate the analysis of such data, the microbiome research community has developed a comprehensive suite of tools, encompassing essential operations, visualization techniques, and advanced analytical methods. To support users and to collectively develop the best practices in microbiome field, we have combined the knowledge into online book titled Orchestrating Microbiome Analysis with Bioconductor.
+
+TreeSummarizedExperiment and mia (MIcrobiome Analysis) package family have several advantages compared to previous approaches. In addition to the aforementioned benefits of using a shared data container, this ecosystem provides enhanced functionality to integrate different multiomics datasets. Moreover, it offers a scalable platform, supporting the evolving needs of microbiome research.
+
