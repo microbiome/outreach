@@ -270,7 +270,7 @@
     "href": "oma.html#microbiome-analysis-mia",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "MIcrobiome Analysis (mia)",
-    "text": "MIcrobiome Analysis (mia)\n\nMicrobiome data science in SummarizedExperiment ecosystem\nDistributed through several R packages\nmia package top 7.8% Bioconductor downloads"
+    "text": "MIcrobiome Analysis (mia)\n\nMicrobiome data science in SummarizedExperiment ecosystem\nDistributed through several R packages\nmia package top 8.1% Bioconductor downloads"
   },
   {
     "objectID": "oma.html#community-driven-ecosystem-of-tools",
@@ -1691,7 +1691,7 @@
     "href": "gbcc2025.html#data-containers",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Data containers",
-    "text": "Data containers\n\nStructured, standardized way to manage complex data\nThe core of software\nEnables modular, efficient workflows"
+    "text": "Data containers\n\nThe core of software\nStructured, standardized way to manage complex data\nEnables modular, efficient workflows"
   },
   {
     "objectID": "gbcc2025.html#summarizedexperiment",
@@ -1726,7 +1726,7 @@
     "href": "gbcc2025.html#optimal-container-for-microbiome-data-2",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Optimal container for microbiome data?",
-    "text": "Optimal container for microbiome data?\n\nMultiple assays: taxonomic and functional profiles\nHierarchical data: phylogenetic tree"
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: taxonomic and functional profiles\nHierarchical data: phylogenetic tree\n\n\n\nDog phylogeny from Wikipedia"
   },
   {
     "objectID": "gbcc2025.html#optimal-container-for-microbiome-data-3",
@@ -1768,7 +1768,7 @@
     "href": "gbcc2025.html#microbiome-analysis-mia",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Microbiome Analysis (mia)",
-    "text": "Microbiome Analysis (mia)\n\nMicrobiome data science in SummarizedExperiment ecosystem\nDistributed through several R packages\nmia package top 8.1% Bioconductor downloads"
+    "text": "Microbiome Analysis (mia)\n\nMicrobiome data science in SummarizedExperiment ecosystem\nDistributed through several R packages\nmia package top 8.2% Bioconductor downloads"
   },
   {
     "objectID": "gbcc2025.html#community-driven-ecosystem-of-tools",
@@ -1796,14 +1796,14 @@
     "href": "gbcc2025.html#acknowledgements",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Acknowledgements",
-    "text": "Acknowledgements\n\n\n\nGiulio Benedetti\nMuluh Geraldson\nAura Raulo\nAkewak Jeba\nFelix M. Ernst\nSudarshan Shetty\nChristian L. Müller\nAki Havulinna\nLevi Waldron\nThomaz Bastiaanssen\nLeo Lahti\nand others"
+    "text": "Acknowledgements\n\n\nLeo Lahti, Felix M. Ernst, Giulio Benedetti, Sudarshan Shetty, Muluh Geraldson, Akewak Jeba, Thomaz Bastiaanssen, Aura Raulo, Levi Waldron, Henrik Eckermann, Chouaib Benchraka, Yağmur Şimşek, Basil Courbayre, Matti Ruuskanen, Stefanie Peschel, Christian L. Müller, Aki Havulinna, Shigdel Rajesh, Artur Sannikov, Himmi Lindgren, Lu Yang, Katariina Pärnänen, Noah de Gunst, Axel Dagnaud, Ely Seraidarian, Théotime Pralas, Jiya Chaudhary, Elina Chiesa, Pande Erawijantari, Shadman Ishraq, Sam Hillman, Matteo Calgaro, Basil Courbayre Dussau, Yang Cao, Eineje Ameh, Domenick J. Braccia, Renuka Potbhare, Hervé Pagès, Moritz E. Beber, Vivian Ikeh, Yu Gao, Daniel Garza, Karoline Faust, Jacques Serizay, Himel Mallick, Yihan Liu, Danielle Callan, Ben Allen, Teo Dallier, Elliot Gaudron-Parry, Inès Benseddik, Jesse Pasanen, Benjamin Valderrama"
   },
   {
     "objectID": "gbcc2025.html#thank-you-for-your-time",
     "href": "gbcc2025.html#thank-you-for-your-time",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Thank you for your time!",
-    "text": "Thank you for your time!\n\n\n\n\n\nMoreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.\n\n\n\n\n\n\n\n\n\n\n\n\n\nOrchestrating Microbiome Analysis online book"
+    "text": "Thank you for your time!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOrchestrating Microbiome Analysis online book"
   },
   {
     "objectID": "gbcc2025.html#references",
@@ -1824,6 +1824,13 @@
     "href": "gbcc2025.html#challenges",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Challenges",
-    "text": "Challenges\n\n\n\nLack of standardization\nScalability, support for multi-table data\nInteroperability with other domains\n\n\n\n\n\n(Moreno-Indias et al. 2021)"
+    "text": "Challenges\n\n\nLack of…\n\nStandardization\nScalability, support for multi-table data\nInteroperability with other fields\n\n\n\n\n\n(Moreno-Indias et al. 2021)"
+  },
+  {
+    "objectID": "gbcc2025.html#section-3",
+    "href": "gbcc2025.html#section-3",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "Dog phylogeny from Wikipedia"
   }
 ]
