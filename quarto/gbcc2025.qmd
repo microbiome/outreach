@@ -178,42 +178,6 @@ ggplot() +
     theme_void()
 ```
 
-## Optimal container for microbiome data? {auto-animate=true}
-
-## Optimal container for microbiome data? {auto-animate=true}
-
-- **Multiple assays**: taxonomic and functional profiles
-
-## Optimal container for microbiome data? {auto-animate=true}
-
-- **Multiple assays**: taxonomic and functional profiles
-- **Hierarchical data**: phylogenetic tree
-
-![](https://upload.wikimedia.org/wikipedia/commons/f/fb/Phylogenetic_tree_of_dogs.png){fig-alt="Dog phylogeny" width=20%}
-
-<p style="font-size:xx-small;">Dog phylogeny from Wikipedia</p>
-
-## Optimal container for microbiome data? {auto-animate=true}
-
-- **Multiple assays**: taxonomic and functional profiles
-- **Hierarchical data**: phylogenetic tree
-- **Side information**: sample and feature metadata
-
-## Optimal container for microbiome data? {auto-animate=true}
-
-- **Multiple assays**: taxonomic and functional profiles
-- **Hierarchical data**: phylogenetic tree
-- **Side information**: sample and feature metadata
-- **Optimized**: for speed and memory
-
-## Optimal container for microbiome data? {auto-animate=true}
-
-- **Multiple assays**: taxonomic and functional profiles
-- **Hierarchical data**: phylogenetic tree
-- **Side information**: sample and feature metadata
-- **Optimized**: for speed and memory
-- **Interoperable**: with other applications and frameworks
-
 ## `r BiocStyle::Biocpkg("SummarizedExperiment")`
 <small>[@Huber2015]</small>
 
