@@ -517,4 +517,3 @@ qr_code("https://microbiome.github.io/OMA/docs/devel/") |> plot()
 :::
 
 ## References
-

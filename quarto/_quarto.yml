@@ -12,7 +12,7 @@ project:
     - mgnifyr.qmd
     - miadash.qmd
     - datacontainers.qmd
-    - data_manipulation.qmd    
+    - data_manipulation.qmd
     - summarizedexperiment.qmd
     - day2.qmd
     - treese.qmd
@@ -25,3 +25,4 @@ project:
     - differential_abundance.qmd
     - oma.qmd
     - gbcc2025.qmd
+    - ismb_eccb2025.qmd

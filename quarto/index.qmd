@@ -12,7 +12,6 @@ This website hosts quarto presentations about microbiome analysis and data integ
 - [Intro](https://microbiome.github.io/outreach/intro.html){target="_blank"}
 - [Bioconductor project](https://microbiome.github.io/outreach/bioconductor.html){target="_blank"}
 - [Orchestrating Microbiome Analysis with Bioconductor](https://microbiome.github.io/outreach/oma.html){target="_blank"}
-- [Orchestrating Microbiome Analysis with Bioconductor (GBCC2025)](https://microbiome.github.io/outreach/gbcc2025.html){target="_blank"}
 
 ### Quarto
 
@@ -40,12 +39,16 @@ This website hosts quarto presentations about microbiome analysis and data integ
 ### Microbiome data analysis
 
 - [Data Manipulation](https://microbiome.github.io/outreach/data_manipulation.html){target="_blank"}
-- [Introduction to Quarto](https://microbiome.github.io/outreach/quarto.html){target="_blank"}
 - [Alpha Diversity](https://microbiome.github.io/outreach/alpha_diversity.html){target="_blank"}
 - [Ordination](https://microbiome.github.io/outreach/ordination.html){target="_blank"}
 - [Compositional Heatmaps](https://microbiome.github.io/outreach/compositional_heatmap.html){target="_blank"}
 - [Differential Abundance](https://microbiome.github.io/outreach/differential_abundance.html){target="_blank"}
 - [Day 2](https://microbiome.github.io/outreach/day2.html){target="_blank"}
+
+### Conference presentations
+
+- [Orchestrating Microbiome Analysis with Bioconductor (GBCC2025)](https://microbiome.github.io/outreach/gbcc2025.html){target="_blank"}
+- [Orchestrating Microbiome Analysis with Bioconductor (ISMB/ECCB 2025)](https://microbiome.github.io/outreach/ismb_eccb2025.html){target="_blank"}
 
 ## Contributions
 

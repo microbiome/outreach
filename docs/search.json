@@ -1832,5 +1832,201 @@
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
     "text": "Dog phylogeny from Wikipedia"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#microbiome-data-science",
+    "href": "ismb_eccb2025.html#microbiome-data-science",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Microbiome data science",
+    "text": "Microbiome data science\n\n\n\nInteractions between microbes and host\nSequencing data - Other omics regularly incorporated\n\n\n\n\n\n(Moreno-Indias et al. 2021)"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#challenges",
+    "href": "ismb_eccb2025.html#challenges",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Challenges",
+    "text": "Challenges\n\n\nLack of…\n\nStandardization\nScalability, support for multi-table data\nInteroperability with other fields\n\n\n\n\n\n(Moreno-Indias et al. 2021)"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#bioconductor",
+    "href": "ismb_eccb2025.html#bioconductor",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Bioconductor",
+    "text": "Bioconductor\n\nCommunity-driven open-source project\n\n\nTraining programs & workshops\nConferences & community support\nBioinformatics software"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#software",
+    "href": "ismb_eccb2025.html#software",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Software",
+    "text": "Software\n\n~2,300 R packages\nReview, testing, documentation"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#data-containers",
+    "href": "ismb_eccb2025.html#data-containers",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Data containers",
+    "text": "Data containers\n\nThe core of software\nStructured, standardized way to manage complex data\nEnables modular, efficient workflows"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#treesummarizedexperiment",
+    "href": "ismb_eccb2025.html#treesummarizedexperiment",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "TreeSummarizedExperiment",
+    "text": "TreeSummarizedExperiment\n(Huang et al. 2021)"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#microbiome-analysis-mia",
+    "href": "ismb_eccb2025.html#microbiome-analysis-mia",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Microbiome Analysis (mia)",
+    "text": "Microbiome Analysis (mia)\n\nMicrobiome data science ecosystem\nDistributed through several R packages\nmia package top 8.2% Bioconductor downloads"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#community-driven-ecosystem-of-tools",
+    "href": "ismb_eccb2025.html#community-driven-ecosystem-of-tools",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Community-driven ecosystem of tools",
+    "text": "Community-driven ecosystem of tools\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEETree (Interactive visualization)\nExpanded by independent developers\n\n\n         \n  \n    \n      \n      \n      \n    \n    \n      \n      \n      \n    \n    \n      \n      \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n      \n      \n    \n    \n      \n      \n    \n    \n    \n    \n    \n    \n    \n      \n    \n    \n    \n    \n      \n    \n  \n  \n  \n    \n      \n        image/svg+xml\n        \n      \n    \n  \n  \n  \n    \n    \n    \n      \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n          \n          \n        \n        \n        \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n        \n        \n      \n      \n      \n      \n      \n      \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n      \n    \n    Created by Stefanie Peschel"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#demonstration",
+    "href": "ismb_eccb2025.html#demonstration",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Demonstration",
+    "text": "Demonstration"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-2",
+    "href": "ismb_eccb2025.html#section-2",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "library(mia)"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-3",
+    "href": "ismb_eccb2025.html#section-3",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "library(mia)\n\ntse &lt;- importBIOM(\"path_to_your_file.biom\")"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-4",
+    "href": "ismb_eccb2025.html#section-4",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "library(mia)\n\ntse &lt;- importBIOM(\"path_to_your_file.biom\")\n\nprint(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 308 60 \nmetadata(0):\nassays(1): counts\nrownames(308): species:Escherichia coli species:Alistipes putredinis\n  ... species:Campylobacter ureolyticus species:Prevotella sp. oral\n  taxon 376\nrowData names(7): superkingdom phylum ... genus species\ncolnames(60): GupDM_A_11 GupDM_A_15 ... GupDM_JO GupDM_JP\ncolData names(27): study_name subject_id ... disease_stage\n  disease_location\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (308 rows)\nrowTree: 1 phylo tree(s) (10430 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-5",
+    "href": "ismb_eccb2025.html#section-5",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "# Agglomerate data\ntse &lt;- agglomerateByRanks(tse)"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-6",
+    "href": "ismb_eccb2025.html#section-6",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "# Agglomerate data\ntse &lt;- agglomerateByRanks(tse)\n\n# Apply transformation\ntse &lt;- transformAssay(tse, method = \"relabundance\")"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-7",
+    "href": "ismb_eccb2025.html#section-7",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "# Agglomerate data\ntse &lt;- agglomerateByRanks(tse)\n\n# Apply transformation\ntse &lt;- transformAssay(tse, method = \"relabundance\")\n\nprint(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 308 60 \nmetadata(0):\nassays(2): counts relabundance\nrownames(308): species:Escherichia coli species:Alistipes putredinis\n  ... species:Campylobacter ureolyticus species:Prevotella sp. oral\n  taxon 376\nrowData names(7): superkingdom phylum ... genus species\ncolnames(60): GupDM_A_11 GupDM_A_15 ... GupDM_JO GupDM_JP\ncolData names(27): study_name subject_id ... disease_stage\n  disease_location\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(7): superkingdom phylum ... genus species\nrowLinks: a LinkDataFrame (308 rows)\nrowTree: 1 phylo tree(s) (10430 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-8",
+    "href": "ismb_eccb2025.html#section-8",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "library(miaViz)"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-9",
+    "href": "ismb_eccb2025.html#section-9",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "library(miaViz)\n\nplotAbundance(\n    tse,\n    rank = \"phylum\",\n    assay.type = \"relabundance\",\n    col.var = \"disease\"\n)"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-10",
+    "href": "ismb_eccb2025.html#section-10",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "library(miaViz)\n\nplotAbundance(\n    tse,\n    rank = \"phylum\",\n    assay.type = \"relabundance\",\n    col.var = \"disease\"\n)"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-11",
+    "href": "ismb_eccb2025.html#section-11",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "# Calculate alpha diversity\ntse &lt;- addAlpha(tse)"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-12",
+    "href": "ismb_eccb2025.html#section-12",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "# Calculate alpha diversity\ntse &lt;- addAlpha(tse)\n\n# Visualize results\nlibrary(scater)\nplotColData(tse, x = \"disease\", y = \"faith_diversity\")"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-13",
+    "href": "ismb_eccb2025.html#section-13",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "# Calculate alpha diversity\ntse &lt;- addAlpha(tse)\n\n# Visualize results\nlibrary(scater)\nplotColData(tse, x = \"disease\", y = \"faith_diversity\")"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-14",
+    "href": "ismb_eccb2025.html#section-14",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "# Calculate MDS\ntse &lt;- addMDS(tse, method = \"unifrac\")"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-15",
+    "href": "ismb_eccb2025.html#section-15",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "# Calculate MDS\ntse &lt;- addMDS(tse, method = \"unifrac\")\n\n# Visualize results\nplotReducedDim(tse, dimred = \"MDS\", colour_by = \"disease\")"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-16",
+    "href": "ismb_eccb2025.html#section-16",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "# Calculate MDS\ntse &lt;- addMDS(tse, method = \"unifrac\")\n\n# Visualize results\nplotReducedDim(tse, dimred = \"MDS\", colour_by = \"disease\")"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#online-book",
+    "href": "ismb_eccb2025.html#online-book",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Online book",
+    "text": "Online book\n\nResources and tutorials for microbiome analysis\nCommunity-built best practices\nOpen to contributions!"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#acknowledgements",
+    "href": "ismb_eccb2025.html#acknowledgements",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements\n\n\nLeo Lahti, Felix M. Ernst, Giulio Benedetti, Sudarshan Shetty, Muluh Geraldson, Akewak Jeba, Thomaz Bastiaanssen, Aura Raulo, Levi Waldron, Henrik Eckermann, Chouaib Benchraka, Yağmur Şimşek, Basil Courbayre, Matti Ruuskanen, Stefanie Peschel, Christian L. Müller, Aki Havulinna, Shigdel Rajesh, Artur Sannikov, Himmi Lindgren, Lu Yang, Katariina Pärnänen, Noah de Gunst, Axel Dagnaud, Ely Seraidarian, Théotime Pralas, Jiya Chaudhary, Elina Chiesa, Pande Erawijantari, Shadman Ishraq, Sam Hillman, Matteo Calgaro, Basil Courbayre Dussau, Yang Cao, Eineje Ameh, Domenick J. Braccia, Renuka Potbhare, Hervé Pagès, Moritz E. Beber, Vivian Ikeh, Yu Gao, Daniel Garza, Karoline Faust, Jacques Serizay, Himel Mallick, Yihan Liu, Danielle Callan, Ben Allen, Teo Dallier, Elliot Gaudron-Parry, Inès Benseddik, Jesse Pasanen, Benjamin Valderrama"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#thank-you-for-your-time",
+    "href": "ismb_eccb2025.html#thank-you-for-your-time",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Thank you for your time!",
+    "text": "Thank you for your time!\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nOrchestrating Microbiome Analysis online book"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#references",
+    "href": "ismb_eccb2025.html#references",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nMoreno-Indias, Isabel, Leo Lahti, Miroslava Nedyalkova, Ilze Elbere, Gennady V. Roshchupkin, Muhamed Adilovic, Onder Aydemir, et al. 2021. “Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions.” Frontiers in Microbiology 12: 277. https://doi.org/10.3389/fmicb.2021.635781."
   }
 ]
