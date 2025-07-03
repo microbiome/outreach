@@ -1887,7 +1887,7 @@
     "href": "ismb_eccb2025.html#community-driven-ecosystem-of-tools",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Community-driven ecosystem of tools",
-    "text": "Community-driven ecosystem of tools\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEETree (Interactive visualization)\nExpanded by independent developers\n\n\n         \n  \n    \n      \n      \n      \n    \n    \n      \n      \n      \n    \n    \n      \n      \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n    \n      \n      \n    \n    \n      \n      \n    \n    \n    \n    \n    \n    \n    \n      \n    \n    \n    \n    \n      \n    \n  \n  \n  \n    \n      \n        image/svg+xml\n        \n      \n    \n  \n  \n  \n    \n    \n    \n      \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n          \n          \n        \n        \n        \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n      \n        \n        \n      \n      \n      \n      \n      \n      \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n        \n      \n    \n    Created by Stefanie Peschel"
+    "text": "Community-driven ecosystem of tools\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEETree (Interactive visualization)\nExpanded by independent developers"
   },
   {
     "objectID": "ismb_eccb2025.html#demonstration",
@@ -1908,14 +1908,14 @@
     "href": "ismb_eccb2025.html#section-3",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "library(mia)\n\ntse &lt;- importBIOM(\"path_to_your_file.biom\")"
+    "text": "library(mia)\n\ntse &lt;- importMetaPhlAn(\n    file = \"path_to_your_file.txt\"\n    tree.file = \"phylogeny.nwk\"\n)"
   },
   {
     "objectID": "ismb_eccb2025.html#section-4",
     "href": "ismb_eccb2025.html#section-4",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "library(mia)\n\ntse &lt;- importBIOM(\"path_to_your_file.biom\")\n\nprint(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 308 60 \nmetadata(0):\nassays(1): counts\nrownames(308): species:Escherichia coli species:Alistipes putredinis\n  ... species:Campylobacter ureolyticus species:Prevotella sp. oral\n  taxon 376\nrowData names(7): superkingdom phylum ... genus species\ncolnames(60): GupDM_A_11 GupDM_A_15 ... GupDM_JO GupDM_JP\ncolData names(27): study_name subject_id ... disease_stage\n  disease_location\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (308 rows)\nrowTree: 1 phylo tree(s) (10430 leaves)\ncolLinks: NULL\ncolTree: NULL"
+    "text": "library(mia)\n\ntse &lt;- importMetaPhlAn(\n    file = \"path_to_your_file.txt\"\n    tree.file = \"phylogeny.nwk\"\n)\n\nprint(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 308 60 \nmetadata(0):\nassays(1): counts\nrownames(308): species:Escherichia coli species:Alistipes putredinis\n  ... species:Campylobacter ureolyticus species:Prevotella sp. oral\n  taxon 376\nrowData names(7): superkingdom phylum ... genus species\ncolnames(60): GupDM_A_11 GupDM_A_15 ... GupDM_JO GupDM_JP\ncolData names(27): study_name subject_id ... disease_stage\n  disease_location\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (308 rows)\nrowTree: 1 phylo tree(s) (10430 leaves)\ncolLinks: NULL\ncolTree: NULL"
   },
   {
     "objectID": "ismb_eccb2025.html#section-5",

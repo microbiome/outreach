@@ -155,13 +155,17 @@ pkgs_date <- pkgs_date %>%
 pkgs_date[["Date"]] <- as.Date(pkgs_date[["Date"]])
 
 # Create a plot that shows number of package through date
-p1 <- ggplot(pkgs_date, aes(x = Date, y = N, fill = Field)) +
+p <- ggplot(pkgs_date, aes(x = Date, y = N, fill = Field)) +
     geom_area() +
     theme_classic(base_size = 18) +
     scale_fill_brewer(palette = "Paired") +
     labs(x = "Year", y = "Number of packages") +
-    scale_y_continuous(expand = c(0, 0), limits = c(0, NA))
-p1
+    scale_y_continuous(expand = c(0, 0), limits = c(0, NA)) +
+    scale_x_date(
+        expand = c(0, 0),
+        limits = c(min(pkgs_date[["Date"]]), max(pkgs_date[["Date"]]))
+    )
+p
 ```
 
 ## Data containers
@@ -295,7 +299,7 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SingleCellExperiment/SingleCellExperiment.png){fig-alt="SCE logo." width=20%}
 ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/scater/scater.png){fig-alt="scater logo." width=20%}
 ![](https://pbs.twimg.com/media/FDNU5KgWYAcnU8w.jpg){fig-alt="benchdamic logo." width=20%}
-![](https://stefpeschel.de/media/logos/NetCoMi_Logo.svg){fig-alt="netcomi logo." width=20%}
+![](https://netcomi.de/logo.png){fig-alt="netcomi logo." width=20%}
 ![](https://raw.githubusercontent.com/statdivlab/radEmu/refs/heads/main/man/figures/logo.png){fig-alt="radEmu logo." width=20%}
 ![](https://mikelove.github.io/assets/DESeq2.png){fig-alt="DESeq2 logo." width=20%}
 ![](https://avatars.githubusercontent.com/u/18152373?s=280&v=4){fig-alt="Biobakery logo." width=20%}
@@ -316,7 +320,10 @@ library(mia)
 ```r
 library(mia)
 
-tse <- importBIOM("path_to_your_file.biom")
+tse <- importMetaPhlAn(
+    file = "path_to_your_file.txt"
+    tree.file = "phylogeny.nwk"
+)
 ```
 
 ## {auto-animate=true}
@@ -324,7 +331,10 @@ tse <- importBIOM("path_to_your_file.biom")
 ```r
 library(mia)
 
-tse <- importBIOM("path_to_your_file.biom")
+tse <- importMetaPhlAn(
+    file = "path_to_your_file.txt"
+    tree.file = "phylogeny.nwk"
+)
 
 print(tse)
 ```
@@ -465,11 +475,20 @@ plotColData(tse, x = "disease", y = "faith_diversity")
 
 ```{r}
 #| label: plot_alpha
+#| fig-height: 4.5
 
 tse <- addAlpha(tse, assay.type = "relabundance")
 
 library(scater)
-plotColData(tse, x = "disease", y = "faith_diversity")
+plotColData(tse, x = "disease", y = "faith_diversity") +
+    theme(
+        axis.title = element_text(size = 16),
+        axis.text = element_text(size = 14),
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 16),
+        plot.title = element_text(size = 18)
+  ) +
+  labs(x = "Disease", y = "Faith's diversity")
 ```
 
 ## {auto-animate=true}
@@ -501,9 +520,17 @@ plotReducedDim(tse, dimred = "MDS", colour_by = "disease")
 
 ```{r}
 #| label: plot_mds
+#| fig-height: 5
 
 tse <- addMDS(tse, assay.type = "relabundance", method = "unifrac")
-plotReducedDim(tse, dimred = "MDS", colour_by = "disease")
+plotReducedDim(tse, dimred = "MDS", colour_by = "disease", point_size = 3) +
+    theme(
+        axis.title = element_text(size = 16),
+        axis.text = element_text(size = 14),
+        legend.text = element_text(size = 14),
+        legend.title = element_text(size = 16),
+        plot.title = element_text(size = 18)
+  )
 ```
 
 ## Online book
