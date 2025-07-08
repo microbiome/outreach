@@ -1,0 +1,886 @@
+---
+title: "Brain, bacteria, and behaviour summer course"
+subtitle: "July 7 - July 11, 2025"
+date-modified: now
+format:
+  revealjs: 
+    slide-number: true
+    chalkboard: 
+      buttons: false
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+---
+
+**Rendered on:** `r format(Sys.time(), "%Y-%m-%d %H:%M")`
+
+# Day 1
+
+##
+
+```{r}
+#| label: flow1
+#| fig-width: 10
+
+library(ggplot2)
+library(tidyverse)
+
+# Boxes data: 4 boxes at x = 1, 2, 3, 4
+boxes <- data.frame(
+    label = c("Samples", "FASTQ\nFiles", "Abundance\nTable", "Results"),
+    x = 1:4,
+    y = 1
+)
+
+# Arrows data: between boxes, so arrows from 1→2, 2→3, 3→4
+arrow_labels <- data.frame(
+    x = c(1.5, 2.5, 3.5),
+    y = rep(1.25, 3),
+    label = c("Sequencing", "Taxonomy\nMapping", "Statistical\nAnalysis")
+)
+
+w <- 0.4
+h <- 0.2
+
+# For fill colors
+boxes$fill <- c("lightblue", "lightblue", "lightblue", "lightblue")
+
+ggplot(boxes) +
+    geom_rect(aes(xmin = x - w, xmax = x + w, ymin = y - h, ymax = y + h, fill = fill), color = "black") +
+    geom_text(aes(x = x, y = y, label = label), size = 5) +
+    # arrows between boxes
+    geom_segment(aes(x = 1 + w, xend = 2 - w, y = y, yend = y),
+                 arrow = arrow(length = unit(0.25, "cm")), linewidth = 0.7) +
+    geom_segment(aes(x = 2 + w, xend = 3 - w, y = y, yend = y),
+                 arrow = arrow(length = unit(0.25, "cm")), linewidth = 0.7) +
+    geom_segment(aes(x = 3 + w, xend = 4 - w, y = y, yend = y),
+                 arrow = arrow(length = unit(0.25, "cm")), linewidth = 0.7) +
+    geom_text(data = arrow_labels, aes(x = x, y = y, label = label), size = 4, vjust = 0) +
+    scale_fill_identity() +
+    theme_void() +
+    xlim(0.5, 4.5) +
+    ylim(0.7, 1.5)
+```
+
+##
+
+```{r}
+#| label: flow2
+#| fig-width: 10
+
+# For fill colors
+boxes$fill <- c("lightblue", "lightblue", "red", "red")
+
+ggplot(boxes) +
+    geom_rect(aes(xmin = x - w, xmax = x + w, ymin = y - h, ymax = y + h, fill = fill), color = "black") +
+    geom_text(aes(x = x, y = y, label = label), size = 5) +
+    # arrows between boxes
+    geom_segment(aes(x = 1 + w, xend = 2 - w, y = y, yend = y),
+                 arrow = arrow(length = unit(0.25, "cm")), linewidth = 0.7) +
+    geom_segment(aes(x = 2 + w, xend = 3 - w, y = y, yend = y),
+                 arrow = arrow(length = unit(0.25, "cm")), linewidth = 0.7) +
+    geom_segment(aes(x = 3 + w, xend = 4 - w, y = y, yend = y),
+                 arrow = arrow(length = unit(0.25, "cm")), linewidth = 0.7) +
+    geom_text(data = arrow_labels, aes(x = x, y = y, label = label), size = 4, vjust = 0) +
+    scale_fill_identity() +
+    theme_void() +
+    xlim(0.5, 4.5) +
+    ylim(0.7, 1.5)
+
+```
+
+
+## Bioconductor
+
+- Community-driven open-source project
+
+1. Training programs & workshops
+2. Conferences & community support
+3. Bioinformatics software
+
+![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo." fig-align="right" width=10%}
+
+##
+
+```{r}
+library(webshot2)
+library(magick)
+
+# Take the screenshot and save to a temporary file
+tmpfile <- tempfile(fileext = ".png")
+temp <- webshot("https://eurobioc2025.bioconductor.org/", file = tmpfile, vwidth = 1200, vheight = 800)
+temp
+```
+
+## Bioconductor
+
+- Community-driven open-source project
+
+1. Training programs & workshops
+2. Conferences & community support
+3. Bioinformatics software
+
+![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo." fig-align="right" width=10%}
+
+## Software
+
+- ~2,300 R packages
+- Review, testing, documentation
+
+```{r}
+#| label: bioc_packages
+#| eval: true
+
+# Get packages and info based on their BiocViews
+pkgs <- BiocPkgTools::biocPkgList()
+#
+pkgs[["SE"]] <- sapply(pkgs$Depends, function(x) any(grepl("summarizedexperiment", x, ignore.case = TRUE)) )
+fields <- sapply(pkgs$biocViews, function(x){
+    field <- "Other"
+    if( any(grepl("genomic|genetic|gene|genom|DNA", x, ignore.case = TRUE)) ){
+        field <- "Genomics"
+    }
+    if( any(grepl("proteomics|protein", x, ignore.case = TRUE)) ){
+        field <- "Proteomics"
+    }
+    if( any(grepl("metabolomics|metabolome|metabolite|Lipidom|massspectro", x, ignore.case = TRUE)) ){
+        field <- "Metabolomics"
+    }
+    if( any(grepl("transcripto|RNA-seq|RNA", x, ignore.case = TRUE)) ){
+        field <- "Transcriptomics"
+    }
+    if( any(grepl("immuno", x, ignore.case = TRUE)) ){
+        field <- "Immunology"
+    }
+    if( any(grepl("cytom", x, ignore.case = TRUE)) ){
+        field <- "Cytometrics"
+    }
+    if( any(grepl("microarray|chip", x, ignore.case = TRUE)) ){
+        field <- "Microarray"
+    }
+    if( any(grepl("single-cell|singlecell", x, ignore.case = TRUE)) ){
+        field <- "Single-cell"
+    }
+    if( any(grepl("metagenom|microbiome|16S|microbiota|amplicon|shotgun|microb|metatranscript|metametabolo|metaproteo", x, ignore.case = TRUE)) ){
+        field <- "Microbiome"
+    }
+    return(field)
+})
+pkgs[["Field"]] <- fields
+pkgs[pkgs[["Package"]] %in% c("mia", "miaViz", "miaSim", "iSEEtree", "HoloFoodR", "MGnifyR"), "Field"] <- "Microbiome"
+# Get download stats 
+df <- BiocPkgTools::biocDownloadStats()
+# Subset to include only packages which BiocView we have
+df <- df[df$Package %in% pkgs$Package, ]
+# submitted <- BiocPkgTools::firstInBioc(df)
+# df <- df[df$Package %in% pkgs$Package, ] # Take into account only current packages
+pkgs <- pkgs[, c("Package", "SE", "Field")]
+# Get table that shows which package is available in each date
+dates <- df$Date |> unique()
+dates <- dates[ dates < lubridate::floor_date(Sys.time(), "month") ]
+available <- lapply(dates, function(date){
+    temp <- df[df[["Date"]] == date, ]
+    temp <- temp[match(unique(df$Package), temp$Package), ]
+    temp <- temp[["Nb_of_distinct_IPs"]] > 0 | temp[["Nb_of_downloads"]] > 0
+    temp[is.na(temp)] <- FALSE
+    temp <- as.numeric(temp)
+    return(temp)
+})
+available <- do.call(cbind, available) |> as.data.frame()
+rownames(available) <- unique(df$Package)
+colnames(available) <- dates
+#
+ind <- pkgs[match(unique(df$Package), pkgs$Package), "Field"][[1]]
+pkgs_date <- rowsum(available, group = ind)
+# Put into long format
+library(tidyverse)
+pkgs_date <- pkgs_date %>%
+    rownames_to_column("Field") %>%
+    pivot_longer(
+        cols = colnames(pkgs_date)[ !colnames(pkgs_date) %in% c("Field")], 
+        names_to = "Date",
+        values_to = "N"
+    )
+pkgs_date[["Date"]] <- as.Date(pkgs_date[["Date"]])
+
+# Create a plot that shows number of package through date
+p1 <- ggplot(pkgs_date, aes(x = Date, y = N, fill = Field)) +
+    geom_area() + theme_classic() + scale_fill_brewer(palette = "Paired") +
+    labs(x = "Year", y = "Number of packages") +
+    scale_x_date(
+        expand = c(0, 0),
+        limits = c(min(pkgs_date[["Date"]]), max(pkgs_date[["Date"]]))
+    ) +
+  theme_classic(base_size = 18)
+p1
+```
+
+## Data containers form the core {.smaller}
+
+```{r}
+#| label: data_container
+
+# Load libraries
+library(ggplot2)
+library(ggforce)
+
+# Adjusting the text positions for better alignment
+ellipse_data <- data.frame(
+    x = c(0, 0, 0),         # Centers of ellipses
+    y = c(2, 1, 0),         # Centers of ellipses
+    a = c(4, 3, 2),         # Widths of ellipses
+    b = c(3, 2, 1),         # Heights of ellipses
+    label = c("COMMUNITY", "METHODS", "DATA CONTAINER"),  # Labels for each ellipse
+    label_y = c(4, 1.75, 0) # Adjusted vertical positions for labels
+)
+
+# Plot with adjusted labels
+ggplot() +
+    geom_ellipse(data = ellipse_data, 
+                 aes(x0 = x, y0 = y, a = a, b = b, angle = 0),
+                 color = "darkgreen", fill = "grey90", alpha = 0.7) +
+    geom_text(data = ellipse_data, 
+              aes(x = x, y = label_y, label = label), 
+              size = 5, fontface = "bold") +
+    coord_fixed() +
+    theme_void()
+```
+
+##
+
+```{r}
+#| label: pages_and_book
+
+library(magick)
+
+img1 <- image_read("images/pile_of_papers.webp")
+img2 <- image_read("images/book.webp")
+arrow <- image_blank(width = 500, height = 1000, color = "none") %>%
+  image_annotate("→", size = 200, gravity = "center", color = "black")
+
+# Combine images with the arrow
+final_image <- image_append(c(img1, arrow, img2), stack = FALSE)
+
+# Display the final image
+final_image
+```
+
+##
+
+```{r}
+#| label: data_and_data_container
+
+library(magick)
+
+img1 <- image_read("images/unorganized_data.webp")
+img2 <- image_read("images/TreeSE.png")
+img2 <- image_scale(img2, "200%")  # This will make img2 twice as big
+arrow <- image_blank(width = 500, height = 1000, color = "none") %>%
+  image_annotate("→", size = 200, gravity = "center", color = "black")
+
+# Combine images with the arrow
+final_image <- image_append(c(img1, arrow, img2), stack = FALSE)
+
+# Display the final image
+final_image
+```
+
+## TreeSummarizedExperiment
+
+
+![](images/TreeSE.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=10%}
+
+## {.smaller}
+
+::: columns
+::: {.column width="50%"}
+
+```{r}
+library(mia)
+data("GlobalPatterns")
+GlobalPatterns
+```
+
+:::
+
+::: {.column width="50%"}
+
+![](images/TreeSE.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=100%}
+
+:::
+
+:::
+
+## MIcrobiome Analysis (mia)
+
+```{r}
+#| label: mia_stats
+#| eval: true
+
+df <- BiocPkgTools::biocDownloadStats()
+df <- as.data.frame(df)
+df <- df[df[["Date"]] >= lubridate::floor_date(Sys.time(), "year"), ]
+df <- rowsum(df[, "Nb_of_downloads"], df$Package)
+pkgs <- BiocPkgTools::biocPkgList()
+df <- df[match(pkgs[["Package"]], rownames(df)), , drop = FALSE]
+df <- df[order(df[, 1], decreasing = TRUE), ,  drop = FALSE]
+perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
+
+```
+
+- Microbiome data science ecosystem
+- Distributed through several R packages
+- mia package top `r if(exists("perc")) perc else "*ERROR*"` Bioconductor downloads
+
+![](images/mia_logo.png){fig-alt="mia logo." fig-align="right" width=10%}
+
+## Community-driven ecosystem of tools {.smaller}
+
+::: columns
+::: {.column width="70%"}
+
+- `r BiocStyle::Biocpkg("mia")` (Data analysis)
+- `r BiocStyle::Biocpkg("miaViz")` (Visualization)
+- `r BiocStyle::Biocpkg("miaSim")` (Simulation)
+- [miaTime](https://github.com/microbiome/miaTime) (Time series analysis)
+- `r BiocStyle::Biocpkg("miaDash")` (Graphical user interface)
+- `r BiocStyle::Biocpkg("iSEETree")` (Interactive visualization)
+- [Expanded by independent developers](https://microbiome.github.io/OMA/docs/devel/pages/miaverse.html#sec-packages)
+
+:::
+
+::: {.column width="30%"}
+
+![](https://raw.githubusercontent.com/microbiome/mia/refs/heads/devel/man/figures/mia_logo.png){fig-alt="mia logo." width=20%}
+![](https://raw.githubusercontent.com/EBI-Metagenomics/MGnifyR/refs/heads/devel/man/figures/mgnifyr_logo.png){fig-alt="MGnifyR logo." width=20%}
+![](https://raw.githubusercontent.com/EBI-Metagenomics/HoloFoodR/refs/heads/devel/man/figures/holofoodr_logo.png){fig-alt="HoloFoodR logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/iSEE/iSEE.png){fig-alt="iSEE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/MultiAssayExperiment/MultiAssayExperiment.png){fig-alt="MAE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SummarizedExperiment/SummarizedExperiment.png){fig-alt="SE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SingleCellExperiment/SingleCellExperiment.png){fig-alt="SCE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/scater/scater.png){fig-alt="scater logo." width=20%}
+![](https://pbs.twimg.com/media/FDNU5KgWYAcnU8w.jpg){fig-alt="benchdamic logo." width=20%}
+![](https://netcomi.de/logo.png){fig-alt="netcomi logo." width=20%}
+![](https://raw.githubusercontent.com/statdivlab/radEmu/refs/heads/main/man/figures/logo.png){fig-alt="radEmu logo." width=20%}
+![](https://mikelove.github.io/assets/DESeq2.png){fig-alt="DESeq2 logo." width=20%}
+![](https://avatars.githubusercontent.com/u/18152373?s=280&v=4){fig-alt="Biobakery logo." width=20%}
+:::
+
+:::
+
+## Advantages
+
+- Shared data container
+- Scalable & optimized for large datasets
+- Comprehensive documentation
+
+_Allows us to develop efficient microbiome data science workflows_
+
+## Orchestrating Microbiome Analysis with Bioconductor
+
+- Resources and tutorials for microbiome analysis
+- Community-built best practices
+- Open to contributions!
+
+::: {.callout-tip}
+## Go to the Orchestrating Microbiome Analysis (OMA) online  book
+
+[microbiome.github.io/OMA](https://microbiome.github.io/OMA/docs/devel/){preview-link="true"}
+:::
+
+# Reproducible reporting
+
+## Reproducible reporting
+
+- To create human-readable reports
+- Transparency, reusability and reproducibility
+- Debugging
+
+## Literate programming
+
+Programming paradigm introduced by Donald Knuth (1984) in which a computer program is given as an explanation of its logic in a natural language, embedded with code chunks, from which compilable source code can be generated.\
+(Adapted from *Wikipedia*)
+
+![](images/Literate_Programming_book_cover.jpg){width="100"}
+
+## Reproducible notebooks
+
+- We use [Quarto](https://quarto.org/docs/authoring/markdown-basics.html) for reproducible documentation.
+- Next generation development of Rmarkdown
+- Supported by RStudio
+
+## Demonstration
+
+## Exercises
+
+From OMA online book, Chapter 1: Microbiome data science in Bioconductor
+
+[microbiome.github.io/OMA/docs/devel/pages/intro.html]("microbiome.github.io/OMA/docs/devel/pages/intro.html")
+
+- Exercise 2
+- Exercise 3
+- Exercise 4
+
+# Data containers
+
+## Demonstration
+
+## Exercises
+
+From OMA online book, Chapter 3: Data containers
+
+- All exercises
+
+From OMA online book, Chapter 10:  Subsetting
+
+- All exercises
+
+# Day 2
+
+# Preprocessing
+
+## Agglomeration
+
+- Interested only higher level of taxonomy ranks
+- Reduce noise
+
+--> Summarize rows to higher taxonomy rank
+
+## Demonstration
+
+## Exercises
+
+From OMA online book, Chapter 11: Agglomeration
+
+- 1.2, 1.3, 1.4, 1.5, 1.6
+
+## Microbiome data
+
+**High variability**
+
+- Abundance of feature varies a lot from sample to sample
+
+**Zero-inflation**
+
+- Many taxa absent in most samples
+
+**Compositionality**
+
+- Only relative abundances observed
+- Total counts per sample are arbitrary
+
+## Compositionality
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Simulate absolute counts for 3 taxa across two samples
+df_absolute <- tibble(
+    Sample = c("Sample 1", "Sample 2"),
+    Taxon_A = c(50, 150),  # Tribled
+    Taxon_B = c(25, 25),   # Constant
+    Taxon_C = c(25, 25)    # Constant
+)
+
+# Add relative abundances (simulate sequencing)
+df_relative <- df_absolute %>%
+    mutate(across(starts_with("Taxon"), ~ .x / rowSums(across(starts_with("Taxon"))))) %>%
+    pivot_longer(cols = -Sample, names_to = "Taxon", values_to = "RelativeAbundance")
+
+# Pivot absolute too for comparison
+df_absolute_long <- df_absolute %>%
+    pivot_longer(cols = -Sample, names_to = "Taxon", values_to = "Count")
+
+# Plot 1: Absolute counts
+p1 <- ggplot(df_absolute_long, aes(x = Sample, y = Count, fill = Taxon)) +
+    geom_bar(stat = "identity", position = "stack") +
+    labs(title = "Absolute counts", y = "Read count") +
+    theme_minimal()
+
+# Plot 2: Relative abundances
+p2 <- ggplot(df_relative, aes(x = Sample, y = RelativeAbundance, fill = Taxon)) +
+    geom_bar(stat = "identity", position = "fill") +
+    labs(title = "Relative abundance", y = "Proportion") +
+    theme_minimal()
+
+library(patchwork)
+# Combine plots and keep only one legend
+p1 + p2 + plot_layout(guides = "collect") & theme(legend.position = "bottom")
+
+
+```
+
+##
+
+```{r}
+#| fig-width: 15
+#| fig-height: 15
+
+library(webshot2)
+library(magick)
+
+# Take the screenshot and save to a temporary file
+tmpfile <- tempfile(fileext = ".png")
+
+temp <- webshot(
+    url = "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2017.02224/full",
+    file = tmpfile,
+    cliprect = c(0, 480, 1100, 520)
+)
+temp
+```
+
+## Transformation
+
+- Mitigate biases
+- Make comparable
+- Meet assumptions of statistical test
+
+## Demonstration
+
+## Exercises
+
+From OMA online book, Chapter 12: Transformation
+
+- 1.2, 1.3, 1.4, 1.5, 1.6
+
+## Exercises
+
+From OMA online book, Chapter 12: Transformation
+
+- 1.2, 1.3, 1.4, 1.5, 1.6
+
+## Exercises
+
+From OMA online book, Chapter 12: Transformation
+
+- 1.2, 1.3, 1.4, 1.5, 1.6
+
+From OMA online book, Chapter 13: Community composition
+
+- 1.2, 1.3, 1.4, 1.5
+
+# Diversity
+
+## Alpha diversity
+
+- Diversity within a sample
+- Richness vs evenness
+
+##
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(ggforce)
+
+set.seed(42)
+
+# Helper to generate random points in circle
+random_in_circle <- function(n, radius = 1) {
+  theta <- runif(n, 0, 2 * pi)
+  r <- radius * sqrt(runif(n))
+  data.frame(
+    x = r * cos(theta),
+    y = r * sin(theta)
+  )
+}
+
+# Define 3 consistent colors
+colors <- c("#1b9e77", "#d95f02", "#7570b3", "black")
+
+# Panel 1: High richness (3 species), low evenness (dominance by species 1)
+df1 <- random_in_circle(10) |>
+  mutate(
+    species = factor(c(rep(1, 7), rep(2, 1), rep(3, 1), rep(4, 1))),
+    Sample = "High richness,\nlow evenness"
+  )
+
+# Panel 2: Low richness (1 species), high evenness (even use, but only 1 type)
+df2 <- random_in_circle(6) |>
+  mutate(
+    species = factor(c(rep(1, 3), rep(2, 3))),
+    Sample = "Low richness,\nhigh evenness"
+  )
+
+# Panel 3
+df3 <- random_in_circle(8) |>
+  mutate(
+    species = factor(c(rep(1, 2), rep(2, 2), rep(3, 2), rep(4, 2))),
+    Sample = "High richness,\nhigh evenness"
+  )
+
+# Combine
+df <- bind_rows(df1, df2, df3)
+
+# Plot
+ggplot(df, aes(x = x, y = y)) +
+  geom_circle(aes(x0 = 0, y0 = 0, r = 1.1), 
+              inherit.aes = FALSE, color = "gray60", linetype = "dashed") +
+  geom_point(aes(fill = species), shape = 21, color = "black", size = 10, alpha = 0.9) +
+  scale_fill_manual(values = colors) +
+  facet_wrap(~Sample, nrow = 1) +
+  coord_fixed(xlim = c(-1.3, 1.3), ylim = c(-1.3, 1.3)) +
+  theme_void(base_size = 14) +
+  theme(
+    legend.position = "none",
+    strip.text = element_text(face = "bold", size = 13),
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
+  )
+```
+
+##
+
+```{r}
+#| fig-width: 15
+#| fig-height: 15
+
+library(webshot2)
+library(magick)
+
+# Take the screenshot and save to a temporary file
+tmpfile <- tempfile(fileext = ".png")
+
+temp <- webshot(
+    url = "https://pmc.ncbi.nlm.nih.gov/articles/PMC7968621/",
+    file = tmpfile,
+    cliprect = c(0, 500, 1100, 800)
+)
+temp
+```
+
+## Demonstration
+
+## Exercises
+
+From OMA online book, Chapter 14: Alpha diversity
+
+- 1.2, 1.3, 1.4, 1.9, 1.10
+
+# Beta diversity
+
+## Beta diversity
+
+- Similarity between samples
+- Dissimilarity/distance between samples, clustering, ordination...
+
+## Ordination
+
+- Simplify and visualize high-dimensional data
+- Projects data into lower dimensional latent space
+
+##
+
+![](images/hand_shadow.webp){fig-align="center" width="330"}
+
+## Ordination methods
+
+- PCA, PCoA/MDS, RDA, ...
+- Euclidean vs non-Euclidean
+- Unsupervised vs supervised
+
+```{r}
+library(ggplot2)
+
+# Define two points
+A <- c(x = 2, y = 3)
+B <- c(x = 6, y = 7)
+
+# Data frame of points
+points_df <- data.frame(
+  Sample = c("A", "B"),
+  x = c(A["x"], B["x"]),
+  y = c(A["y"], B["y"])
+)
+
+# Data for triangle lines (legs)
+triangle_df <- data.frame(
+  x = c(A["x"], A["x"], B["x"]),
+  y = c(A["y"], B["y"], B["y"])
+)
+
+# Compute distance
+dx <- B["x"] - A["x"]
+dy <- B["y"] - A["y"]
+euclid <- sqrt(dx^2 + dy^2)
+
+# Plot
+ggplot() +
+  # Points
+  geom_point(data = points_df, aes(x = x, y = y), size = 5, color = "black") +
+  geom_text(data = points_df, aes(x = x, y = y, label = Sample),
+            vjust = -1.2, size = 6) +
+
+  # Triangle lines
+  geom_path(data = triangle_df, aes(x = x, y = y), color = "gray50", linetype = "dashed") +
+
+  # Hypotenuse (Euclidean distance)
+  geom_segment(aes(x = A["x"], y = A["y"],
+                   xend = B["x"], yend = B["y"]),
+               color = "blue", size = 1.2,
+               arrow = arrow(length = unit(0.2, "cm"))) +
+
+  # Distance labels
+  annotate("text", x = (A["x"] + B["x"])/2 - 0.3, y = (A["y"] + B["y"])/2 + 0.4,
+           label = paste0("√(", dx, "^2 + ", dy, "^2) = ", round(euclid, 2)),
+           color = "blue", fontface = "italic", size = 5) +
+  annotate("text", x = A["x"] + dx/2, y = A["y"] - 0.5,
+           label = paste("Δx =", dx), size = 5) +
+  annotate("text", x = A["x"] - 0.7, y = A["y"] + dy/2,
+           label = paste("Δy =", dy), size = 5) +
+
+  coord_fixed() +
+  xlim(1, 7.5) + ylim(2, 8) +
+  labs(
+       x = "",
+       y = "") +
+  theme_minimal(base_size = 14)
+
+```
+
+## Principal component analysis (PCA)
+
+- Goal: Maximize the variance
+- Euclidean distance
+- Aitchison distance: CLR + Euclidean distance
+
+```{r}
+#| fig-width: 6
+#| fig-height: 3
+
+library(mia)
+data("Tengeler2020")
+tse <- Tengeler2020
+# Transform data
+tse <- transformAssay(tse, method = "clr", pseudocount = 1L)
+
+library(scater)
+
+tse <- runPCA(
+    tse,
+    assay.type = "clr"
+)
+
+plotReducedDim(tse, "PCA", colour_by = "patient_status")
+```
+
+
+## Principal coordinate analysis (PCoA)
+
+_Multidimensional scaling (MDS)_
+
+- Goal: preserve distance between samples
+- Any dissimilarity metric
+
+```{r}
+#| fig-width: 6
+#| fig-height: 3
+
+library(mia)
+data("Tengeler2020")
+tse <- Tengeler2020
+
+library(scater)
+
+tse <- addMDS(
+    tse,
+    method = "unifrac"
+)
+
+plotReducedDim(tse, "MDS", colour_by = "patient_status")
+```
+
+## Redundancy analysis (RDA)
+
+- Supervised ordination method
+- Takes into account sample variables
+- Find variance explained by variables
+
+```{r}
+#| fig-width: 6
+#| fig-height: 3
+
+library(mia)
+data("Tengeler2020")
+tse <- Tengeler2020
+
+tse <- transformAssay(tse, method = "relabundance")
+
+tse <- addRDA(
+    tse,
+    formula = . ~ cohort + patient_status,
+    assay.type = "relabundance",
+    method = "bray"
+)
+
+library(miaViz)
+plotRDA(tse, "RDA", colour_by = "patient_status")
+```
+
+## Demonstration
+
+## Exercises
+
+From OMA online book, Chapter 15: Community similarity
+
+- Exercise 1
+
+## Exercises
+
+From OMA online book, Chapter 15: Community similarity
+
+- Exercise 1
+- Exercise 2
+
+## Exercises
+
+From OMA online book, Chapter 15: Community similarity
+
+- Exercise 1
+- Exercise 2
+- Exercise 3
+
+# Contact info {.smaller}
+
+::: columns
+::: {.column width="50%"}
+
+- tvborm@utu.fi
+- [github.com/microbiome/OMA/discussions](https://github.com/microbiome/OMA/discussions)
+- [community-bioc.zulipchat.com](https://community-bioc.zulipchat.com)
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| label: qrcode
+#| fig-align: center
+#| fig-cap: "QR code to discussion forum"
+#| echo: false
+
+library(qrcode)
+qr_code("https://github.com/microbiome/OMA/discussions") |> plot()
+```
+
+:::
+
+:::
+
+# Extra material
+
+## Formulas in R {.smaller}
+
+_Symbolic way to express a model or relationship between variables_
+
+| Formula                          | How to Read                                                                  | When to Use                                                                 |
+|----------------------------------|-------------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| `y ~ 1`                          | Model with intercept only                                                   | Intercept-only (null model)                                                |
+| `y ~ x`                          | y is modeled by x                                                            | Simple linear regression                                                    |
+| `y ~ x + z`                      | y is modeled by x and z (additive effects)                                  | Multiple predictors, no interactions                                       |
+| `y ~ x * z`                      | x + z + interaction x:z                                                     | You want to model interaction between x and z                              |
+| `y ~ x + (1 | group)`            | y modeled by x + random intercept for group                                 | Repeated measures, hierarchical data, group-level baseline variation       |
+
+---
