@@ -3,10 +3,9 @@ title: "Brain, bacteria, and behaviour summer course"
 subtitle: "July 7 - July 11, 2025"
 date-modified: now
 format:
-  revealjs: 
+  revealjs:
+    self-contained: true
     slide-number: true
-    chalkboard: 
-      buttons: false
     preview-links: auto
     logo: images/mia_logo.png
     footer: <https://microbiome.github.io/>
@@ -540,28 +539,6 @@ temp
 
 ## Demonstration
 
-## Exercises
-
-From OMA online book, Chapter 12: Transformation
-
-- 1.2, 1.3, 1.4, 1.5, 1.6
-
-## Exercises
-
-From OMA online book, Chapter 12: Transformation
-
-- 1.2, 1.3, 1.4, 1.5, 1.6
-
-## Exercises
-
-From OMA online book, Chapter 12: Transformation
-
-- 1.2, 1.3, 1.4, 1.5, 1.6
-
-From OMA online book, Chapter 13: Community composition
-
-- 1.2, 1.3, 1.4, 1.5
-
 # Diversity
 
 ## Alpha diversity
@@ -655,9 +632,19 @@ temp
 
 ## Exercises
 
+From OMA online book, Chapter 12: Transformation
+
+- 1.2, 1.3, 1.4, 1.5, 1.6
+
 From OMA online book, Chapter 14: Alpha diversity
 
 - 1.2, 1.3, 1.4, 1.9, 1.10
+
+From OMA online book, Chapter 13: Community composition
+
+- 1.2, 1.3, 1.4, 1.5
+
+# Day 3
 
 # Beta diversity
 
@@ -666,10 +653,61 @@ From OMA online book, Chapter 14: Alpha diversity
 - Similarity between samples
 - Dissimilarity/distance between samples, clustering, ordination...
 
-## Ordination
+## Ordination {.smaller}
 
 - Simplify and visualize high-dimensional data
 - Projects data into lower dimensional latent space
+
+```{r}
+# Load required libraries
+library(ggplot2)
+
+set.seed(42)
+n_samples <- 50
+
+# Cluster 1: diagonal in X-Y-Z space
+cluster1 <- data.frame(
+  Taxon_X = rnorm(n_samples, mean = 2, sd = 0.5),
+  Taxon_Y = rnorm(n_samples, mean = 2, sd = 0.5),
+  Taxon_Z = rnorm(n_samples, mean = 2, sd = 0.5),
+  Cluster = "A"
+)
+
+# Cluster 2: diagonal in opposite direction
+cluster2 <- data.frame(
+  Taxon_X = rnorm(n_samples, mean = -2, sd = 1),
+  Taxon_Y = rnorm(n_samples, mean = -2, sd = 2),
+  Taxon_Z = rnorm(n_samples, mean = -2, sd = 2),
+  Cluster = "B"
+)
+
+# Cluster 3: orthogonal diagonal
+cluster3 <- data.frame(
+  Taxon_X = rnorm(n_samples, mean = 2, sd = 1),
+  Taxon_Y = rnorm(n_samples, mean = -2, sd = 2),
+  Taxon_Z = rnorm(n_samples, mean = 2, sd = 1),
+  Cluster = "C"
+)
+
+# Combine
+df <- rbind(cluster1, cluster2, cluster3)
+# install.packages("plotly") if needed
+library(plotly)
+
+# Use the previous df with a "Cluster" column
+plot_ly(
+  df,
+  x = ~Taxon_X,
+  y = ~Taxon_Y,
+  z = ~Taxon_Z,
+  color = ~Cluster,  # <-- this determines color
+  colors = c("A" = "steelblue", "B" = "forestgreen", "C" = "orange"),
+  type = "scatter3d",
+  mode = "markers",
+  marker = list(size = 4)
+)
+```
+
 
 ##
 
@@ -742,7 +780,7 @@ ggplot() +
 
 ## Principal component analysis (PCA)
 
-- Goal: Maximize the variance
+- Unsupervised ordination method
 - Euclidean distance
 - Aitchison distance: CLR + Euclidean distance
 
@@ -766,13 +804,11 @@ tse <- runPCA(
 plotReducedDim(tse, "PCA", colour_by = "patient_status")
 ```
 
-
 ## Principal coordinate analysis (PCoA)
 
-_Multidimensional scaling (MDS)_
-
-- Goal: preserve distance between samples
-- Any dissimilarity metric
+- Multidimensional scaling (MDS)
+- Unsupervised ordination method
+- Any dissimilarity metric (e.g., Bray-Curtis dissimilarity)
 
 ```{r}
 #| fig-width: 6
@@ -795,8 +831,7 @@ plotReducedDim(tse, "MDS", colour_by = "patient_status")
 ## Redundancy analysis (RDA)
 
 - Supervised ordination method
-- Takes into account sample variables
-- Find variance explained by variables
+- Find variance explained by sample metadata
 
 ```{r}
 #| fig-width: 6
@@ -841,6 +876,159 @@ From OMA online book, Chapter 15: Community similarity
 - Exercise 1
 - Exercise 2
 - Exercise 3
+
+# Differential abundance analysis (DAA)
+
+## Differential abundance analysis (DAA)
+
+- Identify taxa whose abundance differs between groups
+- Classical statistical tests
+- Methods dedicated for microbiome data
+
+## Elementary methods provide more replicable results in microbial differential abundance analysis
+
+- Relative abundances with a Wilcoxon test
+- Log-transformed relative abundances with a t-test
+- Presence/absence of taxa with logistic regression
+
+[Pelto et al. 2025](https://academic.oup.com/bib/article/26/2/bbaf130/8093585){preview-link="true"}
+
+## Relative abundance
+
+$$
+\text{X}_{ij} = \frac{\text{Count}_{ij}}{\sum_{k=1}^m \text{Count}_{ik}}
+$$
+
+*where*
+
+* $i$ indexes the sample,
+* $j$ indexes the taxon,
+* $m$ is the total number of taxa.
+
+##
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Simulate absolute counts for 3 taxa across two samples
+df_absolute <- tibble(
+    Sample = c("Sample 1", "Sample 2"),
+    Taxon_A = c(50, 150),  # Tribled
+    Taxon_B = c(25, 25),   # Constant
+    Taxon_C = c(25, 25)    # Constant
+)
+
+# Add relative abundances (simulate sequencing)
+df_relative <- df_absolute %>%
+    mutate(across(starts_with("Taxon"), ~ .x / rowSums(across(starts_with("Taxon"))))) %>%
+    pivot_longer(cols = -Sample, names_to = "Taxon", values_to = "RelativeAbundance")
+
+# Pivot absolute too for comparison
+df_absolute_long <- df_absolute %>%
+    pivot_longer(cols = -Sample, names_to = "Taxon", values_to = "Count")
+
+# Plot 1: Absolute counts
+p1 <- ggplot(df_absolute_long, aes(x = Sample, y = Count, fill = Taxon)) +
+    geom_bar(stat = "identity", position = "stack") +
+    labs(title = "Absolute counts", y = "Read count") +
+    theme_minimal()
+
+# Plot 2: Relative abundances
+p2 <- ggplot(df_relative, aes(x = Sample, y = RelativeAbundance, fill = Taxon)) +
+    geom_bar(stat = "identity", position = "fill") +
+    labs(title = "Relative abundance", y = "Proportion") +
+    theme_minimal()
+
+library(patchwork)
+# Combine plots and keep only one legend
+p1 + p2 + plot_layout(guides = "collect") & theme(legend.position = "bottom")
+```
+
+## Log-transformed relative abundance
+
+$$
+\text{X}_{ij} = \log \left( \text{Relative abundance}_{ij} + \epsilon \right)
+$$
+
+*where*
+
+* $\epsilon$ is a small pseudocount to avoid $\log(0)$.
+
+##
+
+```{r}
+library(ggplot2)
+library(patchwork)
+
+# Simulate example relative abundances (skewed)
+set.seed(123)
+rel_abund <- c(rbeta(1000, 0.5, 10), 0.4, 0.5, 0.6)  # mostly small values, a few dominant taxa
+
+# Add small pseudocount for log transform
+epsilon <- 1e-6
+log_rel_abund <- log10(rel_abund + epsilon)
+
+# Raw histogram
+p1 <- ggplot(data.frame(rel_abund), aes(x = rel_abund)) +
+  geom_histogram(bins = 50, fill = "#69b3a2", color = "white") +
+  labs(x = "Relative abundance", y = "Count") +
+  theme_minimal()
+
+# Log-transformed histogram
+p2 <- ggplot(data.frame(log_rel_abund), aes(x = log_rel_abund)) +
+  geom_histogram(bins = 50, fill = "#404080", color = "white") +
+  labs(x = "log10(relative abundance)", y = "Count") +
+  theme_minimal()
+
+# Combine with patchwork
+p1 + p2
+```
+
+## Wilcoxon vs t-test
+
+```{r}
+#| fig-width: 4
+#| fig-height: 5
+
+library(ggplot2)
+library(ggpubr)
+
+set.seed(123)
+
+# Simulate data where means differ but medians don't (skewed + outliers)
+group1 <- c(rnorm(18, mean = 0.2, sd = 0.1), 3, 3.5)    # 2 big outliers in group1
+group2 <- rnorm(20, mean = 0.5, sd = 0.1)
+
+df <- data.frame(
+    group = rep(c("Group1", "Group2"), times = c(20, 20)),
+    value = c(group1, group2)
+)
+
+ggplot(df, aes(x = group, y = value, fill = group)) +
+    geom_jitter(width = 0.15, alpha = 0.6) +
+    stat_summary(fun = median, geom = "crossbar", width = 0.5, color = "red", fatten = 2, show.legend = FALSE) +
+    stat_summary(fun = mean, geom = "crossbar", width = 0.5, color = "blue", fatten = 2, show.legend = FALSE) +
+    stat_compare_means(method = "wilcox.test", label.y = max(df$value) + 0.25, color = "red") +
+    stat_compare_means(method = "t.test", label.y = max(df$value) + 0.1, color = "blue") +
+    labs(
+        y = "Value",
+        x = NULL
+    ) +
+    theme_minimal() +
+    theme(legend.position = "none")
+```
+
+## Elementary methods provide more replicable results in microbial differential abundance analysis
+
+_We are developing a package containing all these methods_
+
+## Exercises
+
+From OMA online book, Chapter 17:  Differential abundance
+
+- All exercises
 
 # Contact info {.smaller}
 
