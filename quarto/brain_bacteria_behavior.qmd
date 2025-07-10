@@ -1030,6 +1030,96 @@ From OMA online book, Chapter 17:  Differential abundance
 
 - All exercises
 
+# Day 4
+
+# Multiomics integration
+
+## Multiomics integration
+
+- Data containers
+- Methods
+
+## Alternative experiment
+
+- `altExp()`
+- Slot in `r BiocStyle::Biocpkg("TreeSummarizedExperiment")`
+- One-to-one sample mapping
+
+## Methods
+
+- Association
+- Ordination
+- Supervised machine learning
+
+## Cross-association
+
+- CLR + Spearman \rho
+
+```{r}
+#| fig-width: 10
+#| 
+data("HintikkaXOData")
+mae <- HintikkaXOData
+
+mae[[1]] <- agglomerateByPrevalence(mae[[1]], prevalence = 0.2, rank = "Class")
+mae[[1]] <- transformAssay(mae[[1]], method = "rclr")
+
+mat <- getCrossAssociation(
+  mae, assay.type1 = "rclr", experiment2 = 3, 
+  assay.type2 = "signals", mode = "matrix"
+)
+
+library(pheatmap)
+
+pheatmap(mat)
+```
+
+## Centered log-ratio (CLR)
+
+$$
+\text{CLR}(x_i) = \log\left(\frac{x_i}{g(x)}\right),\quad
+g(x) = \left(\prod_{j=1}^{D} x_j \right)^{1/D}
+$$
+
+- \( x_i \): the i-th component of the composition  
+- \( g(x) \): geometric mean of the composition
+
+##
+
+$$
+\text{Arithmetic mean} = \frac{2 + 8 + 32}{3} = \frac{42}{3} = 14
+$$
+
+
+$$
+\text{Geometric mean} = \sqrt[3]{2 \cdot 8 \cdot 32} = \sqrt[3]{512} = 8
+$$
+
+##
+
+- Removes compositional constraints (e.g., constant sum)
+- Allows use of standard statistical tools (e.g. PCA)
+- Symmetric: values centered around zero
+
+## Pearson correlation
+
+- "Normalized covariance"
+- Spearman rho = Pearson calculated for ranks of values
+
+$$
+r = \frac{ \sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y}) }{
+\sqrt{ \sum_{i=1}^{n} (x_i - \bar{x})^2 } \cdot 
+\sqrt{ \sum_{i=1}^{n} (y_i - \bar{y})^2 } }
+$$
+
+## Demonstration
+
+## Exercises
+
+From OMA online book, Chapter 23: Cross-association
+
+- All exercises
+
 # Contact info {.smaller}
 
 ::: columns
@@ -1051,6 +1141,33 @@ From OMA online book, Chapter 17:  Differential abundance
 
 library(qrcode)
 qr_code("https://github.com/microbiome/OMA/discussions") |> plot()
+```
+
+:::
+
+:::
+
+# Contact info {.smaller}
+
+::: columns
+::: {.column width="50%"}
+
+- tvborm@utu.fi & t.f.s.bastiaanssen@amsterdamumc.nl
+- [github.com/microbiome/OMA/discussions](https://github.com/microbiome/OMA/discussions)
+- [community-bioc.zulipchat.com](https://community-bioc.zulipchat.com)
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| label: qrcode2
+#| fig-align: center
+#| fig-cap: "Feedback form: https://forms.gle/mZRAAWiuFtpPjoZp6"
+#| echo: false
+
+library(qrcode)
+qr_code("https://forms.gle/mZRAAWiuFtpPjoZp6") |> plot()
 ```
 
 :::
