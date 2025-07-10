@@ -1156,6 +1156,8 @@ qr_code("https://github.com/microbiome/OMA/discussions") |> plot()
 - [github.com/microbiome/OMA/discussions](https://github.com/microbiome/OMA/discussions)
 - [community-bioc.zulipchat.com](https://community-bioc.zulipchat.com)
 
+![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo." width=80%}
+
 :::
 
 ::: {.column width="50%"}
