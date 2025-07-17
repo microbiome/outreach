@@ -3,9 +3,8 @@ title: "Orchestrating Microbiome Analysis with Bioconductor"
 author: Tuomas Borman
 format:
   revealjs: 
+    self-contained: true
     slide-number: true
-    chalkboard: 
-      buttons: false
     preview-links: auto
     logo: images/mia_logo.png
     footer: <https://microbiome.github.io/>
@@ -359,7 +358,7 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SingleCellExperiment/SingleCellExperiment.png){fig-alt="SCE logo." width=20%}
 ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/scater/scater.png){fig-alt="scater logo." width=20%}
 ![](https://pbs.twimg.com/media/FDNU5KgWYAcnU8w.jpg){fig-alt="benchdamic logo." width=20%}
-![](https://stefpeschel.de/media/logos/NetCoMi_Logo.svg){fig-alt="netcomi logo." width=20%}
+![](https://netcomi.de/logo.png){fig-alt="netcomi logo." width=20%}
 ![](https://raw.githubusercontent.com/statdivlab/radEmu/refs/heads/main/man/figures/logo.png){fig-alt="radEmu logo." width=20%}
 ![](https://mikelove.github.io/assets/DESeq2.png){fig-alt="DESeq2 logo." width=20%}
 ![](https://avatars.githubusercontent.com/u/18152373?s=280&v=4){fig-alt="Biobakery logo." width=20%}
@@ -386,7 +385,8 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 
 ::: {.column width="30%"}
 
-![](https://raw.githubusercontent.com/microbiome/mia/refs/heads/devel/man/figures/mia_logo.png){fig-alt="mia logo." width=20%} ![](https://raw.githubusercontent.com/EBI-Metagenomics/MGnifyR/refs/heads/devel/man/figures/mgnifyr_logo.png){fig-alt="MGnifyR logo." width=20%}
+![](https://raw.githubusercontent.com/microbiome/mia/refs/heads/devel/man/figures/mia_logo.png){fig-alt="mia logo." width=20%}
+![](https://raw.githubusercontent.com/EBI-Metagenomics/MGnifyR/refs/heads/devel/man/figures/mgnifyr_logo.png){fig-alt="MGnifyR logo." width=20%}
 ![](https://raw.githubusercontent.com/EBI-Metagenomics/HoloFoodR/refs/heads/devel/man/figures/holofoodr_logo.png){fig-alt="HoloFoodR logo." width=20%}
 ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/iSEE/iSEE.png){fig-alt="iSEE logo." width=20%}
 ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/MultiAssayExperiment/MultiAssayExperiment.png){fig-alt="MAE logo." width=20%}
@@ -394,7 +394,7 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SingleCellExperiment/SingleCellExperiment.png){fig-alt="SCE logo." width=20%}
 ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/scater/scater.png){fig-alt="scater logo." width=20%}
 ![](https://pbs.twimg.com/media/FDNU5KgWYAcnU8w.jpg){fig-alt="benchdamic logo." width=20%}
-![](https://stefpeschel.de/media/logos/NetCoMi_Logo.svg){fig-alt="netcomi logo." width=20%}
+![](https://netcomi.de/logo.png){fig-alt="netcomi logo." width=20%}
 ![](https://raw.githubusercontent.com/statdivlab/radEmu/refs/heads/main/man/figures/logo.png){fig-alt="radEmu logo." width=20%}
 ![](https://mikelove.github.io/assets/DESeq2.png){fig-alt="DESeq2 logo." width=20%}
 ![](https://avatars.githubusercontent.com/u/18152373?s=280&v=4){fig-alt="Biobakery logo." width=20%}
