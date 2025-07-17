@@ -1,0 +1,19 @@
+Track:
+Technology track talk
+
+Title:
+Orchestrating Microbiome Analysis with Bioconductor
+
+Abstract:
+Microbes play a crucial role in human health, disease, and the environment. Despite their significant impact, the mechanisms underlying microbiome interactions remain largely unknown due to their complexity. While microbiome research has heavily relied on sequencing data, understanding these interactions requires multi-omics approaches and computational methods.
+
+R/Bioconductor is a well-established platform for biological data analysis, providing high-quality, open-source software. It is driven by a global community of researchers who collaborate through software development, shared standards, and active forums. The software is built on standardized data containers, with SummarizedExperiment being the most widely used, adopted across a wide range of biological fields. Shared data containers enable interoperability and facilitate advanced data integration.
+
+This session will showcase Bioconductor tools for microbiome data science, with a particular focus on the mia (Microbiome Analysis) framework through a practical case study. By the end of the session, participants will gain insights into the latest advances in microbiome research within Bioconductor, including TreeSummarizedExperiment data container along with essential methods. They will also be prepared to further explore the data science ecosystem, supported by the online book Orchestrating Microbiome Analysis with Bioconductor.
+
+Keywords:
+Bioconductor
+microbiome
+data science
+
+

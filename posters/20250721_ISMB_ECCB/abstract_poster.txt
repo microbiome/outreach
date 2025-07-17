@@ -1,0 +1,21 @@
+Track:
+Abstracts - Microbiome & SCS25
+
+Submission Type
+TALK OR POSTER
+
+Title:
+Orchestrating Microbiome Analysis with Bioconductor
+
+Abstract:
+Microbes have a pivotal role in human health, disease, and the environment. Despite the profound influence of microbial communities, called microbiomes, the underlying mechanisms behind these interactions are mostly unknown due to their complexity. Microbiome research has primarily relied on sequencing data, but uncovering these mechanisms requires data integration and advanced computational methods.
+
+R/Bioconductor is well-positioned to support microbiome research as it has a long reputation to provide high-quality, open-source software for biological data analysis. The core of software is formed by data containers which standardize and optimize management of complex biological datasets. The most widely used data container in Bioconductor is SummarizedExperiment, adopted in a wide variety of fields from genomics to metabolomics.
+TreeSummarizedExperiment builds on this structure to specifically support the hierarchical nature of microbiome data. Through the mia (Microbiome Analysis) family of packages, essential microbiome data operations are incorporated into the SummarizedExperiment ecosystem, further enriched by contributions from the global research community.
+
+The SummarizedExperiment ecosystem is optimal for microbiome data science because it allows streamlined integration and analysis of diverse data types. To support the usage and to disseminate the best practices in the field, we provide an online book 'Orchestrating Microbiome Analysis with Bioconductor' which is complemented by forums for community engagement.
+
+Keywords:
+Bioconductor
+microbiome
+data science
