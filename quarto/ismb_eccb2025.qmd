@@ -253,19 +253,12 @@ final_image
 #| label: mia_stats
 #| eval: true
 
-df <- BiocPkgTools::biocDownloadStats()
-df <- as.data.frame(df)
-df <- df[df[["Date"]] >= lubridate::floor_date(Sys.time(), "year"), ]
-df <- rowsum(df[, "Nb_of_downloads"], df$Package)
-pkgs <- BiocPkgTools::biocPkgList()
-df <- df[match(pkgs[["Package"]], rownames(df)), , drop = FALSE]
-df <- df[order(df[, 1], decreasing = TRUE), ,  drop = FALSE]
-perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
-
+perc <- BiocPkgTools::pkgDownloadRank("mia")
+perc <- paste0(perc, "%")
 ```
 
 - Microbiome data science ecosystem
-- Distributed through several R packages
+- "Downstream", statistical analysis
 - `r BiocStyle::Biocpkg("mia")` package top `r if(exists("perc")) perc else "*ERROR*"` Bioconductor downloads
 
 <div style="text-align: right;">
@@ -575,7 +568,7 @@ plotReducedDim(tse, dimred = "MDS", colour_by = "disease", point_size = 3) +
 
 - Resources and tutorials for microbiome analysis
 - Community-built best practices
-- Open to contributions!
+- **Open to contributions!**
 
 <p style="text-align: right;">
   [![](images/OMA_ss.png){width=500px}](https://microbiome.github.io/OMA/docs/devel/){preview-link="true"}
