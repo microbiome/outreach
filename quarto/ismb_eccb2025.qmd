@@ -71,11 +71,11 @@ Lack of...
 
 ## Bioconductor
 
-- Community-driven open-source project
+- Community-driven bioinformatics project
 
 1. Training & community support
 2. Conferences & workshops
-3. Bioinformatics software
+3. Open source software
 
 <br>
 
