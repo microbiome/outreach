@@ -71,7 +71,7 @@ Lack of...
 
 ## Bioconductor
 
-- Community-driven bioinformatics project
+_Community-driven bioinformatics project_
 
 1. Training & community support
 2. Conferences & workshops
