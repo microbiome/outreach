@@ -1908,98 +1908,98 @@
     "href": "ismb_eccb2025.html#section-3",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "library(mia)\n\ntse &lt;- importMetaPhlAn(\n    file = \"path_to_your_file.txt\",\n    col.data = \"metadata_file.csv\",\n    tree.file = \"phylogeny.nwk\"\n)"
+    "text": "library(mia)"
   },
   {
     "objectID": "ismb_eccb2025.html#section-4",
     "href": "ismb_eccb2025.html#section-4",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "library(mia)\n\ntse &lt;- importMetaPhlAn(\n    file = \"path_to_your_file.txt\"\n    col.data = \"metadata_file.csv\",\n    tree.file = \"phylogeny.nwk\"\n)\n\nprint(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 308 60 \nmetadata(0):\nassays(1): counts\nrownames(308): species:Escherichia coli species:Alistipes putredinis\n  ... species:Campylobacter ureolyticus species:Prevotella sp. oral\n  taxon 376\nrowData names(7): superkingdom phylum ... genus species\ncolnames(60): GupDM_A_11 GupDM_A_15 ... GupDM_JO GupDM_JP\ncolData names(27): study_name subject_id ... disease_stage\n  disease_location\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (308 rows)\nrowTree: 1 phylo tree(s) (10430 leaves)\ncolLinks: NULL\ncolTree: NULL"
+    "text": "library(mia)"
   },
   {
     "objectID": "ismb_eccb2025.html#section-5",
     "href": "ismb_eccb2025.html#section-5",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "# Agglomerate data\ntse &lt;- agglomerateByRanks(tse)"
+    "text": "library(mia)\n\ntse &lt;- importMetaPhlAn(\n    file = \"path_to_your_file.txt\",\n    col.data = \"metadata_file.csv\",\n    tree.file = \"phylogeny.nwk\"\n)"
   },
   {
     "objectID": "ismb_eccb2025.html#section-6",
     "href": "ismb_eccb2025.html#section-6",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "# Agglomerate data\ntse &lt;- agglomerateByRanks(tse)\n\n# Apply transformation\ntse &lt;- transformAssay(tse, method = \"relabundance\")"
+    "text": "library(mia)\n\ntse &lt;- importMetaPhlAn(\n    file = \"path_to_your_file.txt\"\n    col.data = \"metadata_file.csv\",\n    tree.file = \"phylogeny.nwk\"\n)\n\nprint(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 308 60 \nmetadata(0):\nassays(1): counts\nrownames(308): species:Escherichia coli species:Alistipes putredinis\n  ... species:Campylobacter ureolyticus species:Prevotella sp. oral\n  taxon 376\nrowData names(7): superkingdom phylum ... genus species\ncolnames(60): GupDM_A_11 GupDM_A_15 ... GupDM_JO GupDM_JP\ncolData names(27): study_name subject_id ... disease_stage\n  disease_location\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (308 rows)\nrowTree: 1 phylo tree(s) (10430 leaves)\ncolLinks: NULL\ncolTree: NULL"
   },
   {
     "objectID": "ismb_eccb2025.html#section-7",
     "href": "ismb_eccb2025.html#section-7",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "# Agglomerate data\ntse &lt;- agglomerateByRanks(tse)\n\n# Apply transformation\ntse &lt;- transformAssay(tse, method = \"relabundance\")\n\nprint(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 308 60 \nmetadata(0):\nassays(2): counts relabundance\nrownames(308): species:Escherichia coli species:Alistipes putredinis\n  ... species:Campylobacter ureolyticus species:Prevotella sp. oral\n  taxon 376\nrowData names(7): superkingdom phylum ... genus species\ncolnames(60): GupDM_A_11 GupDM_A_15 ... GupDM_JO GupDM_JP\ncolData names(27): study_name subject_id ... disease_stage\n  disease_location\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(7): superkingdom phylum ... genus species\nrowLinks: a LinkDataFrame (308 rows)\nrowTree: 1 phylo tree(s) (10430 leaves)\ncolLinks: NULL\ncolTree: NULL"
+    "text": "# Agglomerate data\ntse &lt;- agglomerateByRanks(tse)"
   },
   {
     "objectID": "ismb_eccb2025.html#section-8",
     "href": "ismb_eccb2025.html#section-8",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "library(miaViz)"
+    "text": "# Agglomerate data\ntse &lt;- agglomerateByRanks(tse)\n\n# Apply transformation\ntse &lt;- transformAssay(tse, method = \"relabundance\")"
   },
   {
     "objectID": "ismb_eccb2025.html#section-9",
     "href": "ismb_eccb2025.html#section-9",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "library(miaViz)\n\nplotAbundance(\n    tse,\n    rank = \"phylum\",\n    assay.type = \"relabundance\",\n    col.var = \"disease\"\n)"
+    "text": "# Agglomerate data\ntse &lt;- agglomerateByRanks(tse)\n\n# Apply transformation\ntse &lt;- transformAssay(tse, method = \"relabundance\")\n\nprint(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 308 60 \nmetadata(0):\nassays(2): counts relabundance\nrownames(308): species:Escherichia coli species:Alistipes putredinis\n  ... species:Campylobacter ureolyticus species:Prevotella sp. oral\n  taxon 376\nrowData names(7): superkingdom phylum ... genus species\ncolnames(60): GupDM_A_11 GupDM_A_15 ... GupDM_JO GupDM_JP\ncolData names(27): study_name subject_id ... disease_stage\n  disease_location\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(7): superkingdom phylum ... genus species\nrowLinks: a LinkDataFrame (308 rows)\nrowTree: 1 phylo tree(s) (10430 leaves)\ncolLinks: NULL\ncolTree: NULL"
   },
   {
     "objectID": "ismb_eccb2025.html#section-10",
     "href": "ismb_eccb2025.html#section-10",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "library(miaViz)\n\nplotAbundance(\n    tse,\n    rank = \"phylum\",\n    assay.type = \"relabundance\",\n    col.var = \"disease\"\n)"
+    "text": "library(miaViz)"
   },
   {
     "objectID": "ismb_eccb2025.html#section-11",
     "href": "ismb_eccb2025.html#section-11",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "# Calculate alpha diversity\ntse &lt;- addAlpha(tse)"
+    "text": "library(miaViz)\n\nplotAbundance(\n    tse,\n    rank = \"phylum\",\n    assay.type = \"relabundance\",\n    col.var = \"disease\"\n)"
   },
   {
     "objectID": "ismb_eccb2025.html#section-12",
     "href": "ismb_eccb2025.html#section-12",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "# Calculate alpha diversity\ntse &lt;- addAlpha(tse)\n\n# Visualize results\nlibrary(scater)\nplotColData(tse, x = \"disease\", y = \"faith_diversity\")"
+    "text": "library(miaViz)\n\nplotAbundance(\n    tse,\n    rank = \"phylum\",\n    assay.type = \"relabundance\",\n    col.var = \"disease\"\n)"
   },
   {
     "objectID": "ismb_eccb2025.html#section-13",
     "href": "ismb_eccb2025.html#section-13",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "# Calculate alpha diversity\ntse &lt;- addAlpha(tse)\n\n# Visualize results\nlibrary(scater)\nplotColData(tse, x = \"disease\", y = \"faith_diversity\")"
+    "text": "# Calculate alpha diversity\ntse &lt;- addAlpha(tse)"
   },
   {
     "objectID": "ismb_eccb2025.html#section-14",
     "href": "ismb_eccb2025.html#section-14",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "# Calculate MDS\ntse &lt;- addMDS(tse, method = \"unifrac\")"
+    "text": "# Calculate alpha diversity\ntse &lt;- addAlpha(tse)\n\n# Visualize results\nlibrary(scater)\nplotColData(tse, x = \"disease\", y = \"faith_diversity\")"
   },
   {
     "objectID": "ismb_eccb2025.html#section-15",
     "href": "ismb_eccb2025.html#section-15",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "# Calculate MDS\ntse &lt;- addMDS(tse, method = \"unifrac\")\n\n# Visualize results\nplotReducedDim(tse, dimred = \"MDS\", colour_by = \"disease\")"
+    "text": "# Calculate alpha diversity\ntse &lt;- addAlpha(tse)\n\n# Visualize results\nlibrary(scater)\nplotColData(tse, x = \"disease\", y = \"faith_diversity\")"
   },
   {
     "objectID": "ismb_eccb2025.html#section-16",
     "href": "ismb_eccb2025.html#section-16",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "",
-    "text": "# Calculate MDS\ntse &lt;- addMDS(tse, method = \"unifrac\")\n\n# Visualize results\nplotReducedDim(tse, dimred = \"MDS\", colour_by = \"disease\")"
+    "text": "# Calculate MDS\ntse &lt;- addMDS(tse, method = \"unifrac\")"
   },
   {
     "objectID": "ismb_eccb2025.html#online-book",
@@ -2035,5 +2035,33 @@
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Community-driven ecosystem of tools",
     "text": "Community-driven ecosystem of tools\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEETree (Interactive visualization)\nExpanded by independent developers\n\nInteroperable with the SummarizedExperiment ecosystem"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-17",
+    "href": "ismb_eccb2025.html#section-17",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "# Calculate MDS\ntse &lt;- addMDS(tse, method = \"unifrac\")\n\n# Visualize results\nplotReducedDim(tse, dimred = \"MDS\", colour_by = \"disease\")"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section",
+    "href": "ismb_eccb2025.html#section",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "Sami Hyypiä (Source: Wikipedia)"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-1",
+    "href": "ismb_eccb2025.html#section-1",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "Sami Hyypiä (Source: liverpoolfc.com)"
+  },
+  {
+    "objectID": "ismb_eccb2025.html#section-18",
+    "href": "ismb_eccb2025.html#section-18",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "# Calculate MDS\ntse &lt;- addMDS(tse, method = \"unifrac\")\n\n# Visualize results\nplotReducedDim(tse, dimred = \"MDS\", colour_by = \"disease\")"
   }
 ]

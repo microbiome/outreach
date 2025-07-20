@@ -15,6 +15,14 @@ title-slide-attributes:
 bibliography: references.bib
 ---
 
+##
+
+##
+
+![](https://d3j2s6hdd6a7rg.cloudfront.net/v2/uploads/media/default/0001/31/thumb_30979_default_news_size_5.jpeg){fig-alt="Sami Hyypiä" width="100%" fig-align="center"}
+
+Sami Hyypiä (Source: liverpoolfc.com)
+
 ## Microbiome data science
 
 ::: columns
