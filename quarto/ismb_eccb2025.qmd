@@ -321,7 +321,7 @@ perc <- paste0(perc, "%")
 - `r BiocStyle::Biocpkg("iSEETree")` (Interactive visualization)
 - [Expanded by independent developers](https://microbiome.github.io/OMA/docs/devel/pages/miaverse.html#sec-packages)
 
-**Interoperable with the `r BiocStyle::Biocpkg("SummarizedExperiment")` ecosystem**
+**Interoperable with the broader Bioconductor ecosystem**
 
 :::
 

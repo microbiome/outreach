@@ -2034,7 +2034,7 @@
     "href": "ismb_eccb2025.html#community-driven-ecosystem-of-tools-1",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Community-driven ecosystem of tools",
-    "text": "Community-driven ecosystem of tools\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEETree (Interactive visualization)\nExpanded by independent developers\n\nInteroperable with the SummarizedExperiment ecosystem"
+    "text": "Community-driven ecosystem of tools\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEETree (Interactive visualization)\nExpanded by independent developers\n\nInteroperable with the broader Bioconductor ecosystem"
   },
   {
     "objectID": "ismb_eccb2025.html#section-17",
