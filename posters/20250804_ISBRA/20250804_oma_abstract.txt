@@ -1,0 +1,11 @@
+Orchestrating Microbiome Analysis with Bioconductor
+
+microbiome
+data science
+Bioconductor
+
+Microbiome data science studies interactions between microbes and their hosts. It presents challenges, particularly in terms of standardization, scalability, and interoperability with tools from other domains. Many microbiome studies rely on ad-hoc custom scripts, and the field lacks widely adopted best practices. At the same time, microbiome datasets are rapidly increasing in complexity—not only in sample size, but also through integration with multi-omics data such as metabolomics. This growing diversity of data types demands tools that can seamlessly interoperate across domains.
+
+Bioconductor is well-known for high-quality, peer-reviewed bioinformatics software. Its ecosystem is built on robust principles of code review, testing, and documentation. Central to Bioconductor is the use of standardized data container called SummarizedExperiment, which facilitates consistent data handling across packages and domains. We extended the SummarizedExperiment ecosystem with the mia (Microbiome Analysis) package family to support microbiome data science.
+
+The mia package family consists a full suite of tools for microbiome data processing, analysis, and visualization. Compared to previous approaches, it offers improved scalability, interoperability and integration of multi-omics data. Furthermore, it is comprehensively documented in the online book Orchestrating Microbiome Analysis with Bioconductor, which provides practical examples and promotes best practices. The project is open-source and developed with community efforts, and we warmly welcome contributions to further develop and expand this ecosystem.
