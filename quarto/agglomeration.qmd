@@ -1,0 +1,108 @@
+---
+title: "Agglomeration"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+bibliography: references.bib
+---
+
+## Agglomeration
+
+_Combining features into higher-level taxa_
+
+## Why?
+
+- Focus on biologically meaningful units
+- Reduce sparsity and noise
+- Improve interpretability of downstream analyses
+
+::: {.notes}
+
+- Focusing on higher-level taxa (e.g., genera instead of thousands of ASVs) helps highlight biologically relevant patterns.
+- 16S sequencing often does not resolve taxa below genus level reliably.
+- Agglomeration reduces noise from sequencing artifacts and rare features.
+- Makes downstream analyses like diversity metrics, ordination, and association studies more interpretable.
+- Note: Some resolution is lost when collapsing features—balance simplicity with detail.
+
+:::
+
+##
+
+```{r}
+#| label: agglomeration
+
+library(ggplot2)
+library(ggalluvial)
+
+df <- data.frame(
+  Species = c("Species 1","Species 2","Species 3","Species 4","Species 5"),
+  Genus   = c("Genus A","Genus A","Genus A","Genus B","Genus B"),
+  Count   = c(3,5,4,4,6)  # example abundances
+)
+
+ggplot(df,
+       aes(axis1 = Species, axis2 = Genus, y = Count)) +
+  geom_alluvium(aes(fill = Genus), alpha = 0.6, color = "grey40") +
+  geom_stratum(width = 0.3, fill = "grey90", color = "black") +
+  # Add counts to stratum labels
+  geom_text(stat = "stratum",
+            aes(label = paste0(after_stat(stratum), "\n(", after_stat(count), ")")),
+            size = 5) +
+  scale_x_discrete(limits = c("Species","Genus"), expand = c(.1, .1)) +
+  theme_void(base_size = 16) +
+  theme(legend.position = "none")
+
+```
+
+::: {.notes}
+
+Species belonging to Genus A are summed up together...
+
+:::
+
+## Demonstration
+
+```r
+library(mia)
+
+tse <- agglomerateByRank(tse, rank = "Phylum")
+print(tse)
+```
+
+```{r}
+#| label: agglomerate_rank
+
+library(mia)
+data(GlobalPatterns)
+tse <- GlobalPatterns
+tse <- agglomerateByRank(tse, rank = "Phylum")
+tse
+```
+
+## {auto-animate="true"}
+
+```r
+tse <- agglomerateByRanks(tse)
+print(tse)
+```
+```{r}
+#| label: agglomerate_all_ranks
+
+library(mia)
+data(GlobalPatterns)
+tse <- GlobalPatterns
+tse <- agglomerateByRanks(tse)
+tse
+```
+
+## Exercises
+
+From [OMA online book, Chapter 11: Agglomeration](https://microbiome.github.io/OMA/docs/devel/pages/agglomeration.html)
+
+- 1.2, 1.3, 1.4, 1.5, 1.6
+
+## References

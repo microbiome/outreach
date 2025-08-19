@@ -1,0 +1,317 @@
+---
+title: "Transformation"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+bibliography: references.bib
+---
+
+## Microbiome data
+
+- **High variability** - feature abundances vary widely across samples
+
+- **Zero-inflation** - many taxa absent in most samples
+
+- **Compositionality** - only relative abundances observed; total counts per sample are arbitrary
+
+::: {.notes}
+
+- Biological signal can be masked by rare or absent taxa.
+- Sequencing depth differs between samples → compositional constraints.
+
+:::
+
+## Compositionality
+
+- Counts or abundances sum to a constant per sample
+- Numbers are dependent: if one increases, at least one must decrease
+- This is called a sum constraint
+
+::: {.notes}
+
+Relative abundances (percentages) are compositional
+
+Standard statistics like correlation or PCA can be misleading without transformation
+:::
+
+##
+
+```{r}
+#| label: show_compositional
+
+library(ggplot2)
+library(dplyr)
+library(tidyr)
+
+# Simulate absolute counts for 3 taxa across two samples
+df_absolute <- tibble(
+    Sample = c("Sample 1", "Sample 2"),
+    Taxon_A = c(50, 150),  # Tribled
+    Taxon_B = c(25, 25),   # Constant
+    Taxon_C = c(25, 25)    # Constant
+)
+
+# Add relative abundances (simulate sequencing)
+df_relative <- df_absolute %>%
+    mutate(across(starts_with("Taxon"), ~ .x / rowSums(across(starts_with("Taxon"))))) %>%
+    pivot_longer(cols = -Sample, names_to = "Taxon", values_to = "RelativeAbundance")
+
+# Pivot absolute too for comparison
+df_absolute_long <- df_absolute %>%
+    pivot_longer(cols = -Sample, names_to = "Taxon", values_to = "Count")
+
+# Plot 1: Absolute counts
+p1 <- ggplot(df_absolute_long, aes(x = Sample, y = Count, fill = Taxon)) +
+    geom_bar(stat = "identity", position = "stack") +
+    labs(title = "Absolute counts", y = "Read count") +
+    theme_minimal()
+
+# Plot 2: Relative abundances
+p2 <- ggplot(df_relative, aes(x = Sample, y = RelativeAbundance, fill = Taxon)) +
+    geom_bar(stat = "identity", position = "fill") +
+    labs(title = "Relative abundance", y = "Proportion") +
+    theme_minimal()
+
+library(patchwork)
+# Combine plots and keep only one legend
+p1 + p2 + plot_layout(guides = "collect") & theme(legend.position = "bottom")
+
+
+```
+
+::: {.notes}
+
+Compositional bias.
+
+:::
+
+##
+
+```{r}
+#| label: show_ss
+#| fig-width: 15
+#| fig-height: 15
+
+library(webshot2)
+library(magick)
+
+# Take the screenshot and save to a temporary file
+tmpfile <- tempfile(fileext = ".png")
+
+temp <- webshot(
+    url = "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2017.02224/full",
+    file = tmpfile,
+    cliprect = c(0, 480, 1100, 520)
+)
+temp
+```
+
+## Goals of transformation
+
+- Mitigate biases in abundances
+- Make features comparable across samples
+- Meet assumptions of downstream statistical analyses
+
+::: {.notes}
+
+- Transformations allow standard analyses like PCA, regression, correlation.
+- Choose transformation depending on the problem: relative abundance, log, CLR, etc.
+
+:::
+
+## Relative abundance
+
+$$
+\text{X}_{ij} = \frac{\text{Count}_{ij}}{\sum_{k=1}^m \text{Count}_{ik}}
+$$
+
+*where*
+
+* $i$ indexes the sample,
+* $j$ indexes the taxon,
+* $m$ is the total number of taxa.
+
+::: {.notes}
+
+- Converts raw counts into proportions per sample
+- Useful for visualizations and comparing samples
+
+:::
+
+## Log-transformed relative abundance
+
+$$
+\text{X}_{ij} = \log \left( \text{Relative abundance}_{ij} + \epsilon \right)
+$$
+
+*where*
+
+* $\epsilon$ is a small pseudocount to avoid $\log(0)$.
+
+::: {.notes}
+
+Log-transform reduces skewness and makes differences among low-abundance taxa more visible, but a pseudocount is required to handle zeros.
+
+:::
+
+##
+
+```{r}
+#| label: relative_abundance
+
+library(mia)
+library(miaViz)
+library(patchwork)
+
+data(GlobalPatterns)
+tse <- GlobalPatterns
+tse <- transformAssay(tse, method = "relabundance")
+tse <- transformAssay(tse, method = "relabundance", pseudocount = TRUE, name = "relabund")
+tse <- transformAssay(tse, assay.type = "relabund", method = "log10", pseudocount = TRUE)
+
+
+# Combine plots side by side
+p1 <- plotHistogram(tse, assay.type = "counts") +
+    xlab("Absolute abundance")
+p2 <- plotHistogram(tse, assay.type = "relabundance") +
+    xlab("Relative abundance")
+p3 <- plotHistogram(tse, assay.type = "log10") +
+    xlab("log10(relative abundance)")
+p1 + p2 + p3
+```
+
+::: {.notes}
+
+The data is still constrained to relative abundances (0-1), but now in log-scale.
+
+Because the total is fixed, the numbers depend on each other.
+
+If one goes up, at least one of the others must go down. This is called a constraint.
+
+:::
+
+## Centered log-ratio (CLR)
+
+$$
+\text{CLR}(x_i) = \log\left(\frac{x_i}{g(x)}\right),\quad
+g(x) = \left(\prod_{j=1}^{D} x_j \right)^{1/D}
+$$
+
+- \( x_i \): the i-th component of the composition  
+- \( g(x) \): geometric mean of the composition
+
+::: {.notes}
+
+- Relative abundances normalize counts but remain compositional --> correlation and PCA can be misleading.
+- Log-transform mitigates skewness.
+- CLR removes compositional constraints and is commonly used for multivariate analyses.
+
+:::
+
+##
+
+$$
+\text{Arithmetic mean} = \frac{2 + 8 + 32}{3} = \frac{42}{3} = 14
+$$
+
+
+$$
+\text{Geometric mean} = \sqrt[3]{2 \cdot 8 \cdot 32} = \sqrt[3]{512} = 8
+$$
+
+::: {.notes}
+
+Arithmetic mean: additive center --> still ties the components together
+
+Geometric mean: multiplicative center --> captures ratios between components
+
+CLR measures how many times bigger or smaller each component is compared to the typical size, freeing them from the sum constraint
+
+Ratios remove constrains: each component is expressed as a ratio to the “typical size” of the composition.
+
+Raw proportions: one goes up → others must go down proportionally (sum = 1)
+
+CLR ratios: each one measures its abundance relative to the average abundance → one side can go up without forcing others to go down
+
+:::
+
+##
+
+- Removes compositional constraints (constant sum)
+- Values centered around zero, symmetric
+- Allows standard statistical tools (PCA, correlations)
+- [Debate on whether it is necessary in DA](https://www.biorxiv.org/content/10.1101/2025.02.13.638109v1.full.pdf){preview-link="true"}
+
+::: {.notes}
+
+- Relative abundances normalize counts but remain compositional correlation and PCA can be misleading.
+- Log-transform mitigates skewness.
+- CLR removes compositional constraints and is commonly used for multivariate analyses.
+
+How big value is comprared to 
+
+CLR has been the standard. However, there has become many benchmark papers lately.
+They show that compositional transformations in DA can:
+
+- Lack sensitivity
+- Can create paradoxical results in low-diversity microbiome
+
+:::
+
+##
+
+```{r}
+#| label: clr
+
+library(mia)
+library(miaViz)
+library(patchwork)
+
+data(GlobalPatterns)
+tse <- GlobalPatterns
+tse <- transformAssay(tse, method = "rclr")
+
+# Combine plots side by side
+p1 <- plotHistogram(tse, assay.type = "counts") +
+    xlab("Absolute abundance")
+p2 <- plotHistogram(tse, assay.type = "rclr") +
+    xlab("CLR abundance")
+p1 + p2
+```
+
+::: {.notes}
+
+Makes the data more normally distributed. Distributed around zero. Without constrains (goes from negative infinity to positive)
+
+:::
+
+## Demonstration
+
+```r
+library(mia)
+
+tse <- transformAssay(tse, method = "relabundance")
+print(tse)
+```
+
+```{r}
+#| label: transformation
+
+library(mia)
+data(GlobalPatterns)
+tse <- GlobalPatterns
+tse <- transformAssay(tse, method = "relabundance")
+tse
+```
+
+## Exercises
+
+From [OMA online book, Chapter 12: Transformation](https://microbiome.github.io/OMA/docs/devel/pages/agglomeration.html)
+
+- All exercises
+
+## References

@@ -1,7 +1,6 @@
 ---
 title: "Microbiome Analysis Dashboard"
 format: revealjs
-editor: visual
 smaller: true
 bibliography: references.bib
 ---
@@ -14,23 +13,19 @@ While attending workshops at EuroBioc2023, I got to play with iSEE.
 
 ## iSEE
 
-iSEE is a very nice app that lets you visualise SummarizedExperiment objects
-in an interactive way [@rue2018isee]. However it had no support for 🦠🦠🦠.
+iSEE is a very nice app that lets you visualise SummarizedExperiment objects in an interactive way [@rue2018isee]. However it had no support for 🦠🦠🦠.
 
 ![](images/isee.svg){fig-align="center"}
 
 ## iSEEtree
 
-So we thought why not adding support for 🦠🦠🦠, and we developed iSEEtree to
-visualise TreeSummarizedExperiment objects in an interactive way
-[@benedetti2024iseetree].
+So we thought why not adding support for 🦠🦠🦠, and we developed iSEEtree to visualise TreeSummarizedExperiment objects in an interactive way [@benedetti2024iseetree].
 
 ![](images/iseetree_snapshot.png){fig-align="center"}
 
 ## Half-way there!
 
-iSEEtree is very nice, but why not having a graphical user interface with full
-mia functionality, from importing data to plotting results?
+iSEEtree is very nice, but why not having a graphical user interface with full mia functionality, from importing data to plotting results?
 
 ![](images/iseetree_pipeline.png){fig-align="center"}
 
@@ -42,8 +37,7 @@ An app that translates the mia functionality to a graphical user interface.
 
 ## Try the app
 
-Visit miaDash at [this address](https://miadash-microbiome.2.rahtiapp.fi/) or by
-scanning the QR code below.
+Visit miaDash at [this address](https://miadash-microbiome.2.rahtiapp.fi/) or by scanning the QR code below.
 
 ![](images/miadash_qr.svg){fig-align="center"}
 

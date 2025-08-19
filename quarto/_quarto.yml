@@ -3,26 +3,24 @@ project:
   output-dir: ../docs
   render:
     - index.qmd
-    - lahti_bioc2023.qmd
-    - hintikkaxo_presentation.qmd
-    - intro.qmd
+    - agglomeration.qmd
+    - alpha_diversity.qmd
+    - beta_diversity.qmd
+    - bioc2023.qmd
     - bioconductor.qmd
-    - starting.qmd
-    - reproducible_workflow.qmd
+    - brain_bacteria_behavior.qmd
+    - daa.qmd
+    - data_containers.qmd
+    - gbcc2025.qmd
+    - import.qmd
+    - ismb_eccb2025.qmd
+    - machine_learning.qmd
     - mgnifyr.qmd
     - miadash.qmd
-    - datacontainers.qmd
-    - data_manipulation.qmd
-    - summarizedexperiment.qmd
-    - day2.qmd
-    - treese.qmd
-    - tengeler2020_presentation.qmd
-    - quarto.qmd
-    - alpha_diversity.qmd
-    - pcoa.qmd
-    - dbrda.qmd
-    - compositional_heatmap.qmd
-    - differential_abundance.qmd
-    - oma.qmd
-    - gbcc2025.qmd
-    - ismb_eccb2025.qmd
+    - multi-omics.qmd
+    - oh-boost_webinar2024.qmd
+    - ordination.qmd
+    - reproducible_reporting.qmd
+    - transformaiton.qmd
+
+

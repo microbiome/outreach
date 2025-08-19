@@ -1,5 +1,5 @@
 ---
-title: "Quarto Presentations"
+title: "Quarto presentations"
 format: html
 ---
 
@@ -7,51 +7,47 @@ format: html
 
 This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:
 
-### Bioconductor
+## Topics
 
-- [Intro](https://microbiome.github.io/outreach/intro.html){target="_blank"}
-- [Bioconductor project](https://microbiome.github.io/outreach/bioconductor.html){target="_blank"}
-- [Orchestrating Microbiome Analysis with Bioconductor](https://microbiome.github.io/outreach/oma.html){target="_blank"}
-
-### Quarto
-
-- [Reproducible workflow with Quarto](https://microbiome.github.io/outreach/reproducible_workflow.html){target="_blank"}
-- [Learning environment](https://microbiome.github.io/outreach/starting.html){target="_blank"}
-- [Workflow](https://microbiome.github.io/outreach/workflow.html){target="_blank"}
+- Intro
+    - [Bioconductor](https://microbiome.github.io/outreach/bioconductor.html){target="_blank"}
+    - [Reproducible reporting](https://microbiome.github.io/outreach/reproducible_reporting.html){target="_blank"}
+    - [Data containers](https://microbiome.github.io/outreach/data_containers.html){target="_blank"}
+    - [Import data](https://microbiome.github.io/outreach/import.html){target="_blank"}
+- Preprocessing
+    - [Agglomeration](https://microbiome.github.io/outreach/agglomeration.html){target="_blank"}
+    - [Transformation](https://microbiome.github.io/outreach/transformation.html){target="_blank"}
+- Diversity
+    - [Alpha diversity](https://microbiome.github.io/outreach/alpha_diversity.html){target="_blank"}
+    - [Beta diversity](https://microbiome.github.io/outreach/beta_diversity.html){target="_blank"}
+        - [Ordination](https://microbiome.github.io/outreach/ordination.html){target="_blank"}
+- Association
+    - [Differential abundance analysis](https://microbiome.github.io/outreach/daa.html){target="_blank"}
+- Multi-omics
+    - [Multi-omics](https://microbiome.github.io/outreach/multiomics.html){target="_blank"}
+- Machine learning
+    - [Machine learning](https://microbiome.github.io/outreach/gbcc2025.html){target="_blank"}
 
 ### Packages
 
 - [MGnifyR: An R package for accessing MGnify microbiome data](https://microbiome.github.io/outreach/mgnifyr.html){target="_blank"}
 - [miaDash: Microbiome Analysis Dashboard](https://microbiome.github.io/outreach/miadash.html){target="_blank"}
 
-### Data containers
+### Data sets
 
-- [Orchestrating microbiome multi-omics with R & Bioconductor](https://microbiome.github.io/outreach/lahti_bioc2023.html){target="_blank"}
-- [Data containers](https://microbiome.github.io/outreach/datacontainers.html){target="_blank"}
-- [SummarizedExperiment](https://microbiome.github.io/outreach/summarizedexperiment.html){target="_blank"}
-- [TreeSummarizedExperiment](https://microbiome.github.io/outreach/treese.html){target="_blank"}
+- HintikkaXO
+- Tengeler2020
 
-### Example data
+### Conference and seminar presentations
 
-- [HintikkaXOData](https://microbiome.github.io/outreach/hintikkaxo_presentation.html){target="_blank"}
-- [Tengeler2020](https://microbiome.github.io/outreach/tengeler2020_presentation.html){target="_blank"}
-
-### Microbiome data analysis
-
-- [Data Manipulation](https://microbiome.github.io/outreach/data_manipulation.html){target="_blank"}
-- [Alpha Diversity](https://microbiome.github.io/outreach/alpha_diversity.html){target="_blank"}
-- [Ordination](https://microbiome.github.io/outreach/ordination.html){target="_blank"}
-- [Compositional Heatmaps](https://microbiome.github.io/outreach/compositional_heatmap.html){target="_blank"}
-- [Differential Abundance](https://microbiome.github.io/outreach/differential_abundance.html){target="_blank"}
-- [Day 2](https://microbiome.github.io/outreach/day2.html){target="_blank"}
-
-### Conference presentations
-
+- [Orchestrating microbiome multi-omics (BioC2023)](https://microbiome.github.io/outreach/bioc2023.html){target="_blank"}
+- [Orchestrating Microbiome Analysis with Bioconductor (OH-BOOST, Microbiota Data Analysis and Statistics, webinar)](https://microbiome.github.io/outreach/oh-boost_webinar2024.html){target="_blank"}
 - [Orchestrating Microbiome Analysis with Bioconductor (GBCC2025)](https://microbiome.github.io/outreach/gbcc2025.html){target="_blank"}
 - [Orchestrating Microbiome Analysis with Bioconductor (ISMB/ECCB 2025)](https://microbiome.github.io/outreach/ismb_eccb2025.html){target="_blank"}
 
 ### Courses
 
+- Intro
 - [Brain, bacteria, and behaviour summer course](https://microbiome.github.io/outreach/brain_bacteria_behavior.html){target="_blank"}
 
 ## Contributions

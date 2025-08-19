@@ -1,0 +1,136 @@
+---
+title: "Differential abundance analysis (DAA)"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+bibliography: references.bib
+---
+
+## Differential abundance analysis (DAA)
+
+- Goal: identify taxa with different abundance **between groups**
+- Approaches:
+  - Classical statistical tests
+  - Microbiome-specific methods
+- Challenges: compositionality, sparsity, multiple testing
+
+::: {.notes}
+
+DAA is central in microbiome studies, but requires caution due to unique properties of sequencing data.
+
+:::
+
+## Elementary methods provide more replicable results in microbial differential abundance analysis
+
+- Relative abundances with a Wilcoxon test
+- Log-transformed relative abundances with a t-test
+- Presence/absence of taxa with logistic regression
+
+[Pelto et al. 2025](https://academic.oup.com/bib/article/26/2/bbaf130/8093585){preview-link="true"}
+show that simple methods often give **more replicable** results.
+
+::: {.notes}
+
+Instead of complex pipelines, simple classical tests may be more reproducible across studies.
+
+:::
+
+## Classical tests are linear models
+
+- **Relative abundances with a Wilcoxon test**  
+  - Non-parametric, but can be expressed as a rank-based linear model
+  
+$$
+\mathrm{Rank}(\mathrm{Relative\ abundance}) \sim \mathrm{Group}
+$$
+
+- **Log-transformed relative abundances with a t-test**  
+  - Standard linear model
+  
+$$
+\log(\mathrm{Relative\ abundance}) \sim \mathrm{Group}
+$$
+
+- **Presence/absence of taxa with logistic regression**  
+  - Generalized linear model with logit link
+
+$$
+\mathrm{Presence} \sim \mathrm{Group}, \quad \mathrm{Presence} \in \{0,1\}
+$$
+
+::: {.notes}
+
+Instead of complex pipelines, simple classical tests may be more reproducible across studies.
+
+:::
+
+## Wilcoxon vs t-test
+
+- **Wilcoxon:** compares medians, robust to outliers, non-parametric
+- **t-test:** compares means, assumes normality, sensitive to outliers
+
+```{r}
+#| fig-width: 4
+#| fig-height: 5
+
+library(ggplot2)
+library(ggpubr)
+
+set.seed(123)
+
+# Simulate data where means differ but medians don't (skewed + outliers)
+group1 <- c(rnorm(18, mean = 0.2, sd = 0.1), 3, 3.5)    # 2 big outliers in group1
+group2 <- rnorm(20, mean = 0.5, sd = 0.1)
+
+df <- data.frame(
+    group = rep(c("Group1", "Group2"), times = c(20, 20)),
+    value = c(group1, group2)
+)
+
+ggplot(df, aes(x = group, y = value, fill = group)) +
+    geom_jitter(width = 0.15, alpha = 0.6) +
+    stat_summary(fun = median, geom = "crossbar", width = 0.5, color = "red", fatten = 2, show.legend = FALSE) +
+    stat_summary(fun = mean, geom = "crossbar", width = 0.5, color = "blue", fatten = 2, show.legend = FALSE) +
+    stat_compare_means(method = "wilcox.test", label.y = max(df$value) + 0.25, color = "red") +
+    stat_compare_means(method = "t.test", label.y = max(df$value) + 0.1, color = "blue") +
+    labs(
+        y = "Value",
+        x = NULL
+    ) +
+    theme_minimal() +
+    theme(legend.position = "none")
+```
+
+::: {.notes}
+
+This plot illustrates how outliers affect the t-test but not the Wilcoxon test.
+Blue line = mean, red line = median.
+
+:::
+
+## Demonstration
+
+## {auto-animate="true"}
+
+```r
+library(maaslin3)
+
+maaslin3_out <- maaslin3(
+    input_data = tse,
+    formula = "~ patient_status",
+    normalization = "TSS",
+    transform = "LOG",
+)
+```
+
+## Exercises
+
+[From OMA online book, Chapter 17:  Differential abundance](https://microbiome.github.io/OMA/docs/devel/pages/differential_abundance.html)
+
+- All exercises
+
+## References

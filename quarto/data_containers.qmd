@@ -1,0 +1,395 @@
+---
+title: "Data containers"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+title-slide-attributes: 
+  data-background-image: images/bioconductor_logo_rgb.jpg
+  data-background-size: 15%
+  data-background-position: 2% 2%
+bibliography: references.bib
+---
+
+## Data containers
+
+- The core of software
+- Structured, standardized way to manage complex data
+- Enables modular, efficient workflows
+
+```{r}
+#| label: data_container
+
+# Load libraries
+library(ggplot2)
+library(ggforce)
+
+# Adjusting the text positions for better alignment
+ellipse_data <- data.frame(
+    x = c(0, 0, 0),         # Centers of ellipses
+    y = c(2, 1, 0),         # Centers of ellipses
+    a = c(4, 3, 2),         # Widths of ellipses
+    b = c(3, 2, 1),         # Heights of ellipses
+    label = c("COMMUNITY", "METHODS", "DATA CONTAINER"),  # Labels for each ellipse
+    label_y = c(4, 1.75, 0) # Adjusted vertical positions for labels
+)
+
+# Plot with adjusted labels
+ggplot() +
+    geom_ellipse(data = ellipse_data, 
+                 aes(x0 = x, y0 = y, a = a, b = b, angle = 0),
+                 color = "darkgreen", fill = "grey90", alpha = 0.7) +
+    geom_text(data = ellipse_data, 
+              aes(x = x, y = label_y, label = label), 
+              size = 5, fontface = "bold") +
+    coord_fixed() +
+    theme_void()
+```
+
+::: {.notes}
+
+The core of software is formed by data containers.
+
+Structured way to present complex data. Interlinks tables and data types.
+
+In biology, usually we have abundance table, sample metadata, taxonomy table, phylogeny, ...
+
+Managing this complex data set becomes a burden and lead easily to errors.
+
+:::
+
+##
+
+```{r}
+#| label: pages_and_book
+
+library(magick)
+
+img1 <- image_read("images/pile_of_papers.webp")
+img2 <- image_read("images/book.png")
+arrow <- image_blank(width = 500, height = 1000, color = "none") %>%
+  image_annotate("→", size = 200, gravity = "center", color = "black")
+
+# Combine images with the arrow
+final_image <- image_append(c(img1, arrow, img2), stack = FALSE)
+
+# Display the final image
+final_image
+```
+
+::: {.notes}
+
+Imagine pile of paper sheets that are unordered. Then imagine a book that holds these same pages in structured way. Would you rather read 100 pages from pile of mess or from book?
+
+:::
+
+##
+
+```{r}
+#| label: data_and_data_container
+
+library(magick)
+
+img1 <- image_read("images/unorganized_data.webp")
+img2 <- image_read("images/TreeSE.png")
+img2 <- image_scale(img2, "125%")
+arrow <- image_blank(width = 500, height = 1000, color = "none") |>
+  image_annotate("→", size = 200, gravity = "center", color = "black")
+
+# Combine images with the arrow
+final_image <- image_append(c(img1, arrow, img2), stack = FALSE)
+
+# Display the final image
+final_image
+```
+
+::: {.notes}
+
+The same idea goes with the data containers. Instead of managing tables separately you can put them to this data container.
+
+:::
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+
+::: {.notes}
+
+Original assay and transformations, along with different experiments
+
+:::
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+
+::: {.notes}
+
+Phylogeny and sample hierarchy (patients are relatives, or sampling places can be structured hierarchically etc)
+
+:::
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+- **Side information**: extended capabilities & data types
+
+::: {.notes}
+
+Sample metadata, taxonomy table...
+
+:::
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+- **Side information**: extended capabilities & data types
+- **Optimized**: for speed & memory
+
+::: {.notes}
+
+Datasets have increased in size. Both sample-wise and feature-wise (more resolution).
+
+:::
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+- **Side information**: extended capabilities & data types
+- **Optimized**: for speed & memory
+- **Integrated**: with other applications & frameworks
+
+::: {.notes}
+
+Not anymore just sequencing data, but microbiome is combining different fields --> we have to have way to apply these methods from different fields.
+
+Advancing bioinformatics in collaboration with other fields.
+
+Innovations (applicable methods from other field)
+
+:::
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+- **Side information**: extended capabilities & data types
+- **Optimized**: for speed & memory
+- **Integrated**: with other applications & frameworks
+
+_Reduce overlapping efforts, improve interoperability, ensure sustainability._
+
+::: {.notes}
+
+Bioconductor aims to harmonize the data format so that the same format can be used through the ecosystem.
+
+In biological data science, we apply similar techniques despite the field.
+
+:::
+
+## `r BiocStyle::Biocpkg("TreeSummarizedExperiment")`
+<small>[@Huang2021]</small>
+
+![](images/TreeSE.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=10%}
+
+::: {.notes}
+
+Extension to SummarizedExperiment
+
+Tailored for biological data science.
+
+Go thorugh every slot.
+
+:::
+
+## `r BiocStyle::Biocpkg("SummarizedExperiment")`
+<small>[@Huber2015]</small>
+
+```{r}
+#| label: se_field
+#| fig-align: "right"
+#| eval: true
+
+
+if( !require("BiocManager") ){
+    install("BiocManager")
+}
+pkgs <- c("BiocPkgTools", "lubridate", "tidyverse")
+temp <- sapply(pkgs, function(pkg){
+    if( !require(pkg, character.only = TRUE) ){
+        BiocManager::install(pkg)
+        library(pkg, character.only = TRUE)
+    }
+})
+
+# Get packages and info based on their BiocViews
+pkgs <- biocPkgList()
+#
+pkgs[["SE"]] <- sapply(pkgs[["Depends"]], function(x) any(grepl("summarizedexperiment", x, ignore.case = TRUE)) )
+pkgs <- pkgs[pkgs[["SE"]], ]
+fields <- sapply(pkgs$biocViews, function(x){
+    field <- "Other"
+    if( any(grepl("genomic|genetic|gene|genom|DNA", x, ignore.case = TRUE)) ){
+        field <- "Genomics"
+    }
+    if( any(grepl("proteomics|protein", x, ignore.case = TRUE)) ){
+        field <- "Proteomics"
+    }
+    if( any(grepl("metabolomics|metabolome|metabolite|Lipidom|massspectro", x, ignore.case = TRUE)) ){
+        field <- "Metabolomics"
+    }
+    if( any(grepl("transcripto|RNA-seq|RNA", x, ignore.case = TRUE)) ){
+        field <- "Transcriptomics"
+    }
+    if( any(grepl("immuno", x, ignore.case = TRUE)) ){
+        field <- "Immunology"
+    }
+    if( any(grepl("cytom", x, ignore.case = TRUE)) ){
+        field <- "Cytometrics"
+    }
+    if( any(grepl("microarray|chip", x, ignore.case = TRUE)) ){
+        field <- "Microarray"
+    }
+    if( any(grepl("single-cell|singlecell", x, ignore.case = TRUE)) ){
+        field <- "Single-cell"
+    }
+    if( any(grepl("metagenom|microbiome|16S|microbiota|amplicon|shotgun|microb|metatranscript|metametabolo|metaproteo", x, ignore.case = TRUE)) ){
+        field <- "Microbiome"
+    }
+    return(field)
+})
+pkgs[["Field"]] <- fields
+pkgs[pkgs[["Package"]] %in% c("mia", "miaViz", "miaSim", "iSEEtree", "HoloFoodR", "MGnifyR"), "Field"] <- "Microbiome"
+# Get download stats 
+df <- biocDownloadStats()
+# Subset to include only packages which BiocView we have
+df <- df[df[["Package"]] %in% pkgs$Package, ]
+# Add field info
+df[["Field"]] <- pkgs[match(df[["Package"]], pkgs[["Package"]]), "Field"][[1]]
+# df <- df[df$Package %in% pkgs$Package, ] # Take into account only current packages
+pkgs <- pkgs[, c("Package", "SE", "Field")]
+# Get table that shows which package is available in each date
+dates <- df$Date |> unique()
+dates <- dates[ dates < floor_date(Sys.time(), "month") ]
+available <- lapply(dates, function(date){
+    temp <- df[df[["Date"]] == date, ]
+    temp <- temp[match(unique(df$Package), temp$Package), ]
+    temp <- temp[["Nb_of_distinct_IPs"]] > 0 | temp[["Nb_of_downloads"]] > 0
+    temp[is.na(temp)] <- FALSE
+    temp <- as.numeric(temp)
+    return(temp)
+})
+available <- do.call(cbind, available) |> as.data.frame()
+rownames(available) <- unique(df[["Package"]])
+colnames(available) <- dates
+#
+ind <- pkgs[match(unique(df[["Package"]]), pkgs[["Package"]]), "Field"][[1]]
+pkgs_date <- rowsum(available, group = ind)
+# Put into long format
+pkgs_date <- pkgs_date |>
+    rownames_to_column("Field") |>
+    pivot_longer(
+        cols = colnames(pkgs_date)[ !colnames(pkgs_date) %in% c("Field")], 
+        names_to = "Date",
+        values_to = "N"
+    )
+pkgs_date[["Date"]] <- pkgs_date[["Date"]] |> as.Date()
+
+# Create a plot that shows number of package through date
+p <- ggplot(pkgs_date, aes(x = Date, y = N, fill = Field)) +
+    geom_area() +
+    theme_classic(base_size = 18) +
+    scale_fill_brewer(palette = "Paired") +
+    labs(x = "Year", y = "Number of packages") +
+    scale_y_continuous(expand = c(0, 0), limits = c(0, NA))
+p
+```
+
+::: {.notes}
+
+The same data container is used in different fields. So to analyse multi-omics data, you need to know only one data container.
+
+:::
+
+## `r BiocStyle::Biocpkg("MultiAssayExperiment")`
+<small>[@ramos2017]</small>
+
+- For more complex sample mapping
+
+![](images/MultiAssayExperiment.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=10%}
+
+::: {.notes}
+
+TreeSE already supports linking multiple experiments, but this allows more flexibility.
+
+TreeSE requires 1-to-1 mapping, but usually samples might be missing from some experiments.
+
+:::
+
+## Demonstration
+
+## {auto-animate="true"}
+
+```r
+print(tse)
+```
+
+```{r}
+#| label: show_treese
+library(mia)
+data(GlobalPatterns)
+tse <- GlobalPatterns
+tse
+```
+
+## {auto-animate="true"}
+
+```r
+assay(tse, "counts")
+```
+
+```{r}
+#| label: show_assay
+assay(tse, "counts")
+```
+
+## {auto-animate="true"}
+
+```r
+colData(tse)
+```
+
+```{r}
+#| label: show_coldata
+colData(tse)
+```
+
+## {auto-animate="true"}
+
+```r
+tse <- tse[1:5, c(1, 4)]
+colData(tse)
+```
+
+```{r}
+#| label: subset
+tse[1:5, c(1, 4)] |> colData()
+```
+
+## Exercises
+
+From [OMA online book, Chapter 3: Data containers](https://microbiome.github.io/OMA/docs/devel/pages/containers.html)
+
+- All exercises
+
+
+## References

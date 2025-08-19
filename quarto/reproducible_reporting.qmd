@@ -1,0 +1,76 @@
+---
+title: "Reproducible reporting"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+bibliography: references.bib
+---
+
+## Reproducible reporting
+
+- To create human-readable reports
+- Transparency, reusability and reproducibility
+- Debugging
+
+::: {.notes}
+
+In microbiome research, workflows often involve many custom scripts and datasets. Standardized, reproducible reporting ensures results can be verified, reused, and built upon.
+
+:::
+
+## Literate programming
+
+Programming paradigm introduced by Donald Knuth (1984) in which a computer program is given as an explanation of its logic in a natural language, embedded with code chunks, from which compilable source code can be generated.\
+(Adapted from *Wikipedia*)
+
+![](images/Literate_Programming_book_cover.jpg){width="100"}
+
+::: {.notes}
+
+Literate programming emphasizes writing code for humans first, allowing the logic to be explained clearly, with the computer code embedded for execution.
+
+:::
+
+## Reproducible notebooks
+
+- We use [Quarto](https://quarto.org/docs/authoring/markdown-basics.html) for reproducible documentation.
+- Next generation development of Rmarkdown
+- Supported by RStudio
+
+::: {.notes}
+
+Quarto allows combining narrative, code, and results in a single reproducible document, ideal for microbiome workflows.
+
+You can do slides, book, websites, ...
+
+Compared to RMarkdown, better support for other langauges. You can use SQL, Python and Julia along with R in same document.
+
+:::
+
+## Demonstration
+
+::: {.notes}
+
+Show how to open file in RStudio.
+
+What are code chunks and how to write text.
+
+How to render?
+
+:::
+
+## Exercises
+
+From OMA online book, Chapter 1: Microbiome data science in Bioconductor
+
+[microbiome.github.io/OMA/docs/devel/pages/intro.html]("microbiome.github.io/OMA/docs/devel/pages/intro.html")
+
+- Exercise 2
+- Exercise 3
+- Exercise 4
+
+## References

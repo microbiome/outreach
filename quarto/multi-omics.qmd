@@ -1,0 +1,198 @@
+---
+title: "Multi-omics"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+bibliography: references.bib
+---
+
+## Multiomics integration
+
+- Integrate multiple omics layers: microbiome, metabolome, transcriptome, etc.
+- Explore associations and predict outcomes
+- Gain complementary insights that single-omics cannot provide
+
+::: {.notes}
+
+Multiomics provides complementary information. The goal is to combine them effectively.
+
+:::
+
+## Data containers
+
+- `altExp()` slot in `r BiocStyle::Biocpkg("TreeSummarizedExperiment")`
+- `r BiocStyle::Biocpkg("MultiAssaySummarizedExperiment")`
+
+::: {.notes}
+
+Using well-defined containers makes multiomics workflows reproducible and interoperable.
+
+:::
+
+## Methods
+
+- **Association:** detect cross-omics correlations
+- **Ordination:** reduce dimensionality, e.g., **MOFA2**
+- **Supervised machine learning:** predict outcomes, e.g., **IntegratedLearner**
+
+::: {.notes}
+
+Current approaches can be divided into these.
+
+:::
+
+## Cross-association
+
+- CLR + Spearman \rho
+
+```{r}
+#| label: heatmap
+#| fig-width: 10
+
+library(mia)
+data("HintikkaXOData")
+mae <- HintikkaXOData
+
+mae[[1]] <- agglomerateByPrevalence(mae[[1]], prevalence = 0.2, rank = "Class")
+mae[[1]] <- transformAssay(mae[[1]], method = "rclr")
+
+mat <- getCrossAssociation(
+  mae, assay.type1 = "rclr", experiment2 = 3, 
+  assay.type2 = "signals", mode = "matrix"
+)
+
+library(pheatmap)
+
+pheatmap(mat)
+```
+
+::: {.notes}
+
+This heatmap visualizes cross-omics correlations after CLR normalization.
+
+:::
+
+## Pearson correlation {.smaller}
+
+- Measures linear association between two features
+- Spearman correlation = Pearson correlation on ranks
+
+$$
+r = \frac{
+  \underbrace{\sum_{i=1}^{n} (x_i - \bar{x})(y_i - \bar{y})}_{\text{numerator: covariance}}
+}{
+  \underbrace{\sqrt{\sum_{i=1}^{n} (x_i - \bar{x})^2} \;\; \sqrt{\sum_{i=1}^{n} (y_i - \bar{y})^2}}_{\text{denominator: product of standard deviations}}
+}
+$$
+
+::: {.notes}
+
+Numerator: measures co-variation of features.
+Denominator: scales by standard deviations to get a normalized correlation coefficient between -1 and 1.
+
+:::
+
+## Calculating "targeted" correlations
+
+- Focus on feature pairs with found relationships
+- Avoids computing all pairwise correlations
+- Implemented in [anansi](github.com/thomazbastiaanssen/anansi/tree/devel)
+
+![](https://raw.githubusercontent.com/thomazbastiaanssen/anansi/refs/heads/devel/man/figures/anansi_hex.png){fig-alt="anansi logo" width=10% fig-align="right"}
+
+::: {.notes}
+
+
+:::
+
+## Ordination
+
+_Multi-omics Factor Analysis (MOFA2)_
+
+- Factorizes multiomics matrix into latent factors
+- Captures shared and data-specific variation across omics
+- Outputs low-dimensional embeddings for samples and features
+
+::: {.notes}
+MOFA2 is a popular unsupervised multiomics ordination method. Latent factors can be used for visualization or downstream analyses.
+:::
+
+## Supervised ML
+
+_IntegratedLearner_
+
+- Predict phenotypes from multiple omics
+- Ensemble learning combining base learners per omics
+
+::: {.notes}
+IntegratedLearner is suitable for multiomics prediction tasks, combining results from each data layer efficiently.
+:::
+
+## Demonstration
+
+## {auto-animate="true"}
+
+```r
+library(mia)
+library(pheatmap)
+
+# Calculate correlations
+mat <- getCrossAssociation(
+  mae, assay.type1 = "rclr", experiment2 = 3, 
+  assay.type2 = "signals", mode = "matrix"
+)
+```
+
+## {auto-animate="true"}
+
+```r
+library(mia)
+library(pheatmap)
+
+# Calculate correlations
+mat <- getCrossAssociation(
+  mae, assay.type1 = "rclr", experiment2 = 3, 
+  assay.type2 = "signals", mode = "matrix"
+)
+# Visualize
+pheatmap(mat)
+```
+
+```{r}
+#| label: heatmap_demo
+#| fig-width: 10
+
+library(mia)
+data("HintikkaXOData")
+mae <- HintikkaXOData
+
+mae[[1]] <- agglomerateByPrevalence(mae[[1]], prevalence = 0.2, rank = "Class")
+mae[[1]] <- transformAssay(mae[[1]], method = "rclr")
+
+mat <- getCrossAssociation(
+  mae, assay.type1 = "rclr", experiment2 = 3, 
+  assay.type2 = "signals", mode = "matrix"
+)
+
+library(pheatmap)
+
+pheatmap(mat)
+```
+
+::: {.notes}
+
+This heatmap visualizes cross-omics correlations after CLR normalization.
+
+:::
+
+## Exercises
+
+[From OMA online book, Chapter 23: Cross-association](https://microbiome.github.io/OMA/docs/devel/pages/cross_correlation.html)
+
+- All exercises
+
+## References

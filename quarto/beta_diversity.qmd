@@ -1,0 +1,29 @@
+---
+title: "Beta diversity"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+bibliography: references.bib
+---
+
+## Beta diversity
+
+- Similarity between samples
+- Dissimilarity/distance between samples, clustering, ordination...
+- Identify patterns of **community variation across conditions or treatments**
+
+::: {.notes}
+
+Umbrella term. Different methods. Goal is to identify patterns from microbial profiles.
+
+:::
+
+## Ordination
+
+- [Ordination](https://microbiome.github.io/outreach/ordination.html)
+
+## References

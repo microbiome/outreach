@@ -1,0 +1,29 @@
+---
+title: "Machine learning (ML)"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+bibliography: references.bib
+---
+
+##
+
+::: {.notes}
+
+:::
+
+## Demonstration
+
+## {auto-animate="true"}
+
+```r
+
+```
+
+## Exercises
+
+## References

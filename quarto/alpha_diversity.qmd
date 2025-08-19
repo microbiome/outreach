@@ -1,104 +1,190 @@
 ---
-title: "Alpha Diversity"
-format: revealjs
-editor: visual
-smaller: true
+title: "Alpha diversity"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
 bibliography: references.bib
 ---
 
-```{r}
-#| label: setup
-#| include: false
+## Alpha diversity
 
-knitr::opts_chunk$set(message = FALSE, warning = FALSE, echo = TRUE)
-```
+- Measures diversity **within a single sample**
+- Two key aspects:
+  - **Richness:** how many taxa are present  
+  - **Evenness:** how evenly distributed the taxa are
 
-## Overview
+::: {.notes}
 
-This notebook guides you through a basic alpha diversity analysis, where you first estimate alpha diversity in terms of a few indices, plot them for the different study groups and compare the results for the different indices.
+- Alpha diversity gives a single-sample summary of microbial diversity.  
+- Richness = count of taxa; Evenness = balance of abundances.  
+- Useful for comparing samples, understanding ecological structure, and detecting dysbiosis.
 
-The following packages are needed to succesfully run the examples in this notebook:
+:::
 
-```{r}
-library(mia)
-library(scater)
-```
-
-## Example 1.1: Estimation
-
-First of all, we import Tengeler2020 from the mia package and store it into a variable.
+##
 
 ```{r}
-#| label: import-tengeler
+#| label: alpha
 
-# load dataset and store it into tse
-data("Tengeler2020", package = "mia")
-tse <- Tengeler2020
+library(ggplot2)
+library(dplyr)
+library(ggforce)
+
+set.seed(42)
+
+# Helper to generate random points in circle
+random_in_circle <- function(n, radius = 1) {
+  theta <- runif(n, 0, 2 * pi)
+  r <- radius * sqrt(runif(n))
+  data.frame(
+    x = r * cos(theta),
+    y = r * sin(theta)
+  )
+}
+
+# Define 3 consistent colors
+colors <- c("#1b9e77", "#d95f02", "#7570b3", "black")
+
+# Panel 1: High richness (3 species), low evenness (dominance by species 1)
+df1 <- random_in_circle(10) |>
+  mutate(
+    species = factor(c(rep(1, 7), rep(2, 1), rep(3, 1), rep(4, 1))),
+    Sample = "High richness,\nlow evenness"
+  )
+
+# Panel 2: Low richness (1 species), high evenness (even use, but only 1 type)
+df2 <- random_in_circle(6) |>
+  mutate(
+    species = factor(c(rep(1, 3), rep(2, 3))),
+    Sample = "Low richness,\nhigh evenness"
+  )
+
+# Panel 3
+df3 <- random_in_circle(8) |>
+  mutate(
+    species = factor(c(rep(1, 2), rep(2, 2), rep(3, 2), rep(4, 2))),
+    Sample = "High richness,\nhigh evenness"
+  )
+
+# Combine
+df <- bind_rows(df1, df2, df3)
+
+# Plot
+ggplot(df, aes(x = x, y = y)) +
+  geom_circle(aes(x0 = 0, y0 = 0, r = 1.1), 
+              inherit.aes = FALSE, color = "gray60", linetype = "dashed") +
+  geom_point(aes(fill = species), shape = 21, color = "black", size = 10, alpha = 0.9) +
+  scale_fill_manual(values = colors) +
+  facet_wrap(~Sample, nrow = 1) +
+  coord_fixed(xlim = c(-1.3, 1.3), ylim = c(-1.3, 1.3)) +
+  theme_void(base_size = 14) +
+  theme(
+    legend.position = "none",
+    strip.text = element_text(face = "bold", size = 13),
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
+  )
 ```
 
-We calculate alpha diversity in terms of coverage, Shannon, inverse Simpson and Faith indices based on the counts assay. The first three indices differ from one another in how much weight they give to rare taxa: coverage considers all taxa equally important, whereas Shannon and - even more - Simpson give more importance to abundant taxa. Unlike all others, Faith index measures the phylogenetic diversity and thus requires a phylogenetic tree (stored as `rowTree` in the TreeSE).
+::: {.notes}
+
+Each circle represents a sample.
+
+- Point color = species identity.
+- High richness = more colors present.
+- High evenness = similar number of points per species.
+- Low evenness = dominance by one species.
+
+:::
+
+## Richness
+
+
+$$
+S = \text{Number of observed taxa}
+$$
+
+- Counts unique species/ASVs/OTUs in a sample
+
+::: {.notes}
+Richness is the simplest diversity metric: just counts how many unique taxa are observed.
+:::
+
+## Simpson's evenness
+
+$$
+E_{\mathrm{Simpson}} = \frac{1}{S \sum_{i=1}^{S} p_i^2}
+$$
+
+*where:*
+
+- $p_i$ = relative abundance of taxon $i$  
+- $S$ = number of taxa  
+
+- Bounded between 0 (low evenness) and 1 (perfectly even)  
+- Simple, intuitive, and less sensitive to rare taxa than Shannon-based evenness  
+
+::: {.notes}
+
+Simpson's evenness measures how evenly individuals are distributed among taxa.  
+It is easy to interpret and always ranges between 0 and 1.
+
+:::
+
+## Shannon diversity
+
+$$
+H' = - \sum_{i=1}^{S} p_i \log(p_i)
+$$
+
+*where:*
+
+- $p_i$ = relative abundance of taxon $i$  
+- $S$ = total number of taxa
+
+- Combines richness and evenness in one metric
+
+::: {.notes}
+Shannon diversity accounts for both **richness** and **evenness**.  
+Higher values mean more diverse communities.
+:::
+
+##
 
 ```{r}
-#| label: estimate-diversity
+#| label: show_ss
+#| fig-width: 15
+#| fig-height: 15
 
-# estimate the specified indices based on the counts assay
-tse <- estimateDiversity(tse,
-                         assay.type = "counts",
-                         index = "shannon")
+library(webshot2)
+library(magick)
+
+# Take the screenshot and save to a temporary file
+tmpfile <- tempfile(fileext = ".png")
+
+temp <- webshot(
+    url = "https://pmc.ncbi.nlm.nih.gov/articles/PMC7968621/",
+    file = tmpfile,
+    cliprect = c(0, 500, 1100, 800)
+)
+temp
 ```
 
-## Example 1.2: Visualisation
+::: {.notes}
 
-Next, we plot the four indices, with patient status on the x axis and alpha diversity on the y axis. We can also colour by cohort to check for batch effects.
+Chages in alpha diversity are associated with health outcome.
 
-```{r}
-#| label: plot-alpha
-# Plot shannon diversity vs patient_status
-p_shannon <- plotColData(tse, "shannon", "patient_status",
-                         colour_by = "cohort", show_median = TRUE) +
-  xlab("Patient Status")
+:::
 
-p_shannon
-```
+## Demonstration
 
-## Example 1.3: Comparison
+## Exercises
 
-The three metrics for alpha diversity follow different scales, but they seem to agree when comparing the distributions of the two patient groups.
+From [OMA online book, Chapter 14: Alpha diversity](https://microbiome.github.io/OMA/docs/devel/pages/alpha_diversity.html)
 
-```{r}
-#| label: compare-alpha
-#| code-fold: true
-#| code-summary: "Show code"
-library(patchwork)
+- 1.2, 1.3, 1.4, 1.9, 1.10
 
-# Calculate diversity metrics
-tse <- estimateDiversity(tse, assay.type = "counts",
-                         index = c("coverage", "inverse_simpson", "faith"))
-
-# Generate a plot for each metric
-plots <- lapply(c("coverage", "shannon", "inverse_simpson", "faith"),
-                plotColData, object = tse, x = "patient_status",
-                colour_by = "cohort", show_median = TRUE)
-
-# Combine plots
-wrap_plots(plots) +
-  plot_layout(guides = "collect") +
-  plot_annotation(tag_levels = "A")
-```
-
-## Exercise 1
-
--   estimation: [exercise 6.1](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#estimation){target="_blank"}
--   visualisation: [exercise 6.2](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#visualization){target="_blank"}
-
-Extra:
-
--   correlation: [exercise 6.3](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#correlation){target="_blank"}
--   differences between groups: [exercise 6.4](https://microbiome.github.io/OMA/docs/devel/pages/98_exercises.html#differences-between-groups){target="_blank"}
-
-This two exercise could be explained in a second example.
-
-## Resources
-
--   [OMA Chapter - Community Diversity](https://microbiome.github.io/OMA/docs/devel/pages/14_alpha_diversity.html){target="_blank"}
--   [OMA Chapter - Visualisation](https://microbiome.github.io/OMA/docs/devel/pages/19_visualization_techniques.html){target="_blank"}
+## References

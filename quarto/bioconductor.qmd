@@ -1,119 +1,230 @@
 ---
 title: "Bioconductor"
-format: revealjs
-editor: visual
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+title-slide-attributes: 
+  data-background-image: images/bioconductor_logo_rgb.jpg
+  data-background-size: 10%
+  data-background-position: 2% 2%
+bibliography: references.bib
 ---
 
-## 
+## Bioconductor
 
-![](images/paste-1E7AEB60.png)
+- Community-driven open-source project
 
-## Data science workflow
+1. Training programs & workshops
+2. Conferences & community support
+3. Bioinformatics software
 
-![R for Data Science / H. Wickham](images/paste-8AAEF32A.png){width="688"}
+![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo." fig-align="right" width=10%}
 
-![](images/paste-92ACC42B.png)
+::: {.notes}
 
-## Data analysis package ecosystem
+1. Bioconductor is more than software.
+2. Worldwide community of bioinformaticians; both users and developers.
 
-![](images/paste-BA8F36BD.png)
+:::
 
-## Number of open analysis tools has increased exponentially
+## Software
 
-![](images/paste-D7E05B23.png)
+- ~2,300 R packages
+- Review, testing, documentation
 
-## 
+```{r}
+#| label: bioc_packages
+#| eval: true
 
-### Package ecosystem: microbiome ecology![](images/paste-89E533F7.png){width="728"}
+# Get packages and info based on their BiocViews
+pkgs <- BiocPkgTools::biocPkgList()
+#
+pkgs[["SE"]] <- sapply(pkgs$Depends, function(x) any(grepl("summarizedexperiment", x, ignore.case = TRUE)) )
+fields <- sapply(pkgs$biocViews, function(x){
+    field <- "Other"
+    if( any(grepl("genomic|genetic|gene|genom|DNA", x, ignore.case = TRUE)) ){
+        field <- "Genomics"
+    }
+    if( any(grepl("proteomics|protein", x, ignore.case = TRUE)) ){
+        field <- "Proteomics"
+    }
+    if( any(grepl("metabolomics|metabolome|metabolite|Lipidom|massspectro", x, ignore.case = TRUE)) ){
+        field <- "Metabolomics"
+    }
+    if( any(grepl("transcripto|RNA-seq|RNA", x, ignore.case = TRUE)) ){
+        field <- "Transcriptomics"
+    }
+    if( any(grepl("immuno", x, ignore.case = TRUE)) ){
+        field <- "Immunology"
+    }
+    if( any(grepl("cytom", x, ignore.case = TRUE)) ){
+        field <- "Cytometrics"
+    }
+    if( any(grepl("microarray|chip", x, ignore.case = TRUE)) ){
+        field <- "Microarray"
+    }
+    if( any(grepl("single-cell|singlecell", x, ignore.case = TRUE)) ){
+        field <- "Single-cell"
+    }
+    if( any(grepl("metagenom|microbiome|16S|microbiota|amplicon|shotgun|microb|metatranscript|metametabolo|metaproteo", x, ignore.case = TRUE)) ){
+        field <- "Microbiome"
+    }
+    return(field)
+})
+pkgs[["Field"]] <- fields
+pkgs[pkgs[["Package"]] %in% c("mia", "miaViz", "miaSim", "iSEEtree", "HoloFoodR", "MGnifyR"), "Field"] <- "Microbiome"
+# Get download stats 
+df <- BiocPkgTools::biocDownloadStats()
+# Subset to include only packages which BiocView we have
+df <- df[df$Package %in% pkgs$Package, ]
+# submitted <- BiocPkgTools::firstInBioc(df)
+# df <- df[df$Package %in% pkgs$Package, ] # Take into account only current packages
+pkgs <- pkgs[, c("Package", "SE", "Field")]
+# Get table that shows which package is available in each date
+dates <- df$Date |> unique()
+dates <- dates[ dates < lubridate::floor_date(Sys.time(), "month") ]
+available <- lapply(dates, function(date){
+    temp <- df[df[["Date"]] == date, ]
+    temp <- temp[match(unique(df$Package), temp$Package), ]
+    temp <- temp[["Nb_of_distinct_IPs"]] > 0 | temp[["Nb_of_downloads"]] > 0
+    temp[is.na(temp)] <- FALSE
+    temp <- as.numeric(temp)
+    return(temp)
+})
+available <- do.call(cbind, available) |> as.data.frame()
+rownames(available) <- unique(df$Package)
+colnames(available) <- dates
+#
+ind <- pkgs[match(unique(df$Package), pkgs$Package), "Field"][[1]]
+pkgs_date <- rowsum(available, group = ind)
+# Put into long format
+library(tidyverse)
+pkgs_date <- pkgs_date %>%
+    rownames_to_column("Field") %>%
+    pivot_longer(
+        cols = colnames(pkgs_date)[ !colnames(pkgs_date) %in% c("Field")], 
+        names_to = "Date",
+        values_to = "N"
+    )
+pkgs_date[["Date"]] <- as.Date(pkgs_date[["Date"]])
 
-##  {.smaller}
+# Create a plot that shows number of package through date
+p1 <- ggplot(pkgs_date, aes(x = Date, y = N, fill = Field)) +
+    geom_area() + theme_classic() + scale_fill_brewer(palette = "Paired") +
+    labs(x = "Year", y = "Number of packages") +
+    scale_x_date(
+        expand = c(0, 0),
+        limits = c(min(pkgs_date[["Date"]]), max(pkgs_date[["Date"]]))
+    ) +
+  theme_classic(base_size = 18)
+p1
+```
 
-![](images/paste-9E1A48AE.png){width="263"}
+::: {.notes}
 
-Started in 2001 as a platform for microarray data analysis
+1. Popularity has grown.
+2. Broad range of fields (microbiome is rather small, but steadily raising ~ 50 packages)
+3. Over 2,300 R packages
+4. Not limited to R, but R has been the main language. Activity in Python and Julia.
+5. Special abut Bioconductor is the rather strict requirements which ensure the high-quality.
+
+Review process when submitting (novel, relevant, works as it should be, documentation is sufficient)
+Testing is done automatically (daily).
+Software must be accessible. --> documentation must be good
+
+:::
+
+## Microbiome Analysis (mia)
+
+```{r}
+#| label: mia_stats
+#| eval: true
+
+perc <- BiocPkgTools::pkgDownloadRank("mia")
+perc <- paste0(perc, "%")
+```
+
+- Microbiome data science ecosystem
+- "Downstream", statistical analysis
+- `r BiocStyle::Biocpkg("mia")` package top `r if(exists("perc")) perc else "*ERROR*"` Bioconductor downloads
+
+<div style="text-align: right;">
+  <img src="images/BioconductorSticker1.png" alt="Bioconductor sticker" width="200" style="margin-left: 10px;">
+  <img src="images/mia_logo.png" alt="mia logo" width="200">
+</div>
+
+::: {.notes}
+
+1. Within Bioconductor, we have developed microbiome data science ecosystem
+2. For downstream analysis
+3. Aligned and tightly linked with broader Bioconductor ecosystem
+
+:::
+
+## Benefits
+
+1. Tightly linked with broader Bioconductor ecosystem
+2. Improved scalability
+3. Improved multi-table integration
+
+::: {.notes}
+
+1. We use same data format as broader Bioconductor ecosystem. Some of you might know phyloseq. That was specifically designed for 16S amplicon data, and is not supported outside its ecosystem. Moreover, microbiome data science is nowadays more than sequencing data, it links different fields from metabolomics to genomics. Same data format allows us to use
+methods from different fields.
+2. The ecosystem is more scalable; speed and memory wise than phyloseq and its more efficient alternative, speedyseq. It is not uncommon anymore that there are tens of thousands of samples and features so we need efficient software to run these big datasets.
+3. This ecosystem allows us to link multiple tables together, facilitating multi-omics integration by supporting management of this kind of complex datasets.
+
+:::
+
+## Community-driven ecosystem of tools {.smaller}
 
 ::: columns
-::: {.column width="40%"}
-Now 2200+ packages:
+::: {.column width="70%"}
 
--   Sequencing (DNA, RNA, ChIP, SC)
+- `r BiocStyle::Biocpkg("mia")` (Data analysis)
+- `r BiocStyle::Biocpkg("miaViz")` (Visualization)
+- `r BiocStyle::Biocpkg("miaSim")` (Simulation)
+- [miaTime](https://github.com/microbiome/miaTime) (Time series analysis)
+- `r BiocStyle::Biocpkg("miaDash")` (Graphical user interface)
+- `r BiocStyle::Biocpkg("iSEETree")` (Interactive visualization)
+- [Expanded by independent developers](https://microbiome.github.io/OMA/docs/devel/pages/miaverse.html#sec-packages)
 
--   Proteomics
-
--   Metabolomics
-
--   Microbiomics
-
--   Multi-omics integration
 :::
 
-::: {.column width="60%"}
-![](images/paste-16A0BA51.png){width="306"}
-:::
-:::
+::: {.column width="30%"}
 
-## 
-
-![](images/paste-9E1A48AE.png){width="263"}
-
-::: columns
-::: {.column width="50%"}
-#### Collaborative development
-
-\- 50,000+ papers in PubMed
-
-\- software & data repository
-
-\- tutorials & documentation
-
-\- bioinformatics peer support
+![](https://raw.githubusercontent.com/microbiome/mia/refs/heads/devel/man/figures/mia_logo.png){fig-alt="mia logo." width=20%}
+![](https://raw.githubusercontent.com/EBI-Metagenomics/MGnifyR/refs/heads/devel/man/figures/mgnifyr_logo.png){fig-alt="MGnifyR logo." width=20%}
+![](https://raw.githubusercontent.com/EBI-Metagenomics/HoloFoodR/refs/heads/devel/man/figures/holofoodr_logo.png){fig-alt="HoloFoodR logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/iSEE/iSEE.png){fig-alt="iSEE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/MultiAssayExperiment/MultiAssayExperiment.png){fig-alt="MAE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SummarizedExperiment/SummarizedExperiment.png){fig-alt="SE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SingleCellExperiment/SingleCellExperiment.png){fig-alt="SCE logo." width=20%}
+![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/scater/scater.png){fig-alt="scater logo." width=20%}
+![](https://pbs.twimg.com/media/FDNU5KgWYAcnU8w.jpg){fig-alt="benchdamic logo." width=20%}
+![](https://netcomi.de/logo.png){fig-alt="netcomi logo." width=20%}
+![](https://raw.githubusercontent.com/statdivlab/radEmu/refs/heads/main/man/figures/logo.png){fig-alt="radEmu logo." width=20%}
+![](https://mikelove.github.io/assets/DESeq2.png){fig-alt="DESeq2 logo." width=20%}
+![](https://avatars.githubusercontent.com/u/18152373?s=280&v=4){fig-alt="Biobakery logo." width=20%}
+![](https://raw.githubusercontent.com/thomazbastiaanssen/anansi/refs/heads/devel/man/figures/anansi_hex.png){fig-alt="anansi logo." width=20%}
 :::
 
-::: {.column width="50%"}
-![](images/paste-1BE39B3A.png){width="300"}
-:::
 :::
 
-## 
+::: {.notes}
 
-![](images/paste-9E1A48AE.png){width="263"}
+Ecosystem of packages developed by the community. mia provides the basic operations in microbiome data analysis. miaViz has the methods for visualization.
 
-::: columns
-::: {.column width="50%"}
-**Management**
+Developed by independent developers who have started to support the ecosystem.
 
-\- Core team
-
-\- SAB & TAB & CAB
-
-\- Global contributor base
 :::
 
-::: {.column width="50%"}
-![](images/paste-DB32EFB2.png){width="226"}
+## Data containers
 
-![](images/paste-BB617EEC.png){width="130"}
-:::
-:::
+- [Data containers](https://microbiome.github.io/outreach/data_containers.html){target="_blank"}
 
-## Collaborative development
-
-![](images/paste-7A47899A.png)
-
-## Cultures of open collaboration
-
-![](images/paste-505993C5.png)
-
-## Open data science ecosystems
-
-![](images/paste-E23FCD8F.png)
-
-## R/Bioc community
-
-(Global) Bioconductor conference
-
-Asian Bioconductor conference
-
-European Bioconductor conference
-
-![](images/paste-424E5F35.png){width="327"}
+## References

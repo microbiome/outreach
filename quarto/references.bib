@@ -39,7 +39,7 @@
 }
 
 @misc{benedetti2024iseetree,
-  title={iSEEtree: interactive explorer for hierarchical data}, 
+  title={iSEEtree: interactive explorer for hierarchical data},
   author={Giulio Benedetti and Ely Seraidarian and Theotime Pralas and Akewak Jeba and Tuomas Borman and Leo Lahti},
   year={2024},
   eprint={2412.02882},
@@ -111,4 +111,93 @@
   year =	 {2021},
   annote =	 {TreeSE reference},
   keywords =	 {bioscience}
+}
+
+@article{ramos2017,
+	author = {Ramos, Marcel and Schiffer, Lucas and Re, Angela and Azhar, Rimsha and Basunia, Azfar and Rodriguez, Carmen and Chan, Tiffany and Chapman, Phil and Davis, Sean R. and Gomez-Cabrero, David and Culhane, Aedin C. and Haibe-Kains, Benjamin and Hansen, Kasper D. and Kodali, Hanish and Louis, Marie S. and Mer, Arvind S. and Riester, Markus and Morgan, Martin and Carey, Vince and Waldron, Levi},
+	title = {Software for the Integration of Multiomics Experiments in {Bioconductor}},
+	journal = {Cancer research},
+	shortjournal = {Cancer Res},
+	volume = {77},
+	issn = {1538-7445},
+	doi = {10.1158/0008-5472.CAN-17-0344},
+	pages = {e39--e42},
+	number = {21},
+	date = {2017-11-01},
+	year = 2017,
+	abstract = {Multiomics experiments are increasingly commonplace in biomedical research and add layers of complexity to experimental design, data integration, and analysis. R and Bioconductor provide a generic framework for statistical analysis and visualization, as well as specialized data classes for a variety of high-throughput data types, but methods are lacking for integrative analysis of multiomics experiments. The {MultiAssayExperiment} software package, implemented in R and leveraging Bioconductor software and design principles, provides for the coordinated representation of, storage of, and operation on multiple diverse genomics data. We provide the unrestricted multiple 'omics data for each cancer tissue in The Cancer Genome Atlas as ready-to-analyze {MultiAssayExperiment} objects and demonstrate in these and other datasets how the software simplifies data representation, statistical analysis, and visualization. The {MultiAssayExperiment} Bioconductor package reduces major obstacles to efficient, scalable, and reproducible statistical analysis of multiomics data and enhances data science applications of multiple omics datasets. Cancer Res; 77(21); e39-42. ©2017 {AACR}.},
+	keywords = {Software, Humans, Genomics, Computational Biology, Datasets as Topic, Genome, Human, Neoplasms}
+}
+
+@Manual{mgnifyr,
+    title = {{MGnifyR}: {R} interface to {EBI} {MGnify} metagenomics resource},
+    author = {Tuomas Borman and Ben Allen and Leo Lahti},
+    year = {2025},
+    note = {R package version 1.5.0},
+    url = {https://github.com/EBI-Metagenomics/MGnifyR},
+  }
+
+@Manual{holofoodr,
+    title = {{HoloFoodR}: {R} interface to {EBI} HoloFood resource},
+    author = {Tuomas Borman and Artur Sannikov and Leo Lahti},
+    year = {2025},
+    note = {R package version 1.3.0},
+    url = {https://github.com/EBI-Metagenomics/HoloFoodR},
+  }
+
+@Manual{microbiomedatasets,
+    title = {{microbiomeDataSets}: Experiment Hub based microbiome datasets},
+    author = {Leo Lahti and Felix G.M. Ernst and Sudarshan Shetty},
+    year = {2025},
+    note = {R package version 1.16.0},
+    doi = {10.18129/B9.bioc.microbiomeDataSets}
+  }
+
+@article{pasolli2017,
+  author =	 {Pasolli, Edoardo and Schiffer, Lucas and Manghi,
+                  Paolo and Renson, Audrey and Obenchain, Valerie and
+                  Truong, Duy Tin and Beghini, Francesco and Malik,
+                  Faizan and Ramos, Marcel and Dowd, Jennifer B.  and
+                  Huttenhower, Curtis and Morgan, Martin and Segata,
+                  Nicola and Waldron, Levi},
+  title =	 {Accessible, curated metagenomic data through
+                  {ExperimentHub}},
+  journal =	 {Nature Methods},
+  year =	 2017,
+  month =	 {Nov},
+  day =		 01,
+  volume =	 14,
+  number =	 11,
+  pages =	 {1023-1024},
+  issn =	 {1548-7105},
+  doi =		 {10.1038/nmeth.4468}
+}
+
+@article{gurbich2023,
+	author = {Gurbich, Tatiana A. and Almeida, Alexandre and Beracochea, Martin and Burdett, Tony and Burgin, Josephine and Cochrane, Guy and Raj, Shriya and Richardson, Lorna and Rogers, Alexander B. and Sakharova, Ekaterina and Salazar, Gustavo A. and Finn, Robert D.},
+	title = {{MGnify} Genomes: A Resource for Biome-specific Microbial Genome Catalogues},
+	journal = {Journal of molecular biology},
+	volume = {435},
+	issn = {1089-8638},
+	doi = {10.1016/j.jmb.2023.168016},
+	series = {Computation Resources for Molecular Biology},
+	shorttitle = {{MGnify} Genomes},
+	pages = {168016},
+	number = {14},
+	month = {07},
+	year = 2023,
+	keywords = {Microbiome, Biodiversity, Functional annotation, Metagenome-assembled genome, Uncultured microorganisms},
+	abstract = {An increasingly common output arising from the analysis of shotgun metagenomic datasets is the generation of metagenome-assembled genomes ({MAGs}), with tens of thousands of {MAGs} now described in the literature. However, the discovery and comparison of these {MAG} collections is hampered by the lack of uniformity in their generation, annotation and storage. To address this, we have developed {MGnify} Genomes, a growing collection of biome-specific non-redundant microbial genome catalogues generated using {MAGs} and publicly available isolate genomes. Genomes within a biome-specific catalogue are organised into species clusters. For species that contain multiple conspecific genomes, the highest quality genome is selected as the representative, always prioritising an isolate genome over a {MAG}. The species representative sequences and annotations can be visualised on the {MGnify} website and the full catalogue and associated analysis outputs can be downloaded from {MGnify} servers. A suite of online search tools is provided allowing users to compare their own sequences, ranging from a gene to sets of genomes, against the catalogues. Seven biomes are available currently, comprising over 300,000 genomes that represent 11,048 non-redundant species, and include 36 taxonomic classes not currently represented by cultured genomes. {MGnify} Genomes is available at https://www.ebi.ac.uk/metagenomics/browse/genomes/.}
+}
+
+@article{rogers2024,
+  author = {Rogers,  Alexander B and Kale,  Varsha and Baldi,  Germana and Alberdi,  Antton and Gilbert,  M Thomas P and Gupta,  Dipayan and Limborg,  Morten T and Li,  Sen and Payne,  Thomas and Petersen,  Bent and Rasmussen,  Jacob A and Richardson,  Lorna and Finn,  Robert D},
+  title = {HoloFood Data Portal: holo-omic datasets for analysing host–microbiota interactions in animal production},
+  journal   = {Database (Oxford)},
+  year = {2025},
+  volume = {2025},
+  pages     = {baae112},
+  ISSN = {1758-0463},
+  DOI = {10.1093/database/baae112},
+  publisher = {Oxford University Press (OUP)}
 }
