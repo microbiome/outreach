@@ -24,9 +24,9 @@ This website hosts quarto presentations about microbiome analysis and data integ
 - Association
     - [Differential abundance analysis](https://microbiome.github.io/outreach/daa.html){target="_blank"}
 - Multi-omics
-    - [Multi-omics](https://microbiome.github.io/outreach/multiomics.html){target="_blank"}
+    - [Multi-omics](https://microbiome.github.io/outreach/multi-omics.html){target="_blank"}
 - Machine learning
-    - [Machine learning](https://microbiome.github.io/outreach/machin_learning.html){target="_blank"}
+    - [Machine learning](https://microbiome.github.io/outreach/machine_learning.html){target="_blank"}
 
 ### Packages
 
