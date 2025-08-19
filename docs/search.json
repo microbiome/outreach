@@ -1741,5 +1741,103 @@
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "References",
     "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nMoreno-Indias, Isabel, Leo Lahti, Miroslava Nedyalkova, Ilze Elbere, Gennady V. Roshchupkin, Muhamed Adilovic, Onder Aydemir, et al. 2021. “Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions.” Frontiers in Microbiology 12: 277. https://doi.org/10.3389/fmicb.2021.635781."
+  },
+  {
+    "objectID": "transformation.html#microbiome-data",
+    "href": "transformation.html#microbiome-data",
+    "title": "Transformation",
+    "section": "Microbiome data",
+    "text": "Microbiome data\n\nHigh variability - feature abundances vary widely across samples\nZero-inflation - many taxa absent in most samples\nCompositionality - only relative abundances observed; total counts per sample are arbitrary\n\n\n\nBiological signal can be masked by rare or absent taxa.\nSequencing depth differs between samples → compositional constraints."
+  },
+  {
+    "objectID": "transformation.html#compositionality",
+    "href": "transformation.html#compositionality",
+    "title": "Transformation",
+    "section": "Compositionality",
+    "text": "Compositionality\n\nCounts or abundances sum to a constant per sample\nNumbers are dependent: if one increases, at least one must decrease\nThis is called a sum constraint\n\n\nRelative abundances (percentages) are compositional\nStandard statistics like correlation or PCA can be misleading without transformation"
+  },
+  {
+    "objectID": "transformation.html#section",
+    "href": "transformation.html#section",
+    "title": "Transformation",
+    "section": "",
+    "text": "Compositional bias."
+  },
+  {
+    "objectID": "transformation.html#goals-of-transformation",
+    "href": "transformation.html#goals-of-transformation",
+    "title": "Transformation",
+    "section": "Goals of transformation",
+    "text": "Goals of transformation\n\nMitigate biases in abundances\nMake features comparable across samples\nMeet assumptions of downstream statistical analyses\n\n\n\nTransformations allow standard analyses like PCA, regression, correlation.\nChoose transformation depending on the problem: relative abundance, log, CLR, etc."
+  },
+  {
+    "objectID": "transformation.html#relative-abundance",
+    "href": "transformation.html#relative-abundance",
+    "title": "Transformation",
+    "section": "Relative abundance",
+    "text": "Relative abundance\n\\[\n\\text{X}_{ij} = \\frac{\\text{Count}_{ij}}{\\sum_{k=1}^m \\text{Count}_{ik}}\n\\]\nwhere\n\n\\(i\\) indexes the sample,\n\\(j\\) indexes the taxon,\n\\(m\\) is the total number of taxa.\n\n\n\nConverts raw counts into proportions per sample\nUseful for visualizations and comparing samples"
+  },
+  {
+    "objectID": "transformation.html#log-transformed-relative-abundance",
+    "href": "transformation.html#log-transformed-relative-abundance",
+    "title": "Transformation",
+    "section": "Log-transformed relative abundance",
+    "text": "Log-transformed relative abundance\n\\[\n\\text{X}_{ij} = \\log \\left( \\text{Relative abundance}_{ij} + \\epsilon \\right)\n\\]\nwhere\n\n\\(\\epsilon\\) is a small pseudocount to avoid \\(\\log(0)\\).\n\n\nLog-transform reduces skewness and makes differences among low-abundance taxa more visible, but a pseudocount is required to handle zeros."
+  },
+  {
+    "objectID": "transformation.html#section-2",
+    "href": "transformation.html#section-2",
+    "title": "Transformation",
+    "section": "",
+    "text": "The data is still constrained to relative abundances (0-1), but now in log-scale.\nBecause the total is fixed, the numbers depend on each other.\nIf one goes up, at least one of the others must go down. This is called a constraint."
+  },
+  {
+    "objectID": "transformation.html#centered-log-ratio-clr",
+    "href": "transformation.html#centered-log-ratio-clr",
+    "title": "Transformation",
+    "section": "Centered log-ratio (CLR)",
+    "text": "Centered log-ratio (CLR)\n\\[\n\\text{CLR}(x_i) = \\log\\left(\\frac{x_i}{g(x)}\\right),\\quad\ng(x) = \\left(\\prod_{j=1}^{D} x_j \\right)^{1/D}\n\\]\n\n( x_i ): the i-th component of the composition\n\n( g(x) ): geometric mean of the composition\n\n\n\nRelative abundances normalize counts but remain compositional –&gt; correlation and PCA can be misleading.\nLog-transform mitigates skewness.\nCLR removes compositional constraints and is commonly used for multivariate analyses."
+  },
+  {
+    "objectID": "transformation.html#section-3",
+    "href": "transformation.html#section-3",
+    "title": "Transformation",
+    "section": "",
+    "text": "\\[\n\\text{Arithmetic mean} = \\frac{2 + 8 + 32}{3} = \\frac{42}{3} = 14\n\\]\n\\[\n\\text{Geometric mean} = \\sqrt[3]{2 \\cdot 8 \\cdot 32} = \\sqrt[3]{512} = 8\n\\]\n\nArithmetic mean: additive center –&gt; still ties the components together\nGeometric mean: multiplicative center –&gt; captures ratios between components\nCLR measures how many times bigger or smaller each component is compared to the typical size, freeing them from the sum constraint\nRatios remove constrains: each component is expressed as a ratio to the “typical size” of the composition.\nRaw proportions: one goes up → others must go down proportionally (sum = 1)\nCLR ratios: each one measures its abundance relative to the average abundance → one side can go up without forcing others to go down"
+  },
+  {
+    "objectID": "transformation.html#section-4",
+    "href": "transformation.html#section-4",
+    "title": "Transformation",
+    "section": "",
+    "text": "Removes compositional constraints (constant sum)\nValues centered around zero, symmetric\nAllows standard statistical tools (PCA, correlations)\nDebate on whether it is necessary in DA\n\n\n\nRelative abundances normalize counts but remain compositional correlation and PCA can be misleading.\nLog-transform mitigates skewness.\nCLR removes compositional constraints and is commonly used for multivariate analyses.\n\nHow big value is comprared to\nCLR has been the standard. However, there has become many benchmark papers lately. They show that compositional transformations in DA can:\n\nLack sensitivity\nCan create paradoxical results in low-diversity microbiome"
+  },
+  {
+    "objectID": "transformation.html#section-5",
+    "href": "transformation.html#section-5",
+    "title": "Transformation",
+    "section": "",
+    "text": "Makes the data more normally distributed. Distributed around zero. Without constrains (goes from negative infinity to positive)"
+  },
+  {
+    "objectID": "transformation.html#demonstration",
+    "href": "transformation.html#demonstration",
+    "title": "Transformation",
+    "section": "Demonstration",
+    "text": "Demonstration\nlibrary(mia)\n\ntse &lt;- transformAssay(tse, method = \"relabundance\")\nprint(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 19216 26 \nmetadata(0):\nassays(2): counts relabundance\nrownames(19216): 549322 522457 ... 200359 271582\nrowData names(7): Kingdom Phylum ... Genus Species\ncolnames(26): CL3 CC1 ... Even2 Even3\ncolData names(7): X.SampleID Primer ... SampleType Description\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (19216 rows)\nrowTree: 1 phylo tree(s) (19216 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "transformation.html#exercises",
+    "href": "transformation.html#exercises",
+    "title": "Transformation",
+    "section": "Exercises",
+    "text": "Exercises\nFrom OMA online book, Chapter 12: Transformation\n\nAll exercises"
+  },
+  {
+    "objectID": "transformation.html#references",
+    "href": "transformation.html#references",
+    "title": "Transformation",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
   }
 ]
