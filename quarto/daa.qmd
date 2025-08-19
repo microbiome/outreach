@@ -39,7 +39,7 @@ Instead of complex pipelines, simple classical tests may be more reproducible ac
 
 :::
 
-## Classical tests are linear models
+## Classical tests are linear models {.smaller}
 
 - **Relative abundances with a Wilcoxon test**  
   - Non-parametric, but can be expressed as a rank-based linear model
