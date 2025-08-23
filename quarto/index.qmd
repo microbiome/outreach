@@ -23,6 +23,7 @@ This website hosts quarto presentations about microbiome analysis and data integ
         - [Ordination](https://microbiome.github.io/outreach/ordination.html){target="_blank"}
 - Association
     - [Differential abundance analysis](https://microbiome.github.io/outreach/daa.html){target="_blank"}
+    - [Functional analysis](https://microbiome.github.io/outreach/functional_analysis.html){target="_blank"}
 - Multi-omics
     - [Multi-omics](https://microbiome.github.io/outreach/multi-omics.html){target="_blank"}
 - Machine learning
@@ -32,6 +33,7 @@ This website hosts quarto presentations about microbiome analysis and data integ
 
 - [MGnifyR: An R package for accessing MGnify microbiome data](https://microbiome.github.io/outreach/mgnifyr.html){target="_blank"}
 - [miaDash: Microbiome Analysis Dashboard](https://microbiome.github.io/outreach/miadash.html){target="_blank"}
+- [miaSim: Microbiome simulation](https://microbiome.github.io/outreach/miasim.html){target="_blank"}
 
 ### Data sets
 

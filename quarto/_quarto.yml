@@ -11,12 +11,14 @@ project:
     - brain_bacteria_behavior.qmd
     - daa.qmd
     - data_containers.qmd
+    - functional_analysis.qmd
     - gbcc2025.qmd
     - import.qmd
     - ismb_eccb2025.qmd
     - machine_learning.qmd
     - mgnifyr.qmd
     - miadash.qmd
+    - miasim.qmd
     - multi-omics.qmd
     - oh-boost_webinar2024.qmd
     - ordination.qmd

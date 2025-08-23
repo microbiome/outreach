@@ -1,0 +1,61 @@
+---
+title: "Functional analysis"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+bibliography: references.bib
+---
+
+## Metagenomics
+
+- Reveals functional potential of a community, beyond taxonomy
+- Redundant genes → functional stability
+- Functional compensation: missing species can be replaced by others
+
+::: {.notes}
+Metagenomics tells us what microbes can do, not just who is there.
+Useful for understanding resilience and redundancy in microbiomes.
+
+Functions/genes can be more interesting sometimes as microbial functions matter, not which bacteria causes the effect (for instance, in disease)
+
+Even though one microbe goes away, another taxa can take its "job" in the ecosystem.
+
+To explore what microbes are actually doing, we need more metabolomics data for instance.
+:::
+
+## Metagenomic data
+
+- Taxonomic profiles: species, genera, etc.
+- Functional profiles: genes, pathways, metabolic modules
+- Linkage: which taxa contribute to which functions
+
+::: {.notes}
+Functional profiles can be derived using tools like HUMAnN.
+They often complement or outperform taxonomic profiles for certain analyses.
+
+The data includes:
+- what bacteria are present
+- what genes are present
+- which bacteria includes the genes
+
+:::
+
+## Analysis approaches
+
+- Analyze functional data using the same methods as taxonomy
+- Integration enables multi-omics perspective
+- Do functional shifts mirror taxonomic shifts?
+
+::: {.notes}
+
+e.g. MaAsLin, dbRDA, PERMANOVA, ordination can be used
+
+Example: Run dbRDA or PERMANOVA on functional data and compare to taxonomy.
+Highlights cases where functions remain stable despite taxonomic changes, or vice versa.
+:::
+
+## References

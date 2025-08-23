@@ -12,30 +12,77 @@ bibliography: references.bib
 
 ## Microbiome data
 
-- **High variability** - feature abundances vary widely across samples
-
-- **Zero-inflation** - many taxa absent in most samples
-
-- **Compositionality** - only relative abundances observed; total counts per sample are arbitrary
+- **High variability** &mdash; feature abundances vary widely across samples
+- **Zero-inflation** &mdash; many taxa absent in most samples
+- **Compositionality** &mdash; only relative abundances observed; total counts per sample are arbitrary
 
 ::: {.notes}
 
-- Biological signal can be masked by rare or absent taxa.
-- Sequencing depth differs between samples → compositional constraints.
+- **High variability** → heteroscedasticity: the variance increases more than the mean. Abundant taxa have lots of variability.
+- **Zero-inflation** → many features are absent in most samples, which complicates statistical modelling and increases sparsity of the data matrix.
+- **Compositionality** → sequencing depth differs between samples; only *ratios* of features within a sample are meaningful, absolute counts are not.
+
+:::
+
+## Heteroscedasticity
+
+```{r}
+#| label: heteroscedasticity
+
+library(ggplot2)
+
+set.seed(42)
+
+# Simulate heteroscedastic data: variance grows with x
+x <- seq(1, 100, length.out = 200)
+y <- 2 * x + rnorm(200, sd = x/2)  # noise increases with x
+
+df1 <- data.frame(x, y)
+
+ggplot(df1, aes(x, y)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  theme_classic()
+
+```
+
+::: {.notes}
+
+The variance increases when abundance increases
+
+:::
+
+## Zero-inflation
+
+```{r}
+#| label: zero_inflation
+
+library(miaViz)
+data(GlobalPatterns)
+plotHistogram(GlobalPatterns, assay.type = "counts")
+```
+
+::: {.notes}
+
+Real microbiome data. Lots of zeroes.
 
 :::
 
 ## Compositionality
 
-- Counts or abundances sum to a constant per sample
 - Numbers are dependent: if one increases, at least one must decrease
-- This is called a sum constraint
+- Simplex space
+  - If we know N-1 values, we know the last one
+  - Constraint: all values positive and sum to a constant (often 1)
 
 ::: {.notes}
 
-Relative abundances (percentages) are compositional
+Standard statistics require that values are in Euclidean space.
 
-Standard statistics like correlation or PCA can be misleading without transformation
+Compositional data live in the simplex (compositional space), not Euclidean space (where subtractions, distances and variances make sense).
+
+Results can be misleading without transformation.
+
 :::
 
 ##
@@ -137,8 +184,10 @@ $$
 
 ::: {.notes}
 
-- Converts raw counts into proportions per sample
-- Useful for visualizations and comparing samples
+
+- Library sizes differ between samples (sequencing depth varies), so raw counts are not directly comparable.
+- Relative abundance converts counts to proportions within each sample, making samples comparable.
+- Intuition: a relative abundance of 0.2 means “this taxon makes up 20% of this sample,” independent of total reads.
 
 :::
 
@@ -206,9 +255,18 @@ $$
 
 ::: {.notes}
 
-- Relative abundances normalize counts but remain compositional --> correlation and PCA can be misleading.
-- Log-transform mitigates skewness.
-- CLR removes compositional constraints and is commonly used for multivariate analyses.
+- CLR removes compositional constraints and maps data from the simplex to Euclidean space.
+
+1. Standard statistical tests assume Euclidean space, where subtraction and distances make sense.
+
+2. Subtraction does not make sense on raw compositional data because only ratios between components carry information. --> How to convert ratios into subtraction? --> Using log-scale
+
+3. Taking the log converts ratios into differences: log⁡(x/y)=log⁡(x)−log⁡(y)
+so subtraction now has a meaningful interpretation.
+
+4. The log-values still have an arbitrary baseline, so we center them around zero by subtracting the arithmetic mean of the logs, which is equivalent to dividing each component by the geometric mean of the original composition:
+
+5. The result is a vector in Euclidean space with sum zero, suitable for standard analyses.
 
 :::
 
@@ -218,28 +276,100 @@ $$
 \text{Arithmetic mean} = \frac{2 + 8 + 32}{3} = \frac{42}{3} = 14
 $$
 
-
 $$
-\text{Geometric mean} = \sqrt[3]{2 \cdot 8 \cdot 32} = \sqrt[3]{512} = 8
+\text{Geometric mean} = \sqrt[3]{2 \cdot 8 \cdot 32} \\[2mm]
+= \exp\Bigg( \frac{\log 2 + \log 8 + \log 32}{3} \Bigg) \\[2mm]
+= \exp\Bigg( \frac{\log 2 + \log 2^3 + \log 2^5}{3} \Bigg) \\[2mm]
+= \exp(3 \log 2) \\[1mm]
+= 8
 $$
 
 ::: {.notes}
 
-Arithmetic mean: additive center --> still ties the components together
+There is nothing inherently special about the geometric mean — it is just the arithmetic mean in log-space, which is the space we are currently working in.
 
-Geometric mean: multiplicative center --> captures ratios between components
+Dividing each value by the geometric mean is equivalent to subtracting the arithmetic mean of the logs.
 
-CLR measures how many times bigger or smaller each component is compared to the typical size, freeing them from the sum constraint
-
-Ratios remove constrains: each component is expressed as a ratio to the “typical size” of the composition.
-
-Raw proportions: one goes up → others must go down proportionally (sum = 1)
-
-CLR ratios: each one measures its abundance relative to the average abundance → one side can go up without forcing others to go down
+This centers the data around zero in log-ratio space, making differences between components meaningful for standard statistical analyses.
 
 :::
 
 ##
+
+```{r}
+#| label: centering
+
+library(ggplot2)
+
+set.seed(123)
+
+# Original normal distribution with positive mean
+x <- rnorm(1000, mean = 5, sd = 1)
+df <- data.frame(x = x)
+
+# Centered version (subtract mean)
+x_centered <- x - mean(x)
+df_centered <- data.frame(x = x_centered)
+
+# Combine for plotting
+df_plot <- rbind(
+  data.frame(x = x, type = "Original"),
+  data.frame(x = x_centered, type = "Centered")
+)
+
+# Plot
+ggplot(df_plot, aes(x = x, y = ..density.., fill = type)) +
+  geom_density(alpha = 0.5, position = "identity", bins = 30, show.legend = FALSE) +
+  geom_vline(xintercept = mean(x), linetype = "dashed", color = "blue") +
+  geom_vline(xintercept = mean(x_centered), linetype = "dashed", color = "red") +
+  annotate("segment", x = mean(x), xend = mean(x_centered), y = 0.15, yend = 0.15,
+           arrow = arrow(length = unit(0.3,"cm")), color = "black") +
+  annotate("text", x = (mean(x)+mean(x_centered))/2, y = 0.17, label = "Centering", hjust = 0.5) +
+  labs(title = "", x = "x", y = "Density") +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+```
+
+::: {.notes}
+
+Centering means that we subtract mean from each value to get the distribution centered to 0. Because we use log-scale, we have to use suitable mean (geometric mean aka arithmetic mean in log-scale).
+
+:::
+
+## Centered log-ratio (CLR)
+
+$$
+\text{CLR}(x_i) \;=\; \log\left(\frac{x_i}{g(x)}\right) \\[2mm]
+= \log(x_i) - \log(g(x)) \\[2mm]
+= \log(x_i) - \frac{1}{D}\sum_{j=1}^{D}\log(x_j)
+$$
+
+::: {.notes}
+
+- Take a logarithm of the values --> ratios become subtraction which is what we want in Euclidean space
+- Center values to mean 0
+
+:::
+
+## Interpretation:
+
+- Positive CLR → feature is more abundant than the sample’s average
+- Negative CLR → feature is less abundant than the sample’s average
+- Magnitude → how strongly the feature deviates from the average
+  - On a log scale: CLR = 1 → ~2.7× average
+  - CLR = 2 → ~7.4× average
+  - CLR = −1 → ~0.37× average
+
+::: {.notes}
+
+- CLR values show how each feature compares to the sample’s geometric mean.
+- Positive = enriched, Negative = depleted.
+- Magnitude gives a fold-change interpretation on a log scale.
+
+:::
+
+## Centered log-ratio (CLR)
 
 - Removes compositional constraints (constant sum)
 - Values centered around zero, symmetric
@@ -248,17 +378,14 @@ CLR ratios: each one measures its abundance relative to the average abundance �
 
 ::: {.notes}
 
-- Relative abundances normalize counts but remain compositional correlation and PCA can be misleading.
-- Log-transform mitigates skewness.
-- CLR removes compositional constraints and is commonly used for multivariate analyses.
+- CLR is widely used in microbiome data analysis because it removes compositional constraints and often makes data more normally distributed.
 
-How big value is comprared to 
+- However, recent benchmark studies highlight some limitations in differential abundance (DA) analysis:
+  - Can lack sensitivity
+  - May produce paradoxical results in low-diversity microbiomes
+- CLR values are harder to interpret than relative abundances because each value is dependent on the other features in the sample
 
-CLR has been the standard. However, there has become many benchmark papers lately.
-They show that compositional transformations in DA can:
-
-- Lack sensitivity
-- Can create paradoxical results in low-diversity microbiome
+Despite this, CLR remains a standard, especially for methods that assume Euclidean space.
 
 :::
 

@@ -1033,7 +1033,7 @@
     "href": "index.html#topics",
     "title": "Quarto presentations",
     "section": "Topics",
-    "text": "Topics\n\nIntro\n\nBioconductor\nReproducible reporting\nData containers\nImport data\n\nPreprocessing\n\nAgglomeration\nTransformation\n\nDiversity\n\nAlpha diversity\nBeta diversity\n\nOrdination\n\n\nAssociation\n\nDifferential abundance analysis\n\nMulti-omics\n\nMulti-omics\n\nMachine learning\n\nMachine learning\n\n\n\nPackages\n\nMGnifyR: An R package for accessing MGnify microbiome data\nmiaDash: Microbiome Analysis Dashboard\n\n\n\nData sets\n\nHintikkaXO\nTengeler2020\n\n\n\nConference and seminar presentations\n\nOrchestrating microbiome multi-omics (BioC2023)\nOrchestrating Microbiome Analysis with Bioconductor (OH-BOOST, Microbiota Data Analysis and Statistics, webinar)\nOrchestrating Microbiome Analysis with Bioconductor (GBCC2025)\nOrchestrating Microbiome Analysis with Bioconductor (ISMB/ECCB 2025)\n\n\n\nCourses\n\nIntro\nBrain, bacteria, and behaviour summer course"
+    "text": "Topics\n\nIntro\n\nBioconductor\nReproducible reporting\nData containers\nImport data\n\nPreprocessing\n\nAgglomeration\nTransformation\n\nDiversity\n\nAlpha diversity\nBeta diversity\n\nOrdination\n\n\nAssociation\n\nDifferential abundance analysis\nFunctional analysis\n\nMulti-omics\n\nMulti-omics\n\nMachine learning\n\nMachine learning\n\n\n\nPackages\n\nMGnifyR: An R package for accessing MGnify microbiome data\nmiaDash: Microbiome Analysis Dashboard\nmiaSim: Microbiome simulation\n\n\n\nData sets\n\nHintikkaXO\nTengeler2020\n\n\n\nConference and seminar presentations\n\nOrchestrating microbiome multi-omics (BioC2023)\nOrchestrating Microbiome Analysis with Bioconductor (OH-BOOST, Microbiota Data Analysis and Statistics, webinar)\nOrchestrating Microbiome Analysis with Bioconductor (GBCC2025)\nOrchestrating Microbiome Analysis with Bioconductor (ISMB/ECCB 2025)\n\n\n\nCourses\n\nIntro\nBrain, bacteria, and behaviour summer course"
   },
   {
     "objectID": "index.html#contributions",
@@ -1747,14 +1747,14 @@
     "href": "transformation.html#microbiome-data",
     "title": "Transformation",
     "section": "Microbiome data",
-    "text": "Microbiome data\n\nHigh variability - feature abundances vary widely across samples\nZero-inflation - many taxa absent in most samples\nCompositionality - only relative abundances observed; total counts per sample are arbitrary\n\n\n\nBiological signal can be masked by rare or absent taxa.\nSequencing depth differs between samples → compositional constraints."
+    "text": "Microbiome data\n\nHigh variability — feature abundances vary widely across samples\nZero-inflation — many taxa absent in most samples\nCompositionality — only relative abundances observed; total counts per sample are arbitrary\n\n\n\nHigh variability → heteroscedasticity: the variance increases more than the mean. Abundant taxa have lots of variability.\nZero-inflation → many features are absent in most samples, which complicates statistical modelling and increases sparsity of the data matrix.\nCompositionality → sequencing depth differs between samples; only ratios of features within a sample are meaningful, absolute counts are not."
   },
   {
     "objectID": "transformation.html#compositionality",
     "href": "transformation.html#compositionality",
     "title": "Transformation",
     "section": "Compositionality",
-    "text": "Compositionality\n\nCounts or abundances sum to a constant per sample\nNumbers are dependent: if one increases, at least one must decrease\nThis is called a sum constraint\n\n\nRelative abundances (percentages) are compositional\nStandard statistics like correlation or PCA can be misleading without transformation"
+    "text": "Compositionality\n\nNumbers are dependent: if one increases, at least one must decrease\nSimplex space\n\nIf we know N-1 values, we know the last one\nConstraint: all values positive and sum to a constant (often 1)\n\n\n\nStandard statistics require that values are in Euclidean space.\nCompositional data live in the simplex (compositional space), not Euclidean space (where subtractions, distances and variances make sense).\nResults can be misleading without transformation."
   },
   {
     "objectID": "transformation.html#section",
@@ -1775,7 +1775,7 @@
     "href": "transformation.html#relative-abundance",
     "title": "Transformation",
     "section": "Relative abundance",
-    "text": "Relative abundance\n\\[\n\\text{X}_{ij} = \\frac{\\text{Count}_{ij}}{\\sum_{k=1}^m \\text{Count}_{ik}}\n\\]\nwhere\n\n\\(i\\) indexes the sample,\n\\(j\\) indexes the taxon,\n\\(m\\) is the total number of taxa.\n\n\n\nConverts raw counts into proportions per sample\nUseful for visualizations and comparing samples"
+    "text": "Relative abundance\n\\[\n\\text{X}_{ij} = \\frac{\\text{Count}_{ij}}{\\sum_{k=1}^m \\text{Count}_{ik}}\n\\]\nwhere\n\n\\(i\\) indexes the sample,\n\\(j\\) indexes the taxon,\n\\(m\\) is the total number of taxa.\n\n\n\nLibrary sizes differ between samples (sequencing depth varies), so raw counts are not directly comparable.\nRelative abundance converts counts to proportions within each sample, making samples comparable.\nIntuition: a relative abundance of 0.2 means “this taxon makes up 20% of this sample,” independent of total reads."
   },
   {
     "objectID": "transformation.html#log-transformed-relative-abundance",
@@ -1796,21 +1796,21 @@
     "href": "transformation.html#centered-log-ratio-clr",
     "title": "Transformation",
     "section": "Centered log-ratio (CLR)",
-    "text": "Centered log-ratio (CLR)\n\\[\n\\text{CLR}(x_i) = \\log\\left(\\frac{x_i}{g(x)}\\right),\\quad\ng(x) = \\left(\\prod_{j=1}^{D} x_j \\right)^{1/D}\n\\]\n\n( x_i ): the i-th component of the composition\n\n( g(x) ): geometric mean of the composition\n\n\n\nRelative abundances normalize counts but remain compositional –&gt; correlation and PCA can be misleading.\nLog-transform mitigates skewness.\nCLR removes compositional constraints and is commonly used for multivariate analyses."
+    "text": "Centered log-ratio (CLR)\n\\[\n\\text{CLR}(x_i) = \\log\\left(\\frac{x_i}{g(x)}\\right),\\quad\ng(x) = \\left(\\prod_{j=1}^{D} x_j \\right)^{1/D}\n\\]\n\n( x_i ): the i-th component of the composition\n\n( g(x) ): geometric mean of the composition\n\n\n\nCLR removes compositional constraints and maps data from the simplex to Euclidean space.\n\n\nStandard statistical tests assume Euclidean space, where subtraction and distances make sense.\nSubtraction does not make sense on raw compositional data because only ratios between components carry information. –&gt; How to convert ratios into subtraction? –&gt; Using log-scale\nTaking the log converts ratios into differences: log⁡(x/y)=log⁡(x)−log⁡(y) so subtraction now has a meaningful interpretation.\nThe log-values still have an arbitrary baseline, so we center them around zero by subtracting the arithmetic mean of the logs, which is equivalent to dividing each component by the geometric mean of the original composition:\nThe result is a vector in Euclidean space with sum zero, suitable for standard analyses."
   },
   {
     "objectID": "transformation.html#section-3",
     "href": "transformation.html#section-3",
     "title": "Transformation",
     "section": "",
-    "text": "\\[\n\\text{Arithmetic mean} = \\frac{2 + 8 + 32}{3} = \\frac{42}{3} = 14\n\\]\n\\[\n\\text{Geometric mean} = \\sqrt[3]{2 \\cdot 8 \\cdot 32} = \\sqrt[3]{512} = 8\n\\]\n\nArithmetic mean: additive center –&gt; still ties the components together\nGeometric mean: multiplicative center –&gt; captures ratios between components\nCLR measures how many times bigger or smaller each component is compared to the typical size, freeing them from the sum constraint\nRatios remove constrains: each component is expressed as a ratio to the “typical size” of the composition.\nRaw proportions: one goes up → others must go down proportionally (sum = 1)\nCLR ratios: each one measures its abundance relative to the average abundance → one side can go up without forcing others to go down"
+    "text": "\\[\n\\text{Arithmetic mean} = \\frac{2 + 8 + 32}{3} = \\frac{42}{3} = 14\n\\]\n\\[\n\\text{Geometric mean} = \\sqrt[3]{2 \\cdot 8 \\cdot 32} \\\\[2mm]\n= \\exp\\Bigg( \\frac{\\log 2 + \\log 8 + \\log 32}{3} \\Bigg) \\\\[2mm]\n= \\exp\\Bigg( \\frac{\\log 2 + \\log 2^3 + \\log 2^5}{3} \\Bigg) \\\\[2mm]\n= \\exp(3 \\log 2) \\\\[1mm]\n= 8\n\\]\n\nThere is nothing inherently special about the geometric mean — it is just the arithmetic mean in log-space, which is the space we are currently working in.\nDividing each value by the geometric mean is equivalent to subtracting the arithmetic mean of the logs.\nThis centers the data around zero in log-ratio space, making differences between components meaningful for standard statistical analyses."
   },
   {
     "objectID": "transformation.html#section-4",
     "href": "transformation.html#section-4",
     "title": "Transformation",
     "section": "",
-    "text": "Removes compositional constraints (constant sum)\nValues centered around zero, symmetric\nAllows standard statistical tools (PCA, correlations)\nDebate on whether it is necessary in DA\n\n\n\nRelative abundances normalize counts but remain compositional correlation and PCA can be misleading.\nLog-transform mitigates skewness.\nCLR removes compositional constraints and is commonly used for multivariate analyses.\n\nHow big value is comprared to\nCLR has been the standard. However, there has become many benchmark papers lately. They show that compositional transformations in DA can:\n\nLack sensitivity\nCan create paradoxical results in low-diversity microbiome"
+    "text": "Centering means that we subtract mean from each value to get the distribution centered to 0. Because we use log-scale, we have to use suitable mean (geometric mean aka arithmetic mean in log-scale)."
   },
   {
     "objectID": "transformation.html#section-5",
@@ -1839,5 +1839,215 @@
     "title": "Transformation",
     "section": "References",
     "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
+  },
+  {
+    "objectID": "functional_analysis.html#microbiome-data-simulation-with-miasim",
+    "href": "functional_analysis.html#microbiome-data-simulation-with-miasim",
+    "title": "Functional analysis",
+    "section": "Microbiome data simulation with miaSim",
+    "text": "Microbiome data simulation with miaSim\n\nR/Bioconductor package for simulating microbial community dynamics\nBased on common ecological models used in microbiome research\nmiaSimShiny: Graphical user interface"
+  },
+  {
+    "objectID": "functional_analysis.html#implemented-models",
+    "href": "functional_analysis.html#implemented-models",
+    "title": "Functional analysis",
+    "section": "Implemented models",
+    "text": "Implemented models\n\nSelf-organised instability (SOI)\nHubbell’s neutral model\nGeneralized Lotka–Volterra (gLV)\nRicker model (discrete gLV)\nStochastic logistic model\nConsumer–resource model"
+  },
+  {
+    "objectID": "functional_analysis.html#stochastic-logistic-model",
+    "href": "functional_analysis.html#stochastic-logistic-model",
+    "title": "Functional analysis",
+    "section": "Stochastic logistic model",
+    "text": "Stochastic logistic model\n\\[\n\\frac{dN}{dt} = r N \\left(1 - \\frac{N}{K}\\right) + \\sigma N \\, \\eta(t)\n\\]\n\n(N): population size\n\n(r): intrinsic growth rate\n\n(K): carrying capacity\n\n(): noise strength\n\n((t)): random fluctuation (white noise)"
+  },
+  {
+    "objectID": "functional_analysis.html#what-does-it-do",
+    "href": "functional_analysis.html#what-does-it-do",
+    "title": "Functional analysis",
+    "section": "What does it do?",
+    "text": "What does it do?\n\nModels growth of a single microbial species under resource limitation\nCaptures both deterministic dynamics (logistic growth) and stochastic fluctuations\nProvides a baseline for comparison with more complex community models"
+  },
+  {
+    "objectID": "functional_analysis.html#where-can-it-be-used",
+    "href": "functional_analysis.html#where-can-it-be-used",
+    "title": "Functional analysis",
+    "section": "Where can it be used?",
+    "text": "Where can it be used?\n\nToy model for microbial population dynamics\nStudying effects of random perturbations (e.g., host environment variability)\nBenchmark for testing statistical methods before applying to multi-species systems"
+  },
+  {
+    "objectID": "functional_analysis.html#learn-more",
+    "href": "functional_analysis.html#learn-more",
+    "title": "Functional analysis",
+    "section": "Learn more",
+    "text": "Learn more\n\n\n\n\n\n\n\n\n\n\n\nmiaSim package vignette tutorials, examples, and model descriptions\n\n\n\n\n\n\n\n\n\n\n(Gao et al. 2023) Methods in Ecology and Evolution (reference publication for the package and models)"
+  },
+  {
+    "objectID": "functional_analysis.html#references",
+    "href": "functional_analysis.html#references",
+    "title": "Functional analysis",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
+  },
+  {
+    "objectID": "miasim.html#microbiome-data-simulation-with-miasim",
+    "href": "miasim.html#microbiome-data-simulation-with-miasim",
+    "title": "miaSim",
+    "section": "Microbiome data simulation with miaSim",
+    "text": "Microbiome data simulation with miaSim\n\nR/Bioconductor package for simulating microbial community dynamics\nCommon ecological models\nmiaSimShiny: Graphical user interface\n\n\nCommon ecological models used in microbiome research"
+  },
+  {
+    "objectID": "miasim.html#implemented-models",
+    "href": "miasim.html#implemented-models",
+    "title": "miaSim",
+    "section": "Implemented models",
+    "text": "Implemented models\n\nSelf-organised instability (SOI)\nHubbell’s neutral model\nGeneralized Lotka–Volterra (gLV)\nRicker model (discrete gLV)\nStochastic logistic model\nConsumer–resource model"
+  },
+  {
+    "objectID": "miasim.html#stochastic-logistic-model",
+    "href": "miasim.html#stochastic-logistic-model",
+    "title": "miaSim",
+    "section": "Stochastic logistic model",
+    "text": "Stochastic logistic model\n\\[\n\\frac{dN}{dt} = r N \\left(1 - \\frac{N}{K}\\right) + \\sigma N \\, \\eta(t)\n\\]\n\n\\(N\\): population size\n\n\\(r\\): intrinsic growth rate\n\n\\(K\\): carrying capacity\n\n\\(\\sigma\\): noise strength\n\n\\(\\eta(t)\\): random fluctuation (white noise)"
+  },
+  {
+    "objectID": "miasim.html#what-does-it-do",
+    "href": "miasim.html#what-does-it-do",
+    "title": "miaSim",
+    "section": "What does it do?",
+    "text": "What does it do?\n\nModels growth of a single microbial species under resource limitation\nCaptures both deterministic dynamics (logistic growth) and stochastic fluctuations\nProvides a baseline for comparison with more complex community models"
+  },
+  {
+    "objectID": "miasim.html#where-can-it-be-used",
+    "href": "miasim.html#where-can-it-be-used",
+    "title": "miaSim",
+    "section": "Where can it be used?",
+    "text": "Where can it be used?\n\nToy model for microbial population dynamics\nStudying effects of random perturbations (e.g., host environment variability)\nBenchmark for testing statistical methods before applying to multi-species systems"
+  },
+  {
+    "objectID": "miasim.html#learn-more",
+    "href": "miasim.html#learn-more",
+    "title": "miaSim",
+    "section": "Learn more",
+    "text": "Learn more\n\n\n\n\n\n\n\n\n\n\n\nmiaSim package vignette (tutorials, examples, and model descriptions)\n\n\n\n\n\n\n\n\n\n\n(Gao et al. 2023) (publication)"
+  },
+  {
+    "objectID": "miasim.html#references",
+    "href": "miasim.html#references",
+    "title": "miaSim",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nGao, Yu, Yağmur Şimşek, Emma Gheysen, Tuomas Borman, Yi Li, Leo Lahti, Karoline Faust, and Daniel Rios Garza. 2023. “miaSim: An R/Bioconductor Package to Easily Simulate Microbial Community Dynamics.” Methods in Ecology and Evolution 14 (8): 1967–80. https://doi.org/10.1111/2041-210x.14129."
+  },
+  {
+    "objectID": "transformation.html#heteroscedasticity",
+    "href": "transformation.html#heteroscedasticity",
+    "title": "Transformation",
+    "section": "Heteroscedasticity",
+    "text": "Heteroscedasticity\n\n\nThe variance increases when abundance increases"
+  },
+  {
+    "objectID": "transformation.html#zero-inflation",
+    "href": "transformation.html#zero-inflation",
+    "title": "Transformation",
+    "section": "Zero-inflation",
+    "text": "Zero-inflation\n\n\nReal microbiome data. Lots of zeroes."
+  },
+  {
+    "objectID": "transformation.html#interpretation",
+    "href": "transformation.html#interpretation",
+    "title": "Transformation",
+    "section": "Interpretation:",
+    "text": "Interpretation:\n\nPositive CLR → feature is more abundant than the sample’s average\nNegative CLR → feature is less abundant than the sample’s average\nMagnitude → how strongly the feature deviates from the average\n\nOn a log scale: CLR = 1 → ~2.7× average\nCLR = 2 → ~7.4× average\nCLR = −1 → ~0.37× average\n\n\n\n\nCLR values show how each feature compares to the sample’s geometric mean.\nPositive = enriched, Negative = depleted.\nMagnitude gives a fold-change interpretation on a log scale."
+  },
+  {
+    "objectID": "transformation.html#section-6",
+    "href": "transformation.html#section-6",
+    "title": "Transformation",
+    "section": "",
+    "text": "Makes the data more normally distributed. Distributed around zero. Without constrains (goes from negative infinity to positive)"
+  },
+  {
+    "objectID": "transformation.html#clr",
+    "href": "transformation.html#clr",
+    "title": "Transformation",
+    "section": "CLR",
+    "text": "CLR\n\\[\n\\text{CLR}(x_i) \\;=\\; \\log\\left(\\frac{x_i}{g(x)} \\\\[2mm]\n= log(x_i) - log(g(x)) \\\\[2mm]\n=  \\log(x_i) \\;-\\; \\frac{1}{D}\\sum_{j=1}^{D}\\log(x_j))\n\\]"
+  },
+  {
+    "objectID": "transformation.html#clr-1",
+    "href": "transformation.html#clr-1",
+    "title": "Transformation",
+    "section": "CLR",
+    "text": "CLR\n\nRemoves compositional constraints (constant sum)\nValues centered around zero, symmetric\nAllows standard statistical tools (PCA, correlations)\nDebate on whether it is necessary in DA\n\n\n\nCLR is widely used in microbiome data analysis because it removes compositional constraints and often makes data more normally distributed.\nHowever, recent benchmark studies highlight some limitations in differential abundance (DA) analysis:\n\nCan lack sensitivity\nMay produce paradoxical results in low-diversity microbiomes\n\nCLR values are harder to interpret than relative abundances because each value is dependent on the other features in the sample\n\nDespite this, CLR remains a standard, especially for methods that assume Euclidean space."
+  },
+  {
+    "objectID": "transformation.html#centered-log-ratio-clr-1",
+    "href": "transformation.html#centered-log-ratio-clr-1",
+    "title": "Transformation",
+    "section": "Centered log-ratio (CLR)",
+    "text": "Centered log-ratio (CLR)\n\\[\n\\text{CLR}(x_i) \\;=\\; \\log\\left(\\frac{x_i}{g(x)}\\right) \\\\[2mm]\n= \\log(x_i) - \\log(g(x)) \\\\[2mm]\n= \\log(x_i) - \\frac{1}{D}\\sum_{j=1}^{D}\\log(x_j)\n\\]\n\n\nTake a logarithm of the values –&gt; ratios become subtraction which is what we want in Euclidean space\nCenter values to mean 0"
+  },
+  {
+    "objectID": "transformation.html#centered-log-ratio-clr-2",
+    "href": "transformation.html#centered-log-ratio-clr-2",
+    "title": "Transformation",
+    "section": "Centered log-ratio (CLR)",
+    "text": "Centered log-ratio (CLR)\n\nRemoves compositional constraints (constant sum)\nValues centered around zero, symmetric\nAllows standard statistical tools (PCA, correlations)\nDebate on whether it is necessary in DA\n\n\n\nCLR is widely used in microbiome data analysis because it removes compositional constraints and often makes data more normally distributed.\nHowever, recent benchmark studies highlight some limitations in differential abundance (DA) analysis:\n\nCan lack sensitivity\nMay produce paradoxical results in low-diversity microbiomes\n\nCLR values are harder to interpret than relative abundances because each value is dependent on the other features in the sample\n\nDespite this, CLR remains a standard, especially for methods that assume Euclidean space."
+  },
+  {
+    "objectID": "miasim.html#logistic-growth-deterministic",
+    "href": "miasim.html#logistic-growth-deterministic",
+    "title": "miaSim",
+    "section": "Logistic growth (deterministic)",
+    "text": "Logistic growth (deterministic)\n\n\n\\[\n\\frac{dN}{dt} = rN\\!\\left(1 - \\frac{N}{K}\\right)\n\\]\n\n\\(N\\): population size\n\\(r\\): intrinsic growth rate\n\\(K\\): carrying capacity\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nClassic S-shaped growth; growth slows as (N K). Simple, interpretable, widely known.\n\n(r): speed to grow when rare\n\n(K): long-term typical size (without noise)\n\nHigher (r) → faster approach to (K)."
+  },
+  {
+    "objectID": "miasim.html#add-randomness-stochastic-logistic-model",
+    "href": "miasim.html#add-randomness-stochastic-logistic-model",
+    "title": "miaSim",
+    "section": "Add randomness → Stochastic logistic model",
+    "text": "Add randomness → Stochastic logistic model\n\n\n\\[\n\\frac{dN}{dt} = rN\\!\\left(1 - \\frac{N}{K}\\right) + \\sigma N\\,\\eta(t)\n\\]\n\n\\(\\sigma\\): noise strength\n\\(\\eta(t)\\): random fluctuation (white noise)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJust one extra component: multiplicative noise. Captures environmental/host variability or demographic stochasticity. Population fluctuates around (K) rather than following a perfect curve.\n\n(): strength of fluctuations around (K) Higher () → larger variance around (K); occasional dips/spikes."
+  },
+  {
+    "objectID": "miasim.html#stochastic-logistic-model-1",
+    "href": "miasim.html#stochastic-logistic-model-1",
+    "title": "miaSim",
+    "section": "Stochastic logistic model",
+    "text": "Stochastic logistic model\n\nSingle-species microbial dynamics under resource limits\nEffects of random perturbations (e.g., host variability)\nBenchmark for statistical methods before multi-species models\n\n\nCan be used to model single-species dynamics, effects of random perturbations and as a most simple model.\nSimple model. No interactions between microbes.\nEach species can be simulated separately with its own parameters, independently.\nProvides a baseline for comparison with more complex community models."
+  },
+  {
+    "objectID": "functional_analysis.html#metagenomics",
+    "href": "functional_analysis.html#metagenomics",
+    "title": "Functional analysis",
+    "section": "Metagenomics",
+    "text": "Metagenomics\n\nReveals functional potential of a community, beyond taxonomy\nRedundant genes → functional stability\nFunctional compensation: missing species can be replaced by others\n\n\nMetagenomics tells us what microbes can do, not just who is there. Useful for understanding resilience and redundancy in microbiomes.\nFunctions/genes can be more interesting sometimes as microbial functions matter, not which bacteria causes the effect (for instance, in disease)\nEven though one microbe goes away, another taxa can take its “job” in the ecosystem.\nTo explore what microbes are actually doing, we need more metabolomics data for instance."
+  },
+  {
+    "objectID": "functional_analysis.html#metagenomic-data",
+    "href": "functional_analysis.html#metagenomic-data",
+    "title": "Functional analysis",
+    "section": "Metagenomic data",
+    "text": "Metagenomic data\n\nTaxonomic profiles: species, genera, etc.\nFunctional profiles: genes, pathways, metabolic modules\nLinkage: which taxa contribute to which functions\n\n\nFunctional profiles can be derived using tools like HUMAnN. They often complement or outperform taxonomic profiles for certain analyses.\nThe data includes: - what bacteria are present - what genes are present - which bacteria includes the genes"
+  },
+  {
+    "objectID": "functional_analysis.html#analysis-approaches",
+    "href": "functional_analysis.html#analysis-approaches",
+    "title": "Functional analysis",
+    "section": "Analysis approaches",
+    "text": "Analysis approaches\n\nAnalyze functional data using the same methods as taxonomy\nIntegration enables multi-omics perspective\nDo functional shifts mirror taxonomic shifts?\n\n\ne.g. MaAsLin, dbRDA, PERMANOVA, ordination can be used\nExample: Run dbRDA or PERMANOVA on functional data and compare to taxonomy. Highlights cases where functions remain stable despite taxonomic changes, or vice versa."
+  },
+  {
+    "objectID": "transformation.html",
+    "href": "transformation.html",
+    "title": "Transformation",
+    "section": "",
+    "text": "High variability — feature abundances vary widely across samples\nZero-inflation — many taxa absent in most samples\nCompositionality — only relative abundances observed; total counts per sample are arbitrary\n\n\n\nHigh variability → heteroscedasticity: the variance increases more than the mean. Abundant taxa have lots of variability.\nZero-inflation → many features are absent in most samples, which complicates statistical modelling and increases sparsity of the data matrix.\nCompositionality → sequencing depth differs between samples; only ratios of features within a sample are meaningful, absolute counts are not."
+  },
+  {
+    "objectID": "transformation.html#section-1",
+    "href": "transformation.html#section-1",
+    "title": "Transformation",
+    "section": "",
+    "text": "library(webshot2)\n\n\nAttaching package: 'webshot2'\n\n\nThe following object is masked from 'package:SummarizedExperiment':\n\n    resize\n\n\nThe following object is masked from 'package:GenomicRanges':\n\n    resize\n\n\nThe following object is masked from 'package:IRanges':\n\n    resize\n\nlibrary(magick)\n\nLinking to ImageMagick 6.9.12.98\nEnabled features: fontconfig, freetype, fftw, heic, lcms, pango, raw, webp, x11\nDisabled features: cairo, ghostscript, rsvg\n\n\nUsing 22 threads\n\n# Take the screenshot and save to a temporary file\ntmpfile &lt;- tempfile(fileext = \".png\")\n\ntemp &lt;- webshot(\n    url = \"https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2017.02224/full\",\n    file = tmpfile,\n    cliprect = c(0, 480, 1100, 520)\n)\n\nhttps://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2017.02224/full screenshot completed\n\ntemp"
   }
 ]

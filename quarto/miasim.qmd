@@ -1,0 +1,218 @@
+---
+title: "miaSim"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+bibliography: references.bib
+---
+
+
+## Microbiome data simulation with **miaSim**
+
+- R/Bioconductor package for simulating microbial community dynamics
+- Common ecological models
+- [miaSimShiny](https://gaoyu.shinyapps.io/shiny_rep/): Graphical user interface
+
+::: {.notes}
+
+Common ecological models used in microbiome research
+
+:::
+
+## Implemented models
+
+- Self-organised instability (SOI)
+- Hubbell’s neutral model
+- Generalized Lotka–Volterra (gLV)
+- Ricker model (discrete gLV)
+- Stochastic logistic model
+- Consumer–resource model
+
+::: {.notes}
+
+:::
+
+## Stochastic logistic model
+
+$$
+\frac{dN}{dt} = r N \left(1 - \frac{N}{K}\right) + \sigma N \, \eta(t)
+$$
+
+- $N$: population size  
+- $r$: intrinsic growth rate  
+- $K$: carrying capacity  
+- $\sigma$: noise strength  
+- $\eta(t)$: random fluctuation (white noise)
+
+::: {.notes}
+
+:::
+
+## Logistic growth (deterministic) {.smaller}
+
+::: rows
+::: {.row heigth="50%"}
+$$
+\frac{dN}{dt} = rN\!\left(1 - \frac{N}{K}\right)
+$$
+
+- $N$: population size
+- $r$: intrinsic growth rate
+- $K$: carrying capacity
+
+:::
+
+::: {.row heigth="50%"}
+
+```{r}
+#| label: logistic_model
+#| fig-height: 4
+
+library(ggplot2)
+
+# Deterministic logistic growth
+r <- 0.5
+K <- 100
+t <- 0:50
+N <- K / (1 + ((K - 10)/10) * exp(-r * t))  # analytical solution
+df <- data.frame(Time = t, Abundance = N)
+
+ggplot(df, aes(x = Time, y = Abundance)) +
+    geom_line(size = 1.2, color = "steelblue") +
+    labs(x = "Time", y = "Population size") +
+    theme_minimal()
+```
+
+:::
+:::
+
+::: {.notes}
+Classic S-shaped growth; growth slows as \(N \to K\).
+Simple, interpretable, widely known.
+
+- \(r\): speed to grow when rare  
+- \(K\): long-term typical size (without noise)
+
+Higher \(r\) → faster approach to \(K\).
+:::
+
+
+## Add randomness → Stochastic logistic model {.smaller}
+
+::: rows
+::: {.row heigth="50%"}
+$$
+\frac{dN}{dt} = rN\!\left(1 - \frac{N}{K}\right) + \sigma N\,\eta(t)
+$$
+
+- $\sigma$: noise strength
+- $\eta(t)$: random fluctuation (white noise)
+
+:::
+
+::: {.row heigth="50%"}
+
+```{r}
+#| label: stochastic_logistic_model
+#| fig-height: 4
+
+library(ggplot2)
+
+set.seed(123)
+
+# Parameters
+r <- 0.5
+K <- 100
+sigma <- 0.2
+t_max <- 50
+x <- numeric(t_max)
+x[1] <- 10
+
+# Simulate stochastic logistic growth
+for(t in 2:t_max){
+    eta <- runif(1, 0, 1)  # random multiplier
+    x[t] <- x[t-1] + r*x[t-1]*(1 - x[t-1]/K) + sigma*x[t-1]*eta
+    x[t] <- max(x[t], 0)
+}
+
+df <- data.frame(Time = 1:t_max, Abundance = x)
+
+ggplot(df, aes(x = Time, y = Abundance)) +
+    geom_line(size = 1.2, color = "darkorange") +
+    labs(x = "Time", y = "Population size") +
+    theme_minimal()
+```
+
+:::
+:::
+
+::: {.notes}
+Just one extra component: multiplicative noise.
+Captures environmental/host variability or demographic stochasticity.
+Population fluctuates around \(K\) rather than following a perfect curve.
+
+- \(\sigma\): strength of fluctuations around \(K\)
+Higher \(\sigma\) → larger variance around \(K\); occasional dips/spikes.
+:::
+
+## Stochastic logistic model
+
+- Single-species microbial dynamics under resource limits
+- Effects of random perturbations (e.g., host variability)
+- Benchmark for statistical methods before multi-species models
+
+::: {.notes}
+
+Can be used to model single-species dynamics, effects of random perturbations and as a most simple model.
+
+Simple model. No interactions between microbes.
+
+Each species can be simulated separately with its own parameters, independently.
+
+Provides a baseline for comparison with more complex community models.
+:::
+
+## Learn more
+
+::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+#| label: qrcode-vignette
+#| fig-align: center
+#| echo: false
+
+library(qrcode)
+qr_code("https://microbiome.github.io/miaSim/articles/miaSim.html") |> plot()
+```
+
+[miaSim package vignette](https://microbiome.github.io/miaSim/articles/miaSim.html) (tutorials, examples, and model descriptions)
+
+:::
+
+::: {.column width="50%"}
+
+```{r}
+#| label: qrcode-article
+#| fig-align: center
+#| echo: false
+
+library(qrcode)
+qr_code("https://besjournals.onlinelibrary.wiley.com/doi/10.1111/2041-210X.14129") |> plot()
+```
+
+[@gao2023] (publication)
+
+:::
+
+:::
+
+::: {.notes}
+
+:::
+
+## References
