@@ -70,7 +70,7 @@ $$
 
 ```{r}
 #| label: logistic_model
-#| fig-height: 4
+#| fig-height: 3
 
 library(ggplot2)
 
@@ -118,7 +118,7 @@ $$
 
 ```{r}
 #| label: stochastic_logistic_model
-#| fig-height: 4
+#| fig-height: 3
 
 library(ggplot2)
 
