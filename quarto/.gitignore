@@ -2,5 +2,6 @@
 *cache
 *~
 /.quarto/
-.html
 site_libs
+*.html
+*.rmarkdown
