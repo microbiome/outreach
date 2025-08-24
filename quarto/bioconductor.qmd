@@ -11,6 +11,8 @@ title-slide-attributes:
   data-background-image: images/bioconductor_logo_rgb.jpg
   data-background-size: 10%
   data-background-position: 2% 2%
+date: last-modified
+date-format: full
 bibliography: references.bib
 ---
 

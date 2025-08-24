@@ -9,7 +9,7 @@ This website hosts quarto presentations about microbiome analysis and data integ
 
 ## Topics
 
-- Intro
+- Introduction
     - [Bioconductor](https://microbiome.github.io/outreach/bioconductor.html){target="_blank"}
     - [Reproducible reporting](https://microbiome.github.io/outreach/reproducible_reporting.html){target="_blank"}
     - [Data containers](https://microbiome.github.io/outreach/data_containers.html){target="_blank"}
@@ -49,7 +49,8 @@ This website hosts quarto presentations about microbiome analysis and data integ
 
 ### Courses
 
-- Intro
+- [Introduction](https://microbiome.github.io/outreach/intro.html){target="_blank"}
+- [Outro](https://microbiome.github.io/outreach/outro.html){target="_blank"}
 - [Brain, bacteria, and behaviour summer course](https://microbiome.github.io/outreach/brain_bacteria_behavior.html){target="_blank"}
 
 ## Contributions

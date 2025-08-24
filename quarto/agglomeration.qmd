@@ -7,6 +7,8 @@ format:
     preview-links: auto
     logo: images/mia_logo.png
     footer: <https://microbiome.github.io/>
+date: last-modified
+date-format: full
 bibliography: references.bib
 ---
 

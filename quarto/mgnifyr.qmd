@@ -1,58 +1,55 @@
 ---
 title: "MGnifyR: An R package for accessing MGnify microbiome data"
 format: revealjs
-editor: visual
 ---
 
 ## Contents
 
-1. Introduction to MGnify
-2. Overview of `MGnifyR`
-3. Bioconductor and `MGnifyR`
+1.  Introduction to MGnify
+2.  Overview of `MGnifyR`
+3.  Bioconductor and `MGnifyR`
 
 ## MGnify
 
-- [Microbiome database hosted by EMBL/EBI](https://www.ebi.ac.uk/metagenomics)
-- Raw sequences from [ENA](https://www.ebi.ac.uk/ena/browser/home)
-- Standardized bioinformatics pipelines
+-   [Microbiome database hosted by EMBL/EBI](https://www.ebi.ac.uk/metagenomics)
+-   Raw sequences from [ENA](https://www.ebi.ac.uk/ena/browser/home)
+-   Standardized bioinformatics pipelines
 
-![](images/mgnify_logo.png){width="250" style="margin-right: 30px;"}
-![](images/ENA-logo.png){width="250"}
+![](images/mgnify_logo.png){width="250" style="margin-right: 30px;"} ![](images/ENA-logo.png){width="250"}
 
 ## Data availability
 
-- Open access
-- Taxonomy and functional mappings along with genome catalogues
-- Application Programming Interface (API)
+-   Open access
+-   Taxonomy and functional mappings along with genome catalogues
+-   Application Programming Interface (API)
 
 ## Challenges in API
 
-- Requires familiarity with API workflows, database structures, and linkages.
-- Leads to challenges in reproducibility and time-consuming data wrangling.
+-   Requires familiarity with API workflows, database structures, and linkages.
+-   Leads to challenges in reproducibility and time-consuming data wrangling.
 
 ## MGnifyR
 
-- R/Bioconductor package
-- Streamlines access to MGnify database
-- Bridges the gap between data resources and tools
+-   R/Bioconductor package
+-   Streamlines access to MGnify database
+-   Bridges the gap between data resources and tools
 
 ![](images/mgnifyr_logo.png){width="100"}
 
 ## Functions
 
-- `MgnifyClient()`: Constructor for `MgnifyClient` object.
-- `doQuery()`: Search MGnify database for studies, samples, runs, analyses, biomes, assemblies, and genomes.
-- `searchAnalysis()`: Look up analysis accession IDs for one or more study or sample accessions.
-- `getMetadata()`: Get all study, sample and analysis metadata for the supplied analysis accessions.
-- `getResult()`: Get microbial and/or functional profiling data for a list of accessions.
-- `getData()`: Versatile function to retrieve raw results.
-- `getFile()` & `searchFile()`: Download any MGnify files, also including processed reads and identified protein sequences.
+-   `MgnifyClient()`: Constructor for `MgnifyClient` object.
+-   `doQuery()`: Search MGnify database for studies, samples, runs, analyses, biomes, assemblies, and genomes.
+-   `searchAnalysis()`: Look up analysis accession IDs for one or more study or sample accessions.
+-   `getMetadata()`: Get all study, sample and analysis metadata for the supplied analysis accessions.
+-   `getResult()`: Get microbial and/or functional profiling data for a list of accessions.
+-   `getData()`: Versatile function to retrieve raw results.
+-   `getFile()` & `searchFile()`: Download any MGnify files, also including processed reads and identified protein sequences.
 
 ## Bioconductor and MGnifyR
 
-- Microbial and functional profiling data is retrieved as [`TreeSE`/`MAE`](https://microbiome.github.io/OMA/docs/devel/pages/containers.html) format.
-- Common data format supported broadly by Bioconductor.
-- Enables direct access to cutting-edge tools (e.g. _miaverse_).
+-   Microbial and functional profiling data is retrieved as [`TreeSE`/`MAE`](https://microbiome.github.io/OMA/docs/devel/pages/containers.html) format.
+-   Common data format supported broadly by Bioconductor.
+-   Enables direct access to cutting-edge tools (e.g. *miaverse*).
 
-![](images/BioconductorSticker1.png){width="250"}
-![](images/mia_logo.png){width="250"}
+![](images/BioconductorSticker1.png){width="250"} ![](images/mia_logo.png){width="250"}

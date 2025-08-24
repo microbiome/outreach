@@ -14,6 +14,7 @@ project:
     - functional_analysis.qmd
     - gbcc2025.qmd
     - import.qmd
+    - intro.qmd
     - ismb_eccb2025.qmd
     - machine_learning.qmd
     - mgnifyr.qmd
@@ -22,6 +23,7 @@ project:
     - multi-omics.qmd
     - oh-boost_webinar2024.qmd
     - ordination.qmd
+    - outro.qmd
     - reproducible_reporting.qmd
     - transformation.qmd
 

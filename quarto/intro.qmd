@@ -1,0 +1,92 @@
+---
+title: "Introduction"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+date: last-modified
+date-format: full
+bibliography: references.bib
+---
+
+## Orchestrating Microbiome Analysis with Bioconductor
+
+- Introduces microbiome analysis framework
+- For participants with sufficient programming skills
+
+![](images/mia_logo.png){fig-alt="mia logo." fig-align="right" width=10%}
+
+::: {.notes}
+
+This course introduces mia (microbiome analysis) framework within Bioconductor.
+
+Central to Bioconductor is data containers. TreeSummarizedExperiment data container and methods.
+
+Get to know the participants.
+
+:::
+
+---
+eval: false
+---
+
+## Schedule {visibility="visible"}
+
+**Day 1 &mdash; Monday**: Introduction to Bioconductor & data containers  
+**Day 2 &mdash; Tuesday**: Data wrangling  
+**Day 3 &mdash; Thursday**: Diversity  
+**Day 4 &mdash; Friday**: Differential abundance & advanced topics  
+
+::: {.notes}
+
+Overview of the week
+
+:::
+
+## Practicalities
+
+- Each topic: **short lecture + demonstration**  
+- Majority of time: **hands-on practice**  
+- Materials follow the [OMA online book](https://microbiome.github.io/OMA/docs/devel/)  
+
+::: {.notes}
+Hands-on learning is the focus — you’ll learn best by doing.  
+Feel free to interrupt and ask questions anytime.  
+The OMA book is a lasting resource you can return to.
+
+You should do hands-on with your local computer. Have you installed packages? --> Help is provided when doing first exercises.
+RStudio is recommended along with Quarto/RMarkdown, but plain R files are ok if you are familiar with them.
+:::
+
+## Questions
+
+- What are `r BiocStyle::Biocpkg("mia")` and [OMA](https://microbiome.github.io/OMA/docs/devel/)?
+- How microbiome data science is conducted in `r BiocStyle::Biocpkg("SummarizedExperiment")` ecosystem?
+- What benefits this new ecosystem have compared to previous approaches?
+
+::: {.notes}
+
+These are the questions that you might have at this point. Hopefully, I am able to answer them during the week.
+
+mia is the package family and OMA is the online book and ecosystem.
+
+How this SummarizedExperiment ecosystem is applied to microbiome data science and what benefits it has compared to other approaches, including custom scripts, phyloseq and other data containers.
+
+:::
+
+## Objectives
+
+- **Analyze microbiome data** using the `r BiocStyle::Biocpkg("SummarizedExperiment")` ecosystem  
+- **Create & interpret visualizations**  
+- **Explore documentation & tools** via the [OMA book](https://microbiome.github.io/OMA/docs/devel/)  
+
+::: {.notes}
+
+By the end of the course, you’ll be able to apply SE-based methods, create meaningful plots, and know where to go for further learning.
+
+:::
+
+## References

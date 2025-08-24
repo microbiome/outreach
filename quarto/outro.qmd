@@ -1,0 +1,55 @@
+---
+title: "Outro"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+date: last-modified
+date-format: full
+bibliography: references.bib
+---
+
+## Questions
+
+- What are `r BiocStyle::Biocpkg("mia")` and [OMA](https://microbiome.github.io/OMA/docs/devel/)?
+- How microbiome data science is conducted in `r BiocStyle::Biocpkg("SummarizedExperiment")` ecosystem?
+- What benefits this new ecosystem have compared to previous approaches?
+
+::: {.notes}
+
+Go through the questions
+
+:::
+
+## Objectives
+
+- **Analyze microbiome data** using the `r BiocStyle::Biocpkg("SummarizedExperiment")` ecosystem  
+- **Create & interpret visualizations**  
+- **Explore documentation & tools** via the [OMA book](https://microbiome.github.io/OMA/docs/devel/)  
+
+::: {.notes}
+
+These were the objectives. You think you can now continue with the ecosystem?
+
+:::
+
+## Contact info {.smaller}
+
+- email: tvborm@utu.fi
+- [github.com/microbiome/OMA/discussions](https://github.com/microbiome/OMA/discussions)
+- [community-bioc.zulipchat.com](https://community-bioc.zulipchat.com)
+
+![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo." width=80%}
+
+::: {.notes}
+
+Feel free to reach me and others.
+
+FEEDBACK!
+
+:::
+
+## References
