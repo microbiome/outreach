@@ -35,10 +35,10 @@ eval: false
 
 ## Schedule {visibility="visible"}
 
-**Day 1 &mdash; Monday**: Introduction to Bioconductor & data containers  
-**Day 2 &mdash; Tuesday**: Data wrangling  
-**Day 3 &mdash; Thursday**: Diversity  
-**Day 4 &mdash; Friday**: Differential abundance & advanced topics  
+**Day 1 &mdash; Monday**: Introduction to Bioconductor & data containers
+**Day 2 &mdash; Tuesday**: Data wrangling
+**Day 3 &mdash; Thursday**: Diversity
+**Day 4 &mdash; Friday**: Differential abundance & advanced topics
 
 ::: {.notes}
 
@@ -48,13 +48,13 @@ Overview of the week
 
 ## Practicalities
 
-- Each topic: **short lecture + demonstration**  
-- Majority of time: **hands-on practice**  
-- Materials follow the [OMA online book](https://microbiome.github.io/OMA/docs/devel/)  
+- Each topic: **short lecture + demonstration**
+- Majority of time: **hands-on practice**
+- Materials follow the [OMA online book](https://microbiome.github.io/OMA/docs/devel/)
 
 ::: {.notes}
-Hands-on learning is the focus — you’ll learn best by doing.  
-Feel free to interrupt and ask questions anytime.  
+Hands-on learning is the focus — you’ll learn best by doing.
+Feel free to interrupt and ask questions anytime.
 The OMA book is a lasting resource you can return to.
 
 You should do hands-on with your local computer. Have you installed packages? --> Help is provided when doing first exercises.
