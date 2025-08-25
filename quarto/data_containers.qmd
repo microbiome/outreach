@@ -7,10 +7,6 @@ format:
     preview-links: auto
     logo: images/mia_logo.png
     footer: <https://microbiome.github.io/>
-title-slide-attributes: 
-  data-background-image: images/bioconductor_logo_rgb.jpg
-  data-background-size: 15%
-  data-background-position: 2% 2%
 date: last-modified
 date-format: full
 bibliography: references.bib
