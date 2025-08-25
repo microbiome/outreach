@@ -48,8 +48,29 @@ These were the objectives. You think you can now continue with the ecosystem?
 
 Feel free to reach me and others.
 
+:::
+
+## Feedback
+
+::: {.notes}
+
+Feel free to reach me and others.
+
 FEEDBACK!
 
 :::
+
+## Thank you for participating! {.smaller}
+
+<div style="display: flex; flex-wrap: wrap; justify-content: center; align-items: flex-end; gap: 2rem; position: absolute; bottom: 2rem; left: 0; right: 0;">
+
+  <img src="https://apps.utu.fi/media/logo/UTU_logo_EN_RGB.png" alt="University of Turku logo" width="200">
+  <img src="https://www.ebi.ac.uk/metagenomics/static/50d6b60518ea8b4816b9.png" alt="EMBL-EBI logo" width="200">
+  <img src="https://media.aka.fi/api/v3/public/file/497671429c8b0783/thumbnail.jpg?version=e5566c3f8491a9bcc65c74594efa47c0" alt="Research Council of Finland logo" width="200">
+  <img src="https://biocityturku.fi/wp-content/uploads/2023/06/CompLifeSci-color-balck-01-2-720x217.png" alt="CompLifeSci logo" width="200">
+  <img src="https://www.yliopistosaatio.fi/wp-content/uploads/2024/02/logo-vaaka-turun-yliopistosatio.webp" alt="Turun yliopistosäätiö logo" width="200">
+
+</div>
+
 
 ## References

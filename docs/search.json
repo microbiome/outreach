@@ -431,14 +431,14 @@
     "href": "transformation.html#relative-abundance",
     "title": "Transformation",
     "section": "Relative abundance",
-    "text": "Relative abundance\n\\[\n\\text{X}_{ij} = \\frac{\\text{Count}_{ij}}{\\sum_{k=1}^m \\text{Count}_{ik}}\n\\]\nwhere\n\n\\(i\\) indexes the sample,\n\\(j\\) indexes the taxon,\n\\(m\\) is the total number of taxa.\n\n\n\nLibrary sizes differ between samples (sequencing depth varies), so raw counts are not directly comparable.\nRelative abundance converts counts to proportions within each sample, making samples comparable.\nIntuition: a relative abundance of 0.2 means “this taxon makes up 20% of this sample,” independent of total reads."
+    "text": "Relative abundance\n\\[\n\\text{X}_{ij} = \\frac{\\text{Count}_{ij}}{\\sum_{k=1}^m \\text{Count}_{ik}}\n\\]\nwhere\n\n\\(i\\) indexes the sample,\n\\(j\\) indexes the taxon,\n\\(m\\) is the total number of taxa.\n\n\nLibrary sizes were arbitrary –&gt; remove their effect.\n\nLibrary sizes differ between samples (sequencing depth varies), so raw counts are not directly comparable.\nRelative abundance converts counts to proportions within each sample, making samples comparable.\nIntuition: a relative abundance of 0.2 means “this taxon makes up 20% of this sample,” independent of total reads."
   },
   {
     "objectID": "transformation.html#log-transformed-relative-abundance",
     "href": "transformation.html#log-transformed-relative-abundance",
     "title": "Transformation",
     "section": "Log-transformed relative abundance",
-    "text": "Log-transformed relative abundance\n\\[\n\\text{X}_{ij} = \\log \\left( \\text{Relative abundance}_{ij} + \\epsilon \\right)\n\\]\nwhere\n\n\\(\\epsilon\\) is a small pseudocount to avoid \\(\\log(0)\\).\n\n\nLog-transform reduces skewness and makes differences among low-abundance taxa more visible, but a pseudocount is required to handle zeros."
+    "text": "Log-transformed relative abundance\n\\[\n\\text{X}_{ij} = \\log \\left( \\text{Relative abundance}_{ij} + \\epsilon \\right)\n\\]\nwhere\n\n\\(\\epsilon\\) is a small pseudocount to avoid \\(\\log(0)\\).\n\n\nZero-inflated –&gt; reduce the data skewness\nLog-transform reduces skewness and makes differences among low-abundance taxa more visible, but a pseudocount is required to handle zeros."
   },
   {
     "objectID": "transformation.html#section-2",
@@ -452,14 +452,14 @@
     "href": "transformation.html#centered-log-ratio-clr",
     "title": "Transformation",
     "section": "Centered log-ratio (CLR)",
-    "text": "Centered log-ratio (CLR)\n\\[\n\\text{CLR}(x_i) = \\log\\left(\\frac{x_i}{g(x)}\\right),\\quad\ng(x) = \\left(\\prod_{j=1}^{D} x_j \\right)^{1/D}\n\\]\n\n\\(x_i\\): the \\(i\\)-th component of the composition\n\n\\(g(x)\\): geometric mean of the composition\n\n\n\nCLR removes compositional constraints and maps data from the simplex to Euclidean space.\n\n\nStandard statistical tests assume Euclidean space, where subtraction and distances make sense.\nSubtraction does not make sense on raw compositional data because only ratios between components carry information. –&gt; How to convert ratios into subtraction? –&gt; Using log-scale\nTaking the log converts ratios into differences: log⁡(x/y)=log⁡(x)−log⁡(y) so subtraction now has a meaningful interpretation.\nThe log-values still have an arbitrary baseline, so we center them around zero by subtracting the arithmetic mean of the logs, which is equivalent to dividing each component by the geometric mean of the original composition:\nThe result is a vector in Euclidean space with sum zero, suitable for standard analyses."
+    "text": "Centered log-ratio (CLR)\n\\[\n\\text{CLR}(x_i) = \\log\\left(\\frac{x_i}{g(x)}\\right),\\quad\ng(x) = \\left(\\prod_{j=1}^{D} x_j \\right)^{1/D}\n\\]\n\n\\(x_i\\): the \\(i\\)-th component of the composition\n\n\\(g(x)\\): geometric mean of the composition\n\n\n\nCLR removes compositional constraints and maps data from the simplex to Euclidean space.\n\nCompositionality; only ratios meaningful: How to make ratios meaningful subtraction operations? Working in log-scale –&gt; that is why we take log.\nThe current scale is arbitrary and caused by the effect of library sizes: How to center the data distribution? Subtracting mean, because we are working in log-scale we use geometric mean.\n\nStandard statistical tests assume Euclidean space, where subtraction and distances make sense.\nSubtraction does not make sense on raw compositional data because only ratios between components carry information. –&gt; How to convert ratios into subtraction? –&gt; Using log-scale\nTaking the log converts ratios into differences: log⁡(x/y)=log⁡(x)−log⁡(y) so subtraction now has a meaningful interpretation.\nThe log-values still have an arbitrary baseline, so we center them around zero by subtracting the arithmetic mean of the logs, which is equivalent to dividing each component by the geometric mean of the original composition:\nThe result is a vector in Euclidean space with sum zero, suitable for standard analyses."
   },
   {
     "objectID": "transformation.html#section-3",
     "href": "transformation.html#section-3",
     "title": "Transformation",
     "section": "",
-    "text": "\\[\n\\text{Arithmetic mean} = \\frac{2 + 8 + 32}{3} = \\frac{42}{3} = 14\n\\]\n\\[\n\\text{Geometric mean} = \\sqrt[3]{2 \\cdot 8 \\cdot 32} \\\\[2mm]\n= \\exp\\Bigg( \\frac{\\log 2 + \\log 8 + \\log 32}{3} \\Bigg) \\\\[2mm]\n= \\exp\\Bigg( \\frac{\\log 2 + \\log 2^3 + \\log 2^5}{3} \\Bigg) \\\\[2mm]\n= \\exp(3 \\log 2) \\\\[1mm]\n= 8\n\\]\n\nThere is nothing inherently special about the geometric mean — it is just the arithmetic mean in log-space, which is the space we are currently working in.\nDividing each value by the geometric mean is equivalent to subtracting the arithmetic mean of the logs.\nThis centers the data around zero in log-ratio space, making differences between components meaningful for standard statistical analyses."
+    "text": "\\[\n\\text{Arithmetic mean} = \\frac{2 + 8 + 32}{3} = \\frac{42}{3} = 14\n\\]\n\\[\n\\text{Geometric mean} = \\sqrt[3]{2 \\cdot 8 \\cdot 32} \\\\[2mm]\n= \\exp\\Bigg( \\frac{\\log 2 + \\log 8 + \\log 32}{3} \\Bigg) \\\\[2mm]\n= 8\n\\]\n\nThere is nothing inherently special about the geometric mean — it is just the arithmetic mean in log-space, which is the space we are currently working in.\nDividing each value by the geometric mean is equivalent to subtracting the arithmetic mean of the logs.\nThis centers the data around zero in log-ratio space, making differences between components meaningful for standard statistical analyses."
   },
   {
     "objectID": "transformation.html#section-4",
@@ -1243,7 +1243,7 @@
     "href": "outro.html#contact-info",
     "title": "Outro",
     "section": "Contact info",
-    "text": "Contact info\n\nemail: tvborm@utu.fi\ngithub.com/microbiome/OMA/discussions\ncommunity-bioc.zulipchat.com\n\n\n\nFeel free to reach me and others.\nFEEDBACK!"
+    "text": "Contact info\n\nemail: tvborm@utu.fi\ngithub.com/microbiome/OMA/discussions\ncommunity-bioc.zulipchat.com\n\n\n\nFeel free to reach me and others."
   },
   {
     "objectID": "outro.html#references",
@@ -2028,5 +2028,33 @@
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "References",
     "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nMoreno-Indias, Isabel, Leo Lahti, Miroslava Nedyalkova, Ilze Elbere, Gennady V. Roshchupkin, Muhamed Adilovic, Onder Aydemir, et al. 2021. “Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions.” Frontiers in Microbiology 12: 277. https://doi.org/10.3389/fmicb.2021.635781."
+  },
+  {
+    "objectID": "outro.html#feedback",
+    "href": "outro.html#feedback",
+    "title": "Outro",
+    "section": "Feedback",
+    "text": "Feedback\n\nFeel free to reach me and others.\nFEEDBACK!"
+  },
+  {
+    "objectID": "outro.html#thank-you-for-participating",
+    "href": "outro.html#thank-you-for-participating",
+    "title": "Outro",
+    "section": "Thank you for participating!",
+    "text": "Thank you for participating!"
+  },
+  {
+    "objectID": "outro.html#thank-you-for-participating-.smaller-text-center",
+    "href": "outro.html#thank-you-for-participating-.smaller-text-center",
+    "title": "Outro",
+    "section": "Thank you for participating! {.smaller text-center}",
+    "text": "Thank you for participating! {.smaller text-center}"
+  },
+  {
+    "objectID": "outro.html#thank-you-for-participating-1",
+    "href": "outro.html#thank-you-for-participating-1",
+    "title": "Outro",
+    "section": "Thank you for participating!",
+    "text": "Thank you for participating!"
   }
 ]

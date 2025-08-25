@@ -186,6 +186,7 @@ $$
 
 ::: {.notes}
 
+Library sizes were arbitrary --> remove their effect.
 
 - Library sizes differ between samples (sequencing depth varies), so raw counts are not directly comparable.
 - Relative abundance converts counts to proportions within each sample, making samples comparable.
@@ -204,6 +205,8 @@ $$
 * $\epsilon$ is a small pseudocount to avoid $\log(0)$.
 
 ::: {.notes}
+
+Zero-inflated --> reduce the data skewness
 
 Log-transform reduces skewness and makes differences among low-abundance taxa more visible, but a pseudocount is required to handle zeros.
 
@@ -259,6 +262,14 @@ $$
 
 - CLR removes compositional constraints and maps data from the simplex to Euclidean space.
 
+Compositionality; only ratios meaningful:
+How to make ratios meaningful subtraction operations?
+Working in log-scale --> that is why we take log.
+
+The current scale is arbitrary and caused by the effect of library sizes:
+How to center the data distribution?
+Subtracting mean, because we are working in log-scale we use geometric mean.
+
 1. Standard statistical tests assume Euclidean space, where subtraction and distances make sense.
 
 2. Subtraction does not make sense on raw compositional data because only ratios between components carry information. --> How to convert ratios into subtraction? --> Using log-scale
@@ -281,8 +292,6 @@ $$
 $$
 \text{Geometric mean} = \sqrt[3]{2 \cdot 8 \cdot 32} \\[2mm]
 = \exp\Bigg( \frac{\log 2 + \log 8 + \log 32}{3} \Bigg) \\[2mm]
-= \exp\Bigg( \frac{\log 2 + \log 2^3 + \log 2^5}{3} \Bigg) \\[2mm]
-= \exp(3 \log 2) \\[1mm]
 = 8
 $$
 
