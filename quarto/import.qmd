@@ -88,6 +88,6 @@ tse
 
 From [OMA online book, Chapter 4: Import](https://microbiome.github.io/OMA/docs/devel/pages/import.html)
 
-- Exercise 2
+- Exercise 1
 
 ## References
