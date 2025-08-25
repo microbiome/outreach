@@ -52,6 +52,7 @@ You can also create TreeSE object manually by hand if you have csv or excel file
 | Curated metagenomic data [@pasolli2017] | curatedMetagenomicData [@pasolli2017]    | 93                    | 22,588    |
 | HoloFood [@rogers2024]                          | HoloFoodR [@holofoodr]                   |                      - | 9,990     |
 | MGnify [@gurbich2023]                           | MGnifyR [@mgnifyr]                       | 5129                  | 616,138   |
+| Microbiome benchmark data [@gamboa-tuz2025]        | MicrobiomeBenchmarkData [@gamboa-tuz2025] | 6                     | 1,125    |
 | microbiomeDataSets [@microbiomedatasets]        | microbiomeDataSets [@microbiomedatasets] | 6                     | 19,100    |
 
 
