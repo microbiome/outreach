@@ -606,14 +606,14 @@
     "href": "ordination.html#ordination",
     "title": "Ordination",
     "section": "Ordination",
-    "text": "Ordination\n\nReduces high-dimensional data to a few informative axes\nProjects samples into lower-dimensional space while preserving distances or variance\nHelps identify patterns, clusters, and gradients across samples\n\n\n\n\n\n\n\n\nOrdination visualizes high-dimensional relationships in 2D or 3D space. Clusters indicate similarity in community composition."
+    "text": "Ordination\n\nReduces high-dimensional data to a few informative axes\nProjects samples into lower-dimensional space while preserving distances or variance\nHelps identify patterns, clusters, and gradients across samples\n\n\nOrdination visualizes high-dimensional relationships in 2D or 3D space. Clusters indicate similarity in community composition."
   },
   {
     "objectID": "ordination.html#section",
     "href": "ordination.html#section",
     "title": "Ordination",
     "section": "",
-    "text": "Illustration. Hand is 3d, shadow is 2d. The goal is to rotate hand so that it resembles hand in 2d –&gt; information preserved even though dimensionality is lower."
+    "text": "This is now 3 dimensional plot. The idea is to rotate the data so that it maximizes the information in 2D."
   },
   {
     "objectID": "ordination.html#ordination-methods",
@@ -648,7 +648,7 @@
     "href": "ordination.html#matrix-decomposition",
     "title": "Ordination",
     "section": "Matrix Decomposition",
-    "text": "Matrix Decomposition\n\nConceptual basis of ordination: decompose sample × taxa matrix\n\n\\[\nX = U \\Sigma V^T\n\\]\n\nUΣ: sample coordinates in reduced space\nΣ: importance of each axis\nV: taxa contributions\n\n\nMatrix decomposition is the conceptual basis of ordination"
+    "text": "Matrix Decomposition\n\nConceptual basis of ordination: decompose sample × taxa matrix\n\n\\[\nX = U \\Sigma V^T\n\\]\n\nUΣ: sample coordinates in reduced space\nΣ: importance of each axis\nV: taxa contributions\n\n\n\nMatrix decomposition is the conceptual basis of ordination. Only in Euclidean distances the loadings are easily interpretable."
   },
   {
     "objectID": "ordination.html#demonstration",
@@ -662,21 +662,21 @@
     "href": "ordination.html#section-1",
     "title": "Ordination",
     "section": "",
-    "text": "library(mia)\nlibrary(scater)\n\n# Apply transformation\ntse &lt;- transformAssay(tse, method = \"rclr\")"
+    "text": "Illustration. Hand is 3d, shadow is 2d. The goal is to rotate hand so that it resembles hand in 2d –&gt; information preserved even though dimensionality is lower."
   },
   {
     "objectID": "ordination.html#section-2",
     "href": "ordination.html#section-2",
     "title": "Ordination",
     "section": "",
-    "text": "library(mia)\nlibrary(scater)\n\n# Apply transformation\ntse &lt;- transformAssay(tse, method = \"rclr\")\n# Apply PCA\ntse &lt;- runPCA(tse, assay.type = \"clr\")"
+    "text": "library(mia)\nlibrary(scater)\n\n# Apply transformation\ntse &lt;- transformAssay(tse, method = \"rclr\")"
   },
   {
     "objectID": "ordination.html#section-3",
     "href": "ordination.html#section-3",
     "title": "Ordination",
     "section": "",
-    "text": "library(mia)\nlibrary(scater)\n\n# Apply transformation\ntse &lt;- transformAssay(tse, method = \"rclr\")\n# Apply PCA\ntse &lt;- runPCA(tse, assay.type = \"clr\")\n# Visualize\nplotReducedDim(tse, \"PCA\", colour_by = \"patient_status\")"
+    "text": "library(mia)\nlibrary(scater)\n\n# Apply transformation\ntse &lt;- transformAssay(tse, method = \"rclr\")\n# Apply PCA\ntse &lt;- runPCA(tse, assay.type = \"clr\")"
   },
   {
     "objectID": "ordination.html#exercises",
@@ -1369,14 +1369,14 @@
     "href": "alpha_diversity.html#simpsons-evenness",
     "title": "Alpha diversity",
     "section": "Simpson’s evenness",
-    "text": "Simpson’s evenness\n\\[\nE_{\\mathrm{Simpson}} = \\frac{1}{S \\sum_{i=1}^{S} p_i^2}\n\\]\nwhere:\n\n\\(p_i\\) = relative abundance of taxon \\(i\\)\n\n\\(S\\) = number of taxa\nBounded between 0 (low evenness) and 1 (perfectly even)\n\nSimple, intuitive, and less sensitive to rare taxa than Shannon-based evenness\n\n\nSimpson’s evenness measures how evenly individuals are distributed among taxa.\nIt is easy to interpret and always ranges between 0 and 1."
+    "text": "Simpson’s evenness\n\\[\nE_{\\mathrm{Simpson}} = \\frac{1}{S \\sum_{i=1}^{S} p_i^2}\n\\]\nwhere:\n\n\\(p_i\\) = relative abundance of taxon \\(i\\)\n\n\\(S\\) = number of taxa\nBounded between 0 (low evenness) and 1 (perfectly even)\n\n\nSimpson’s evenness measures how evenly individuals are distributed among taxa.\nIt is easy to interpret and always ranges between 0 and 1."
   },
   {
     "objectID": "alpha_diversity.html#shannon-diversity",
     "href": "alpha_diversity.html#shannon-diversity",
     "title": "Alpha diversity",
     "section": "Shannon diversity",
-    "text": "Shannon diversity\n\\[\nH' = - \\sum_{i=1}^{S} p_i \\log(p_i)\n\\]\nwhere:\n\n\\(p_i\\) = relative abundance of taxon \\(i\\)\n\n\\(S\\) = total number of taxa\nCombines richness and evenness in one metric\n\n\nShannon diversity accounts for both richness and evenness.\nHigher values mean more diverse communities."
+    "text": "Shannon diversity\n\\[\nH' = - \\sum_{i=1}^{S} p_i \\log(p_i)\n\\]\nwhere:\n\n\\(p_i\\) = relative abundance of taxon \\(i\\)\n\n\\(S\\) = total number of taxa\nCombines richness and evenness in one metric\n\n\nShannon diversity accounts for both richness and evenness.\nHigher values mean more diverse communities. (Value can be over 1, no upper bound)"
   },
   {
     "objectID": "alpha_diversity.html#section-1",
@@ -1404,7 +1404,7 @@
     "href": "alpha_diversity.html#references",
     "title": "Alpha diversity",
     "section": "References",
-    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nCassol, Ignacio, Mauro Ibañez, and Juan Pablo Bustamante. 2025. “Key Features and Guidelines for the Application of Microbial Alpha Diversity Metrics.” Scientific Reports 15 (1). https://doi.org/10.1038/s41598-024-77864-y."
   },
   {
     "objectID": "multi-omics.html#multiomics-integration",
@@ -2056,5 +2056,33 @@
     "title": "Outro",
     "section": "Thank you for participating!",
     "text": "Thank you for participating!"
+  },
+  {
+    "objectID": "ordination.html#section-4",
+    "href": "ordination.html#section-4",
+    "title": "Ordination",
+    "section": "",
+    "text": "library(mia)\nlibrary(scater)\n\n# Apply transformation\ntse &lt;- transformAssay(tse, method = \"rclr\")\n# Apply PCA\ntse &lt;- runPCA(tse, assay.type = \"clr\")\n# Visualize\nplotReducedDim(tse, \"PCA\", colour_by = \"patient_status\")"
+  },
+  {
+    "objectID": "alpha_diversity.html#recommendation",
+    "href": "alpha_diversity.html#recommendation",
+    "title": "Alpha diversity",
+    "section": "Recommendation",
+    "text": "Recommendation\nGuidelines for alpha diversity: Cassol, Ibañez, and Bustamante (2025)\n\nRichness: The number of observed unique features\nDominance: Berger-Parker\nInformation: Shannon\nPhylogenetics: Faith\n\n\nRecommended to analyse and report all aspects."
+  },
+  {
+    "objectID": "alpha_diversity.html#section-2",
+    "href": "alpha_diversity.html#section-2",
+    "title": "Alpha diversity",
+    "section": "",
+    "text": "library(mia)\ntse &lt;- addAlpha(tse)"
+  },
+  {
+    "objectID": "alpha_diversity.html#section-3",
+    "href": "alpha_diversity.html#section-3",
+    "title": "Alpha diversity",
+    "section": "",
+    "text": "library(mia)\ntse &lt;- addAlpha(tse)\n\nlibrary(miaViz)\nplotBoxplot(tse, col.var = \"faith_diversity\", x = \"patient_status\") +\n    labs(x = \"Diagnosis\", y = \"Faith's diversity\")"
   }
 ]

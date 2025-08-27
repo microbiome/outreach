@@ -18,6 +18,15 @@ bibliography: references.bib
 - Projects samples into lower-dimensional space while preserving distances or variance
 - Helps identify patterns, clusters, and gradients across samples
 
+::: {.notes}
+
+Ordination visualizes high-dimensional relationships in 2D or 3D space.
+Clusters indicate similarity in community composition.
+
+:::
+
+##
+
 ```{r}
 # Load required libraries
 library(ggplot2)
@@ -70,8 +79,7 @@ plot_ly(
 
 ::: {.notes}
 
-Ordination visualizes high-dimensional relationships in 2D or 3D space.
-Clusters indicate similarity in community composition.
+This is now 3 dimensional plot. The idea is to rotate the data so that it maximizes the information in 2D.
 
 :::
 
@@ -272,9 +280,34 @@ $$
 - **Σ**: importance of each axis
 - **V:** taxa contributions
 
+```{r}
+#| label: pca2
+#| fig-width: 14
+#| fig-height: 3
+
+library(mia)
+data("Tengeler2020")
+tse <- Tengeler2020
+# Transform data
+tse <- transformAssay(tse, method = "clr", pseudocount = 1L)
+
+library(scater)
+
+tse <- runPCA(
+    tse,
+    assay.type = "clr"
+)
+
+library(patchwork)
+p1 <- plotReducedDim(tse, "PCA", colour_by = "patient_status")
+p2 <- plotLoadings(tse, "PCA", ncomponents = 2, layout = "lollipop") + labs(y = "", x = "")
+p1 + p2 + plot_layout(widths = c(0.75, 1.25))
+```
+
 ::: {.notes}
 
-Matrix decomposition is the conceptual basis of ordination
+Matrix decomposition is the conceptual basis of ordination.
+Only in Euclidean distances the loadings are easily interpretable.
 
 :::
 

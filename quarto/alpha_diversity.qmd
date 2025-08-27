@@ -127,7 +127,6 @@ $$
 - $S$ = number of taxa  
 
 - Bounded between 0 (low evenness) and 1 (perfectly even)  
-- Simple, intuitive, and less sensitive to rare taxa than Shannon-based evenness  
 
 ::: {.notes}
 
@@ -151,7 +150,20 @@ $$
 
 ::: {.notes}
 Shannon diversity accounts for both **richness** and **evenness**.  
-Higher values mean more diverse communities.
+Higher values mean more diverse communities. (Value can be over 1, no upper bound)
+:::
+
+## Recommendation
+
+Guidelines for alpha diversity: @cassol2025
+
+- **Richness:** The number of observed unique features
+- **Dominance:** Berger-Parker
+- **Information:** Shannon
+- **Phylogenetics:** Faith
+
+::: {.notes}
+Recommended to analyse and report all aspects.
 :::
 
 ##
@@ -182,6 +194,38 @@ Chages in alpha diversity are associated with health outcome.
 :::
 
 ## Demonstration
+
+## {auto-animate="true"}
+
+```r
+library(mia)
+tse <- addAlpha(tse)
+```
+
+## {auto-animate="true"}
+
+```r
+library(mia)
+tse <- addAlpha(tse)
+
+library(miaViz)
+plotBoxplot(tse, col.var = "faith_diversity", x = "patient_status") +
+    labs(x = "Diagnosis", y = "Faith's diversity")
+```
+
+```{r}
+#| label: demo
+
+library(mia)
+library(miaViz)
+data("Tengeler2020")
+tse <- Tengeler2020
+
+tse <- addAlpha(tse)
+
+plotBoxplot(tse, col.var = "faith_diversity", x = "patient_status") +
+    labs(x = "Diagnosis", y = "Faith's diversity")
+```
 
 ## Exercises
 
