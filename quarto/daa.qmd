@@ -76,9 +76,6 @@ Instead of complex pipelines, simple classical tests may be more reproducible ac
 - **t-test:** compares means, assumes normality, sensitive to outliers
 
 ```{r}
-#| fig-width: 4
-#| fig-height: 5
-
 library(ggplot2)
 library(ggpubr)
 
