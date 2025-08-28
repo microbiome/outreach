@@ -333,7 +333,7 @@ library(scater)
 # Apply transformation
 tse <- transformAssay(tse, method = "rclr")
 # Apply PCA
-tse <- runPCA(tse, assay.type = "clr")
+tse <- runPCA(tse, assay.type = "rclr")
 ```
 
 ## {auto-animate="true"}
