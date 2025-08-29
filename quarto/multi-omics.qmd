@@ -20,7 +20,7 @@ bibliography: references.bib
 
 ::: {.notes}
 
-Multiomics provides complementary information. The goal is to combine them effectively.
+multi-omics provides complementary information. The goal is to combine them effectively.
 
 :::
 
@@ -31,7 +31,7 @@ Multiomics provides complementary information. The goal is to combine them effec
 
 ::: {.notes}
 
-Using well-defined containers makes multiomics workflows reproducible and interoperable.
+Using well-defined containers makes multi-omics workflows reproducible and interoperable.
 
 :::
 
@@ -115,12 +115,12 @@ Denominator: scales by standard deviations to get a normalized correlation coeff
 
 _Multi-omics Factor Analysis (MOFA2)_
 
-- Factorizes multiomics matrix into latent factors
+- Factorizes multi-omics matrix into latent factors
 - Captures shared and data-specific variation across omics
 - Outputs low-dimensional embeddings for samples and features
 
 ::: {.notes}
-MOFA2 is a popular unsupervised multiomics ordination method. Latent factors can be used for visualization or downstream analyses.
+MOFA2 is a popular unsupervised multi-omics ordination method. Latent factors can be used for visualization or downstream analyses.
 :::
 
 ## Supervised ML
@@ -131,7 +131,7 @@ _IntegratedLearner_
 - Ensemble learning combining base learners per omics
 
 ::: {.notes}
-IntegratedLearner is suitable for multiomics prediction tasks, combining results from each data layer efficiently.
+IntegratedLearner is suitable for multi-omics prediction tasks, combining results from each data layer efficiently.
 :::
 
 ## Demonstration

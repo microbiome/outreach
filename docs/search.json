@@ -1418,7 +1418,7 @@
     "href": "multi-omics.html#data-containers",
     "title": "Multi-omics",
     "section": "Data containers",
-    "text": "Data containers\n\naltExp() slot in TreeSummarizedExperiment\nMultiAssayExperiment\n\n\nUsing well-defined containers makes multiomics workflows reproducible and interoperable."
+    "text": "Data containers\n\naltExp() slot in TreeSummarizedExperiment\nMultiAssayExperiment\n\n\nUsing well-defined containers makes multi-omics workflows reproducible and interoperable."
   },
   {
     "objectID": "multi-omics.html#methods",
@@ -1453,14 +1453,14 @@
     "href": "multi-omics.html#ordination",
     "title": "Multi-omics",
     "section": "Ordination",
-    "text": "Ordination\nMulti-omics Factor Analysis (MOFA2)\n\nFactorizes multiomics matrix into latent factors\nCaptures shared and data-specific variation across omics\nOutputs low-dimensional embeddings for samples and features\n\n\nMOFA2 is a popular unsupervised multiomics ordination method. Latent factors can be used for visualization or downstream analyses."
+    "text": "Ordination\nMulti-omics Factor Analysis (MOFA2)\n\nFactorizes multi-omics matrix into latent factors\nCaptures shared and data-specific variation across omics\nOutputs low-dimensional embeddings for samples and features\n\n\nMOFA2 is a popular unsupervised multi-omics ordination method. Latent factors can be used for visualization or downstream analyses."
   },
   {
     "objectID": "multi-omics.html#supervised-ml",
     "href": "multi-omics.html#supervised-ml",
     "title": "Multi-omics",
     "section": "Supervised ML",
-    "text": "Supervised ML\nIntegratedLearner\n\nPredict phenotypes from multiple omics\nEnsemble learning combining base learners per omics\n\n\nIntegratedLearner is suitable for multiomics prediction tasks, combining results from each data layer efficiently."
+    "text": "Supervised ML\nIntegratedLearner\n\nPredict phenotypes from multiple omics\nEnsemble learning combining base learners per omics\n\n\nIntegratedLearner is suitable for multi-omics prediction tasks, combining results from each data layer efficiently."
   },
   {
     "objectID": "multi-omics.html#demonstration",
@@ -2084,5 +2084,12 @@
     "title": "Alpha diversity",
     "section": "",
     "text": "library(mia)\ntse &lt;- addAlpha(tse)\n\nlibrary(miaViz)\nplotBoxplot(tse, col.var = \"faith_diversity\", x = \"patient_status\") +\n    labs(x = \"Diagnosis\", y = \"Faith's diversity\")"
+  },
+  {
+    "objectID": "multi-omics.html#multi-omics-integration",
+    "href": "multi-omics.html#multi-omics-integration",
+    "title": "Multi-omics",
+    "section": "Multi-omics integration",
+    "text": "Multi-omics integration\n\nIntegrate multiple omics layers: microbiome, metabolome, transcriptome, etc.\nExplore associations and predict outcomes\nGain complementary insights that single-omics cannot provide\n\n\nmulti-omics provides complementary information. The goal is to combine them effectively."
   }
 ]
