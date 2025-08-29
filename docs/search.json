@@ -1229,14 +1229,14 @@
     "href": "outro.html#questions",
     "title": "Outro",
     "section": "Questions",
-    "text": "Questions\n\nWhat are r BiocStyle::Biocpkg(\"mia\") and OMA?\nHow microbiome data science is conducted in r BiocStyle::Biocpkg(\"SummarizedExperiment\") ecosystem?\nWhat benefits this new ecosystem have compared to previous approaches?\n\n\nGo through the questions"
+    "text": "Questions\n\nWhat are mia and OMA?\nHow microbiome data science is conducted in SummarizedExperiment ecosystem?\nWhat benefits this new ecosystem have compared to previous approaches?\n\n\nGo through the questions"
   },
   {
     "objectID": "outro.html#objectives",
     "href": "outro.html#objectives",
     "title": "Outro",
     "section": "Objectives",
-    "text": "Objectives\n\nAnalyze microbiome data using the r BiocStyle::Biocpkg(\"SummarizedExperiment\") ecosystem\n\nCreate & interpret visualizations\n\nExplore documentation & tools via the OMA book\n\n\nThese were the objectives. You think you can now continue with the ecosystem?"
+    "text": "Objectives\n\nAnalyze microbiome data using the SummarizedExperiment ecosystem\n\nCreate & interpret visualizations\n\nExplore documentation & tools via the OMA book\n\n\nThese were the objectives. You think you can now continue with the ecosystem?"
   },
   {
     "objectID": "outro.html#contact-info",
@@ -1418,7 +1418,7 @@
     "href": "multi-omics.html#data-containers",
     "title": "Multi-omics",
     "section": "Data containers",
-    "text": "Data containers\n\naltExp() slot in TreeSummarizedExperiment\nMultiAssaySummarizedExperiment\n\n\nUsing well-defined containers makes multiomics workflows reproducible and interoperable."
+    "text": "Data containers\n\naltExp() slot in TreeSummarizedExperiment\nMultiAssayExperiment\n\n\nUsing well-defined containers makes multiomics workflows reproducible and interoperable."
   },
   {
     "objectID": "multi-omics.html#methods",
@@ -2034,7 +2034,7 @@
     "href": "outro.html#feedback",
     "title": "Outro",
     "section": "Feedback",
-    "text": "Feedback\n\nFeel free to reach me and others.\nFEEDBACK!"
+    "text": "Feedback\n\nhttps://forms.gle/quHvP9YSQXcLixKs7\nFeedback helps us to improve the ecosystem and workshop. COMMUNITY of users and deverlopers"
   },
   {
     "objectID": "outro.html#thank-you-for-participating",

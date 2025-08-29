@@ -27,7 +27,7 @@ Multiomics provides complementary information. The goal is to combine them effec
 ## Data containers
 
 - `altExp()` slot in `r BiocStyle::Biocpkg("TreeSummarizedExperiment")`
-- `r BiocStyle::Biocpkg("MultiAssaySummarizedExperiment")`
+- `r BiocStyle::Biocpkg("MultiAssayExperiment")`
 
 ::: {.notes}
 

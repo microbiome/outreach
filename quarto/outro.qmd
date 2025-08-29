@@ -52,11 +52,18 @@ Feel free to reach me and others.
 
 ## Feedback
 
+```{r}
+#| label: feedback
+#| fig-cap: "https://forms.gle/quHvP9YSQXcLixKs7"
+
+library(qrcode)
+
+qr_code("https://forms.gle/quHvP9YSQXcLixKs7") |> plot()
+```
+
 ::: {.notes}
 
-Feel free to reach me and others.
-
-FEEDBACK!
+Feedback helps us to improve the ecosystem and workshop. COMMUNITY of users and deverlopers
 
 :::
 
