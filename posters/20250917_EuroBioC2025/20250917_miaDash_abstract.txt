@@ -1,0 +1,7 @@
+miaDash: a web app for reproducible and interactive microbiome analysis and visualisation
+
+Giulio Benedetti, Ely Seraidarian, Theotime Pralas, Akewak Jeba, Tuomas Borman, Leo Lahti
+
+Microbiome data can reveal valuable insights into the communities of microorganisms that inhabit our world and greatly shape not only the environment but also human health. As microbiome profiling became a standard routine in biomedical and ecological research, the R/Bioconductor community has created a reproducible framework for microbiome data analysis, which is based on optimised containers for hierarchical multi-table data, in particular the TreeSummarizedExperiment class. While this framework is easily accessible to experienced R users, experiment-driven researchers may seek a more user-friendly option for microbiome analysis and visualisation. To reduce the entry requirements to this field, we developed miaDash, an R shiny app that builds on top of the R/Bioconductor framework to provide a graphical user interface for interactive microbiome analysis and exploration. miaDash allows users to import, manipulate, analyse and ultimately visualise microbiome data, without the need for knowledge of R programming. We aim for miaDash to support both new and experienced users in promoting microbiome research and discovery.
+
+Keywords: microbiome, visualisation, GUI
