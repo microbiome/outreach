@@ -1,0 +1,25 @@
+Orchestrating Microbiome Analysis with Bioconductor
+
+Author(s): Tuomas Borman, Leo M Lahti
+
+Because of the complex and high dimensional nature of microbiome data, machine
+learning and other computational approaches have become an instrumental part of
+the researcher’s toolkit in this rapidly evolving field. There is an increasing
+need to develop robust and reproducible methods that take into account current
+and future trends in microbiome research such as multi-omics, expanding
+datasets, and longitudinal study designs. The previous solutions in microbiomics
+have fallen short in addressing these modern requirements, particularly in
+terms of scalability and data integration. To meet these challenges, the
+research community has extended the widely adopted SummarizedExperiment data
+container to TreeSummarizedExperiment, enabling support for microbiome-specific
+data structures such as hierarchical relationships. The framework is further
+enriched with mia (Microbiome Analysis) package family and packages by
+independent developers, providing methods for common data operations,
+visualization, and advanced analytical approaches. This session will showcase
+the latest advances in microbiome data science within Bioconductor, focusing
+on the mia (Microbiome Analysis) framework through a practical case study. We
+will also present Orchestrating Microbiome Analysis with Bioconductor, a freely
+available online book designed to promote best practices and facilitate adoption
+of the ecosystem. Together, these resources form a foundation for reproducible,
+scalable, and transparent microbiome data science, and they continue to evolve
+through active community contributions.

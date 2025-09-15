@@ -1,0 +1,25 @@
+Orchestrating Microbiome Analysis with Bioconductor
+
+Author(s): Tuomas Borman
+
+Microbes play a pivotal role in human health and disease, yet the mechanisms
+underlying these interactions remain largely unknown due to their complexity.
+Microbiome research faces challenges related to scalability, interoperability,
+and a lack of standardization. Studies have grown in terms of both sample size
+and data dimensionality. While sequencing data forms the foundation of most
+analyses, other omics layers are increasingly incorporated to provide a more
+holistic view. However, integration of multi-omics datasets is still poorly
+supported. Moreover, limited interoperability between tools has hindered
+efficient multi-omics analysis, and heterogeneous analytical approaches have
+reduced reproducibility and transparency. To address these challenges, we have
+developed a microbiome data science ecosystem built around the
+TreeSummarizedExperiment class—an extension of Bioconductor’s core
+SummarizedExperiment container. This design choice enables scalable and
+efficient data management while ensuring interoperability with the broader
+Bioconductor ecosystem. A comprehensive suite of tools for microbiome data
+science is implemented across multiple R/Bioconductor packages, which
+collectively form the mia (Microbiome Analysis) package family. The ecosystem
+is documented in the Orchestrating Microbiome Analysis (OMA) online book, which
+not only provides practical examples but also promotes best practices in
+microbiome research. The project is community-driven, actively growing with
+contributions from independent developers—and we welcome all new contributors.
