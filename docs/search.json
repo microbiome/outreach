@@ -1180,14 +1180,14 @@
     "href": "mgnifyr.html#contents",
     "title": "MGnifyR: An R package for accessing MGnify microbiome data",
     "section": "Contents",
-    "text": "Contents\n\nIntroduction to MGnify\nOverview of MGnifyR\nBioconductor and MGnifyR"
+    "text": "Contents\n\nBioconductor\nMGnifyR R package\nmia (Microbiome Analysis) within Bioconductor\n\n\n11:30 — 12:30\nThe idea of the first half of our sessions is to introduce Bioconductor, data containers, and MGnifyR R packages that bridges the gap between MGnify database and statistical tools in Bioconductor.\nThen we have a lunch break.\n13:30 — 15:15\nIn second half, we will go deeper on the statistical analysis."
   },
   {
     "objectID": "mgnifyr.html#mgnify",
     "href": "mgnifyr.html#mgnify",
     "title": "MGnifyR: An R package for accessing MGnify microbiome data",
     "section": "MGnify",
-    "text": "MGnify\n\nMicrobiome database hosted by EMBL/EBI\nRaw sequences from ENA\nStandardized bioinformatics pipelines"
+    "text": "MGnify\n\nMicrobiome database hosted by EMBL/EBI\nStandardized bioinformatics pipelines\nTaxonomy and functional mappings\n\n \n\nOf course, you can import your own data to these data containers and that is what is done in many studies.\nHowever, we have this amazing database MGnify already containing harmonized and huge database.\n\nRaw sequences from ENA\nOpen access\nTaxonomy and functional mappings along with genome catalogues\nApplication Programming Interface (API)"
   },
   {
     "objectID": "mgnifyr.html#data-availability",
@@ -1208,7 +1208,7 @@
     "href": "mgnifyr.html#mgnifyr",
     "title": "MGnifyR: An R package for accessing MGnify microbiome data",
     "section": "MGnifyR",
-    "text": "MGnifyR\n\nR/Bioconductor package\nStreamlines access to MGnify database\nBridges the gap between data resources and tools"
+    "text": "MGnifyR\n\nFetch data from MGnify directly to SummarizedExperiment format\nBridges the gap between data resources and tools\n\n\n\nChallenges in API\n\nRequires familiarity with API workflows, database structures, and linkages.\nLeads to challenges in reproducibility and time-consuming data wrangling.\n\nWith MGnifyR, you can fetch the data from MGnify database directly into SummarizedExperiment format. When you have the data in this format, you can immdediately apply methods from Bioconductor without any data wrangling.\nHalf million samples currently from environment, human and other systems with sample metadata such as diagnosis and so forth"
   },
   {
     "objectID": "mgnifyr.html#functions",
@@ -2091,5 +2091,89 @@
     "title": "Multi-omics",
     "section": "Multi-omics integration",
     "text": "Multi-omics integration\n\nIntegrate multiple omics layers: microbiome, metabolome, transcriptome, etc.\nExplore associations and predict outcomes\nGain complementary insights that single-omics cannot provide\n\n\nmulti-omics provides complementary information. The goal is to combine them effectively."
+  },
+  {
+    "objectID": "mgnifyr.html#bioconductor",
+    "href": "mgnifyr.html#bioconductor",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "Bioconductor",
+    "text": "Bioconductor\n\nCommunity-driven open-source project\nHigh-quality, tested statistical methods\nWell-documented\n\n\n\n\nBioconductor is more than software.\nWorldwide community of bioinformaticians; both users and developers."
+  },
+  {
+    "objectID": "mgnifyr.html#r-biocstylebiocpkgsummarizedexperiment",
+    "href": "mgnifyr.html#r-biocstylebiocpkgsummarizedexperiment",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "r BiocStyle::Biocpkg(\"SummarizedExperiment\")",
+    "text": "r BiocStyle::Biocpkg(\"SummarizedExperiment\")\n(Huber et al. 2015)\n\n\nThe software in Bioconductor is based on data containers. Structured way to store and manage complex (biological) data.\nWhen you put data in this format, you can easily apply methods and run statistical analysis and visualize results."
+  },
+  {
+    "objectID": "mgnifyr.html#references",
+    "href": "mgnifyr.html#references",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html."
+  },
+  {
+    "objectID": "mgnifyr.html#quarto-shortcode__-param-data-is-shortcode1-data-valuebiocstylebiocpkgsummarizedexperiment-data-rawbiocstylebiocpkgsummarizedexperiment",
+    "href": "mgnifyr.html#quarto-shortcode__-param-data-is-shortcode1-data-valuebiocstylebiocpkgsummarizedexperiment-data-rawbiocstylebiocpkgsummarizedexperiment",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "?var:[]{.quarto-shortcode__-param",
+    "text": "?var:[]{.quarto-shortcode__-param\n(Huber et al. 2015)\n\n\nThe software in Bioconductor is based on data containers. Structured way to store and manage complex (biological) data.\nWhen you put data in this format, you can easily apply methods and run statistical analysis and visualize results."
+  },
+  {
+    "objectID": "mgnifyr.html#summarizedexperiment",
+    "href": "mgnifyr.html#summarizedexperiment",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "SummarizedExperiment",
+    "text": "SummarizedExperiment\n(Huber et al. 2015)\n\n\nThe software in Bioconductor is based on data containers. Structured way to store and manage complex (biological) data.\nWhen you put data in this format, you can easily apply methods and run statistical analysis and visualize results."
+  },
+  {
+    "objectID": "mgnifyr.html#demonstration",
+    "href": "mgnifyr.html#demonstration",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "Demonstration",
+    "text": "Demonstration"
+  },
+  {
+    "objectID": "mgnifyr.html#section",
+    "href": "mgnifyr.html#section",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "",
+    "text": "library(\"MGnifyR\")\n\nWe load the package. The package is in Bioconductor."
+  },
+  {
+    "objectID": "mgnifyr.html#section-1",
+    "href": "mgnifyr.html#section-1",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "",
+    "text": "mg &lt;- MgnifyClient(\n    useCache = TRUE,\n    cacheDir = file.path(\"home\", \"training\", \"course_dir\", \"data_dir\")\n)\n\nFirst step is always to create MgnifyClient object. It holds settings for retrieval of data, including caching information.\nWe use cache here because the fetching can take couple hours. I have preloaded the data to that specific cache directory."
+  },
+  {
+    "objectID": "mgnifyr.html#section-2",
+    "href": "mgnifyr.html#section-2",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "",
+    "text": "analysis_id &lt;- searchAnalysis(\n    mg,\n    type = \"studies\",\n    accession = \"MGYS00005154\"\n)\n\nNext we can first instance browse the MGnify website. I have selected the following study MGYS00005154. In this study, they collected fecal samples across age and geography.\nWe search all analyses that are related to this study. Analyses are bioinformatics pipeline (taxonomy mapping) results.\nWe get IDs for each analysis."
+  },
+  {
+    "objectID": "mgnifyr.html#section-3",
+    "href": "mgnifyr.html#section-3",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "",
+    "text": "metadata &lt;- getMetadata(mg, accession = analysis_id)\n\nThen we fetch metadata on these analyses. They include, for instance, the sample information and information on analysis pipeline."
+  },
+  {
+    "objectID": "mgnifyr.html#section-4",
+    "href": "mgnifyr.html#section-4",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "",
+    "text": "# Get logical vector specifying whether the utilized pipeline was\n# the latest one\nlatest_pipeline &lt;- metadata[[\"analysis_pipeline-version\"]] == \"5.0\"\n\n# Subset the metadata by selecting only analyses from the\n# latest pipeline\nmetadata &lt;- metadata[latest_pipeline, ]\n\n# Get the IDs\nselected_ids &lt;- metadata[[\"analysis_accession\"]]\n\nThe result is a table. For instance, we can see that multiple analyses were conducted to single samples.\nWe select analyses that were done with the latest pipeline. This ensures that the samples are comparable."
+  },
+  {
+    "objectID": "mgnifyr.html#section-5",
+    "href": "mgnifyr.html#section-5",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "",
+    "text": "tse &lt;- getResult(\n    mg,\n    accession = selected_ids,\n    get.func = FALSE\n)\ntse\n\n\nclass: TreeSummarizedExperiment \ndim: 19216 26 \nmetadata(0):\nassays(1): counts\nrownames(19216): 549322 522457 ... 200359 271582\nrowData names(7): Kingdom Phylum ... Genus Species\ncolnames(26): CL3 CC1 ... Even2 Even3\ncolData names(7): X.SampleID Primer ... SampleType Description\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (19216 rows)\nrowTree: 1 phylo tree(s) (19216 leaves)\ncolLinks: NULL\ncolTree: NULL\n\n\n\nNow we can fetch the taxonomy annotations to SummarizedExperiment object. To do that, we input the analysis IDs that we want to fetch. We also specify that we do not want functional annotations (although they are available)."
   }
 ]

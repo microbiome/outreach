@@ -1,55 +1,311 @@
 ---
 title: "MGnifyR: An R package for accessing MGnify microbiome data"
-format: revealjs
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+date: last-modified
+date-format: full
+bibliography: references.bib
 ---
 
 ## Contents
 
-1.  Introduction to MGnify
-2.  Overview of `MGnifyR`
-3.  Bioconductor and `MGnifyR`
+1. Bioconductor
+2. `MGnifyR` R package
+3. `mia` (Microbiome Analysis) within Bioconductor
+
+::: {.notes}
+
+11:30 — 12:30
+
+The idea of the first half of our sessions is to introduce Bioconductor, data
+containers, and MGnifyR R packages that bridges the gap between MGnify database
+and statistical tools in Bioconductor.
+
+Then we have a lunch break.
+
+13:30 — 15:15
+
+In second half, we will go deeper on the statistical analysis.
+
+:::
+
+## Bioconductor
+
+- Community-driven open-source project
+- High-quality, tested statistical methods
+- Well-documented
+
+![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo." fig-align="right" width=10%}
+
+::: {.notes}
+
+1. Bioconductor is more than software.
+2. Worldwide community of bioinformaticians; both users and developers.
+
+:::
+
+## `r BiocStyle::Biocpkg("SummarizedExperiment")`
+<small>[@Huber2015]</small>
+
+```{r}
+#| label: empty_chunk
+# Empty code chunk. For some reason the header won't work otherwise...
+```
+
+![](images/SE.png){fig-alt="SummarizedExperiment class" fig-align="center" width=30%}
+
+::: {.notes}
+
+The software in Bioconductor is based on data containers. Structured way to
+store and manage complex (biological) data.
+
+When you put data in this format, you can easily apply methods and run
+statistical analysis and visualize results.
+
+:::
 
 ## MGnify
 
--   [Microbiome database hosted by EMBL/EBI](https://www.ebi.ac.uk/metagenomics)
--   Raw sequences from [ENA](https://www.ebi.ac.uk/ena/browser/home)
--   Standardized bioinformatics pipelines
+- [Microbiome database hosted by EMBL/EBI](https://www.ebi.ac.uk/metagenomics)
+- Standardized bioinformatics pipelines
+- Taxonomy and functional mappings
 
 ![](images/mgnify_logo.png){width="250" style="margin-right: 30px;"} ![](images/ENA-logo.png){width="250"}
 
-## Data availability
+::: {.notes}
 
--   Open access
--   Taxonomy and functional mappings along with genome catalogues
--   Application Programming Interface (API)
+Of course, you can import your own data to these data containers and that is
+what is done in many studies.
 
-## Challenges in API
+However, we have this amazing database MGnify already containing harmonized and
+huge database.
 
--   Requires familiarity with API workflows, database structures, and linkages.
--   Leads to challenges in reproducibility and time-consuming data wrangling.
+- Raw sequences from [ENA](https://www.ebi.ac.uk/ena/browser/home)
+- Open access
+- Taxonomy and functional mappings along with genome catalogues
+- Application Programming Interface (API)
+:::
 
 ## MGnifyR
 
--   R/Bioconductor package
--   Streamlines access to MGnify database
--   Bridges the gap between data resources and tools
+- Fetch data from MGnify directly to `r BiocStyle::Biocpkg("SummarizedExperiment")` format
+- Bridges the gap between data resources and tools
 
-![](images/mgnifyr_logo.png){width="100"}
+```{r}
+#| label: data_and_data_container
 
-## Functions
+library(magick)
 
--   `MgnifyClient()`: Constructor for `MgnifyClient` object.
--   `doQuery()`: Search MGnify database for studies, samples, runs, analyses, biomes, assemblies, and genomes.
--   `searchAnalysis()`: Look up analysis accession IDs for one or more study or sample accessions.
--   `getMetadata()`: Get all study, sample and analysis metadata for the supplied analysis accessions.
--   `getResult()`: Get microbial and/or functional profiling data for a list of accessions.
--   `getData()`: Versatile function to retrieve raw results.
--   `getFile()` & `searchFile()`: Download any MGnify files, also including processed reads and identified protein sequences.
+# Read & scale logos
+img_left  <- image_read("images/mgnify_logo.png") |> image_scale("x100")
+img_right <- image_read("images/BioconductorSticker1.png") |> image_scale("x200")
+img_bridge <- image_read("images/mgnifyr_logo.png") |> image_scale("x100")
 
-## Bioconductor and MGnifyR
+# Create arrow canvas
+arrow <- image_blank(width = 400, height = 200, color = "none")
 
--   Microbial and functional profiling data is retrieved as [`TreeSE`/`MAE`](https://microbiome.github.io/OMA/docs/devel/pages/containers.html) format.
--   Common data format supported broadly by Bioconductor.
--   Enables direct access to cutting-edge tools (e.g. *miaverse*).
+# Draw on canvas
+arrow <- image_draw(arrow)
 
-![](images/BioconductorSticker1.png){width="250"} ![](images/mia_logo.png){width="250"}
+# Curve coordinates (upward bend)
+xs <- seq(20, 380, length.out = 100)
+ys <- 100 - 40 * sin((xs - 20) / (380 - 20) * pi)  # bend upwards
+
+# Draw curved shaft
+lines(xs, ys, lwd = 8, col = "black")
+
+# Arrowhead (aligned near end of curve)
+arrows(xs[95], ys[95], xs[100], ys[100],
+       lwd = 8, col = "black", length = 0.2)
+
+# Example: img_bridge and arrow exist
+info_arrow  <- image_info(arrow)
+info_bridge <- image_info(img_bridge)
+
+# Compute max width
+max_width <- max(info_arrow$width, info_bridge$width)
+
+# Pad arrow to max_width and center
+arrow_centered <- image_extent(
+  arrow,
+  geometry = geometry_size_pixels(width = max_width, height = info_arrow$height),
+  gravity  = "center",
+  color    = "none"   # transparent background
+)
+
+# Pad bridge logo to max_width and center
+img_bridge_centered <- image_extent(
+  img_bridge,
+  geometry = geometry_size_pixels(width = max_width, height = info_bridge$height),
+  gravity  = "center",
+  color    = "none"
+)
+
+# Now stack vertically
+arrow_with_logo <- image_append(c(img_bridge_centered, arrow_centered), stack = TRUE)
+
+# Combine left logo → arrow+logo → right logo horizontally
+max_height <- max(image_info(img_left)$height, image_info(img_right)$height, image_info(arrow_with_logo)$height)
+img_left  <- image_extent(img_left, geometry = geometry_size_pixels(width = image_info(img_left)$width, height = max_height), gravity = "center", color = "none")
+img_right <- image_extent(img_right, geometry = geometry_size_pixels(width = image_info(img_right)$width, height = max_height), gravity = "center", color = "none")
+final <- image_append(c(img_left, arrow_with_logo, img_right), stack = FALSE)
+final
+```
+
+::: {.notes}
+
+Challenges in API
+
+- Requires familiarity with API workflows, database structures, and linkages.
+- Leads to challenges in reproducibility and time-consuming data wrangling.
+
+With MGnifyR, you can fetch the data from MGnify database directly into
+SummarizedExperiment format. When you have the data in this format, you can
+immdediately apply methods from Bioconductor without any data wrangling.
+
+Half million samples currently from environment, human and other systems with
+sample metadata such as diagnosis and so forth
+
+:::
+
+## Functions {.smaller visibility=hidden}
+
+- `MgnifyClient()`: Constructor for `MgnifyClient` object.
+- `doQuery()`: Search MGnify database for studies, samples, runs, analyses, biomes, assemblies, and genomes.
+- `searchAnalysis()`: Look up analysis accession IDs for one or more study or sample accessions.
+- `getMetadata()`: Get all study, sample and analysis metadata for the supplied analysis accessions.
+- `getResult()`: Get microbial and/or functional profiling data for a list of accessions.
+- `getData()`: Versatile function to retrieve raw results.
+- `getFile()` & `searchFile()`: Download any MGnify files, also including processed reads and identified protein sequences.
+
+::: {.notes}
+
+
+:::
+
+## Demonstration
+
+## {auto-animate="true"}
+
+```r
+library("MGnifyR")
+```
+
+::: {.notes}
+
+We load the package. The package is in Bioconductor.
+
+:::
+
+## {auto-animate="true"}
+
+```r
+mg <- MgnifyClient(
+    useCache = TRUE,
+    cacheDir = file.path("home", "training", "course_dir", "data_dir")
+)
+```
+
+::: {.notes}
+
+First step is always to create MgnifyClient object. It holds settings for
+retrieval of data, including caching information.
+
+We use cache here because the fetching can take couple hours. I have preloaded
+the data to that specific cache directory.
+
+:::
+
+## {auto-animate="true"}
+
+```r
+analysis_id <- searchAnalysis(
+    mg,
+    type = "studies",
+    accession = "MGYS00005154"
+)
+```
+
+::: {.notes}
+
+Next we can first instance browse the MGnify website. I have selected the
+following study
+[MGYS00005154](https://www.ebi.ac.uk/metagenomics/studies/MGYS00005154). In
+this study, they collected fecal samples across age and geography.
+
+We search all analyses that are related to this study. Analyses are
+bioinformatics pipeline (taxonomy mapping) results.
+
+We get IDs for each analysis.
+
+:::
+
+## {auto-animate="true"}
+
+```r
+metadata <- getMetadata(mg, accession = analysis_id)
+```
+
+::: {.notes}
+
+Then we fetch metadata on these analyses. They include, for instance, the
+sample information and information on analysis pipeline.
+
+:::
+
+## {auto-animate="true"}
+
+```r
+# Get logical vector specifying whether the utilized pipeline was
+# the latest one
+latest_pipeline <- metadata[["analysis_pipeline-version"]] == "5.0"
+
+# Subset the metadata by selecting only analyses from the
+# latest pipeline
+metadata <- metadata[latest_pipeline, ]
+
+# Get the IDs
+selected_ids <- metadata[["analysis_accession"]]
+```
+
+::: {.notes}
+
+The result is a table. For instance, we can see that multiple analyses were
+conducted to single samples.
+
+We select analyses that were done with the latest pipeline. This ensures that
+the samples are comparable.
+:::
+
+## {auto-animate="true"}
+
+```r
+tse <- getResult(
+    mg,
+    accession = selected_ids,
+    get.func = FALSE
+)
+tse
+```
+
+```{r}
+#| label: show_tse
+library(mia)
+data(GlobalPatterns)
+GlobalPatterns
+```
+
+::: {.notes}
+
+Now we can fetch the taxonomy annotations to SummarizedExperiment object.
+To do that, we input the analysis IDs that we want to fetch.
+We also specify that we do not want functional annotations
+(although they are available).
+:::
+
+## References
