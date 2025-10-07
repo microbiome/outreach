@@ -6,14 +6,14 @@ format:
     chalkboard: 
       buttons: false
     preview-links: auto
-    logo: images/mia_logo.png
+    logo: images/old_mia_logo.png
     footer: <https://microbiome.github.io/>
 ---
 
 ## Outline
 
 ![](images/BioconductorSticker1.png){fig-alt="Bioconductor sticker" fig-align="center"}
-![](images/mia_logo.png){fig-alt="mia logo" fig-align="center"}
+![](images/old_mia_logo.png){fig-alt="mia logo" fig-align="center"}
 
 ## Bioconductor
 
@@ -335,7 +335,7 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 - Distributed through several R packages
 - mia package top `r if(exists("perc")) perc else "*ERROR*"` Bioconductor downloads
 
-![](images/mia_logo.png){fig-alt="mia logo." fig-align="right" width=10%}
+![](images/old_mia_logo.png){fig-alt="mia logo." fig-align="right" width=10%}
 
 ## Community-driven ecosystem of tools
 
@@ -354,7 +354,7 @@ perc <- paste0(round(which(rownames(df) == "mia") / nrow(df), 3)*100, "%")
 
 ::: {.column width="30%"}
 
-![](https://raw.githubusercontent.com/microbiome/mia/refs/heads/devel/man/figures/mia_logo.png){fig-alt="mia logo." width=30%} ![](https://raw.githubusercontent.com/EBI-Metagenomics/MGnifyR/refs/heads/devel/man/figures/mgnifyr_logo.png){fig-alt="MGnifyR logo." width=30%}
+![](https://raw.githubusercontent.com/microbiome/mia/refs/heads/devel/man/figures/old_mia_logo.png){fig-alt="mia logo." width=30%} ![](https://raw.githubusercontent.com/EBI-Metagenomics/MGnifyR/refs/heads/devel/man/figures/mgnifyr_logo.png){fig-alt="MGnifyR logo." width=30%}
 ![](https://raw.githubusercontent.com/EBI-Metagenomics/HoloFoodR/refs/heads/devel/man/figures/holofoodr_logo.png){fig-alt="HoloFoodR logo." width=30%}
 ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/iSEE/iSEE.png){fig-alt="iSEE logo." width=30%}
 ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/MultiAssayExperiment/MultiAssayExperiment.png){fig-alt="MAE logo." width=30%}

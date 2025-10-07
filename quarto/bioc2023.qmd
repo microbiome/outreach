@@ -124,7 +124,7 @@ Bioconductor methods & packages supporting the framework.
 
 -   Ecological simulations (miaSim)
 
-![](images/mia_logo.png){width="80"} ![](images/bioconductor_logo_rgb.jpg){.absolute width="200" top="585" left="680"}
+![](images/old_mia_logo.png){width="80"} ![](images/bioconductor_logo_rgb.jpg){.absolute width="200" top="585" left="680"}
 :::
 :::::
 
@@ -266,7 +266,7 @@ Microbiome R package listing:
 
 ::::: columns
 ::: {.column width="20%"}
-![](images/mia_logo.png)
+![](images/old_mia_logo.png)
 :::
 
 ::: {.column width="80%"}
