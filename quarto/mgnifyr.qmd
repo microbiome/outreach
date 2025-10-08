@@ -114,7 +114,7 @@ arrow <- image_draw(arrow)
 
 # Curve coordinates (upward bend)
 xs <- seq(20, 380, length.out = 100)
-ys <- 100 - 40 * sin((xs - 20) / (380 - 20) * pi)  # bend upwards
+ys <- 50 - 40 * sin((xs - 20) / (380 - 20) * pi)
 
 # Draw curved shaft
 lines(xs, ys, lwd = 8, col = "black")
