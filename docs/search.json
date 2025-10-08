@@ -1,157 +1,549 @@
 [
   {
-    "objectID": "findingpheno_demo.html#challenges",
-    "href": "findingpheno_demo.html#challenges",
-    "title": "FindingPheno demonstration",
-    "section": "Challenges",
-    "text": "Challenges\nLack of…\n\nrobust methods for multi-table data\nstandardized, user-friendly approaches\nlinkage between data resources and analytical workflows\n\n\n\nThere are several challenges in microbiome research. Everyone wants to do multi-omics to reveal mechanisms behind microbiome interactions.\nHowever, the set of tools to do that is very limited.\nMoreover, even if there are methods, they are usually not user-friendly (specific input, lack of documentation etc)\nThirdly, there are available large databases, but there is large gap between databases and computational tools. Meaning that you have to download the data, wrangle it into specific format and then run analysis, which is not very practical."
+    "objectID": "transformation.html#microbiome-data",
+    "href": "transformation.html#microbiome-data",
+    "title": "Transformation",
+    "section": "Microbiome data",
+    "text": "Microbiome data\n\nHigh variability — feature abundances vary widely across samples\nZero-inflation — many taxa absent in most samples\nCompositionality — only relative abundances observed; total counts per sample are arbitrary\n\n\n\nHigh variability → heteroscedasticity: the variance increases more than the mean. Abundant taxa have lots of variability.\nZero-inflation → many features are absent in most samples, which complicates statistical modelling and increases sparsity of the data matrix.\nCompositionality → sequencing depth differs between samples; only ratios of features within a sample are meaningful, absolute counts are not."
   },
   {
-    "objectID": "findingpheno_demo.html#robust-methods-for-multi-table-data",
-    "href": "findingpheno_demo.html#robust-methods-for-multi-table-data",
-    "title": "FindingPheno demonstration",
-    "section": "1. Robust methods for multi-table data",
-    "text": "1. Robust methods for multi-table data\n\nCommunity-driven open-source project\nHigh-quality, tested statistical methods\nWell-documented\n\n\n\n\nBioconductor is more than software.\nWorldwide community of bioinformaticians; both users and developers.\n\nHigh-quality software with high standards. Documentation is part of it."
+    "objectID": "transformation.html#heteroscedasticity",
+    "href": "transformation.html#heteroscedasticity",
+    "title": "Transformation",
+    "section": "Heteroscedasticity",
+    "text": "Heteroscedasticity\n\n\nThe variance increases when abundance increases"
   },
   {
-    "objectID": "findingpheno_demo.html#standardized-user-friendly-approaches",
-    "href": "findingpheno_demo.html#standardized-user-friendly-approaches",
-    "title": "FindingPheno demonstration",
-    "section": "2. Standardized, user-friendly approaches",
-    "text": "2. Standardized, user-friendly approaches\n\nMethods for microbiome data science\nOnline book\nGraphical user interface\n\n\n\n\n\n\n\nWe have created microbiome data science framework into this Bioconductor ecosystem.\nR packages.\nmia (microbiome analysis) ecosystem\nRobust and scalable methods for microbiome analysis and visualization.\nAddition to methods, we have created online book to disseminate best practices in the field and to help users to leverage the software.\nUser should know how to program, but we have also created graphical user interface for those users who do not have knowledge on programming."
+    "objectID": "transformation.html#zero-inflation",
+    "href": "transformation.html#zero-inflation",
+    "title": "Transformation",
+    "section": "Zero-inflation",
+    "text": "Zero-inflation\n\n\nReal microbiome data. Lots of zeroes."
   },
   {
-    "objectID": "findingpheno_demo.html#linkage-between-data-resources-and-analytical-workflows",
-    "href": "findingpheno_demo.html#linkage-between-data-resources-and-analytical-workflows",
-    "title": "FindingPheno demonstration",
-    "section": "3. Linkage between data resources and analytical workflows",
-    "text": "3. Linkage between data resources and analytical workflows\n\n\n\nMicrobiome database hosted by EMBL/EBI\nMicrobiome database hosted by EMBL/EBI\nStandardized bioinformatics pipelines\nTaxonomy and functional mappings\n\nLarge databases available but fetching and analysing them is not easy as it requires specialized knowledge and data wrangling.\nTo streamline this, we have created MGnifyR and HoloFoodR packages which allows to fetch data directly into so called data containers, commonly utilized in Bioconductor. This means that user can directly analyse the data by utilizing cutting edge tools."
+    "objectID": "transformation.html#compositionality",
+    "href": "transformation.html#compositionality",
+    "title": "Transformation",
+    "section": "Compositionality",
+    "text": "Compositionality\n\nNumbers are dependent: if one increases, at least one must decrease\nSimplex space\n\nIf we know N-1 values, we know the last one\nConstraint: all values positive and sum to a constant (often 1)\n\n\n\nStandard statistics require that values are in Euclidean space.\nCompositional data live in the simplex (compositional space), not Euclidean space (where subtractions, distances and variances make sense).\nResults can be misleading without transformation."
   },
   {
-    "objectID": "findingpheno_demo.html#demonstration",
-    "href": "findingpheno_demo.html#demonstration",
-    "title": "FindingPheno demonstration",
+    "objectID": "transformation.html#section",
+    "href": "transformation.html#section",
+    "title": "Transformation",
+    "section": "",
+    "text": "Compositional bias."
+  },
+  {
+    "objectID": "transformation.html#goals-of-transformation",
+    "href": "transformation.html#goals-of-transformation",
+    "title": "Transformation",
+    "section": "Goals of transformation",
+    "text": "Goals of transformation\n\nMitigate biases in abundances\nMake features comparable across samples\nMeet assumptions of downstream statistical analyses\n\n\n\nTransformations allow standard analyses like PCA, regression, correlation.\nChoose transformation depending on the problem: relative abundance, log, CLR, etc."
+  },
+  {
+    "objectID": "transformation.html#relative-abundance",
+    "href": "transformation.html#relative-abundance",
+    "title": "Transformation",
+    "section": "Relative abundance",
+    "text": "Relative abundance\n\\[\n\\text{X}_{ij} = \\frac{\\text{Count}_{ij}}{\\sum_{k=1}^m \\text{Count}_{ik}}\n\\]\nwhere\n\n\\(i\\) indexes the sample,\n\\(j\\) indexes the taxon,\n\\(m\\) is the total number of taxa.\n\n\nLibrary sizes were arbitrary –&gt; remove their effect.\n\nLibrary sizes differ between samples (sequencing depth varies), so raw counts are not directly comparable.\nRelative abundance converts counts to proportions within each sample, making samples comparable.\nIntuition: a relative abundance of 0.2 means “this taxon makes up 20% of this sample,” independent of total reads."
+  },
+  {
+    "objectID": "transformation.html#log-transformed-relative-abundance",
+    "href": "transformation.html#log-transformed-relative-abundance",
+    "title": "Transformation",
+    "section": "Log-transformed relative abundance",
+    "text": "Log-transformed relative abundance\n\\[\n\\text{X}_{ij} = \\log \\left( \\text{Relative abundance}_{ij} + \\epsilon \\right)\n\\]\nwhere\n\n\\(\\epsilon\\) is a small pseudocount to avoid \\(\\log(0)\\).\n\n\nZero-inflated –&gt; reduce the data skewness\nLog-transform reduces skewness and makes differences among low-abundance taxa more visible, but a pseudocount is required to handle zeros."
+  },
+  {
+    "objectID": "transformation.html#section-2",
+    "href": "transformation.html#section-2",
+    "title": "Transformation",
+    "section": "",
+    "text": "The data is still constrained to relative abundances (0-1), but now in log-scale.\nBecause the total is fixed, the numbers depend on each other.\nIf one goes up, at least one of the others must go down. This is called a constraint."
+  },
+  {
+    "objectID": "transformation.html#centered-log-ratio-clr",
+    "href": "transformation.html#centered-log-ratio-clr",
+    "title": "Transformation",
+    "section": "Centered log-ratio (CLR)",
+    "text": "Centered log-ratio (CLR)\n\\[\n\\text{CLR}(x_i) = \\log\\left(\\frac{x_i}{g(x)}\\right),\\quad\ng(x) = \\left(\\prod_{j=1}^{D} x_j \\right)^{1/D}\n\\]\n\n\\(x_i\\): the \\(i\\)-th component of the composition\n\n\\(g(x)\\): geometric mean of the composition\n\n\n\nCLR removes compositional constraints and maps data from the simplex to Euclidean space.\n\nCompositionality; only ratios meaningful: How to make ratios meaningful subtraction operations? Working in log-scale –&gt; that is why we take log.\nThe current scale is arbitrary and caused by the effect of library sizes: How to center the data distribution? Subtracting mean, because we are working in log-scale we use geometric mean.\n\nStandard statistical tests assume Euclidean space, where subtraction and distances make sense.\nSubtraction does not make sense on raw compositional data because only ratios between components carry information. –&gt; How to convert ratios into subtraction? –&gt; Using log-scale\nTaking the log converts ratios into differences: log⁡(x/y)=log⁡(x)−log⁡(y) so subtraction now has a meaningful interpretation.\nThe log-values still have an arbitrary baseline, so we center them around zero by subtracting the arithmetic mean of the logs, which is equivalent to dividing each component by the geometric mean of the original composition:\nThe result is a vector in Euclidean space with sum zero, suitable for standard analyses."
+  },
+  {
+    "objectID": "transformation.html#section-3",
+    "href": "transformation.html#section-3",
+    "title": "Transformation",
+    "section": "",
+    "text": "\\[\n\\text{Arithmetic mean} = \\frac{2 + 8 + 32}{3} = \\frac{42}{3} = 14\n\\]\n\\[\n\\text{Geometric mean} = \\sqrt[3]{2 \\cdot 8 \\cdot 32} \\\\[2mm]\n= \\exp\\Bigg( \\frac{\\log 2 + \\log 8 + \\log 32}{3} \\Bigg) \\\\[2mm]\n= 8\n\\]\n\nThere is nothing inherently special about the geometric mean — it is just the arithmetic mean in log-space, which is the space we are currently working in.\nDividing each value by the geometric mean is equivalent to subtracting the arithmetic mean of the logs.\nThis centers the data around zero in log-ratio space, making differences between components meaningful for standard statistical analyses."
+  },
+  {
+    "objectID": "transformation.html#section-4",
+    "href": "transformation.html#section-4",
+    "title": "Transformation",
+    "section": "",
+    "text": "Centering means that we subtract mean from each value to get the distribution centered to 0. Because we use log-scale, we have to use suitable mean (geometric mean aka arithmetic mean in log-scale)."
+  },
+  {
+    "objectID": "transformation.html#centered-log-ratio-clr-1",
+    "href": "transformation.html#centered-log-ratio-clr-1",
+    "title": "Transformation",
+    "section": "Centered log-ratio (CLR)",
+    "text": "Centered log-ratio (CLR)\n\\[\n\\text{CLR}(x_i) \\;=\\; \\log\\left(\\frac{x_i}{g(x)}\\right) \\\\[2mm]\n= \\log(x_i) - \\log(g(x)) \\\\[2mm]\n= \\log(x_i) - \\frac{1}{D}\\sum_{j=1}^{D}\\log(x_j)\n\\]\n\n\nTake a logarithm of the values –&gt; ratios become subtraction which is what we want in Euclidean space\nCenter values to mean 0"
+  },
+  {
+    "objectID": "transformation.html#interpretation",
+    "href": "transformation.html#interpretation",
+    "title": "Transformation",
+    "section": "Interpretation:",
+    "text": "Interpretation:\n\nPositive CLR → feature is more abundant than the sample’s average\nNegative CLR → feature is less abundant than the sample’s average\nMagnitude → how strongly the feature deviates from the average\n\nOn a log scale: CLR = 1 → ~2.7× average\nCLR = 2 → ~7.4× average\nCLR = −1 → ~0.37× average\n\n\n\n\nCLR values show how each feature compares to the sample’s geometric mean.\nPositive = enriched, Negative = depleted.\nMagnitude gives a fold-change interpretation on a log scale."
+  },
+  {
+    "objectID": "transformation.html#centered-log-ratio-clr-2",
+    "href": "transformation.html#centered-log-ratio-clr-2",
+    "title": "Transformation",
+    "section": "Centered log-ratio (CLR)",
+    "text": "Centered log-ratio (CLR)\n\nRemoves compositional constraints (constant sum)\nValues centered around zero, symmetric\nAllows standard statistical tools (PCA, correlations)\nDebate on whether it is necessary in DA\n\n\n\nCLR is widely used in microbiome data analysis because it removes compositional constraints and often makes data more normally distributed.\nHowever, recent benchmark studies highlight some limitations in differential abundance (DA) analysis:\n\nCan lack sensitivity\nMay produce paradoxical results in low-diversity microbiomes\n\nCLR values are harder to interpret than relative abundances because each value is dependent on the other features in the sample\n\nDespite this, CLR remains a standard, especially for methods that assume Euclidean space."
+  },
+  {
+    "objectID": "transformation.html#section-5",
+    "href": "transformation.html#section-5",
+    "title": "Transformation",
+    "section": "",
+    "text": "Makes the data more normally distributed. Distributed around zero. Without constrains (goes from negative infinity to positive)"
+  },
+  {
+    "objectID": "transformation.html#demonstration",
+    "href": "transformation.html#demonstration",
+    "title": "Transformation",
+    "section": "Demonstration",
+    "text": "Demonstration\nlibrary(mia)\n\ntse &lt;- transformAssay(tse, method = \"relabundance\")\nprint(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 19216 26 \nmetadata(0):\nassays(2): counts relabundance\nrownames(19216): 549322 522457 ... 200359 271582\nrowData names(7): Kingdom Phylum ... Genus Species\ncolnames(26): CL3 CC1 ... Even2 Even3\ncolData names(7): X.SampleID Primer ... SampleType Description\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (19216 rows)\nrowTree: 1 phylo tree(s) (19216 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "transformation.html#exercises",
+    "href": "transformation.html#exercises",
+    "title": "Transformation",
+    "section": "Exercises",
+    "text": "Exercises\nFrom OMA online book, Chapter 12: Transformation\n\nAll exercises"
+  },
+  {
+    "objectID": "transformation.html#references",
+    "href": "transformation.html#references",
+    "title": "Transformation",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
+  },
+  {
+    "objectID": "miasim.html#microbiome-data-simulation-with-miasim",
+    "href": "miasim.html#microbiome-data-simulation-with-miasim",
+    "title": "miaSim",
+    "section": "Microbiome data simulation with miaSim",
+    "text": "Microbiome data simulation with miaSim\n\nR/Bioconductor package for simulating microbial community dynamics\nCommon ecological models\nmiaSimShiny: Graphical user interface\n\n\nCommon ecological models used in microbiome research"
+  },
+  {
+    "objectID": "miasim.html#implemented-models",
+    "href": "miasim.html#implemented-models",
+    "title": "miaSim",
+    "section": "Implemented models",
+    "text": "Implemented models\n\nSelf-organised instability (SOI)\nHubbell’s neutral model\nGeneralized Lotka–Volterra (gLV)\nRicker model (discrete gLV)\nStochastic logistic model\nConsumer–resource model"
+  },
+  {
+    "objectID": "miasim.html#stochastic-logistic-model",
+    "href": "miasim.html#stochastic-logistic-model",
+    "title": "miaSim",
+    "section": "Stochastic logistic model",
+    "text": "Stochastic logistic model\n\\[\n\\frac{dN}{dt} = r N \\left(1 - \\frac{N}{K}\\right) + \\sigma N \\, \\eta(t)\n\\]\n\n\\(N\\): population size\n\n\\(r\\): intrinsic growth rate\n\n\\(K\\): carrying capacity\n\n\\(\\sigma\\): noise strength\n\n\\(\\eta(t)\\): random fluctuation (white noise)"
+  },
+  {
+    "objectID": "miasim.html#logistic-growth-deterministic",
+    "href": "miasim.html#logistic-growth-deterministic",
+    "title": "miaSim",
+    "section": "Logistic growth (deterministic)",
+    "text": "Logistic growth (deterministic)\n\n\n\\[\n\\frac{dN}{dt} = rN\\!\\left(1 - \\frac{N}{K}\\right)\n\\]\n\n\\(N\\): population size\n\\(r\\): intrinsic growth rate\n\\(K\\): carrying capacity\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nClassic S-shaped growth; growth slows as (N K). Simple, interpretable, widely known.\n\n(r): speed to grow when rare\n\n(K): long-term typical size (without noise)\n\nHigher (r) → faster approach to (K)."
+  },
+  {
+    "objectID": "miasim.html#add-randomness-stochastic-logistic-model",
+    "href": "miasim.html#add-randomness-stochastic-logistic-model",
+    "title": "miaSim",
+    "section": "Add randomness → Stochastic logistic model",
+    "text": "Add randomness → Stochastic logistic model\n\n\n\\[\n\\frac{dN}{dt} = rN\\!\\left(1 - \\frac{N}{K}\\right) + \\sigma N\\,\\eta(t)\n\\]\n\n\\(\\sigma\\): noise strength\n\\(\\eta(t)\\): random fluctuation (white noise)\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nJust one extra component: multiplicative noise. Captures environmental/host variability or demographic stochasticity. Population fluctuates around (K) rather than following a perfect curve.\n\n(): strength of fluctuations around (K) Higher () → larger variance around (K); occasional dips/spikes."
+  },
+  {
+    "objectID": "miasim.html#stochastic-logistic-model-1",
+    "href": "miasim.html#stochastic-logistic-model-1",
+    "title": "miaSim",
+    "section": "Stochastic logistic model",
+    "text": "Stochastic logistic model\n\nSingle-species microbial dynamics under resource limits\nEffects of random perturbations (e.g., host variability)\nBenchmark for statistical methods before multi-species models\n\n\nCan be used to model single-species dynamics, effects of random perturbations and as a most simple model.\nSimple model. No interactions between microbes.\nEach species can be simulated separately with its own parameters, independently.\nProvides a baseline for comparison with more complex community models."
+  },
+  {
+    "objectID": "miasim.html#learn-more",
+    "href": "miasim.html#learn-more",
+    "title": "miaSim",
+    "section": "Learn more",
+    "text": "Learn more\n\n\n\n\n\n\n\n\n\n\n\nmiaSim package vignette (tutorials, examples, and model descriptions)\n\n\n\n\n\n\n\n\n\n\n(Gao et al. 2023) (publication)"
+  },
+  {
+    "objectID": "miasim.html#references",
+    "href": "miasim.html#references",
+    "title": "miaSim",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nGao, Yu, Yağmur Şimşek, Emma Gheysen, Tuomas Borman, Yi Li, Leo Lahti, Karoline Faust, and Daniel Rios Garza. 2023. “miaSim: An R/Bioconductor Package to Easily Simulate Microbial Community Dynamics.” Methods in Ecology and Evolution 14 (8): 1967–80. https://doi.org/10.1111/2041-210x.14129."
+  },
+  {
+    "objectID": "alpha_diversity.html#alpha-diversity",
+    "href": "alpha_diversity.html#alpha-diversity",
+    "title": "Alpha diversity",
+    "section": "Alpha diversity",
+    "text": "Alpha diversity\n\nMeasures diversity within a single sample\nTwo key aspects:\n\nRichness: how many taxa are present\n\nEvenness: how evenly distributed the taxa are\n\n\n\n\nAlpha diversity gives a single-sample summary of microbial diversity.\n\nRichness = count of taxa; Evenness = balance of abundances.\n\nUseful for comparing samples, understanding ecological structure, and detecting dysbiosis."
+  },
+  {
+    "objectID": "alpha_diversity.html#section",
+    "href": "alpha_diversity.html#section",
+    "title": "Alpha diversity",
+    "section": "",
+    "text": "Each circle represents a sample.\n\nPoint color = species identity.\nHigh richness = more colors present.\nHigh evenness = similar number of points per species.\nLow evenness = dominance by one species."
+  },
+  {
+    "objectID": "alpha_diversity.html#richness",
+    "href": "alpha_diversity.html#richness",
+    "title": "Alpha diversity",
+    "section": "Richness",
+    "text": "Richness\n\\[\nS = \\text{Number of observed taxa}\n\\]\n\nCounts unique species/ASVs/OTUs in a sample\n\n\nRichness is the simplest diversity metric: just counts how many unique taxa are observed."
+  },
+  {
+    "objectID": "alpha_diversity.html#simpsons-evenness",
+    "href": "alpha_diversity.html#simpsons-evenness",
+    "title": "Alpha diversity",
+    "section": "Simpson’s evenness",
+    "text": "Simpson’s evenness\n\\[\nE_{\\mathrm{Simpson}} = \\frac{1}{S \\sum_{i=1}^{S} p_i^2}\n\\]\nwhere:\n\n\\(p_i\\) = relative abundance of taxon \\(i\\)\n\n\\(S\\) = number of taxa\nBounded between 0 (low evenness) and 1 (perfectly even)\n\n\nSimpson’s evenness measures how evenly individuals are distributed among taxa.\nIt is easy to interpret and always ranges between 0 and 1."
+  },
+  {
+    "objectID": "alpha_diversity.html#shannon-diversity",
+    "href": "alpha_diversity.html#shannon-diversity",
+    "title": "Alpha diversity",
+    "section": "Shannon diversity",
+    "text": "Shannon diversity\n\\[\nH' = - \\sum_{i=1}^{S} p_i \\log(p_i)\n\\]\nwhere:\n\n\\(p_i\\) = relative abundance of taxon \\(i\\)\n\n\\(S\\) = total number of taxa\nCombines richness and evenness in one metric\n\n\nShannon diversity accounts for both richness and evenness.\nHigher values mean more diverse communities. (Value can be over 1, no upper bound)"
+  },
+  {
+    "objectID": "alpha_diversity.html#recommendation",
+    "href": "alpha_diversity.html#recommendation",
+    "title": "Alpha diversity",
+    "section": "Recommendation",
+    "text": "Recommendation\nGuidelines for alpha diversity: Cassol, Ibañez, and Bustamante (2025)\n\nRichness: The number of observed unique features\nDominance: Berger-Parker\nInformation: Shannon\nPhylogenetics: Faith\n\n\nRecommended to analyse and report all aspects."
+  },
+  {
+    "objectID": "alpha_diversity.html#section-1",
+    "href": "alpha_diversity.html#section-1",
+    "title": "Alpha diversity",
+    "section": "",
+    "text": "Chages in alpha diversity are associated with health outcome."
+  },
+  {
+    "objectID": "alpha_diversity.html#demonstration",
+    "href": "alpha_diversity.html#demonstration",
+    "title": "Alpha diversity",
     "section": "Demonstration",
     "text": "Demonstration"
   },
   {
-    "objectID": "findingpheno_demo.html#section",
-    "href": "findingpheno_demo.html#section",
-    "title": "FindingPheno demonstration",
+    "objectID": "alpha_diversity.html#section-2",
+    "href": "alpha_diversity.html#section-2",
+    "title": "Alpha diversity",
     "section": "",
-    "text": "# Get data from HoloFood database\nmae &lt;- HoloFoodR::getResult(ids)\n\nFirst we fetch data from HoloFood database. These include metabolite data."
+    "text": "library(mia)\ntse &lt;- addAlpha(tse)"
   },
   {
-    "objectID": "findingpheno_demo.html#section-1",
-    "href": "findingpheno_demo.html#section-1",
-    "title": "FindingPheno demonstration",
+    "objectID": "alpha_diversity.html#section-3",
+    "href": "alpha_diversity.html#section-3",
+    "title": "Alpha diversity",
     "section": "",
-    "text": "# Get data from HoloFood database\nmae &lt;- HoloFoodR::getResult(ids)\n\n# Get data from MGnify database\ntse &lt;- MGnifyR::getResult(ids)\n\nThese same samples have also metagenomics data."
+    "text": "library(mia)\ntse &lt;- addAlpha(tse)\n\nlibrary(miaViz)\nplotBoxplot(tse, col.var = \"faith_diversity\", x = \"patient_status\") +\n    labs(x = \"Diagnosis\", y = \"Faith's diversity\")"
   },
   {
-    "objectID": "findingpheno_demo.html#section-2",
-    "href": "findingpheno_demo.html#section-2",
-    "title": "FindingPheno demonstration",
-    "section": "",
-    "text": "# Get data from HoloFood database\nmae &lt;- HoloFoodR::getResult(ids)\n\n# Get data from MGnify database\ntse &lt;- MGnifyR::getResult(ids)\n\n# Merge datasets\nmae &lt;- addMGnify(tse, mae)\n\nAnd finally, we can merge these datasets."
+    "objectID": "alpha_diversity.html#exercises",
+    "href": "alpha_diversity.html#exercises",
+    "title": "Alpha diversity",
+    "section": "Exercises",
+    "text": "Exercises\nFrom OMA online book, Chapter 14: Alpha diversity\n\n1.2, 1.3, 1.4, 1.9, 1.10"
   },
   {
-    "objectID": "findingpheno_demo.html#section-3",
-    "href": "findingpheno_demo.html#section-3",
-    "title": "FindingPheno demonstration",
-    "section": "",
-    "text": "# Get data from HoloFood database\nmae &lt;- HoloFoodR::getResult(ids)\n\n# Get data from MGnify database\ntse &lt;- MGnifyR::getResult(ids)\n\n# Merge datasets\nmae &lt;- addMGnify(tse, mae)\n\nprint(mae)\n\n\nA MultiAssayExperiment object of 2 listed\n experiments with user-defined names and respective classes.\n Containing an ExperimentList class object of length 2:\n [1] microbiota: TreeSummarizedExperiment with 262 rows and 40 columns\n [2] metabolites: TreeSummarizedExperiment with 38 rows and 40 columns\nFunctionality:\n experiments() - obtain the ExperimentList instance\n colData() - the primary/phenotype DataFrame\n sampleMap() - the sample coordination DataFrame\n `$`, `[`, `[[` - extract colData columns, subset, or experiment\n *Format() - convert into a long or wide DataFrame\n assays() - convert ExperimentList to a SimpleList of matrices\n exportClass() - save data to flat files\n\n\n\nCentral to Bioconductor is standardized data containers. In biology, the data can rarely be presented only with one Excel sheet, instead we have multiple this kind of data tables: abundace table, sample metadata, taxonony table. These data containers create linkages between these tables.\nWhen we use this kind of standardized data format, we can easily utilize different methods."
-  },
-  {
-    "objectID": "findingpheno_demo.html#section-4",
-    "href": "findingpheno_demo.html#section-4",
-    "title": "FindingPheno demonstration",
-    "section": "",
-    "text": "colData(mae)\n\n\nDataFrame with 40 rows and 5 columns\n         Sample Animal_id        Site Treatment_group Animal_type\n    &lt;character&gt;  &lt;factor&gt; &lt;character&gt;        &lt;factor&gt; &lt;character&gt;\nC1           C1         1       Cecum               2     chicken\nC2           C2         2       Cecum               2     chicken\nC3           C3         3       Cecum               2     chicken\nC4           C4         4       Cecum               2     chicken\nC5           C5         5       Cecum               2     chicken\n...         ...       ...         ...             ...         ...\nC36         C36        36       Cecum               1     chicken\nC37         C37        37       Cecum               1     chicken\nC38         C38        38       Cecum               1     chicken\nC39         C39        39       Cecum               1     chicken\nC40         C40        40       Cecum               1     chicken\n\n\n\nThis is for instance how the sample metadata looks like."
-  },
-  {
-    "objectID": "findingpheno_demo.html#section-5",
-    "href": "findingpheno_demo.html#section-5",
-    "title": "FindingPheno demonstration",
-    "section": "",
-    "text": "library(mia)\nlibrary(miaViz)"
-  },
-  {
-    "objectID": "findingpheno_demo.html#section-6",
-    "href": "findingpheno_demo.html#section-6",
-    "title": "FindingPheno demonstration",
-    "section": "",
-    "text": "plotAbundance(mae[[\"microbiota\"]], rank = \"Phylum\")"
-  },
-  {
-    "objectID": "findingpheno_demo.html#section-7",
-    "href": "findingpheno_demo.html#section-7",
-    "title": "FindingPheno demonstration",
-    "section": "",
-    "text": "# Calculate diversity within sample\nmae[[\"microbiota\"]] &lt;- addAlpha(mae[[\"microbiota\"]])"
-  },
-  {
-    "objectID": "findingpheno_demo.html#section-8",
-    "href": "findingpheno_demo.html#section-8",
-    "title": "FindingPheno demonstration",
-    "section": "",
-    "text": "# Calculate diversity within sample\nmae[[\"microbiota\"]] &lt;- addAlpha(mae[[\"microbiota\"]])\n\n# Visualize them\nplotBoxplot(mae[[\"microbiota\"]],\n    col.var = \"shannon_diversity\", x = \"Treatment_group\")"
-  },
-  {
-    "objectID": "findingpheno_demo.html#section-9",
-    "href": "findingpheno_demo.html#section-9",
-    "title": "FindingPheno demonstration",
-    "section": "",
-    "text": "# Run PCA\nmae[[\"microbiota\"]] &lt;- runPCA(mae[[\"microbiota\"]])"
-  },
-  {
-    "objectID": "findingpheno_demo.html#section-10",
-    "href": "findingpheno_demo.html#section-10",
-    "title": "FindingPheno demonstration",
-    "section": "",
-    "text": "# Run PCA\nmae[[\"microbiota\"]] &lt;- runPCA(mae[[\"microbiota\"]])\n\n# Visualize PCA\nplotReducedDim(mae[[\"microbiota\"]], \"PCA\")"
-  },
-  {
-    "objectID": "findingpheno_demo.html#section-11",
-    "href": "findingpheno_demo.html#section-11",
-    "title": "FindingPheno demonstration",
-    "section": "",
-    "text": "plotLoadings(mae[[\"microbiota\"]])"
-  },
-  {
-    "objectID": "findingpheno_demo.html#section-12",
-    "href": "findingpheno_demo.html#section-12",
-    "title": "FindingPheno demonstration",
-    "section": "",
-    "text": "library(MOFA2)\n\nmodel &lt;- run_mofa(mae)"
-  },
-  {
-    "objectID": "findingpheno_demo.html#section-13",
-    "href": "findingpheno_demo.html#section-13",
-    "title": "FindingPheno demonstration",
-    "section": "",
-    "text": "plot_variance_explained(model)"
-  },
-  {
-    "objectID": "findingpheno_demo.html#section-14",
-    "href": "findingpheno_demo.html#section-14",
-    "title": "FindingPheno demonstration",
-    "section": "",
-    "text": "plot_top_weights(model)"
-  },
-  {
-    "objectID": "findingpheno_demo.html#thank-you-for-your-time",
-    "href": "findingpheno_demo.html#thank-you-for-your-time",
-    "title": "FindingPheno demonstration",
-    "section": "Thank you for your time!",
-    "text": "Thank you for your time!\n\n\n \n\n\n\n\n\n\n\n\n\n\n\nOrchestrating Microbiome Analysis online book"
-  },
-  {
-    "objectID": "findingpheno_demo.html#references",
-    "href": "findingpheno_demo.html#references",
-    "title": "FindingPheno demonstration",
+    "objectID": "alpha_diversity.html#references",
+    "href": "alpha_diversity.html#references",
+    "title": "Alpha diversity",
     "section": "References",
-    "text": "References\n\n\n\n\n\n\n\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html."
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nCassol, Ignacio, Mauro Ibañez, and Juan Pablo Bustamante. 2025. “Key Features and Guidelines for the Application of Microbial Alpha Diversity Metrics.” Scientific Reports 15 (1). https://doi.org/10.1038/s41598-024-77864-y."
+  },
+  {
+    "objectID": "multi-omics.html#multi-omics-integration",
+    "href": "multi-omics.html#multi-omics-integration",
+    "title": "Multi-omics",
+    "section": "Multi-omics integration",
+    "text": "Multi-omics integration\n\nIntegrate multiple omics layers: microbiome, metabolome, transcriptome, etc.\nExplore associations and predict outcomes\nGain complementary insights that single-omics cannot provide\n\n\nmulti-omics provides complementary information. The goal is to combine them effectively."
+  },
+  {
+    "objectID": "multi-omics.html#data-containers",
+    "href": "multi-omics.html#data-containers",
+    "title": "Multi-omics",
+    "section": "Data containers",
+    "text": "Data containers\n\naltExp() slot in TreeSummarizedExperiment\nMultiAssayExperiment\n\n\nUsing well-defined containers makes multi-omics workflows reproducible and interoperable."
+  },
+  {
+    "objectID": "multi-omics.html#methods",
+    "href": "multi-omics.html#methods",
+    "title": "Multi-omics",
+    "section": "Methods",
+    "text": "Methods\n\nAssociation: detect cross-omics correlations\nOrdination: reduce dimensionality, e.g., MOFA2\nSupervised machine learning: predict outcomes, e.g., IntegratedLearner\n\n\nCurrent approaches can be divided into these."
+  },
+  {
+    "objectID": "multi-omics.html#cross-association",
+    "href": "multi-omics.html#cross-association",
+    "title": "Multi-omics",
+    "section": "Cross-association",
+    "text": "Cross-association\n\nCLR + Spearman \n\n\n\nThis heatmap visualizes cross-omics correlations after CLR normalization."
+  },
+  {
+    "objectID": "multi-omics.html#pearson-correlation",
+    "href": "multi-omics.html#pearson-correlation",
+    "title": "Multi-omics",
+    "section": "Pearson correlation",
+    "text": "Pearson correlation\n\nMeasures linear association between two features\nSpearman correlation = Pearson correlation on ranks\n\n\\[\nr = \\frac{\n  \\underbrace{\\sum_{i=1}^{n} (x_i - \\bar{x})(y_i - \\bar{y})}_{\\text{numerator: covariance}}\n}{\n  \\underbrace{\\sqrt{\\sum_{i=1}^{n} (x_i - \\bar{x})^2} \\;\\; \\sqrt{\\sum_{i=1}^{n} (y_i - \\bar{y})^2}}_{\\text{denominator: product of standard deviations}}\n}\n\\]\n\nNumerator: measures co-variation of features. Denominator: scales by standard deviations to get a normalized correlation coefficient between -1 and 1."
+  },
+  {
+    "objectID": "multi-omics.html#calculating-targeted-correlations",
+    "href": "multi-omics.html#calculating-targeted-correlations",
+    "title": "Multi-omics",
+    "section": "Calculating “targeted” correlations",
+    "text": "Calculating “targeted” correlations\n\nFocus on feature pairs with found relationships\nAvoids computing all pairwise correlations\nImplemented in anansi"
+  },
+  {
+    "objectID": "multi-omics.html#ordination",
+    "href": "multi-omics.html#ordination",
+    "title": "Multi-omics",
+    "section": "Ordination",
+    "text": "Ordination\nMulti-omics Factor Analysis (MOFA2)\n\nFactorizes multi-omics matrix into latent factors\nCaptures shared and data-specific variation across omics\nOutputs low-dimensional embeddings for samples and features\n\n\nMOFA2 is a popular unsupervised multi-omics ordination method. Latent factors can be used for visualization or downstream analyses."
+  },
+  {
+    "objectID": "multi-omics.html#supervised-ml",
+    "href": "multi-omics.html#supervised-ml",
+    "title": "Multi-omics",
+    "section": "Supervised ML",
+    "text": "Supervised ML\nIntegratedLearner\n\nPredict phenotypes from multiple omics\nEnsemble learning combining base learners per omics\n\n\nIntegratedLearner is suitable for multi-omics prediction tasks, combining results from each data layer efficiently."
+  },
+  {
+    "objectID": "multi-omics.html#demonstration",
+    "href": "multi-omics.html#demonstration",
+    "title": "Multi-omics",
+    "section": "Demonstration",
+    "text": "Demonstration"
+  },
+  {
+    "objectID": "multi-omics.html#section",
+    "href": "multi-omics.html#section",
+    "title": "Multi-omics",
+    "section": "",
+    "text": "library(mia)\nlibrary(pheatmap)\n\n# Calculate correlations\nmat &lt;- getCrossAssociation(\n  mae, assay.type1 = \"rclr\", experiment2 = 3, \n  assay.type2 = \"signals\", mode = \"matrix\"\n)"
+  },
+  {
+    "objectID": "multi-omics.html#section-1",
+    "href": "multi-omics.html#section-1",
+    "title": "Multi-omics",
+    "section": "",
+    "text": "library(mia)\nlibrary(pheatmap)\n\n# Calculate correlations\nmat &lt;- getCrossAssociation(\n  mae, assay.type1 = \"rclr\", experiment2 = 3, \n  assay.type2 = \"signals\", mode = \"matrix\"\n)\n# Visualize\npheatmap(mat)\n\n\nThis heatmap visualizes cross-omics correlations after CLR normalization."
+  },
+  {
+    "objectID": "multi-omics.html#exercises",
+    "href": "multi-omics.html#exercises",
+    "title": "Multi-omics",
+    "section": "Exercises",
+    "text": "Exercises\nFrom OMA online book, Chapter 23: Cross-association\n\nAll exercises"
+  },
+  {
+    "objectID": "multi-omics.html#references",
+    "href": "multi-omics.html#references",
+    "title": "Multi-omics",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
+  },
+  {
+    "objectID": "outro.html#questions",
+    "href": "outro.html#questions",
+    "title": "Outro",
+    "section": "Questions",
+    "text": "Questions\n\nWhat are mia and OMA?\nHow microbiome data science is conducted in SummarizedExperiment ecosystem?\nWhat benefits this new ecosystem have compared to previous approaches?\n\n\nGo through the questions"
+  },
+  {
+    "objectID": "outro.html#objectives",
+    "href": "outro.html#objectives",
+    "title": "Outro",
+    "section": "Objectives",
+    "text": "Objectives\n\nAnalyze microbiome data using the SummarizedExperiment ecosystem\n\nCreate & interpret visualizations\n\nExplore documentation & tools via the OMA book\n\n\nThese were the objectives. You think you can now continue with the ecosystem?"
+  },
+  {
+    "objectID": "outro.html#contact-info",
+    "href": "outro.html#contact-info",
+    "title": "Outro",
+    "section": "Contact info",
+    "text": "Contact info\n\nemail: tvborm@utu.fi\ngithub.com/microbiome/OMA/discussions\ncommunity-bioc.zulipchat.com\n\n\n\nFeel free to reach me and others."
+  },
+  {
+    "objectID": "outro.html#feedback",
+    "href": "outro.html#feedback",
+    "title": "Outro",
+    "section": "Feedback",
+    "text": "Feedback\n\nhttps://forms.gle/quHvP9YSQXcLixKs7\nFeedback helps us to improve the ecosystem and workshop. COMMUNITY of users and deverlopers"
+  },
+  {
+    "objectID": "outro.html#thank-you-for-participating",
+    "href": "outro.html#thank-you-for-participating",
+    "title": "Outro",
+    "section": "Thank you for participating!",
+    "text": "Thank you for participating!"
+  },
+  {
+    "objectID": "outro.html#references",
+    "href": "outro.html#references",
+    "title": "Outro",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
+  },
+  {
+    "objectID": "daa.html#differential-abundance-analysis-daa",
+    "href": "daa.html#differential-abundance-analysis-daa",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Differential abundance analysis (DAA)",
+    "text": "Differential abundance analysis (DAA)\n\nGoal: identify taxa with different abundance between groups\nApproaches:\n\nClassical statistical tests\nMicrobiome-specific methods\n\nChallenges: compositionality, sparsity, multiple testing\n\n\nDAA is central in microbiome studies, but requires caution due to unique properties of sequencing data."
+  },
+  {
+    "objectID": "daa.html#elementary-methods-provide-more-replicable-results-in-microbial-differential-abundance-analysis",
+    "href": "daa.html#elementary-methods-provide-more-replicable-results-in-microbial-differential-abundance-analysis",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Elementary methods provide more replicable results in microbial differential abundance analysis",
+    "text": "Elementary methods provide more replicable results in microbial differential abundance analysis\n\nRelative abundances with a Wilcoxon test\nLog-transformed relative abundances with a t-test\nPresence/absence of taxa with logistic regression\n\nPelto et al. 2025 show that simple methods often give more replicable results.\n\nInstead of complex pipelines, simple classical tests may be more reproducible across studies."
+  },
+  {
+    "objectID": "daa.html#classical-tests-are-linear-models",
+    "href": "daa.html#classical-tests-are-linear-models",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Classical tests are linear models",
+    "text": "Classical tests are linear models\n\nRelative abundances with a Wilcoxon test\n\nNon-parametric, but can be expressed as a rank-based linear model\n\n\n\\[\n\\mathrm{Rank}(\\mathrm{Relative\\ abundance}) \\sim \\mathrm{Group}\n\\]\n\nLog-transformed relative abundances with a t-test\n\nStandard linear model\n\n\n\\[\n\\log(\\mathrm{Relative\\ abundance}) \\sim \\mathrm{Group}\n\\]\n\nPresence/absence of taxa with logistic regression\n\nGeneralized linear model with logit link\n\n\n\\[\n\\mathrm{Presence} \\sim \\mathrm{Group}, \\quad \\mathrm{Presence} \\in \\{0,1\\}\n\\]\n\nInstead of complex pipelines, simple classical tests may be more reproducible across studies."
+  },
+  {
+    "objectID": "daa.html#wilcoxon-vs-t-test",
+    "href": "daa.html#wilcoxon-vs-t-test",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Wilcoxon vs t-test",
+    "text": "Wilcoxon vs t-test\n\nWilcoxon: compares medians, robust to outliers, non-parametric\nt-test: compares means, assumes normality, sensitive to outliers\n\n\n\nThis plot illustrates how outliers affect the t-test but not the Wilcoxon test. Blue line = mean, red line = median."
+  },
+  {
+    "objectID": "daa.html#demonstration",
+    "href": "daa.html#demonstration",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Demonstration",
+    "text": "Demonstration"
+  },
+  {
+    "objectID": "daa.html#section",
+    "href": "daa.html#section",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "",
+    "text": "library(maaslin3)\n\nmaaslin3_out &lt;- maaslin3(\n    input_data = tse,\n    formula = \"~ patient_status\",\n    normalization = \"TSS\",\n    transform = \"LOG\",\n)"
+  },
+  {
+    "objectID": "daa.html#exercises",
+    "href": "daa.html#exercises",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Exercises",
+    "text": "Exercises\nFrom OMA online book, Chapter 17: Differential abundance\n\nAll exercises"
+  },
+  {
+    "objectID": "daa.html#references",
+    "href": "daa.html#references",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
+  },
+  {
+    "objectID": "reproducible_reporting.html#reproducible-reporting",
+    "href": "reproducible_reporting.html#reproducible-reporting",
+    "title": "Reproducible reporting",
+    "section": "Reproducible reporting",
+    "text": "Reproducible reporting\n\nTo create human-readable reports\nTransparency, reusability and reproducibility\nDebugging\n\n\nIn microbiome research, workflows often involve many custom scripts and datasets. Standardized, reproducible reporting ensures results can be verified, reused, and built upon."
+  },
+  {
+    "objectID": "reproducible_reporting.html#literate-programming",
+    "href": "reproducible_reporting.html#literate-programming",
+    "title": "Reproducible reporting",
+    "section": "Literate programming",
+    "text": "Literate programming\nProgramming paradigm introduced by Donald Knuth (1984) in which a computer program is given as an explanation of its logic in a natural language, embedded with code chunks, from which compilable source code can be generated.\n(Adapted from Wikipedia)\n\n\nLiterate programming emphasizes writing code for humans first, allowing the logic to be explained clearly, with the computer code embedded for execution."
+  },
+  {
+    "objectID": "reproducible_reporting.html#reproducible-notebooks",
+    "href": "reproducible_reporting.html#reproducible-notebooks",
+    "title": "Reproducible reporting",
+    "section": "Reproducible notebooks",
+    "text": "Reproducible notebooks\n\nWe use Quarto for reproducible documentation.\nNext generation development of Rmarkdown\nSupported by RStudio\n\n\nQuarto allows combining narrative, code, and results in a single reproducible document, ideal for microbiome workflows.\nYou can do slides, book, websites, …\nCompared to RMarkdown, better support for other langauges. You can use SQL, Python and Julia along with R in same document."
+  },
+  {
+    "objectID": "reproducible_reporting.html#demonstration",
+    "href": "reproducible_reporting.html#demonstration",
+    "title": "Reproducible reporting",
+    "section": "Demonstration",
+    "text": "Demonstration\n\nShow how to open file in RStudio.\nWhat are code chunks and how to write text.\nHow to render?"
+  },
+  {
+    "objectID": "reproducible_reporting.html#exercises",
+    "href": "reproducible_reporting.html#exercises",
+    "title": "Reproducible reporting",
+    "section": "Exercises",
+    "text": "Exercises\nFrom OMA online book, Chapter 1: Microbiome data science in Bioconductor\nmicrobiome.github.io/OMA/docs/devel/pages/intro.html\n\nExercise 2\nExercise 3\nExercise 4"
+  },
+  {
+    "objectID": "reproducible_reporting.html#references",
+    "href": "reproducible_reporting.html#references",
+    "title": "Reproducible reporting",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
+  },
+  {
+    "objectID": "machine_learning.html#demonstration",
+    "href": "machine_learning.html#demonstration",
+    "title": "Machine learning (ML)",
+    "section": "Demonstration",
+    "text": "Demonstration"
+  },
+  {
+    "objectID": "machine_learning.html#exercises",
+    "href": "machine_learning.html#exercises",
+    "title": "Machine learning (ML)",
+    "section": "Exercises",
+    "text": "Exercises"
+  },
+  {
+    "objectID": "machine_learning.html#references",
+    "href": "machine_learning.html#references",
+    "title": "Machine learning (ML)",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
+  },
+  {
+    "objectID": "beta_diversity.html#beta-diversity",
+    "href": "beta_diversity.html#beta-diversity",
+    "title": "Beta diversity",
+    "section": "Beta diversity",
+    "text": "Beta diversity\n\nSimilarity between samples\nDissimilarity/distance between samples, clustering, ordination…\nIdentify patterns of community variation across conditions or treatments\n\n\nUmbrella term. Different methods. Goal is to identify patterns from microbial profiles."
+  },
+  {
+    "objectID": "beta_diversity.html#ordination",
+    "href": "beta_diversity.html#ordination",
+    "title": "Beta diversity",
+    "section": "Ordination",
+    "text": "Ordination\n\nOrdination"
+  },
+  {
+    "objectID": "beta_diversity.html#references",
+    "href": "beta_diversity.html#references",
+    "title": "Beta diversity",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
   },
   {
     "objectID": "index.html",
@@ -172,7 +564,7 @@
     "href": "index.html#topics",
     "title": "Quarto presentations",
     "section": "Topics",
-    "text": "Topics\n\nIntroduction\n\nBioconductor\nReproducible reporting\nData containers\nImport data\n\nPreprocessing\n\nAgglomeration\nTransformation\n\nDiversity\n\nAlpha diversity\nBeta diversity\n\nOrdination\n\n\nAssociation\n\nDifferential abundance analysis\nFunctional analysis\n\nMulti-omics\n\nMulti-omics\n\nMachine learning\n\nMachine learning\n\n\n\nPackages\n\nMGnifyR: An R package for accessing MGnify microbiome data\nmiaDash: Microbiome Analysis Dashboard\nmiaSim: Microbiome simulation\n\n\n\nData sets\n\nHintikkaXO\nTengeler2020\n\n\n\nConference and seminar presentations\n\nOrchestrating microbiome multi-omics (BioC2023)\nOrchestrating Microbiome Analysis with Bioconductor (OH-BOOST, Microbiota Data Analysis and Statistics, webinar)\nOrchestrating Microbiome Analysis with Bioconductor (GBCC2025)\nOrchestrating Microbiome Analysis with Bioconductor (ISMB/ECCB 2025)\nFindingPheno demonstration, 08/10/2025\n\n\n\nCourses\n\nIntroduction\nOutro\nBrain, bacteria, and behaviour summer course"
+    "text": "Topics\n\nIntroduction\n\nBioconductor\nReproducible reporting\nData containers\nImport data\n\nPreprocessing\n\nAgglomeration\nTransformation\n\nDiversity\n\nAlpha diversity\nBeta diversity\n\nOrdination\n\n\nAssociation\n\nDifferential abundance analysis\nFunctional analysis\n\nMulti-omics\n\nMulti-omics\n\nMachine learning\n\nMachine learning\n\n\n\nPackages\n\nMGnifyR: An R package for accessing MGnify microbiome data\nmiaDash: Microbiome Analysis Dashboard\nmiaSim: Microbiome simulation\n\n\n\nData sets\n\nHintikkaXO\nTengeler2020\n\n\n\nConference and seminar presentations\n\nOrchestrating microbiome multi-omics (BioC2023)\nOrchestrating Microbiome Analysis with Bioconductor (OH-BOOST, Microbiota Data Analysis and Statistics, webinar)\nOrchestrating Microbiome Analysis with Bioconductor (GBCC2025)\nOrchestrating Microbiome Analysis with Bioconductor (ISMB/ECCB 2025)\n\n\n\nCourses\n\nIntroduction\nOutro"
   },
   {
     "objectID": "index.html#contributions",
@@ -182,17 +574,549 @@
     "text": "Contributions\nYou are welcome to add new presentations or improve the current ones. The guidelines for contributors are explained here. The presentations are deployed from the quarto sub-directory, so you need to make the respective changes there and run cd quarto/; quarto render.\nThe following is a quick workflow for contributions:\n\nfork the repository\nadd your qmd file(s) to the quarto sub-directory\nupdate the _quarto.yml file and the list of presentations in the website with the name of the qmd file(s) with your presentation(s)\nrun quarto render, or in R quarto::quarto_render(myfilename) from your terminal from within the quarto sub-directory\nand make a pull request to the master branch\n\nThis documentation provides more details about publishing quarto presentations with GitHub Pages."
   },
   {
-    "objectID": "findingpheno_demo.html#summarizedexperiment",
-    "href": "findingpheno_demo.html#summarizedexperiment",
-    "title": "FindingPheno demonstration",
-    "section": "SummarizedExperiment",
-    "text": "SummarizedExperiment\n(Huber et al. 2015)\n\n\nIs based on standardized data containers."
+    "objectID": "functional_analysis.html#metagenomics",
+    "href": "functional_analysis.html#metagenomics",
+    "title": "Functional analysis",
+    "section": "Metagenomics",
+    "text": "Metagenomics\n\nReveals functional potential of a community, beyond taxonomy\nRedundant genes → functional stability\nFunctional compensation: missing species can be replaced by others\n\n\nMetagenomics tells us what microbes can do, not just who is there. Useful for understanding resilience and redundancy in microbiomes.\nFunctions/genes can be more interesting sometimes as microbial functions matter, not which bacteria causes the effect (for instance, in disease)\nEven though one microbe goes away, another taxa can take its “job” in the ecosystem.\nTo explore what microbes are actually doing, we need more metabolomics data for instance."
   },
   {
-    "objectID": "findingpheno_demo.html#summary",
-    "href": "findingpheno_demo.html#summary",
-    "title": "FindingPheno demonstration",
-    "section": "Summary",
-    "text": "Summary\n\nExtendable software ecosystem\nEasy access to databases\nGraphical user interface & online book"
+    "objectID": "functional_analysis.html#metagenomic-data",
+    "href": "functional_analysis.html#metagenomic-data",
+    "title": "Functional analysis",
+    "section": "Metagenomic data",
+    "text": "Metagenomic data\n\nTaxonomic profiles: species, genera, etc.\nFunctional profiles: genes, pathways, metabolic modules\nLinkage: which taxa contribute to which functions\n\n\nFunctional profiles can be derived using tools like HUMAnN. They often complement or outperform taxonomic profiles for certain analyses.\nThe data includes: - what bacteria are present - what genes are present - which bacteria includes the genes"
+  },
+  {
+    "objectID": "functional_analysis.html#analysis-approaches",
+    "href": "functional_analysis.html#analysis-approaches",
+    "title": "Functional analysis",
+    "section": "Analysis approaches",
+    "text": "Analysis approaches\n\nAnalyze functional data using the same methods as taxonomy\nIntegration enables multi-omics perspective\nDo functional shifts mirror taxonomic shifts?\n\n\ne.g. MaAsLin, dbRDA, PERMANOVA, ordination can be used\nExample: Run dbRDA or PERMANOVA on functional data and compare to taxonomy. Highlights cases where functions remain stable despite taxonomic changes, or vice versa."
+  },
+  {
+    "objectID": "functional_analysis.html#references",
+    "href": "functional_analysis.html#references",
+    "title": "Functional analysis",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
+  },
+  {
+    "objectID": "miadash.html#origins",
+    "href": "miadash.html#origins",
+    "title": "Microbiome Analysis Dashboard",
+    "section": "Origins",
+    "text": "Origins\nWhile attending workshops at EuroBioc2023, I got to play with iSEE."
+  },
+  {
+    "objectID": "miadash.html#isee",
+    "href": "miadash.html#isee",
+    "title": "Microbiome Analysis Dashboard",
+    "section": "iSEE",
+    "text": "iSEE\niSEE is a very nice app that lets you visualise SummarizedExperiment objects in an interactive way (Rue-Albrecht et al. 2018). However it had no support for 🦠🦠🦠."
+  },
+  {
+    "objectID": "miadash.html#iseetree",
+    "href": "miadash.html#iseetree",
+    "title": "Microbiome Analysis Dashboard",
+    "section": "iSEEtree",
+    "text": "iSEEtree\nSo we thought why not adding support for 🦠🦠🦠, and we developed iSEEtree to visualise TreeSummarizedExperiment objects in an interactive way (Benedetti et al. 2024)."
+  },
+  {
+    "objectID": "miadash.html#half-way-there",
+    "href": "miadash.html#half-way-there",
+    "title": "Microbiome Analysis Dashboard",
+    "section": "Half-way there!",
+    "text": "Half-way there!\niSEEtree is very nice, but why not having a graphical user interface with full mia functionality, from importing data to plotting results?"
+  },
+  {
+    "objectID": "miadash.html#miadash",
+    "href": "miadash.html#miadash",
+    "title": "Microbiome Analysis Dashboard",
+    "section": "miaDash",
+    "text": "miaDash\nAn app that translates the mia functionality to a graphical user interface."
+  },
+  {
+    "objectID": "miadash.html#try-the-app",
+    "href": "miadash.html#try-the-app",
+    "title": "Microbiome Analysis Dashboard",
+    "section": "Try the app",
+    "text": "Try the app\nVisit miaDash at this address or by scanning the QR code below."
+  },
+  {
+    "objectID": "miadash.html#references",
+    "href": "miadash.html#references",
+    "title": "Microbiome Analysis Dashboard",
+    "section": "References",
+    "text": "References\n\n\n\n\n\n\n\n\nBenedetti, Giulio, Ely Seraidarian, Theotime Pralas, Akewak Jeba, Tuomas Borman, and Leo Lahti. 2024. “iSEEtree: Interactive Explorer for Hierarchical Data.” https://arxiv.org/abs/2412.02882.\n\n\nRue-Albrecht, Kevin, Federico Marini, Charlotte Soneson, and Aaron TL Lun. 2018. “iSEE: Interactive Summarizedexperiment Explorer.” F1000Research 7. https://doi.org/10.12688/f1000research.14966.1."
+  },
+  {
+    "objectID": "intro.html#orchestrating-microbiome-analysis-with-bioconductor",
+    "href": "intro.html#orchestrating-microbiome-analysis-with-bioconductor",
+    "title": "Introduction",
+    "section": "Orchestrating Microbiome Analysis with Bioconductor",
+    "text": "Orchestrating Microbiome Analysis with Bioconductor\n\nIntroduces microbiome analysis framework\nFor participants with sufficient programming skills\n\n\n\nThis course introduces mia (microbiome analysis) framework within Bioconductor.\nCentral to Bioconductor is data containers. TreeSummarizedExperiment data container and methods.\nGet to know the participants."
+  },
+  {
+    "objectID": "intro.html#schedule",
+    "href": "intro.html#schedule",
+    "title": "Introduction",
+    "section": "Schedule",
+    "text": "Schedule\nDay 1 — Monday: Introduction to Bioconductor & data containers Day 2 — Tuesday: Data wrangling Day 3 — Thursday: Diversity Day 4 — Friday: Differential abundance & advanced topics\n\nOverview of the week"
+  },
+  {
+    "objectID": "intro.html#practicalities",
+    "href": "intro.html#practicalities",
+    "title": "Introduction",
+    "section": "Practicalities",
+    "text": "Practicalities\n\nEach topic: short lecture + demonstration\nMajority of time: hands-on practice\nMaterials follow the OMA online book\n\n\nHands-on learning is the focus — you’ll learn best by doing. Feel free to interrupt and ask questions anytime. The OMA book is a lasting resource you can return to.\nYou should do hands-on with your local computer. Have you installed packages? –&gt; Help is provided when doing first exercises. RStudio is recommended along with Quarto/RMarkdown, but plain R files are ok if you are familiar with them."
+  },
+  {
+    "objectID": "intro.html#questions",
+    "href": "intro.html#questions",
+    "title": "Introduction",
+    "section": "Questions",
+    "text": "Questions\n\nWhat are r BiocStyle::Biocpkg(\"mia\") and OMA?\nHow microbiome data science is conducted in r BiocStyle::Biocpkg(\"SummarizedExperiment\") ecosystem?\nWhat benefits this new ecosystem have compared to previous approaches?\n\n\nThese are the questions that you might have at this point. Hopefully, I am able to answer them during the week.\nmia is the package family and OMA is the online book and ecosystem.\nHow this SummarizedExperiment ecosystem is applied to microbiome data science and what benefits it has compared to other approaches, including custom scripts, phyloseq and other data containers."
+  },
+  {
+    "objectID": "intro.html#objectives",
+    "href": "intro.html#objectives",
+    "title": "Introduction",
+    "section": "Objectives",
+    "text": "Objectives\n\nAnalyze microbiome data using the r BiocStyle::Biocpkg(\"SummarizedExperiment\") ecosystem\n\nCreate & interpret visualizations\n\nExplore documentation & tools via the OMA book\n\n\nBy the end of the course, you’ll be able to apply SE-based methods, create meaningful plots, and know where to go for further learning."
+  },
+  {
+    "objectID": "intro.html#references",
+    "href": "intro.html#references",
+    "title": "Introduction",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
+  },
+  {
+    "objectID": "import.html#section-2",
+    "href": "import.html#section-2",
+    "title": "Import data",
+    "section": "",
+    "text": "mia is for downstream analysis"
+  },
+  {
+    "objectID": "import.html#importers-and-converters",
+    "href": "import.html#importers-and-converters",
+    "title": "Import data",
+    "section": "Importers and converters",
+    "text": "Importers and converters\n\nmia includes importers and converters for standard data formats\n\nImporter: Import file\nConverter: Convert R object to other format\n\nYou can also create TreeSE object manually\n\n\nImporters and converters for standard data formats.\nYou can also create TreeSE object manually by hand if you have csv or excel files."
+  },
+  {
+    "objectID": "import.html#open-databases",
+    "href": "import.html#open-databases",
+    "title": "Import data",
+    "section": "Open databases",
+    "text": "Open databases\n\n\n\n\n\n\n\n\n\nData resource\nPackage\n# studies or datasets\n# samples\n\n\n\n\nCurated metagenomic data (Pasolli et al. 2017)\ncuratedMetagenomicData (Pasolli et al. 2017)\n93\n22,588\n\n\nHoloFood (Rogers et al. 2025)\nHoloFoodR (Borman, Sannikov, and Lahti 2025)\n-\n9,990\n\n\nMGnify (Gurbich et al. 2023)\nMGnifyR (Borman, Allen, and Lahti 2025)\n5129\n616,138\n\n\nMicrobiome benchmark data (Gamboa-Tuz et al. 2025)\nMicrobiomeBenchmarkData (Gamboa-Tuz et al. 2025)\n6\n1,125\n\n\nmicrobiomeDataSets (Lahti, Ernst, and Shetty 2025)\nmicrobiomeDataSets (Lahti, Ernst, and Shetty 2025)\n6\n19,100\n\n\n\n\nThere are many freely available databases for microbiome data.\nFor method development, benchmarking, or gaining new insights."
+  },
+  {
+    "objectID": "import.html#demonstration",
+    "href": "import.html#demonstration",
+    "title": "Import data",
+    "section": "Demonstration",
+    "text": "Demonstration"
+  },
+  {
+    "objectID": "import.html#section-3",
+    "href": "import.html#section-3",
+    "title": "Import data",
+    "section": "",
+    "text": "library(mia)\n\ntse &lt;- importBIOM(\"file_path.biom\")\nprint(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 19216 26 \nmetadata(0):\nassays(1): counts\nrownames(19216): 549322 522457 ... 200359 271582\nrowData names(7): Kingdom Phylum ... Genus Species\ncolnames(26): CL3 CC1 ... Even2 Even3\ncolData names(7): X.SampleID Primer ... SampleType Description\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (19216 rows)\nrowTree: 1 phylo tree(s) (19216 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "import.html#exercises",
+    "href": "import.html#exercises",
+    "title": "Import data",
+    "section": "Exercises",
+    "text": "Exercises\nFrom OMA online book, Chapter 4: Import\n\nExercise 1"
+  },
+  {
+    "objectID": "import.html#references",
+    "href": "import.html#references",
+    "title": "Import data",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nBorman, Tuomas, Ben Allen, and Leo Lahti. 2025. MGnifyR: R Interface to EBI MGnify Metagenomics Resource. https://github.com/EBI-Metagenomics/MGnifyR.\n\n\nBorman, Tuomas, Artur Sannikov, and Leo Lahti. 2025. HoloFoodR: R Interface to EBI HoloFood Resource. https://github.com/EBI-Metagenomics/HoloFoodR.\n\n\nGamboa-Tuz, Samuel D., Marcel Ramos, Eric Franzosa, Curtis Huttenhower, Nicola Segata, Sehyun Oh, and Levi Waldron. 2025. “Commonly Used Compositional Data Analysis Implementations Are Not Advantageous in Microbial Differential Abundance Analyses Benchmarked Against Biological Ground Truth.” bioRxiv. https://doi.org/10.1101/2025.02.13.638109.\n\n\nGurbich, Tatiana A., Alexandre Almeida, Martin Beracochea, Tony Burdett, Josephine Burgin, Guy Cochrane, Shriya Raj, et al. 2023. “MGnify Genomes: A Resource for Biome-Specific Microbial Genome Catalogues.” Journal of Molecular Biology, Computation resources for molecular biology, 435 (14): 168016. https://doi.org/10.1016/j.jmb.2023.168016.\n\n\nLahti, Leo, Felix G. M. Ernst, and Sudarshan Shetty. 2025. microbiomeDataSets: Experiment Hub Based Microbiome Datasets. https://doi.org/10.18129/B9.bioc.microbiomeDataSets.\n\n\nPasolli, Edoardo, Lucas Schiffer, Paolo Manghi, Audrey Renson, Valerie Obenchain, Duy Tin Truong, Francesco Beghini, et al. 2017. “Accessible, Curated Metagenomic Data Through ExperimentHub.” Nature Methods 14 (11): 1023–24. https://doi.org/10.1038/nmeth.4468.\n\n\nRogers, Alexander B, Varsha Kale, Germana Baldi, Antton Alberdi, M Thomas P Gilbert, Dipayan Gupta, Morten T Limborg, et al. 2025. “HoloFood Data Portal: Holo-Omic Datasets for Analysing Host–Microbiota Interactions in Animal Production.” Database (Oxford) 2025: baae112. https://doi.org/10.1093/database/baae112."
+  },
+  {
+    "objectID": "bioc2023.html#orchestrating-microbiome-multi-omics-with-r-and-bioconductor",
+    "href": "bioc2023.html#orchestrating-microbiome-multi-omics-with-r-and-bioconductor",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Orchestrating microbiome multi-omics with R and Bioconductor",
+    "text": "Orchestrating microbiome multi-omics with R and Bioconductor\n\nLeo Lahti @antagomir | Department of Computing, University of Turku, Finland"
+  },
+  {
+    "objectID": "bioc2023.html#organizing-microbiome-data",
+    "href": "bioc2023.html#organizing-microbiome-data",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Organizing microbiome data",
+    "text": "Organizing microbiome data\n\n\n\nSide information\nsample & feature metadata\nMultiple assays\ncounts, relabundance, phILR..\nAlternative experiments \n16S, metagenome, phylogenetic microarrays; pipelines\nCross-kingdom analyses  bacteriome, archaeome, virome, mykobiome, eukaryome\nHierarchical data\ntaxonomic levels, nested designs, sample & feature trees"
+  },
+  {
+    "objectID": "bioc2023.html#section",
+    "href": "bioc2023.html#section",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "",
+    "text": "Fig. by Domenick Braccia (EuroBioC 2020)"
+  },
+  {
+    "objectID": "bioc2023.html#integrating-multiple-experiments",
+    "href": "bioc2023.html#integrating-multiple-experiments",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Integrating multiple experiments",
+    "text": "Integrating multiple experiments\nCombine taxonomic, metagenomic & functional profiling, and host measurements \nby extending the Bioconductor MultiAssayExperiment class."
+  },
+  {
+    "objectID": "bioc2023.html#benefits-for-microbiome-data-science",
+    "href": "bioc2023.html#benefits-for-microbiome-data-science",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Benefits for microbiome data science",
+    "text": "Benefits for microbiome data science\n\n\n\n\nExtended\nenhances multi-assay analyses in microbiome studies\nOptimized\nspeed, memory & scale (sample sizes, datasets, cohorts)\nIntegrated\nwith other applications & frameworks (e.g. Single Cell, Spatial transcriptomics)"
+  },
+  {
+    "objectID": "bioc2023.html#package-and-data-ecosystem",
+    "href": "bioc2023.html#package-and-data-ecosystem",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Package and data ecosystem",
+    "text": "Package and data ecosystem\nBioconductor methods & packages supporting the framework.\n\n\n\n\n\nBasic wrangling: transformations, agglomeration, split/merge etc.\nAlpha & beta diversity\nDimension reduction (scater)\nDifferential abundance (ANCOMBC, ALDEx2, benchdamic)\nVisualization (miaViz)\nTime series manipulation (miaTime)\nEcological simulations (miaSim)"
+  },
+  {
+    "objectID": "bioc2023.html#section-1",
+    "href": "bioc2023.html#section-1",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "",
+    "text": "Importers for other common formats\nLinking with other common formats and microbiome data science frameworks.\n   \nOpen data resources\nOpen microbiome data sets readily available in TreeSummarizedExperiment format via curatedMetagenomicData, EBI MGnify, Bioconductor ExperimentHub, and packages."
+  },
+  {
+    "objectID": "bioc2023.html#minimal-example",
+    "href": "bioc2023.html#minimal-example",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Minimal example",
+    "text": "Minimal example\nCross-correlating taxonomic and metabolomic profiles from a dietary intervention study in mice (Hintikka et al. 2021).\n\nlibrary(mia)\n\n# Import data and rename\ndata(\"HintikkaXOData\")\nmae &lt;- HintikkaXOData\n  \n# Agglomerate rare taxa by prevalence at the Family level & log10-transform read  counts\nmae[[\"microbiota\"]] &lt;- agglomerateByPrevalence(mae[[\"microbiota\"]], rank = \"Family\")\nmae[[\"microbiota\"]] &lt;- transformAssay(mae[[\"microbiota\"]], method = \"clr\", pseudocount = 1)\n\n# Get cross-correlation between taxa & metabolites\nx &lt;- testExperimentCrossAssociation(mae, experiment1 = \"microbiota\", experiment2 = \"metabolites\",\n                                               assay.type1 = \"clr\", assay.type2 = \"nmr\",\n                                               mode = \"matrix\", sort = TRUE)$cor\n\n# Visualize taxa-metabolite associations on heatmap\nComplexHeatmap::Heatmap(x)"
+  },
+  {
+    "objectID": "bioc2023.html#documentation-oma-gitbook-beta",
+    "href": "bioc2023.html#documentation-oma-gitbook-beta",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Documentation: OMA Gitbook (beta)",
+    "text": "Documentation: OMA Gitbook (beta)\nComplements other Bioconductor Gitbooks; overlapping methods and analysis strategies: microbiome.github.io/OMA"
+  },
+  {
+    "objectID": "bioc2023.html#community",
+    "href": "bioc2023.html#community",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Community",
+    "text": "Community\n\n\nCoordination: Tuomas Borman, Leo Lahti\nGiulio Benedetti, Yağmur Şimşek, Basil Courbayre, Jeba Akewak, Daena Rys, Henrik Eckermann, Chouaib Benchraka, Rajesh Shigdel, Artur Sannikov, Lu Yang, Renuka Potbhare, S. A. Shetty, R. Huang, F. G.M. Ernst, D. J. Braccia, H. C. Bravo; 20+ contributors, 10+ countries. Welcome to join!\nAcknowledgments: TreeSummarizedExperiment, SingleCellExperiment, MultiAssayExperiment, curatedMetagenomicData, MGnifyR, phILR, ANCOMBC, ALDEx2, benchdamic, scater, scuttle authors..\nCourses in 2023: Pune (IND) | Turku & Oulu (FIN) | Utrecht, Wageningen & Radboud (NLD) | Norwich (UK) |Bergen (NO)"
+  },
+  {
+    "objectID": "bioc2023.html#bioconductor-books",
+    "href": "bioc2023.html#bioconductor-books",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Bioconductor books",
+    "text": "Bioconductor books"
+  },
+  {
+    "objectID": "bioc2023.html#resources",
+    "href": "bioc2023.html#resources",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Resources",
+    "text": "Resources\nMicrobiome R package listing:\ngithub.com/microsud/Tools-Microbiome-Analysis"
+  },
+  {
+    "objectID": "bioc2023.html#microbiome-data-science-workflow",
+    "href": "bioc2023.html#microbiome-data-science-workflow",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Microbiome data science workflow",
+    "text": "Microbiome data science workflow\n\n\nData containers:\n\nTreeSummarizedExperiment\nMultiAssayExperiment\n\nR/Bioc packages:\nmia, miaViz\n\n\n\n\nFigure by Domenick Braccia (EuroBioC 2020)"
+  },
+  {
+    "objectID": "bioc2023.html#misc",
+    "href": "bioc2023.html#misc",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Misc",
+    "text": "Misc\n\nFigure source: Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology 12:11."
+  },
+  {
+    "objectID": "bioc2023.html#treesummarizedexperiment",
+    "href": "bioc2023.html#treesummarizedexperiment",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "TreeSummarizedExperiment",
+    "text": "TreeSummarizedExperiment"
+  },
+  {
+    "objectID": "bioc2023.html#optimal-container-for-microbiome-data-integration",
+    "href": "bioc2023.html#optimal-container-for-microbiome-data-integration",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Optimal container for microbiome data integration?",
+    "text": "Optimal container for microbiome data integration?\nImprove interoperability, ensure sustainability.\n\n\nMultiple assays\nseamless interlinking\nSide information\nextended capabilities & data types\nHierarchical data\nboth samples & features\nOptimized\nspeed & memory\nIntegrated\nother applications & frameworks"
+  },
+  {
+    "objectID": "bioc2023.html#data-integration-in-microbiomics",
+    "href": "bioc2023.html#data-integration-in-microbiomics",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Data integration in microbiomics",
+    "text": "Data integration in microbiomics\n\nScaling up sample size (cohorts & meta-analyses)\nComplementary pipelines\nAlternative experiments (e.g. 16S, metagenome, phylogenetic microarrays)\nMultiple assays (e.g. counts, relative abundances, clr, phILR)\nHierarchies in feature & sample space (phylogenies, nested designs)\nCross-kingdom analyses (bacteriome, virome, mykobiome, eukaryome)\nMulti-omics (taxonomy, function, host)"
+  },
+  {
+    "objectID": "bioc2023.html#optimal-container-for-microbiome-data-integration-1",
+    "href": "bioc2023.html#optimal-container-for-microbiome-data-integration-1",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Optimal container for microbiome data integration?",
+    "text": "Optimal container for microbiome data integration?\nImprove interoperability, ensure sustainability.\n\n\nMultiple assays\nseamless interlinking\nSide information\nextended capabilities & data types\nHierarchical data\nboth samples & features\nOptimized\nspeed & memory\nIntegrated\nother applications & frameworks"
+  },
+  {
+    "objectID": "bioc2023.html#linking-multiple-omics",
+    "href": "bioc2023.html#linking-multiple-omics",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Linking multiple omics",
+    "text": "Linking multiple omics\nTaxonomic, metagenomic & functional profiling, host measurements"
+  },
+  {
+    "objectID": "bioc2023.html#open-data-resources-1",
+    "href": "bioc2023.html#open-data-resources-1",
+    "title": "Orchestrating microbiome multi-omics",
+    "section": "Open data resources",
+    "text": "Open data resources\n\ncuratedMetagenomicData (Pasolli et al. 2017)\nEBI MGnify (Mitchell et al. 2020)\nmicrobiomeDataSets (Ernst et al. 2020);\nR package demo data sets\nImport functions for common formats (Biom, QIIME2, Mothur, phyloseq)"
+  },
+  {
+    "objectID": "agglomeration.html#agglomeration",
+    "href": "agglomeration.html#agglomeration",
+    "title": "Agglomeration",
+    "section": "Agglomeration",
+    "text": "Agglomeration\nCombining features into higher-level taxa"
+  },
+  {
+    "objectID": "agglomeration.html#why",
+    "href": "agglomeration.html#why",
+    "title": "Agglomeration",
+    "section": "Why?",
+    "text": "Why?\n\nFocus on biologically meaningful units\nReduce sparsity and noise\nImprove interpretability of downstream analyses\n\n\n\nFocusing on higher-level taxa (e.g., genera instead of thousands of ASVs) helps highlight biologically relevant patterns.\n16S sequencing often does not resolve taxa below genus level reliably.\nAgglomeration reduces noise from sequencing artifacts and rare features.\nMakes downstream analyses like diversity metrics, ordination, and association studies more interpretable.\nNote: Some resolution is lost when collapsing features—balance simplicity with detail."
+  },
+  {
+    "objectID": "agglomeration.html#section",
+    "href": "agglomeration.html#section",
+    "title": "Agglomeration",
+    "section": "",
+    "text": "Species belonging to Genus A are summed up together…"
+  },
+  {
+    "objectID": "agglomeration.html#demonstration",
+    "href": "agglomeration.html#demonstration",
+    "title": "Agglomeration",
+    "section": "Demonstration",
+    "text": "Demonstration\nlibrary(mia)\n\ntse &lt;- agglomerateByRank(tse, rank = \"Phylum\")\nprint(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 66 26 \nmetadata(1): agglomerated_by_rank\nassays(1): counts\nrownames(66): ABY1_OD1 AC1 ... ZB2 ZB3\nrowData names(7): Kingdom Phylum ... Genus Species\ncolnames(26): CL3 CC1 ... Even2 Even3\ncolData names(7): X.SampleID Primer ... SampleType Description\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (66 rows)\nrowTree: 1 phylo tree(s) (66 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "agglomeration.html#section-1",
+    "href": "agglomeration.html#section-1",
+    "title": "Agglomeration",
+    "section": "",
+    "text": "tse &lt;- agglomerateByRanks(tse)\nprint(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 19216 26 \nmetadata(0):\nassays(1): counts\nrownames(19216): 549322 522457 ... 200359 271582\nrowData names(7): Kingdom Phylum ... Genus Species\ncolnames(26): CL3 CC1 ... Even2 Even3\ncolData names(7): X.SampleID Primer ... SampleType Description\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(7): Kingdom Phylum ... Genus Species\nrowLinks: a LinkDataFrame (19216 rows)\nrowTree: 1 phylo tree(s) (19216 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "agglomeration.html#exercises",
+    "href": "agglomeration.html#exercises",
+    "title": "Agglomeration",
+    "section": "Exercises",
+    "text": "Exercises\nFrom OMA online book, Chapter 11: Agglomeration\n\n1.2, 1.3, 1.4, 1.5, 1.6"
+  },
+  {
+    "objectID": "agglomeration.html#references",
+    "href": "agglomeration.html#references",
+    "title": "Agglomeration",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
+  },
+  {
+    "objectID": "mgnifyr.html#contents",
+    "href": "mgnifyr.html#contents",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "Contents",
+    "text": "Contents\n\nBioconductor\nMGnifyR R package\nmia (Microbiome Analysis) within Bioconductor\n\n\n11:30 — 12:30\nThe idea of the first half of our sessions is to introduce Bioconductor, data containers, and MGnifyR R packages that bridges the gap between MGnify database and statistical tools in Bioconductor.\nThen we have a lunch break.\n13:30 — 15:15\nIn second half, we will go deeper on the statistical analysis."
+  },
+  {
+    "objectID": "mgnifyr.html#bioconductor",
+    "href": "mgnifyr.html#bioconductor",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "Bioconductor",
+    "text": "Bioconductor\n\nCommunity-driven open-source project\nHigh-quality, tested statistical methods\nWell-documented\n\n\n\n\nBioconductor is more than software.\nWorldwide community of bioinformaticians; both users and developers."
+  },
+  {
+    "objectID": "mgnifyr.html#summarizedexperiment",
+    "href": "mgnifyr.html#summarizedexperiment",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "SummarizedExperiment",
+    "text": "SummarizedExperiment\n(Huber et al. 2015)\n\n\nThe software in Bioconductor is based on data containers. Structured way to store and manage complex (biological) data.\nWhen you put data in this format, you can easily apply methods and run statistical analysis and visualize results."
+  },
+  {
+    "objectID": "mgnifyr.html#mgnify",
+    "href": "mgnifyr.html#mgnify",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "MGnify",
+    "text": "MGnify\n\nMicrobiome database hosted by EMBL/EBI\nStandardized bioinformatics pipelines\nTaxonomy and functional mappings\n\n \n\nOf course, you can import your own data to these data containers and that is what is done in many studies.\nHowever, we have this amazing database MGnify already containing harmonized and huge database.\n\nRaw sequences from ENA\nOpen access\nTaxonomy and functional mappings along with genome catalogues\nApplication Programming Interface (API)"
+  },
+  {
+    "objectID": "mgnifyr.html#mgnifyr",
+    "href": "mgnifyr.html#mgnifyr",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "MGnifyR",
+    "text": "MGnifyR\n\nFetch data from MGnify directly to SummarizedExperiment format\nBridges the gap between data resources and tools\n\n\n\nChallenges in API\n\nRequires familiarity with API workflows, database structures, and linkages.\nLeads to challenges in reproducibility and time-consuming data wrangling.\n\nWith MGnifyR, you can fetch the data from MGnify database directly into SummarizedExperiment format. When you have the data in this format, you can immdediately apply methods from Bioconductor without any data wrangling.\nHalf million samples currently from environment, human and other systems with sample metadata such as diagnosis and so forth"
+  },
+  {
+    "objectID": "mgnifyr.html#demonstration",
+    "href": "mgnifyr.html#demonstration",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "Demonstration",
+    "text": "Demonstration"
+  },
+  {
+    "objectID": "mgnifyr.html#section",
+    "href": "mgnifyr.html#section",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "",
+    "text": "library(\"MGnifyR\")\n\nWe load the package. The package is in Bioconductor."
+  },
+  {
+    "objectID": "mgnifyr.html#section-1",
+    "href": "mgnifyr.html#section-1",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "",
+    "text": "mg &lt;- MgnifyClient(\n    useCache = TRUE,\n    cacheDir = file.path(\"home\", \"training\", \"course_dir\", \"data_dir\")\n)\n\nFirst step is always to create MgnifyClient object. It holds settings for retrieval of data, including caching information.\nWe use cache here because the fetching can take couple hours. I have preloaded the data to that specific cache directory."
+  },
+  {
+    "objectID": "mgnifyr.html#section-2",
+    "href": "mgnifyr.html#section-2",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "",
+    "text": "analysis_id &lt;- searchAnalysis(\n    mg,\n    type = \"studies\",\n    accession = \"MGYS00005154\"\n)\n\nNext we can first instance browse the MGnify website. I have selected the following study MGYS00005154. In this study, they collected fecal samples across age and geography.\nWe search all analyses that are related to this study. Analyses are bioinformatics pipeline (taxonomy mapping) results.\nWe get IDs for each analysis."
+  },
+  {
+    "objectID": "mgnifyr.html#section-3",
+    "href": "mgnifyr.html#section-3",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "",
+    "text": "metadata &lt;- getMetadata(mg, accession = analysis_id)\n\nThen we fetch metadata on these analyses. They include, for instance, the sample information and information on analysis pipeline."
+  },
+  {
+    "objectID": "mgnifyr.html#section-4",
+    "href": "mgnifyr.html#section-4",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "",
+    "text": "# Get logical vector specifying whether the utilized pipeline was\n# the latest one\nlatest_pipeline &lt;- metadata[[\"analysis_pipeline-version\"]] == \"5.0\"\n\n# Subset the metadata by selecting only analyses from the\n# latest pipeline\nmetadata &lt;- metadata[latest_pipeline, ]\n\n# Get the IDs\nselected_ids &lt;- metadata[[\"analysis_accession\"]]\n\nThe result is a table. For instance, we can see that multiple analyses were conducted to single samples.\nWe select analyses that were done with the latest pipeline. This ensures that the samples are comparable."
+  },
+  {
+    "objectID": "mgnifyr.html#section-5",
+    "href": "mgnifyr.html#section-5",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "",
+    "text": "tse &lt;- getResult(\n    mg,\n    accession = selected_ids,\n    get.func = FALSE\n)\ntse\n\n\nclass: TreeSummarizedExperiment \ndim: 19216 26 \nmetadata(0):\nassays(1): counts\nrownames(19216): 549322 522457 ... 200359 271582\nrowData names(7): Kingdom Phylum ... Genus Species\ncolnames(26): CL3 CC1 ... Even2 Even3\ncolData names(7): X.SampleID Primer ... SampleType Description\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (19216 rows)\nrowTree: 1 phylo tree(s) (19216 leaves)\ncolLinks: NULL\ncolTree: NULL\n\n\n\nNow we can fetch the taxonomy annotations to SummarizedExperiment object. To do that, we input the analysis IDs that we want to fetch. We also specify that we do not want functional annotations (although they are available)."
+  },
+  {
+    "objectID": "mgnifyr.html#references",
+    "href": "mgnifyr.html#references",
+    "title": "MGnifyR: An R package for accessing MGnify microbiome data",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html."
+  },
+  {
+    "objectID": "ordination.html#ordination",
+    "href": "ordination.html#ordination",
+    "title": "Ordination",
+    "section": "Ordination",
+    "text": "Ordination\n\nReduces high-dimensional data to a few informative axes\nProjects samples into lower-dimensional space while preserving distances or variance\nHelps identify patterns, clusters, and gradients across samples\n\n\nOrdination visualizes high-dimensional relationships in 2D or 3D space. Clusters indicate similarity in community composition."
+  },
+  {
+    "objectID": "ordination.html#section",
+    "href": "ordination.html#section",
+    "title": "Ordination",
+    "section": "",
+    "text": "This is now 3 dimensional plot. The idea is to rotate the data so that it maximizes the information in 2D."
+  },
+  {
+    "objectID": "ordination.html#section-1",
+    "href": "ordination.html#section-1",
+    "title": "Ordination",
+    "section": "",
+    "text": "Illustration. Hand is 3d, shadow is 2d. The goal is to rotate hand so that it resembles hand in 2d –&gt; information preserved even though dimensionality is lower."
+  },
+  {
+    "objectID": "ordination.html#ordination-methods",
+    "href": "ordination.html#ordination-methods",
+    "title": "Ordination",
+    "section": "Ordination methods",
+    "text": "Ordination methods\n\nPCA, PCoA/MDS, RDA, …\nEuclidean vs non-Euclidean\nUnsupervised vs supervised\n\n\n\nDifferent techniques depending on goal. PCA is the most basic one and commonly used. However, microbiome data has unique nature that must be taken into account when applying."
+  },
+  {
+    "objectID": "ordination.html#principal-component-analysis-pca",
+    "href": "ordination.html#principal-component-analysis-pca",
+    "title": "Ordination",
+    "section": "Principal component analysis (PCA)",
+    "text": "Principal component analysis (PCA)\n\nUnsupervised ordination method\nEuclidean distance\nAitchison distance: CLR + Euclidean distance\n\n\n\nCLR must be applied. Preserves variance."
+  },
+  {
+    "objectID": "ordination.html#principal-coordinate-analysis-pcoa",
+    "href": "ordination.html#principal-coordinate-analysis-pcoa",
+    "title": "Ordination",
+    "section": "Principal coordinate analysis (PCoA)",
+    "text": "Principal coordinate analysis (PCoA)\n\nMultidimensional scaling (MDS)\nUnsupervised ordination method\nAny dissimilarity metric (e.g., Bray-Curtis dissimilarity)\n\n\n\nExtension to PCA. Preserves distances. If Euclidean distance is chosen, same as PCA."
+  },
+  {
+    "objectID": "ordination.html#redundancy-analysis-rda",
+    "href": "ordination.html#redundancy-analysis-rda",
+    "title": "Ordination",
+    "section": "Redundancy analysis (RDA)",
+    "text": "Redundancy analysis (RDA)\n\nSupervised ordination method\nFind variance explained by sample metadata\n\n\n\nTakes into account covariates. Aims to find variance explained by covariates.\nDistance-based extension (PCoA with covariates)\nIf no covariates are specified, equals to PCA."
+  },
+  {
+    "objectID": "ordination.html#matrix-decomposition",
+    "href": "ordination.html#matrix-decomposition",
+    "title": "Ordination",
+    "section": "Matrix Decomposition",
+    "text": "Matrix Decomposition\n\nConceptual basis of ordination: decompose sample × taxa matrix\n\n\\[\nX = U \\Sigma V^T\n\\]\n\nUΣ: sample coordinates in reduced space\nΣ: importance of each axis\nV: taxa contributions\n\n\n\nMatrix decomposition is the conceptual basis of ordination. Only in Euclidean distances the loadings are easily interpretable."
+  },
+  {
+    "objectID": "ordination.html#demonstration",
+    "href": "ordination.html#demonstration",
+    "title": "Ordination",
+    "section": "Demonstration",
+    "text": "Demonstration"
+  },
+  {
+    "objectID": "ordination.html#section-2",
+    "href": "ordination.html#section-2",
+    "title": "Ordination",
+    "section": "",
+    "text": "library(mia)\nlibrary(scater)\n\n# Apply transformation\ntse &lt;- transformAssay(tse, method = \"rclr\")"
+  },
+  {
+    "objectID": "ordination.html#section-3",
+    "href": "ordination.html#section-3",
+    "title": "Ordination",
+    "section": "",
+    "text": "library(mia)\nlibrary(scater)\n\n# Apply transformation\ntse &lt;- transformAssay(tse, method = \"rclr\")\n# Apply PCA\ntse &lt;- runPCA(tse, assay.type = \"rclr\")"
+  },
+  {
+    "objectID": "ordination.html#section-4",
+    "href": "ordination.html#section-4",
+    "title": "Ordination",
+    "section": "",
+    "text": "library(mia)\nlibrary(scater)\n\n# Apply transformation\ntse &lt;- transformAssay(tse, method = \"rclr\")\n# Apply PCA\ntse &lt;- runPCA(tse, assay.type = \"clr\")\n# Visualize\nplotReducedDim(tse, \"PCA\", colour_by = \"patient_status\")"
+  },
+  {
+    "objectID": "ordination.html#exercises",
+    "href": "ordination.html#exercises",
+    "title": "Ordination",
+    "section": "Exercises",
+    "text": "Exercises\nFrom OMA online book, Chapter 15: Community similarity\n\nExercise 1\nExercise 2\nExercise 3"
+  },
+  {
+    "objectID": "ordination.html#references",
+    "href": "ordination.html#references",
+    "title": "Ordination",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
   }
 ]
