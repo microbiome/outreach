@@ -11,6 +11,7 @@ project:
     - brain_bacteria_behavior.qmd
     - daa.qmd
     - data_containers.qmd
+    - findingpheno_demo.qmd
     - functional_analysis.qmd
     - gbcc2025.qmd
     - import.qmd
