@@ -557,6 +557,14 @@ wrap_plots(plot_list, ncol = 2)
 
 :::
 
+## Summary
+
+- Extendable software ecosystem
+- Easy access to databases
+- Graphical user interface & online book
+
+![](images/findingpheno.png){fig-alt="FindingPheno logo." fig-align="right" width=10%}
+
 ## Thank you for your time! {.smaller}
 
 :::{.columns}

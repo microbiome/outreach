@@ -151,7 +151,7 @@
     "href": "findingpheno_demo.html#references",
     "title": "FindingPheno demonstration",
     "section": "References",
-    "text": "References"
+    "text": "References\n\n\n\n\n\n\n\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html."
   },
   {
     "objectID": "index.html",
@@ -180,5 +180,19 @@
     "title": "Quarto presentations",
     "section": "Contributions",
     "text": "Contributions\nYou are welcome to add new presentations or improve the current ones. The guidelines for contributors are explained here. The presentations are deployed from the quarto sub-directory, so you need to make the respective changes there and run cd quarto/; quarto render.\nThe following is a quick workflow for contributions:\n\nfork the repository\nadd your qmd file(s) to the quarto sub-directory\nupdate the _quarto.yml file and the list of presentations in the website with the name of the qmd file(s) with your presentation(s)\nrun quarto render, or in R quarto::quarto_render(myfilename) from your terminal from within the quarto sub-directory\nand make a pull request to the master branch\n\nThis documentation provides more details about publishing quarto presentations with GitHub Pages."
+  },
+  {
+    "objectID": "findingpheno_demo.html#summarizedexperiment",
+    "href": "findingpheno_demo.html#summarizedexperiment",
+    "title": "FindingPheno demonstration",
+    "section": "SummarizedExperiment",
+    "text": "SummarizedExperiment\n(Huber et al. 2015)\n\n\nIs based on standardized data containers."
+  },
+  {
+    "objectID": "findingpheno_demo.html#summary",
+    "href": "findingpheno_demo.html#summary",
+    "title": "FindingPheno demonstration",
+    "section": "Summary",
+    "text": "Summary\n\nExtendable software ecosystem\nEasy access to databases\nGraphical user interface & online book"
   }
 ]
