@@ -571,6 +571,7 @@ wrap_plots(plot_list, ncol = 2)
 
 ::: {.column width="50%"}
 ![](images/findingpheno.png){fig-alt="FindingPheno logo."}
+![](images/mia_logo.png){fig-alt="mia logo." width=40%}
 :::
 
 ::: {.column width="50%"}
