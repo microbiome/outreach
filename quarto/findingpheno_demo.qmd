@@ -56,6 +56,21 @@ High-quality software with high standards. Documentation is part of it.
 
 :::
 
+## `r BiocStyle::Biocpkg("SummarizedExperiment")`
+<small>[@Huber2015]</small>
+
+```{r}
+#| label: empty_chunk
+# Empty code chunk. For some reason the header won't work otherwise...
+```
+
+![](images/SE.png){fig-alt="SummarizedExperiment class" fig-align="center" width=30%}
+
+::: {.notes}
+
+Is based on standardized data containers.
+:::
+
 ## 2. Standardized, user-friendly approaches
 
 - Methods for microbiome data science
