@@ -1,0 +1,569 @@
+---
+title: "FindingPheno demonstration"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/findingpheno.png
+date: last-modified
+date-format: full
+bibliography: references.bib
+---
+
+## Challenges
+
+Lack of...
+
+1. robust methods for multi-table data
+2. standardized, user-friendly approaches
+3. linkage between data resources and analytical workflows
+
+![](images/findingpheno.png){fig-alt="FindingPheno logo." fig-align="right" width=10%}
+
+::: {.notes}
+
+There are several challenges in microbiome research. Everyone wants to do
+multi-omics to reveal mechanisms behind microbiome interactions.
+
+However, the set of tools to do that is very limited.
+
+Moreover, even if there are methods, they are usually not user-friendly
+(specific input, lack of documentation etc)
+
+Thirdly, there are available large databases, but there is large gap between
+databases and computational tools. Meaning that you have to download the data,
+wrangle it into specific format and then run analysis, which is not very
+practical.
+
+:::
+
+## 1. Robust methods for multi-table data
+
+- Community-driven open-source project
+- High-quality, tested statistical methods
+- Well-documented
+
+![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo." fig-align="right" width=10%}
+
+::: {.notes}
+
+1. Bioconductor is more than software.
+2. Worldwide community of bioinformaticians; both users and developers.
+
+
+High-quality software with high standards. Documentation is part of it.
+
+:::
+
+## 2. Standardized, user-friendly approaches
+
+- Methods for microbiome data science
+- Online book
+- Graphical user interface
+
+[![](images/mia_logo.png){fig-alt="mia logo." fig-align="right" width=20%}](https://bioconductor.org/packages/release/bioc/html/mia.html){preview-link="true"}
+
+::: {.notes}
+
+We have created microbiome data science framework into this Bioconductor
+ecosystem.
+
+R packages.
+
+mia (microbiome analysis) ecosystem
+
+Robust and scalable methods for microbiome analysis and visualization.
+
+Addition to methods, we have created online book to disseminate best practices
+in the field and to help users to leverage the software.
+
+User should know how to program, but we have also created graphical user
+interface for those users who do not have knowledge on programming.
+
+:::
+
+## 3. Linkage between data resources and analytical workflows
+
+```{r}
+#| label: data_and_data_container
+
+library(magick)
+
+# Read & scale logos
+img_left  <- image_read("images/mgnify_logo.png") |> image_scale("x80")
+img_left2  <- image_read("images/holofood.png") |> image_scale("x100")
+img_right <- image_read("images/BioconductorSticker1.png") |> image_scale("x100")
+img_right2 <- image_read("images/mia_logo.png") |> image_scale("x100")
+img_bridge <- image_read("images/mgnifyr_logo.png") |> image_scale("x100")
+img_bridge2 <- image_read("images/holofoodr_logo.png") |> image_scale("x100")
+
+# Stack logos
+img_left <- image_append(c(img_left, img_left2), stack = TRUE)
+img_bridge <- image_append(c(img_bridge, img_bridge2), stack = FALSE)
+img_right <- image_append(c(img_right, img_right2), stack = FALSE)
+
+# Create arrow canvas
+arrow <- image_blank(width = 400, height = 200, color = "none")
+
+# Draw on canvas
+arrow <- image_draw(arrow)
+
+# Curve coordinates (upward bend)
+xs <- seq(20, 380, length.out = 100)
+ys <- 50 - 40 * sin((xs - 20) / (380 - 20) * pi)
+
+# Draw curved shaft
+lines(xs, ys, lwd = 8, col = "black")
+
+# Arrowhead (aligned near end of curve)
+arrows(xs[95], ys[95], xs[100], ys[100],
+       lwd = 8, col = "black", length = 0.2)
+
+# Example: img_bridge and arrow exist
+info_arrow  <- image_info(arrow)
+info_bridge <- image_info(img_bridge)
+
+# Compute max width
+max_width <- max(info_arrow$width, info_bridge$width)
+
+# Pad arrow to max_width and center
+arrow_centered <- image_extent(
+  arrow,
+  geometry = geometry_size_pixels(width = max_width, height = info_arrow$height),
+  gravity  = "center",
+  color    = "none"   # transparent background
+)
+
+# Pad bridge logo to max_width and center
+img_bridge_centered <- image_extent(
+  img_bridge,
+  geometry = geometry_size_pixels(width = max_width, height = info_bridge$height),
+  gravity  = "center",
+  color    = "none"
+)
+
+# Now stack vertically
+arrow_with_logo <- image_append(c(img_bridge_centered, arrow_centered), stack = TRUE)
+
+# Combine left logo → arrow+logo → right logo horizontally
+max_height <- max(image_info(img_left)$height, image_info(img_right)$height, image_info(arrow_with_logo)$height)
+img_left  <- image_extent(img_left, geometry = geometry_size_pixels(width = image_info(img_left)$width, height = max_height), gravity = "center", color = "none")
+img_right <- image_extent(img_right, geometry = geometry_size_pixels(width = image_info(img_right)$width, height = max_height), gravity = "center", color = "none")
+final <- image_append(c(img_left, arrow_with_logo, img_right), stack = FALSE)
+final
+```
+
+::: {.notes}
+
+- [Microbiome database hosted by EMBL/EBI](https://www.ebi.ac.uk/metagenomics)
+- [Microbiome database hosted by EMBL/EBI](https://www.ebi.ac.uk/metagenomics)
+- Standardized bioinformatics pipelines
+- Taxonomy and functional mappings
+
+Large databases available but fetching and analysing them is not easy as it
+requires specialized knowledge and data wrangling.
+
+To streamline this, we have created MGnifyR and HoloFoodR packages which allows
+to fetch data directly into so called data containers, commonly utilized in
+Bioconductor. This means that user can directly analyse the data by utilizing
+cutting edge tools.
+
+:::
+
+## Demonstration
+
+## {auto-animate="true"}
+
+```r
+# Get data from HoloFood database
+mae <- HoloFoodR::getResult(ids)
+```
+
+::: {.notes}
+
+First we fetch data from HoloFood database. These include metabolite data.
+
+:::
+
+## {auto-animate="true"}
+
+```r
+# Get data from HoloFood database
+mae <- HoloFoodR::getResult(ids)
+
+# Get data from MGnify database
+tse <- MGnifyR::getResult(ids)
+```
+
+::: {.notes}
+
+These same samples have also metagenomics data.
+
+:::
+
+## {auto-animate="true"}
+
+```r
+# Get data from HoloFood database
+mae <- HoloFoodR::getResult(ids)
+
+# Get data from MGnify database
+tse <- MGnifyR::getResult(ids)
+
+# Merge datasets
+mae <- addMGnify(tse, mae)
+```
+
+::: {.notes}
+
+And finally, we can merge these datasets.
+
+:::
+
+## {auto-animate="true"}
+
+```r
+# Get data from HoloFood database
+mae <- HoloFoodR::getResult(ids)
+
+# Get data from MGnify database
+tse <- MGnifyR::getResult(ids)
+
+# Merge datasets
+mae <- addMGnify(tse, mae)
+
+print(mae)
+```
+
+```{r}
+#| label: print_mae
+
+library(mia)
+
+data("HintikkaXOData")
+mae <- HintikkaXOData
+
+mae <- MultiAssayExperiment(
+  experiments = experiments(mae)[1:2],
+  colData = colData(mae)
+)
+
+colData(mae)[["Diet"]] <- NULL
+colData(mae)[["XOS"]] <- NULL
+colnames(colData(mae)) <- c("Sample", "Animal_id", "Site", "Treatment_group")
+colData(mae)[["Animal_type"]] <- "chicken"
+
+colData(mae)[["Treatment_group"]] <- colData(mae)[["Treatment_group"]] |> as.integer() |> as.factor()
+
+colData(mae[[1]]) <- colData(mae)
+colData(mae[[2]]) <- colData(mae)
+
+rd <- apply(rowData(mae[[1]]), 2, function(x) gsub("^D_\\d+__", "", x))
+rowData(mae[[1]]) <- DataFrame(rd)
+mae[[1]] <- agglomerateByRank(mae[[1]], rank = "Genus")
+mae
+```
+
+::: {.notes}
+
+Central to Bioconductor is standardized data containers. In biology, the
+data can rarely be presented only with one Excel sheet, instead we have
+multiple this kind of data tables: abundace table, sample metadata, taxonony
+table. These data containers create linkages between these tables.
+
+
+When we use this kind of standardized data format, we can easily utilize
+different methods.
+
+:::
+
+## {auto-animate="true"}
+
+```r
+colData(mae)
+```
+
+```{r}
+#| label: show_coldata
+
+colData(mae)
+```
+
+::: {.notes}
+
+This is for instance how the sample metadata looks like.
+
+:::
+
+## {auto-animate="true"}
+
+```r
+library(mia)
+library(miaViz)
+```
+
+```{r}
+#| label: load_packages
+
+library(mia)
+library(miaViz)
+library(scater)
+```
+
+::: {.notes}
+
+:::
+
+## {auto-animate="true"}
+
+```r
+plotAbundance(mae[["microbiota"]], rank = "Phylum")
+```
+
+```{r}
+#| label: plot_abundance
+#| fig-width: 6
+#| fig-height: 4
+plotAbundance(mae[["microbiota"]], rank = "Phylum", as.relative = TRUE, col.var = "Treatment_group", facet.cols = TRUE, scales = "free_x", ncol = 4)
+```
+
+::: {.notes}
+
+:::
+
+## {auto-animate="true"}
+
+```r
+# Calculate diversity within sample
+mae[["microbiota"]] <- addAlpha(mae[["microbiota"]])
+```
+
+::: {.notes}
+
+:::
+
+## {auto-animate="true"}
+
+```r
+# Calculate diversity within sample
+mae[["microbiota"]] <- addAlpha(mae[["microbiota"]])
+
+# Visualize them
+plotBoxplot(mae[["microbiota"]],
+    col.var = "shannon_diversity", x = "Treatment_group")
+```
+
+```{r}
+#| label: alpha
+#| fig-width: 5
+#| fig-height: 2.5
+# Calculate diversity within sample
+mae[["microbiota"]] <- mia::addAlpha(mae[["microbiota"]])
+
+# Visualize them
+miaViz::plotBoxplot(mae[["microbiota"]], col.var = "shannon_diversity", x = "Treatment_group") + labs(y = "Microbial diversity", x = "Treatment group")
+```
+
+::: {.notes}
+
+:::
+
+## {auto-animate="true"}
+
+```r
+# Run PCA
+mae[["microbiota"]] <- runPCA(mae[["microbiota"]])
+```
+
+::: {.notes}
+
+:::
+
+## {auto-animate="true"}
+
+```r
+# Run PCA
+mae[["microbiota"]] <- runPCA(mae[["microbiota"]])
+
+# Visualize PCA
+plotReducedDim(mae[["microbiota"]], "PCA")
+```
+
+```{r}
+#| label: pca
+#| fig-width: 6
+#| fig-height: 3
+# Run PCA
+mae[["microbiota"]] <- transformAssay(mae[["microbiota"]], method = "rclr")
+mae[["microbiota"]] <- runPCA(mae[["microbiota"]], assay.type = "rclr")
+
+# Visualize PCA
+plotReducedDim(mae[["microbiota"]], "PCA", colour_by = "Treatment_group", point_size = 3) + guides(color=guide_legend(title="Treatment group"))
+
+```
+
+::: {.notes}
+
+:::
+
+## {auto-animate="true"}
+
+```r
+plotLoadings(mae[["microbiota"]])
+```
+
+```{r}
+#| label: pca_loadings
+#| fig-width: 8
+#| fig-height: 2.5
+plotLoadings(mae[["microbiota"]], "PCA", ncomponents = 2, layout = "lollipop") + labs(x = "", y = "")
+```
+
+::: {.notes}
+
+:::
+
+## {auto-animate="true"}
+
+```r
+library(MOFA2)
+
+model <- run_mofa(mae)
+```
+
+```{r}
+#| label: run_mofa
+#| echo: false
+#| message: false
+#| warning: false
+#| results: "hide"
+#| include: false
+library(MOFA2)
+
+# Agglomerate microbiome data
+mae[[1]] <- agglomerateByPrevalence(mae[[1]], rank = "Genus")
+# Transforming microbiome data with clr and by scaling
+mae[[1]] <- transformAssay(mae[[1]], method = "clr", pseudocount = TRUE)
+mae[[1]] <- transformAssay(
+    mae[[1]], assay.type = "clr", method = "standardize", MARGIN = "rows")
+
+# Transforming metabolomic data with log10 and by scaling
+mae[[2]] <- transformAssay(mae[[2]], assay.type = "nmr", method = "log10")
+mae[[2]] <- transformAssay(
+    mae[[2]], assay.type = "log10", method = "standardize")
+
+# Removing the assays no longer needed
+assays(mae[[1]]) <- assays(mae[[1]])["standardize"]
+assays(mae[[2]]) <- assays(mae[[2]])["standardize"]
+
+# Building our mofa model
+model <- create_mofa_from_MultiAssayExperiment(
+    mae,
+    groups = "Treatment_group",
+    extract_metadata = TRUE)
+
+model <- prepare_mofa(
+  object = model
+)
+model <- run_mofa(model, use_basilisk = TRUE) |> suppressMessages()
+```
+
+::: {.notes}
+
+:::
+
+## {auto-animate="true"}
+
+```r
+plot_variance_explained(model)
+```
+
+```{r}
+#| label: show_mofa
+#| fig-width: 6
+#| fig-height: 4
+library(patchwork)
+library(ggplot2)
+
+plot_list <- plot_variance_explained(
+    model,
+    x = "view", y = "factor",
+    plot_total = TRUE)
+
+wrap_plots(plot_list, nrow = 2) +
+    plot_annotation(
+        title = "Variance Explained per factor and assay",
+        theme = theme(plot.title = element_text(hjust = 0.5)))
+```
+
+::: {.notes}
+
+:::
+
+## {auto-animate="true"}
+
+```r
+plot_top_weights(model)
+```
+
+```{r}
+#| label: show_mofa2
+#| fig-width: 6
+#| fig-height: 3.5
+plot_list <- lapply(
+    c("microbiota", "metabolites"),
+    plot_top_weights,
+    object = model,
+    factors = c(2),
+    nfeatures = 10
+    )
+
+wrap_plots(plot_list, ncol = 2)
+```
+
+::: {.notes}
+
+:::
+
+##
+
+[![](images/miadash_snapshot.png){fig-alt="Screenshot from miaDash." width=100%}](https://miadash-microbiome.2.rahtiapp.fi/){preview-link="true"}
+
+::: {.notes}
+
+:::
+
+##
+
+[![](images/OMA_ss.png){fig-alt="Screenshot from OMA." width=100%}](https://microbiome.github.io/OMA/docs/devel/){preview-link="true"}
+
+::: {.notes}
+
+:::
+
+## Thank you for your time! {.smaller}
+
+:::{.columns}
+
+::: {.column width="50%"}
+![](images/findingpheno.png){fig-alt="FindingPheno logo."}
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: qrcode
+#| fig-align: center
+#| echo: false
+
+library(qrcode)
+qr_code("https://microbiome.github.io/OMA/docs/devel/") |> plot()
+```
+
+<center><em>Orchestrating Microbiome Analysis</em> online book</center>
+
+:::
+
+:::
+
+## References
