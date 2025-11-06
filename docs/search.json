@@ -1118,5 +1118,61 @@
     "title": "Ordination",
     "section": "References",
     "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
+  },
+  {
+    "objectID": "bioconductor.html#bioconductor",
+    "href": "bioconductor.html#bioconductor",
+    "title": "Bioconductor",
+    "section": "Bioconductor",
+    "text": "Bioconductor\n\nCommunity-driven open-source project\n\n\nTraining programs & workshops\nConferences & community support\nBioinformatics software\n\n\n\n\nBioconductor is more than software.\nWorldwide community of bioinformaticians; both users and developers."
+  },
+  {
+    "objectID": "bioconductor.html#software",
+    "href": "bioconductor.html#software",
+    "title": "Bioconductor",
+    "section": "Software",
+    "text": "Software\n\n~2,300 R packages\nReview, testing, documentation\n\n\n\n\nPopularity has grown.\nBroad range of fields (microbiome is rather small, but steadily raising ~ 50 packages)\nOver 2,300 R packages\nNot limited to R, but R has been the main language. Activity in Python and Julia.\nSpecial abut Bioconductor is the rather strict requirements which ensure the high-quality.\n\nReview process when submitting (novel, relevant, works as it should be, documentation is sufficient) Testing is done automatically (daily). Software must be accessible. –&gt; documentation must be good"
+  },
+  {
+    "objectID": "bioconductor.html#microbiome-analysis-mia",
+    "href": "bioconductor.html#microbiome-analysis-mia",
+    "title": "Bioconductor",
+    "section": "Microbiome Analysis (mia)",
+    "text": "Microbiome Analysis (mia)\n\nMicrobiome data science ecosystem\n“Downstream”, statistical analysis\nmia package top 7.84% Bioconductor downloads\n\n\n \n\n\n\nWithin Bioconductor, we have developed microbiome data science ecosystem\nFor downstream analysis\nAligned and tightly linked with broader Bioconductor ecosystem"
+  },
+  {
+    "objectID": "bioconductor.html#related-ecosystems",
+    "href": "bioconductor.html#related-ecosystems",
+    "title": "Bioconductor",
+    "section": "Related ecosystems",
+    "text": "Related ecosystems\n\n\nOver the years, several approaches to data organization have been developed. One of the first widely adopted data containers in microbiome research was phyloseq (McMurdie and Holmes 2013), designed for 16S amplicon sequencing data. However, it has limitations, particularly in linking multiple experiments and ensuring interoperability between tools in Bioconductor.\nSummarizedExperiment (SE) (Huber et al. 2015), on the other hand, was introduced as a general-purpose container for biological data and has become the most widely used format within the Bioconductor ecosystem. It has since been extended to more specialized formats, including SingleCellExperiment (Amezquita et al. 2020) for single-cell data and TreeSummarizedExperiment (TreeSE) (Huang et al. 2021), which is tailored for microbiome datasets."
+  },
+  {
+    "objectID": "bioconductor.html#benefits",
+    "href": "bioconductor.html#benefits",
+    "title": "Bioconductor",
+    "section": "Benefits",
+    "text": "Benefits\n\nTightly linked with broader Bioconductor ecosystem\nImproved scalability\nImproved multi-table integration\n\n\n\nWe use same data format as broader Bioconductor ecosystem. Some of you might know phyloseq. That was specifically designed for 16S amplicon data, and is not supported outside its ecosystem. Moreover, microbiome data science is nowadays more than sequencing data, it links different fields from metabolomics to genomics. Same data format allows us to use methods from different fields.\nThe ecosystem is more scalable; speed and memory wise than phyloseq and its more efficient alternative, speedyseq. It is not uncommon anymore that there are tens of thousands of samples and features so we need efficient software to run these big datasets.\nThis ecosystem allows us to link multiple tables together, facilitating multi-omics integration by supporting management of this kind of complex datasets."
+  },
+  {
+    "objectID": "bioconductor.html#community-driven-ecosystem-of-tools",
+    "href": "bioconductor.html#community-driven-ecosystem-of-tools",
+    "title": "Bioconductor",
+    "section": "Community-driven ecosystem of tools",
+    "text": "Community-driven ecosystem of tools\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEETree (Interactive visualization)\nExpanded by independent developers\n\n\n             \n\n\nEcosystem of packages developed by the community. mia provides the basic operations in microbiome data analysis. miaViz has the methods for visualization.\nDeveloped by independent developers who have started to support the ecosystem."
+  },
+  {
+    "objectID": "bioconductor.html#data-containers",
+    "href": "bioconductor.html#data-containers",
+    "title": "Bioconductor",
+    "section": "Data containers",
+    "text": "Data containers\n\nData containers"
+  },
+  {
+    "objectID": "bioconductor.html#references",
+    "href": "bioconductor.html#references",
+    "title": "Bioconductor",
+    "section": "References",
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nAmezquita, Robert A, Aaron T L Lun, Etienne Becht, Vince J Carey, Lindsay N Carpp, Ludwig Geistlinger, Federico Marini, et al. 2020. “Orchestrating Single-Cell Analysis with Bioconductor.” Nature Methods 17 (2): 137–45. https://doi.org/10.1038/s41592-019-0654-x.\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html.\n\n\nMcMurdie, PJ, and S Holmes. 2013. “Phyloseq: An r Package for Reproducible Interactive Analysis and Graphics of Microbiome Census Data.” PLoS ONE 8: e61217. https://doi.org/10.1371/journal.pone.0061217."
   }
 ]

@@ -163,6 +163,107 @@ perc <- paste0(perc, "%")
 
 :::
 
+## Related ecosystems
+
+```{r}
+#| label: microbiome_bioconductor
+#| fig-width: 15
+#| fig-height: 6
+
+library(ggplot2)
+library(ggrepel)
+
+# Timeline data
+timeline_data <- data.frame(
+    year = c(2012, 2015, 2017, 2019),
+    event = c(
+        "phyloseq\nMcMurdie and Holmes, 2013",
+        "SummarizedExperiment\nHuber et al., 2015",
+        "SingleCellExperiment\nAmezquita et al., 2020", 
+        "TreeSummarizedExperiment\nHuang et al., 2021"
+    )
+)
+
+# Create a single polygon for the entire arrow (rectangle + arrowhead)
+arrow_data <- data.frame(
+    x = c(2021, 2024.5, 2024.5, 2025, 2024.5, 2024.5, 2021),
+    y = c(-0.14, -0.14, -0.16, -0.10, -0.04, -0.06, -0.06)
+)
+
+ggplot(timeline_data, aes(x = year, y = 0)) +
+    # Base timeline
+    annotate(
+        "segment", x = 2011, xend = 2025, y = 0, yend = 0,
+        arrow = arrow(length = unit(0.4, "cm"), type = "closed"),
+        linewidth = 1.5, color = "gray40"
+        ) +
+    
+    # Timeline points and segments
+    geom_point(size = 5, color = "#2C3E50") +
+    
+    # Repelled labels
+    geom_label_repel(
+        aes(
+          label = event),
+          direction = "y",
+          nudge_y = 0.02,
+          box.padding = 0.4,
+          point.padding = 0.5,
+          size = 5,
+          fontface = "bold",
+          color = "#34495E",
+          segment.color = "gray60"
+        ) +
+    
+    # mia: draw arrow-box from 2021 to 2025
+    geom_polygon(
+        data = arrow_data,
+        mapping = aes(x = x, y = y),
+        fill = "white", color = "black", linewidth = 0.8
+        ) +
+    annotate(
+        "text", x = 2022.75, y = -0.10,
+        label = "OMA\n(Borman et al., 2025)",
+        size = 5, fontface = "bold", color = "black", lineheight = 1.1
+        ) +
+    
+    # Final theming
+    scale_x_continuous(
+        breaks = c(timeline_data$year, 2021, 2025),
+        limits = c(2010, 2025)
+        ) +
+    scale_y_continuous(limits = c(-0.25, 0.3)) +
+    theme_minimal(base_size = 15) +
+    theme(
+        axis.title = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_text(size = 16),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank(),
+        legend.position = "none",
+        plot.title = element_text(face = "bold", size = 16, hjust = 0.5)
+    )
+```
+
+::: {.notes}
+
+Over the years, several approaches to data organization have been developed.
+One of the first widely adopted data containers in microbiome research was
+`r BiocStyle::Biocpkg("phyloseq")` [@McMurdie2013], designed for 16S amplicon
+sequencing data. However, it has limitations, particularly in linking multiple
+experiments and ensuring interoperability between tools in Bioconductor.
+
+`r BiocStyle::Biocpkg("SummarizedExperiment")` (SE) [@Huber2015], on the other
+hand, was introduced as a general-purpose container for biological data and has
+become the most widely used format within the Bioconductor ecosystem. It has
+since been extended to more specialized formats, including
+`r BiocStyle::Biocpkg("SingleCellExperiment")` [@Amezquita2020] for single-cell
+data and
+`r BiocStyle::Biocpkg("TreeSummarizedExperiment")` (TreeSE) [@Huang2021], which
+is tailored for microbiome datasets.
+
+:::
+
 ## Benefits
 
 1. Tightly linked with broader Bioconductor ecosystem
