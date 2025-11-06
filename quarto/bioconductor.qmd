@@ -163,6 +163,17 @@ perc <- paste0(perc, "%")
 
 :::
 
+##
+
+[![](images/oma_publication.png)](https://www.biorxiv.org/content/10.1101/2025.10.29.685036v1){preview-link="true"}
+
+
+::: {.notes}
+
+Preprint available
+
+:::
+
 ## Related ecosystems
 
 ```{r}

@@ -1174,5 +1174,12 @@
     "title": "Bioconductor",
     "section": "References",
     "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nAmezquita, Robert A, Aaron T L Lun, Etienne Becht, Vince J Carey, Lindsay N Carpp, Ludwig Geistlinger, Federico Marini, et al. 2020. “Orchestrating Single-Cell Analysis with Bioconductor.” Nature Methods 17 (2): 137–45. https://doi.org/10.1038/s41592-019-0654-x.\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html.\n\n\nMcMurdie, PJ, and S Holmes. 2013. “Phyloseq: An r Package for Reproducible Interactive Analysis and Graphics of Microbiome Census Data.” PLoS ONE 8: e61217. https://doi.org/10.1371/journal.pone.0061217."
+  },
+  {
+    "objectID": "bioconductor.html#section",
+    "href": "bioconductor.html#section",
+    "title": "Bioconductor",
+    "section": "",
+    "text": "Preprint available"
   }
 ]
