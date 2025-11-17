@@ -1,0 +1,21 @@
+Orchestrating Microbiome Analysis with Bioconductor
+
+Presenter(s)
+Tuomas Borman, Leo Lahti
+
+Presenter Organisation(s)
+University of Turku, Finland
+
+Workshop Schedule
+Thursday 27 November 2025, 09:00AM to 12:30PM
+
+Workshop Outline
+
+In microbiome research, there is an increasing demand for robust, transparent, and reproducible computational methods. Bioconductor is well-positioned to to fulfill this need by providing high-quality, open-source bioinformatics software. At the core of Bioconductor are standardized data containers that harmonize data management and enable interoperability across the ecosystem.
+
+This workshop introduces the latest advances in microbiome analysis within Bioconductor, focusing on the mia (Microbiome Analysis) framework. The framework is built upon the (Tree)SummarizedExperiment data container — the central data structure in Bioconductor — and provides a comprehensive suite of statistical tools for microbiome data science. It is continuously expanding with new methods and offers native support for multi-table and hierarchical data, while being computationally more efficient than previous approaches. These features enable users to build modular and reproducible workflows for microbiome analysis.
+
+During the workshop, participants will gain hands-on experience with the (Tree)SummarizedExperiment data container and the mia framework through a practical case study. The practicals cover common downstream analysis steps, from data import and wrangling to diversity estimation, differential abundance analysis, and visualization. After the workshop, participants will have the skills to continue learning through the freely available online book Orchestrating Microbiome Analysis with Bioconductor (https://microbiome.github.io/OMA), which promotes best practices and supports adoption of the Bioconductor ecosystem. Together, these resources foster scalable, transparent, and community-driven microbiome data science.
+
+Workshop Stream(s)
+Metagenomics & Microbiome analyses

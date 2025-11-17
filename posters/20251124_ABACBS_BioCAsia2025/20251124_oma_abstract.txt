@@ -1,0 +1,15 @@
+Title:
+
+Orchestrating Microbiome Analysis with Bioconductor
+
+Authors:
+
+Tuomas Borman, University of Turku, Finland (presenting); Leo Lahti, University of Turku, Finland
+
+Abstract:
+
+Because of complex nature of microbiome data, computational methods are essential for research. However, challenges such as lack of standardization, reproducibility, and transparency often pose barriers to reliable analysis and interpretation. Bioconductor offers a solution by providing a robust platform for biological data analysis, featuring high-quality, open-source tools developed and maintained by a global community of researchers.
+
+We have adapted Bioconductor's infrastructure to handle microbiome data through the mia (Microbiome Analysis) framework. This framework provides standardized workflows for statistical analysis and visualization, supports both common and advanced methods, and is continuously developing through community contributions. The framework is thoroughly documented in the online book Orchestrating Microbiome Analysis with Bioconductor, which disseminates best practices and practical examples for microbiome analysis.
+
+By adhering to FAIR principles (findable, accessible, interoperable, and reusable), mia promotes reproducible and transparent research. Its scalability and multi-omics support make it a powerful tool for analyzing large and complex microbiome datasets and translating them into actionable insights for clinical and research applications.
