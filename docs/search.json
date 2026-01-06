@@ -655,14 +655,14 @@
     "href": "intro.html#orchestrating-microbiome-analysis-with-bioconductor",
     "title": "Introduction",
     "section": "Orchestrating Microbiome Analysis with Bioconductor",
-    "text": "Orchestrating Microbiome Analysis with Bioconductor\n\nIntroduces microbiome analysis framework\nFor participants with sufficient programming skills\n\n\n\nThis course introduces mia (microbiome analysis) framework within Bioconductor.\nCentral to Bioconductor is data containers. TreeSummarizedExperiment data container and methods.\nGet to know the participants."
+    "text": "Orchestrating Microbiome Analysis with Bioconductor"
   },
   {
     "objectID": "intro.html#schedule",
     "href": "intro.html#schedule",
     "title": "Introduction",
     "section": "Schedule",
-    "text": "Schedule\nDay 1 — Monday: Introduction to Bioconductor & data containers Day 2 — Tuesday: Data wrangling Day 3 — Thursday: Diversity Day 4 — Friday: Differential abundance & advanced topics\n\nOverview of the week"
+    "text": "Schedule\nDay 1 — Monday: Introduction to Bioconductor & data containers\nDay 2 — Tuesday: Data wrangling\nDay 3 — Thursday: Diversity\nDay 4 — Friday: Differential abundance & advanced topics\n\nOverview of the week"
   },
   {
     "objectID": "intro.html#practicalities",
@@ -683,7 +683,7 @@
     "href": "intro.html#objectives",
     "title": "Introduction",
     "section": "Objectives",
-    "text": "Objectives\n\nAnalyze microbiome data using the r BiocStyle::Biocpkg(\"SummarizedExperiment\") ecosystem\n\nCreate & interpret visualizations\n\nExplore documentation & tools via the OMA book\n\n\nBy the end of the course, you’ll be able to apply SE-based methods, create meaningful plots, and know where to go for further learning."
+    "text": "Objectives\n\nAnalyze microbiome data using the r BiocStyle::Biocpkg(\"SummarizedExperiment\") ecosystem\nCreate & interpret visualizations\nExplore documentation & tools via the OMA book\n\n\nBy the end of the course, you’ll be able to apply SE-based methods, create meaningful plots, and know where to go for further learning."
   },
   {
     "objectID": "intro.html#references",
@@ -1216,5 +1216,12 @@
     "title": "Outro",
     "section": "Online book",
     "text": "Online book\n\nhttps://microbiome.github.io/OMA"
+  },
+  {
+    "objectID": "intro.html#orchestrating-microbiome-analysis-with-bioconductor-1",
+    "href": "intro.html#orchestrating-microbiome-analysis-with-bioconductor-1",
+    "title": "Introduction",
+    "section": "Orchestrating Microbiome Analysis with Bioconductor",
+    "text": "Orchestrating Microbiome Analysis with Bioconductor\n\nIntroduces microbiome analysis framework\nFor participants with sufficient programming skills\n\n\n\nThis course introduces mia (microbiome analysis) framework within Bioconductor.\nCentral to Bioconductor is data containers. TreeSummarizedExperiment data container and methods.\nGet to know the participants."
   }
 ]

@@ -14,6 +14,10 @@ bibliography: references.bib
 
 ## Orchestrating Microbiome Analysis with Bioconductor
 
+![](images/mia_logo.png){fig-alt="mia logo." fig-align="right" width=10%}
+
+## Orchestrating Microbiome Analysis with Bioconductor {auto-animate="true"}
+
 - Introduces microbiome analysis framework
 - For participants with sufficient programming skills
 
@@ -36,8 +40,11 @@ eval: false
 ## Schedule {visibility="visible"}
 
 **Day 1 &mdash; Monday**: Introduction to Bioconductor & data containers
+
 **Day 2 &mdash; Tuesday**: Data wrangling
+
 **Day 3 &mdash; Thursday**: Diversity
+
 **Day 4 &mdash; Friday**: Differential abundance & advanced topics
 
 ::: {.notes}
@@ -64,7 +71,9 @@ RStudio is recommended along with Quarto/RMarkdown, but plain R files are ok if 
 ## Questions
 
 - What are `r BiocStyle::Biocpkg("mia")` and [OMA](https://microbiome.github.io/OMA/docs/devel/)?
+
 - How microbiome data science is conducted in `r BiocStyle::Biocpkg("SummarizedExperiment")` ecosystem?
+
 - What benefits this new ecosystem have compared to previous approaches?
 
 ::: {.notes}
@@ -80,8 +89,10 @@ How this SummarizedExperiment ecosystem is applied to microbiome data science an
 ## Objectives
 
 - **Analyze microbiome data** using the `r BiocStyle::Biocpkg("SummarizedExperiment")` ecosystem  
-- **Create & interpret visualizations**  
-- **Explore documentation & tools** via the [OMA book](https://microbiome.github.io/OMA/docs/devel/)  
+
+- **Create & interpret visualizations**
+
+- **Explore documentation & tools** via the [OMA book](https://microbiome.github.io/OMA/docs/devel/)
 
 ::: {.notes}
 
