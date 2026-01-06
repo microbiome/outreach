@@ -29,6 +29,32 @@ bibliography: references.bib
 
 :::
 
+##
+
+```{r}
+#| label: show_ss
+#| fig-width: 15
+#| fig-height: 15
+
+library(webshot2)
+library(magick)
+
+# Take the screenshot and save to a temporary file
+tmpfile <- tempfile(fileext = ".png")
+
+temp <- webshot(
+    url = "https://eurobioc2026.bioconductor.org/",
+    file = tmpfile
+)
+temp
+```
+
+::: {.notes}
+
+European Bioconductor conference is organized this year in Turku, Finland.
+
+:::
+
 ## Software
 
 - ~2,300 R packages
