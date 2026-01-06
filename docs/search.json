@@ -1188,5 +1188,33 @@
     "title": "Bioconductor",
     "section": "",
     "text": "Preprint available"
+  },
+  {
+    "objectID": "bioconductor.html#orchestrating-microbiome-analysis-with-bioconductor",
+    "href": "bioconductor.html#orchestrating-microbiome-analysis-with-bioconductor",
+    "title": "Bioconductor",
+    "section": "Orchestrating Microbiome Analysis with Bioconductor",
+    "text": "Orchestrating Microbiome Analysis with Bioconductor\n\nResources and tutorials for microbiome analysis\nCommunity-built best practices\nOpen to contributions!\n\n\n\n\n\n\n\nGo to the Orchestrating Microbiome Analysis (OMA) online book\n\n\nmicrobiome.github.io/OMA\n\n\n\n\nTo support users and to collect best practices, there is online book available."
+  },
+  {
+    "objectID": "outro.html#thank-you",
+    "href": "outro.html#thank-you",
+    "title": "Outro",
+    "section": "Thank you!",
+    "text": "Thank you!\n\n\n\n\n\n\n\n\n\n\nhttps://www.biorxiv.org/content/10.1101/2025.10.29.685036v1\n\n\n\n\n\n\n\n\n\nhttps://microbiome.github.io/OMA"
+  },
+  {
+    "objectID": "outro.html#preprint",
+    "href": "outro.html#preprint",
+    "title": "Outro",
+    "section": "Preprint",
+    "text": "Preprint\n\nhttps://www.biorxiv.org/content/10.1101/2025.10.29.685036v1"
+  },
+  {
+    "objectID": "outro.html#online-book",
+    "href": "outro.html#online-book",
+    "title": "Outro",
+    "section": "Online book",
+    "text": "Online book\n\nhttps://microbiome.github.io/OMA"
   }
 ]

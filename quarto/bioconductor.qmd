@@ -359,6 +359,24 @@ Developed by independent developers who have started to support the ecosystem.
 
 :::
 
+## Orchestrating Microbiome Analysis with Bioconductor
+
+- Resources and tutorials for microbiome analysis
+- Community-built best practices
+- Open to contributions!
+
+::: {.callout-tip}
+## Go to the Orchestrating Microbiome Analysis (OMA) online  book
+
+[microbiome.github.io/OMA](https://microbiome.github.io/OMA/docs/devel/){preview-link="true"}
+:::
+
+::: {.notes}
+
+To support users and to collect best practices, there is online book available.
+
+:::
+
 ## Data containers
 
 - [Data containers](https://microbiome.github.io/outreach/data_containers.html){target="_blank"}
