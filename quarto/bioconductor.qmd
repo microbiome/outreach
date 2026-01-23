@@ -14,27 +14,31 @@ bibliography: references.bib
 
 ## Bioconductor
 
-- Community-driven open-source project
-
-1. Training programs & workshops
-2. Conferences & community support
-3. Bioinformatics software
+- Community-driven, global open-source project
+- Started in 2001 from genomics
+- High impact across bioinformatics
 
 ![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo." fig-align="right" width=10%}
 
 ::: {.notes}
 
-1. Bioconductor is more than software.
-2. Worldwide community of bioinformaticians; both users and developers.
+Project for developing software in bioinformatics.
+
+Over 1.5 million distinct IPs per year are downloading.
 
 :::
 
-##
+## Community is the key
+
+- Training programs & workshops
+- Community support
+- Conferences
 
 ```{r}
 #| label: show_ss
-#| fig-width: 15
-#| fig-height: 15
+#| fig-width: 3
+#| fig-height: 3
+#| fig-align: right
 
 library(webshot2)
 library(magick)
@@ -50,6 +54,9 @@ temp
 ```
 
 ::: {.notes}
+
+1. Bioconductor is more than software.
+2. Worldwide community of bioinformaticians; both users and developers.
 
 European Bioconductor conference is organized this year in Turku, Finland.
 

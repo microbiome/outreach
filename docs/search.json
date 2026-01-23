@@ -1124,7 +1124,7 @@
     "href": "bioconductor.html#bioconductor",
     "title": "Bioconductor",
     "section": "Bioconductor",
-    "text": "Bioconductor\n\nCommunity-driven open-source project\n\n\nTraining programs & workshops\nConferences & community support\nBioinformatics software\n\n\n\n\nBioconductor is more than software.\nWorldwide community of bioinformaticians; both users and developers."
+    "text": "Bioconductor\n\nCommunity-driven, global open-source project\nStarted in 2001 from genomics\nHigh impact across bioinformatics\n\n\n\nProject for developing software in bioinformatics.\nOver 1.5 million distinct IPs per year are downloading."
   },
   {
     "objectID": "bioconductor.html#software",
@@ -1180,7 +1180,7 @@
     "href": "bioconductor.html#section",
     "title": "Bioconductor",
     "section": "",
-    "text": "European Bioconductor conference is organized this year in Turku, Finland."
+    "text": "Preprint available"
   },
   {
     "objectID": "bioconductor.html#section-1",
@@ -1223,5 +1223,19 @@
     "title": "Introduction",
     "section": "Orchestrating Microbiome Analysis with Bioconductor",
     "text": "Orchestrating Microbiome Analysis with Bioconductor\n\nIntroduces microbiome analysis framework\nFor participants with sufficient programming skills\n\n\n\nThis course introduces mia (microbiome analysis) framework within Bioconductor.\nCentral to Bioconductor is data containers. TreeSummarizedExperiment data container and methods.\nGet to know the participants."
+  },
+  {
+    "objectID": "bioconductor.html#more-than-software",
+    "href": "bioconductor.html#more-than-software",
+    "title": "Bioconductor",
+    "section": "More than software",
+    "text": "More than software\n\nTraining programs & workshops\nCommunity support\nConferences\n\n\n\n\nBioconductor is more than software.\nWorldwide community of bioinformaticians; both users and developers.\n\nEuropean Bioconductor conference is organized this year in Turku, Finland."
+  },
+  {
+    "objectID": "bioconductor.html#community-is-the-key",
+    "href": "bioconductor.html#community-is-the-key",
+    "title": "Bioconductor",
+    "section": "Community is the key",
+    "text": "Community is the key\n\nTraining programs & workshops\nCommunity support\nConferences\n\n\n\n\nBioconductor is more than software.\nWorldwide community of bioinformaticians; both users and developers.\n\nEuropean Bioconductor conference is organized this year in Turku, Finland."
   }
 ]
