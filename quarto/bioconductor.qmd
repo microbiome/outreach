@@ -151,9 +151,63 @@ p1 <- ggplot(pkgs_date, aes(x = Date, y = N, fill = Field)) +
         expand = c(0, 0),
         limits = c(min(pkgs_date[["Date"]]), max(pkgs_date[["Date"]]))
     ) +
-  theme_classic(base_size = 18)
-p1
+    scale_y_continuous(expand = c(0, 0)) +
+    theme_classic(base_size = 18)
 ```
+
+```{r}
+#| label: number_of_users
+#| fig-width: 15
+
+library(BiocPkgTools)
+library(ggplot2)
+library(scales)
+library(patchwork)
+
+df <-biocDownloadStats()
+df <- df[df$Package == "mia", ]
+
+years <- firstInBioc(df)[["Year"]]:as.integer(format(Sys.Date(), "%Y"))
+
+years <- 2009:as.integer(format(Sys.Date(), "%Y"))
+
+base_url <- "https://bioconductor.org/packages/stats/bioc"
+all_data <- list()
+
+for (yr in years) {
+    url <- sprintf("%s/bioc_%d_stats.tab", base_url, yr)
+    # try downloading safely
+    try({
+        df <- read.delim(url)
+        df$Year <- yr
+        all_data[[as.character(yr)]] <- df
+    }, silent=TRUE)
+}
+
+all_data <- do.call(rbind, all_data)
+df <- all_data[all_data[["Month"]] == "all", ]
+
+df[["date"]] <- as.Date(paste0(df[["Year"]], "-01-01"))
+
+p2 <- ggplot(df, aes(x = date, y = Nb_of_distinct_IPs)) +
+    geom_col(fill = "gray", colour = "black") +
+    scale_y_continuous(
+        labels = label_number(scale_cut = cut_si("")),
+        expand = c(0, 0)
+    ) +
+    scale_x_date(
+        expand = c(0, 0),
+        limits = c(min(df[["date"]]), max(df[["date"]]))
+    ) +
+    labs(
+        x = NULL,
+        y = "Number of downloads from distinct IPs",
+    ) +
+    theme_classic(base_size = 18) 
+
+p1 + p2
+```
+
 
 ::: {.notes}
 
@@ -169,19 +223,49 @@ Software must be accessible. --> documentation must be good
 
 :::
 
-## Microbiome Analysis (mia)
+## Microbiome Analysis (`r BiocStyle::Biocpkg("mia")`)
 
 ```{r}
 #| label: mia_stats
 #| eval: true
 
-perc <- BiocPkgTools::pkgDownloadRank("mia")
+library(BiocPkgTools)
+
+perc <- pkgDownloadRank("mia")
 perc <- paste0(perc, "%")
+
+df <-biocDownloadStats()
+df <- df[df$Package == "mia", ]
+
+years <- firstInBioc(df)[["Year"]]:as.integer(format(Sys.Date(), "%Y"))
+
+base_url <- "https://bioconductor.org/packages/stats/bioc/mia"
+all_data <- list()
+
+for (yr in years) {
+    url <- sprintf("%s/mia_%d_stats.tab", base_url, yr)
+    # try downloading safely
+    try({
+        df <- read.delim(url)
+        df$Year <- yr
+        all_data[[as.character(yr)]] <- df
+    }, silent=TRUE)
+}
+
+all_data <- do.call(rbind, all_data)
+df <- all_data[all_data[["Month"]] == "all", ]
+
+last_year <- sort(df[["Year"]])[ which(sort(df[["Year"]]) == as.integer(format(Sys.Date(), "%Y")))-1 ]
+
+num_downloads <- df[df[["Year"]] == last_year, "Nb_of_distinct_IPs"]
+num_downloads <- floor(num_downloads / 1000) * 1000
+
+num_downloads <- paste0(format(num_downloads, big.mark = ","))
 ```
 
 - Microbiome data science ecosystem
 - "Downstream", statistical analysis
-- `r BiocStyle::Biocpkg("mia")` package top `r if(exists("perc")) perc else "*ERROR*"` Bioconductor downloads
+- &gt; `r if(exists("num_downloads")) num_downloads else "*ERROR*"` yearly downloads from distinct IPs (top `r if(exists("perc")) perc else "*ERROR*"` in Bioconductor)
 
 <div style="text-align: right;">
   <img src="images/BioconductorSticker1.png" alt="Bioconductor sticker" width="200" style="margin-left: 10px;">
