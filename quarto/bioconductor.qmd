@@ -14,25 +14,23 @@ bibliography: references.bib
 
 ## Bioconductor
 
-- Community-driven, global open-source project
-- Started in 2001 from genomics
-- High impact across bioinformatics
+-   Community-driven, global open-source project
+-   Started in 2001 from genomics
+-   High impact across bioinformatics
 
-![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo." fig-align="right" width=10%}
+![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo." fig-align="right" width="10%"}
 
-::: {.notes}
-
+::: notes
 Project for developing software in bioinformatics.
 
 Over 1.5 million distinct IPs per year are downloading.
-
 :::
 
 ## Community is the key
 
-- Training programs & workshops
-- Community support
-- Conferences
+-   Training programs & workshops
+-   Community support
+-   Conferences
 
 ```{r}
 #| label: show_ss
@@ -53,19 +51,17 @@ temp <- webshot(
 temp
 ```
 
-::: {.notes}
-
-1. Bioconductor is more than software.
-2. Worldwide community of bioinformaticians; both users and developers.
+::: notes
+1.  Bioconductor is more than software.
+2.  Worldwide community of bioinformaticians; both users and developers.
 
 European Bioconductor conference is organized this year in Turku, Finland.
-
 :::
 
 ## Software
 
-- ~2,300 R packages
-- Review, testing, documentation
+-   \~2,300 R packages
+-   Review, testing, documentation
 
 ```{r}
 #| label: bioc_packages
@@ -208,20 +204,62 @@ p2 <- ggplot(df, aes(x = date, y = Nb_of_distinct_IPs)) +
 p1 + p2
 ```
 
+::: notes
+1.  Popularity has grown.
+2.  Broad range of fields (microbiome is rather small, but steadily raising \~ 50 packages)
+3.  Over 2,300 R packages
+4.  Not limited to R, but R has been the main language. Activity in Python and Julia.
+5.  Special abut Bioconductor is the rather strict requirements which ensure the high-quality.
 
-::: {.notes}
-
-1. Popularity has grown.
-2. Broad range of fields (microbiome is rather small, but steadily raising ~ 50 packages)
-3. Over 2,300 R packages
-4. Not limited to R, but R has been the main language. Activity in Python and Julia.
-5. Special abut Bioconductor is the rather strict requirements which ensure the high-quality.
-
-Review process when submitting (novel, relevant, works as it should be, documentation is sufficient)
-Testing is done automatically (daily).
-Software must be accessible. --> documentation must be good
-
+Review process when submitting (novel, relevant, works as it should be, documentation is sufficient) Testing is done automatically (daily). Software must be accessible. --\> documentation must be good
 :::
+
+## Collaborative development
+
+\- software & data repository
+
+\- tutorials & documentation
+
+\- community support
+
+\- 50,000+ citations in PubMed
+
+## Collaborative development
+
+![](images/paste-7A47899A.png)
+
+## Cultures of open collaboration
+
+![](images/paste-505993C5.png)
+
+## Benefits
+
+Science is a community effort:
+
+- Quality
+
+- Impact
+
+
+## Open (microbiome) data science ecosystems
+
+![](images/paste-E23FCD8F.png)
+
+## R/Bioc community
+
+Bioconductor conferences:
+
+-   North America
+
+-   Asia
+
+-   Europe
+
+-   (Africa)
+
+-   (South America)
+
+![](images/paste-424E5F35.png){width="327"}
 
 ## Microbiome Analysis (`r BiocStyle::Biocpkg("mia")`)
 
@@ -263,32 +301,26 @@ num_downloads <- floor(num_downloads / 1000) * 1000
 num_downloads <- paste0(format(num_downloads, big.mark = ","))
 ```
 
-- Microbiome data science ecosystem
-- "Downstream", statistical analysis
-- &gt; `r if(exists("num_downloads")) num_downloads else "*ERROR*"` yearly downloads from distinct IPs (top `r if(exists("perc")) perc else "*ERROR*"` in Bioconductor)
+-   Microbiome data science ecosystem
+-   "Downstream", statistical analysis
+-   \> `r if(exists("num_downloads")) num_downloads else "*ERROR*"` yearly downloads from distinct IPs (top `r if(exists("perc")) perc else "*ERROR*"` in Bioconductor)
 
-<div style="text-align: right;">
-  <img src="images/BioconductorSticker1.png" alt="Bioconductor sticker" width="200" style="margin-left: 10px;">
-  <img src="images/mia_logo.png" alt="mia logo" width="200">
-</div>
-
-::: {.notes}
-
-1. Within Bioconductor, we have developed microbiome data science ecosystem
-2. For downstream analysis
-3. Aligned and tightly linked with broader Bioconductor ecosystem
-
+::: {style="text-align: right;"}
+<img src="images/BioconductorSticker1.png" alt="Bioconductor sticker" width="200" style="margin-left: 10px;"/> <img src="images/mia_logo.png" alt="mia logo" width="200"/>
 :::
 
-##
+::: notes
+1.  Within Bioconductor, we have developed microbiome data science ecosystem
+2.  For downstream analysis
+3.  Aligned and tightly linked with broader Bioconductor ecosystem
+:::
 
-[![](images/oma_publication.png)](https://www.biorxiv.org/content/10.1101/2025.10.29.685036v1){preview-link="true"}
+## 
 
+[![](images/oma_publication.png)](https://www.biorxiv.org/content/10.1101/2025.10.29.685036v1)
 
-::: {.notes}
-
+::: notes
 Preprint available
-
 :::
 
 ## Related ecosystems
@@ -373,103 +405,74 @@ ggplot(timeline_data, aes(x = year, y = 0)) +
     )
 ```
 
-::: {.notes}
+::: notes
+Over the years, several approaches to data organization have been developed. One of the first widely adopted data containers in microbiome research was `r BiocStyle::Biocpkg("phyloseq")` [@McMurdie2013], designed for 16S amplicon sequencing data. However, it has limitations, particularly in linking multiple experiments and ensuring interoperability between tools in Bioconductor.
 
-Over the years, several approaches to data organization have been developed.
-One of the first widely adopted data containers in microbiome research was
-`r BiocStyle::Biocpkg("phyloseq")` [@McMurdie2013], designed for 16S amplicon
-sequencing data. However, it has limitations, particularly in linking multiple
-experiments and ensuring interoperability between tools in Bioconductor.
-
-`r BiocStyle::Biocpkg("SummarizedExperiment")` (SE) [@Huber2015], on the other
-hand, was introduced as a general-purpose container for biological data and has
-become the most widely used format within the Bioconductor ecosystem. It has
-since been extended to more specialized formats, including
-`r BiocStyle::Biocpkg("SingleCellExperiment")` [@Amezquita2020] for single-cell
-data and
-`r BiocStyle::Biocpkg("TreeSummarizedExperiment")` (TreeSE) [@Huang2021], which
-is tailored for microbiome datasets.
-
+`r BiocStyle::Biocpkg("SummarizedExperiment")` (SE) [@Huber2015], on the other hand, was introduced as a general-purpose container for biological data and has become the most widely used format within the Bioconductor ecosystem. It has since been extended to more specialized formats, including `r BiocStyle::Biocpkg("SingleCellExperiment")` [@Amezquita2020] for single-cell data and `r BiocStyle::Biocpkg("TreeSummarizedExperiment")` (TreeSE) [@Huang2021], which is tailored for microbiome datasets.
 :::
 
 ## Benefits
 
-1. Tightly linked with broader Bioconductor ecosystem
-2. Improved scalability
-3. Improved multi-table integration
+1.  Tightly linked with broader Bioconductor ecosystem
+2.  Improved scalability
+3.  Improved multi-table integration
 
-::: {.notes}
-
-1. We use same data format as broader Bioconductor ecosystem. Some of you might know phyloseq. That was specifically designed for 16S amplicon data, and is not supported outside its ecosystem. Moreover, microbiome data science is nowadays more than sequencing data, it links different fields from metabolomics to genomics. Same data format allows us to use
-methods from different fields.
-2. The ecosystem is more scalable; speed and memory wise than phyloseq and its more efficient alternative, speedyseq. It is not uncommon anymore that there are tens of thousands of samples and features so we need efficient software to run these big datasets.
-3. This ecosystem allows us to link multiple tables together, facilitating multi-omics integration by supporting management of this kind of complex datasets.
-
+::: notes
+1.  We use same data format as broader Bioconductor ecosystem. Some of you might know phyloseq. That was specifically designed for 16S amplicon data, and is not supported outside its ecosystem. Moreover, microbiome data science is nowadays more than sequencing data, it links different fields from metabolomics to genomics. Same data format allows us to use methods from different fields.
+2.  The ecosystem is more scalable; speed and memory wise than phyloseq and its more efficient alternative, speedyseq. It is not uncommon anymore that there are tens of thousands of samples and features so we need efficient software to run these big datasets.
+3.  This ecosystem allows us to link multiple tables together, facilitating multi-omics integration by supporting management of this kind of complex datasets.
 :::
 
 ## Community-driven ecosystem of tools {.smaller}
 
-::: columns
+::::: columns
 ::: {.column width="70%"}
-
-- `r BiocStyle::Biocpkg("mia")` (Data analysis)
-- `r BiocStyle::Biocpkg("miaViz")` (Visualization)
-- `r BiocStyle::Biocpkg("miaSim")` (Simulation)
-- [miaTime](https://github.com/microbiome/miaTime) (Time series analysis)
-- `r BiocStyle::Biocpkg("miaDash")` (Graphical user interface)
-- `r BiocStyle::Biocpkg("iSEETree")` (Interactive visualization)
-- [Expanded by independent developers](https://microbiome.github.io/OMA/docs/devel/pages/miaverse.html#sec-packages)
-
+-   `r BiocStyle::Biocpkg("mia")` (Data analysis)
+-   `r BiocStyle::Biocpkg("miaViz")` (Visualization)
+-   `r BiocStyle::Biocpkg("miaSim")` (Simulation)
+-   [miaTime](https://github.com/microbiome/miaTime) (Time series analysis)
+-   `r BiocStyle::Biocpkg("miaDash")` (Graphical user interface)
+-   `r BiocStyle::Biocpkg("iSEETree")` (Interactive visualization)
+-   [Expanded by independent developers](https://microbiome.github.io/OMA/docs/devel/pages/miaverse.html#sec-packages)
 :::
 
 ::: {.column width="30%"}
-
-![](https://raw.githubusercontent.com/microbiome/mia/refs/heads/devel/man/figures/mia_logo.png){fig-alt="mia logo." width=20%}
-![](https://raw.githubusercontent.com/EBI-Metagenomics/MGnifyR/refs/heads/devel/man/figures/mgnifyr_logo.png){fig-alt="MGnifyR logo." width=20%}
-![](https://raw.githubusercontent.com/EBI-Metagenomics/HoloFoodR/refs/heads/devel/man/figures/holofoodr_logo.png){fig-alt="HoloFoodR logo." width=20%}
-![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/iSEE/iSEE.png){fig-alt="iSEE logo." width=20%}
-![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/MultiAssayExperiment/MultiAssayExperiment.png){fig-alt="MAE logo." width=20%}
-![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SummarizedExperiment/SummarizedExperiment.png){fig-alt="SE logo." width=20%}
-![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SingleCellExperiment/SingleCellExperiment.png){fig-alt="SCE logo." width=20%}
-![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/scater/scater.png){fig-alt="scater logo." width=20%}
-![](https://pbs.twimg.com/media/FDNU5KgWYAcnU8w.jpg){fig-alt="benchdamic logo." width=20%}
-![](https://netcomi.de/logo.png){fig-alt="netcomi logo." width=20%}
-![](https://raw.githubusercontent.com/statdivlab/radEmu/refs/heads/main/man/figures/logo.png){fig-alt="radEmu logo." width=20%}
-![](https://mikelove.github.io/assets/DESeq2.png){fig-alt="DESeq2 logo." width=20%}
-![](https://avatars.githubusercontent.com/u/18152373?s=280&v=4){fig-alt="Biobakery logo." width=20%}
-![](https://raw.githubusercontent.com/thomazbastiaanssen/anansi/refs/heads/devel/man/figures/anansi_hex.png){fig-alt="anansi logo." width=20%}
+![](https://raw.githubusercontent.com/microbiome/mia/refs/heads/devel/man/figures/mia_logo.png){fig-alt="mia logo." width="20%"} ![](https://raw.githubusercontent.com/EBI-Metagenomics/MGnifyR/refs/heads/devel/man/figures/mgnifyr_logo.png){fig-alt="MGnifyR logo." width="20%"} ![](https://raw.githubusercontent.com/EBI-Metagenomics/HoloFoodR/refs/heads/devel/man/figures/holofoodr_logo.png){fig-alt="HoloFoodR logo." width="20%"} ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/iSEE/iSEE.png){fig-alt="iSEE logo." width="20%"} ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/MultiAssayExperiment/MultiAssayExperiment.png){fig-alt="MAE logo." width="20%"} ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SummarizedExperiment/SummarizedExperiment.png){fig-alt="SE logo." width="20%"} ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SingleCellExperiment/SingleCellExperiment.png){fig-alt="SCE logo." width="20%"} ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/scater/scater.png){fig-alt="scater logo." width="20%"} ![](https://pbs.twimg.com/media/FDNU5KgWYAcnU8w.jpg){fig-alt="benchdamic logo." width="20%"} ![](https://netcomi.de/logo.png){fig-alt="netcomi logo." width="20%"} ![](https://raw.githubusercontent.com/statdivlab/radEmu/refs/heads/main/man/figures/logo.png){fig-alt="radEmu logo." width="20%"} ![](https://mikelove.github.io/assets/DESeq2.png){fig-alt="DESeq2 logo." width="20%"} ![](https://avatars.githubusercontent.com/u/18152373?s=280&v=4){fig-alt="Biobakery logo." width="20%"} ![](https://raw.githubusercontent.com/thomazbastiaanssen/anansi/refs/heads/devel/man/figures/anansi_hex.png){fig-alt="anansi logo." width="20%"}
 :::
+:::::
 
-:::
-
-::: {.notes}
-
+::: notes
 Ecosystem of packages developed by the community. mia provides the basic operations in microbiome data analysis. miaViz has the methods for visualization.
 
 Developed by independent developers who have started to support the ecosystem.
-
 :::
 
 ## Orchestrating Microbiome Analysis with Bioconductor
 
-- Resources and tutorials for microbiome analysis
-- Community-built best practices
-- Open to contributions!
+-   Resources and tutorials for microbiome analysis
+-   Community-built best practices
+-   Open to contributions!
 
-::: {.callout-tip}
-## Go to the Orchestrating Microbiome Analysis (OMA) online  book
+::: callout-tip
+## Go to the Orchestrating Microbiome Analysis (OMA) online book
 
 [microbiome.github.io/OMA](https://microbiome.github.io/OMA/docs/devel/){preview-link="true"}
 :::
 
-::: {.notes}
-
+::: notes
 To support users and to collect best practices, there is online book available.
-
 :::
 
-## Data containers
+## Recommended reading
 
-- [Data containers](https://microbiome.github.io/outreach/data_containers.html){target="_blank"}
+Modern Statistics for Modern Biology (Susan Holmes & Wolfgang Huber, Cambridge University Press 2019): <https://www.huber.embl.de/msmb/>
+
+![](images/clipboard-1687746124.png)
+
+## Next: Data containers
+
+-   [Data containers](https://microbiome.github.io/outreach/data_containers.html){target="_blank"}
+
+## 
 
 ## References

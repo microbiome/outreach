@@ -96,10 +96,10 @@ RStudio is recommended along with Quarto/RMarkdown, but plain R files are ok if 
 
 ## Questions
 
-- What are `r BiocStyle::Biocpkg("mia")` and [OMA](https://microbiome.github.io/OMA/docs/devel/)?
+- What are [mia](https://microbiome.github.io/mia) and [OMA](https://microbiome.github.io/OMA/docs/devel/)?
 
 - How microbiome data science is conducted in 
-`r BiocStyle::Biocpkg("SummarizedExperiment")` ecosystem?
+SummarizedExperiment ecosystem?
 
 - What benefits this new ecosystem have compared to previous approaches?
 
@@ -120,7 +120,7 @@ How this SummarizedExperiment ecosystem is applied to microbiome data science an
 After the course, you will know how to:
 
 
-- **Analyze microbiome data** using the Bioconductor's `r BiocStyle::Biocpkg("SummarizedExperiment")` ecosystem  
+- **Analyze microbiome data** using the Bioconductor's SummarizedExperiment ecosystem  
 
 - **Implement reproducible workflows**
 

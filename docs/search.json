@@ -676,7 +676,7 @@
     "href": "intro.html#questions",
     "title": "Introduction",
     "section": "Questions",
-    "text": "Questions\n\nWhat are r BiocStyle::Biocpkg(\"mia\") and OMA?\nHow microbiome data science is conducted in r BiocStyle::Biocpkg(\"SummarizedExperiment\") ecosystem?\nWhat benefits this new ecosystem have compared to previous approaches?\n\n\nThese are the questions that you might have at this point. Hopefully, I am able to answer them during the week.\nmia is the package family and OMA is the online book and ecosystem.\nHow this SummarizedExperiment ecosystem is applied to microbiome data science and what benefits it has compared to other approaches, including custom scripts, phyloseq and other data containers."
+    "text": "Questions\n\nWhat are mia and OMA?\nHow microbiome data science is conducted in SummarizedExperiment ecosystem?\nWhat benefits this new ecosystem have compared to previous approaches?\n\n\nThese are the questions that you might have at this point. Hopefully, I am able to answer them during the week.\nmia is the package family and OMA is the online book and ecosystem.\nHow this SummarizedExperiment ecosystem is applied to microbiome data science and what benefits it has compared to other approaches, including custom scripts, phyloseq and other data containers."
   },
   {
     "objectID": "intro.html#objectives",
@@ -1138,7 +1138,7 @@
     "href": "bioconductor.html#microbiome-analysis-mia",
     "title": "Bioconductor",
     "section": "Microbiome Analysis (mia)",
-    "text": "Microbiome Analysis (mia)\n\nMicrobiome data science ecosystem\n“Downstream”, statistical analysis\n&gt; 15,000 yearly downloads from distinct IPs (top 8.3% in Bioconductor)\n\n\n \n\n\n\nWithin Bioconductor, we have developed microbiome data science ecosystem\nFor downstream analysis\nAligned and tightly linked with broader Bioconductor ecosystem"
+    "text": "Microbiome Analysis (mia)\n\nMicrobiome data science ecosystem\n“Downstream”, statistical analysis\n&gt; 15,000 yearly downloads from distinct IPs (top 7.99% in Bioconductor)\n\n\n \n\n\n\nWithin Bioconductor, we have developed microbiome data science ecosystem\nFor downstream analysis\nAligned and tightly linked with broader Bioconductor ecosystem"
   },
   {
     "objectID": "bioconductor.html#related-ecosystems",
@@ -1152,7 +1152,7 @@
     "href": "bioconductor.html#benefits",
     "title": "Bioconductor",
     "section": "Benefits",
-    "text": "Benefits\n\nTightly linked with broader Bioconductor ecosystem\nImproved scalability\nImproved multi-table integration\n\n\n\nWe use same data format as broader Bioconductor ecosystem. Some of you might know phyloseq. That was specifically designed for 16S amplicon data, and is not supported outside its ecosystem. Moreover, microbiome data science is nowadays more than sequencing data, it links different fields from metabolomics to genomics. Same data format allows us to use methods from different fields.\nThe ecosystem is more scalable; speed and memory wise than phyloseq and its more efficient alternative, speedyseq. It is not uncommon anymore that there are tens of thousands of samples and features so we need efficient software to run these big datasets.\nThis ecosystem allows us to link multiple tables together, facilitating multi-omics integration by supporting management of this kind of complex datasets."
+    "text": "Benefits\nScience is a community effort:\n\nQuality\nImpact"
   },
   {
     "objectID": "bioconductor.html#community-driven-ecosystem-of-tools",
@@ -1173,7 +1173,7 @@
     "href": "bioconductor.html#references",
     "title": "Bioconductor",
     "section": "References",
-    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nAmezquita, Robert A, Aaron T L Lun, Etienne Becht, Vince J Carey, Lindsay N Carpp, Ludwig Geistlinger, Federico Marini, et al. 2020. “Orchestrating Single-Cell Analysis with Bioconductor.” Nature Methods 17 (2): 137–45. https://doi.org/10.1038/s41592-019-0654-x.\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html.\n\n\nMcMurdie, PJ, and S Holmes. 2013. “Phyloseq: An r Package for Reproducible Interactive Analysis and Graphics of Microbiome Census Data.” PLoS ONE 8: e61217. https://doi.org/10.1371/journal.pone.0061217."
+    "text": "References\n\n\n\n\nAmezquita, Robert A, Aaron T L Lun, Etienne Becht, Vince J Carey, Lindsay N Carpp, Ludwig Geistlinger, Federico Marini, et al. 2020. “Orchestrating Single-Cell Analysis with Bioconductor.” Nature Methods 17 (2): 137–45. https://doi.org/10.1038/s41592-019-0654-x.\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html.\n\n\nMcMurdie, PJ, and S Holmes. 2013. “Phyloseq: An r Package for Reproducible Interactive Analysis and Graphics of Microbiome Census Data.” PLoS ONE 8: e61217. https://doi.org/10.1371/journal.pone.0061217."
   },
   {
     "objectID": "bioconductor.html#section",
@@ -1243,7 +1243,7 @@
     "href": "intro.html#learning-goals",
     "title": "Introduction",
     "section": "Learning goals",
-    "text": "Learning goals\nAfter the course, you will know how to:\n\nAnalyze microbiome data using the Bioconductor’s r BiocStyle::Biocpkg(\"SummarizedExperiment\") ecosystem\nImplement reproducible workflows\nExplore documentation & tools via the OMA book\n\n\nBy the end of the course, you’ll be able to apply SE-based methods, create meaningful plots, and know where to go for further learning."
+    "text": "Learning goals\nAfter the course, you will know how to:\n\nAnalyze microbiome data using the Bioconductor’s SummarizedExperiment ecosystem\nImplement reproducible workflows\nExplore documentation & tools via the OMA book\n\n\nBy the end of the course, you’ll be able to apply SE-based methods, create meaningful plots, and know where to go for further learning."
   },
   {
     "objectID": "intro.html#code-of-conduct",
@@ -1265,5 +1265,82 @@
     "title": "Introduction",
     "section": "Questions?",
     "text": "Questions?\n\n\n\nMoreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology."
+  },
+  {
+    "objectID": "bioconductor.html#other-dimensions",
+    "href": "bioconductor.html#other-dimensions",
+    "title": "Bioconductor",
+    "section": "Other dimensions",
+    "text": "Other dimensions\n\n\nCollaborative development\n- 50,000+ papers in PubMed\n- software & data repository\n- tutorials & documentation\n- bioinformatics peer support"
+  },
+  {
+    "objectID": "bioconductor.html#other-elements",
+    "href": "bioconductor.html#other-elements",
+    "title": "Bioconductor",
+    "section": "Other elements",
+    "text": "Other elements\n\n\nCollaborative development\n- software & data repository\n- tutorials & documentation\n- community support\n- 50,000+ citations in PubMed"
+  },
+  {
+    "objectID": "bioconductor.html#collaborative-development-1",
+    "href": "bioconductor.html#collaborative-development-1",
+    "title": "Bioconductor",
+    "section": "Collaborative development",
+    "text": "Collaborative development"
+  },
+  {
+    "objectID": "bioconductor.html#cultures-of-open-collaboration",
+    "href": "bioconductor.html#cultures-of-open-collaboration",
+    "title": "Bioconductor",
+    "section": "Cultures of open collaboration",
+    "text": "Cultures of open collaboration"
+  },
+  {
+    "objectID": "bioconductor.html#open-data-science-ecosystems",
+    "href": "bioconductor.html#open-data-science-ecosystems",
+    "title": "Bioconductor",
+    "section": "Open data science ecosystems",
+    "text": "Open data science ecosystems"
+  },
+  {
+    "objectID": "bioconductor.html#rbioc-community",
+    "href": "bioconductor.html#rbioc-community",
+    "title": "Bioconductor",
+    "section": "R/Bioc community",
+    "text": "R/Bioc community\nBioconductor conferences:\n\nNorth America\nAsia\nEurope\n(Africa)\n(South America)"
+  },
+  {
+    "objectID": "bioconductor.html#collaborative-development",
+    "href": "bioconductor.html#collaborative-development",
+    "title": "Bioconductor",
+    "section": "Collaborative development",
+    "text": "Collaborative development\n- software & data repository\n- tutorials & documentation\n- community support\n- 50,000+ citations in PubMed"
+  },
+  {
+    "objectID": "bioconductor.html#open-microbiome-data-science-ecosystems",
+    "href": "bioconductor.html#open-microbiome-data-science-ecosystems",
+    "title": "Bioconductor",
+    "section": "Open (microbiome) data science ecosystems",
+    "text": "Open (microbiome) data science ecosystems"
+  },
+  {
+    "objectID": "bioconductor.html#recommended-reading",
+    "href": "bioconductor.html#recommended-reading",
+    "title": "Bioconductor",
+    "section": "Recommended reading",
+    "text": "Recommended reading\nModern Statistics for Modern Biology (Susan Holmes & Wolfgang Huber, Cambridge University Press 2019): https://www.huber.embl.de/msmb/"
+  },
+  {
+    "objectID": "bioconductor.html#next-data-containers",
+    "href": "bioconductor.html#next-data-containers",
+    "title": "Bioconductor",
+    "section": "Next: Data containers",
+    "text": "Next: Data containers\n\nData containers"
+  },
+  {
+    "objectID": "bioconductor.html#benefits-1",
+    "href": "bioconductor.html#benefits-1",
+    "title": "Bioconductor",
+    "section": "Benefits",
+    "text": "Benefits\n\nTightly linked with broader Bioconductor ecosystem\nImproved scalability\nImproved multi-table integration\n\n\n\nWe use same data format as broader Bioconductor ecosystem. Some of you might know phyloseq. That was specifically designed for 16S amplicon data, and is not supported outside its ecosystem. Moreover, microbiome data science is nowadays more than sequencing data, it links different fields from metabolomics to genomics. Same data format allows us to use methods from different fields.\nThe ecosystem is more scalable; speed and memory wise than phyloseq and its more efficient alternative, speedyseq. It is not uncommon anymore that there are tens of thousands of samples and features so we need efficient software to run these big datasets.\nThis ecosystem allows us to link multiple tables together, facilitating multi-omics integration by supporting management of this kind of complex datasets."
   }
 ]
