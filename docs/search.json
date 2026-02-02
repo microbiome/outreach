@@ -662,14 +662,14 @@
     "href": "intro.html#schedule",
     "title": "Introduction",
     "section": "Schedule",
-    "text": "Schedule\nDay 1 — Monday: Introduction to Bioconductor & data containers\nDay 2 — Tuesday: Data wrangling\nDay 3 — Thursday: Diversity\nDay 4 — Friday: Differential abundance & advanced topics\n\nOverview of the week"
+    "text": "Schedule\nDay 1 — Mon: Introduction to Bioconductor framework\nDay 2 — Tue: Data wrangling\nDay 3 — Wed: Community diversity & composition\nDay 4 — Thu: Statistical testing\nDay 5 — Fri: Advanced topics\n\nOverview of the week"
   },
   {
     "objectID": "intro.html#practicalities",
     "href": "intro.html#practicalities",
     "title": "Introduction",
     "section": "Practicalities",
-    "text": "Practicalities\n\nEach topic: short lecture + demonstration\nMajority of time: hands-on practice\nMaterials follow the OMA online book\n\n\nHands-on learning is the focus — you’ll learn best by doing. Feel free to interrupt and ask questions anytime. The OMA book is a lasting resource you can return to.\nYou should do hands-on with your local computer. Have you installed packages? –&gt; Help is provided when doing first exercises. RStudio is recommended along with Quarto/RMarkdown, but plain R files are ok if you are familiar with them."
+    "text": "Practicalities\n\nEach topic: short lecture + demonstration\nMajority of time: hands-on practice\nMaterials follow the “Orchestrating Microbiome Analysis” OMA online book\nSlack channel: for real-time support\nThe openly licensed teaching material will be available online during and after the course\n\n\nHands-on learning is the focus — you’ll learn best by doing. Feel free to interrupt and ask questions anytime. The OMA book is a lasting resource you can return to.\nYou should do hands-on with your local computer. Have you installed packages? –&gt; Help is provided when doing first exercises. RStudio is recommended along with Quarto/RMarkdown, but plain R files are ok if you are familiar with them."
   },
   {
     "objectID": "intro.html#questions",
@@ -690,7 +690,7 @@
     "href": "intro.html#references",
     "title": "Introduction",
     "section": "References",
-    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
+    "text": "References"
   },
   {
     "objectID": "import.html#section-2",
@@ -1237,5 +1237,33 @@
     "title": "Bioconductor",
     "section": "Community is the key",
     "text": "Community is the key\n\nTraining programs & workshops\nCommunity support\nConferences\n\n\n\n\nBioconductor is more than software.\nWorldwide community of bioinformaticians; both users and developers.\n\nEuropean Bioconductor conference is organized this year in Turku, Finland."
+  },
+  {
+    "objectID": "intro.html#learning-goals",
+    "href": "intro.html#learning-goals",
+    "title": "Introduction",
+    "section": "Learning goals",
+    "text": "Learning goals\nAfter the course, you will know how to:\n\nAnalyze microbiome data using the Bioconductor’s r BiocStyle::Biocpkg(\"SummarizedExperiment\") ecosystem\nImplement reproducible workflows\nExplore documentation & tools via the OMA book\n\n\nBy the end of the course, you’ll be able to apply SE-based methods, create meaningful plots, and know where to go for further learning."
+  },
+  {
+    "objectID": "intro.html#code-of-conduct",
+    "href": "intro.html#code-of-conduct",
+    "title": "Introduction",
+    "section": "Code of Conduct",
+    "text": "Code of Conduct\nBioconductor community values an open approach to science that promotes\n\nsharing of ideas, code, software and expertise\ncollaboration\ndiversity and inclusivity\na kind and welcoming environment\ncommunity contributions\n\nBy participating in this community, you agree not to engage in behavior contrary to these values at any Bioconductor-sponsored event or electronic communication channel.\nFor the full CoC, see: https://bioconductor.github.io/bioc_coc_multilingual"
+  },
+  {
+    "objectID": "intro.html#learning-goals-for-today",
+    "href": "intro.html#learning-goals-for-today",
+    "title": "Introduction",
+    "section": "Learning goals for today",
+    "text": "Learning goals for today\nBroader context and practical skills on:\n\nBioconductor ecosystem\nData containers: understanding SummarizedExperiment\nImporting data: how to get your data imported in R"
+  },
+  {
+    "objectID": "intro.html#questions-1",
+    "href": "intro.html#questions-1",
+    "title": "Introduction",
+    "section": "Questions?",
+    "text": "Questions?\n\n\n\nMoreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology."
   }
 ]

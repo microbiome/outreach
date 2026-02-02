@@ -33,19 +33,41 @@ Get to know the participants.
 
 :::
 
+
+## Code of Conduct {.smaller}
+
+Bioconductor community values an open approach to science that promotes
+
+-   sharing of ideas, code, software and expertise
+
+-   collaboration
+
+-   diversity and inclusivity
+
+-   a kind and welcoming environment
+
+-   community contributions
+
+By participating in this community, you agree not to engage in behavior contrary to these values at any Bioconductor-sponsored event or electronic communication channel.
+
+For the full CoC, see: [https://bioconductor.github.io/bioc_coc_multilingual](https://bioconductor.github.io/bioc_coc_multilingual/)
+
+
 ---
 eval: false
 ---
 
 ## Schedule {visibility="visible"}
 
-**Day 1 &mdash; Monday**: Introduction to Bioconductor & data containers
+**Day 1 &mdash; Mon**: Introduction to Bioconductor framework
 
-**Day 2 &mdash; Tuesday**: Data wrangling
+**Day 2 &mdash; Tue**: Data wrangling
 
-**Day 3 &mdash; Thursday**: Diversity
+**Day 3 &mdash; Wed**: Community diversity & composition
 
-**Day 4 &mdash; Friday**: Differential abundance & advanced topics
+**Day 4 &mdash; Thu**: Statistical testing
+
+**Day 5 &mdash; Fri**: Advanced topics
 
 ::: {.notes}
 
@@ -57,7 +79,9 @@ Overview of the week
 
 - Each topic: **short lecture + demonstration**
 - Majority of time: **hands-on practice**
-- Materials follow the [OMA online book](https://microbiome.github.io/OMA/docs/devel/)
+- Materials follow the "Orchestrating Microbiome Analysis" [OMA online book](https://microbiome.github.io/OMA/docs/devel/)
+- Slack channel: for real-time support
+-   The openly licensed teaching material will be available online during and after the course
 
 ::: {.notes}
 Hands-on learning is the focus — you’ll learn best by doing.
@@ -68,11 +92,14 @@ You should do hands-on with your local computer. Have you installed packages? --
 RStudio is recommended along with Quarto/RMarkdown, but plain R files are ok if you are familiar with them.
 :::
 
+
+
 ## Questions
 
 - What are `r BiocStyle::Biocpkg("mia")` and [OMA](https://microbiome.github.io/OMA/docs/devel/)?
 
-- How microbiome data science is conducted in `r BiocStyle::Biocpkg("SummarizedExperiment")` ecosystem?
+- How microbiome data science is conducted in 
+`r BiocStyle::Biocpkg("SummarizedExperiment")` ecosystem?
 
 - What benefits this new ecosystem have compared to previous approaches?
 
@@ -86,18 +113,37 @@ How this SummarizedExperiment ecosystem is applied to microbiome data science an
 
 :::
 
-## Objectives
 
-- **Analyze microbiome data** using the `r BiocStyle::Biocpkg("SummarizedExperiment")` ecosystem  
+## Learning goals {visibility="visible"}
 
-- **Create & interpret visualizations**
+
+After the course, you will know how to:
+
+
+- **Analyze microbiome data** using the Bioconductor's `r BiocStyle::Biocpkg("SummarizedExperiment")` ecosystem  
+
+- **Implement reproducible workflows**
 
 - **Explore documentation & tools** via the [OMA book](https://microbiome.github.io/OMA/docs/devel/)
 
 ::: {.notes}
 
 By the end of the course, you’ll be able to apply SE-based methods, create meaningful plots, and know where to go for further learning.
-
 :::
 
-## References
+
+## Learning goals for *today*
+
+Broader context and practical skills on:
+
+
+-   **Bioconductor ecosystem** 
+
+-   **Data containers**: understanding *SummarizedExperiment*
+
+- **Importing data**: how to get your data imported in R
+
+## Questions?
+
+![Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.](images/paste-DD45BC4A.png){width="420"}
+
