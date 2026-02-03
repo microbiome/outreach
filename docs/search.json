@@ -1355,49 +1355,49 @@
     "href": "transformation.html#intuition-1",
     "title": "Transformation",
     "section": "Intuition",
-    "text": "Intuition\n\nValues dependent, only ratios matter.\n\n\nWhen we want to compare values in compositional data, only ratios make sense."
+    "text": "Intuition\n\nValues dependent, only ratios matter\n\n\nWhen we want to compare values in compositional data, only ratios make sense."
   },
   {
     "objectID": "transformation.html#intuition-2",
     "href": "transformation.html#intuition-2",
     "title": "Transformation",
     "section": "Intuition",
-    "text": "Intuition\n\nValues dependent, only ratios matter.\nStandard statistics rely on subtraction and distance.\n\n\nHowever, most statistical tests rely that substraction make sense. How to make ratios subtractions?"
+    "text": "Intuition\n\nValues dependent, only ratios matter\nStandard statistics rely on subtraction and distance\n\n\nHowever, most statistical tests rely that substraction make sense. How to make ratios subtractions?"
   },
   {
     "objectID": "transformation.html#intuition-3",
     "href": "transformation.html#intuition-3",
     "title": "Transformation",
     "section": "Intuition",
-    "text": "Intuition\n\nValues dependent, only ratios matter.\nStandard statistics rely on subtraction and distance.\n\n\\[\n\\frac{x}{y} = a-b\n\\]\n\nThis is the situation."
+    "text": "Intuition\n\nValues dependent, only ratios matter\nStandard statistics rely on subtraction and distance\n\n\\[\n\\frac{x}{y} = a-b\n\\]\n\nThis is the situation."
   },
   {
     "objectID": "transformation.html#intuition-4",
     "href": "transformation.html#intuition-4",
     "title": "Transformation",
     "section": "Intuition",
-    "text": "Intuition\n\nValues dependent, only ratios matter.\nStandard statistics rely on subtraction and distance.\n\nUse log-scale\n\n\n\\[\nlog(\\frac{x}{y}) = log(x) - log(y)\n\\]\n\nTaking the log turns multiplicative relationships (ratios) into additive ones (differences), making subtraction meaningful."
+    "text": "Intuition\n\nValues dependent, only ratios matter\nStandard statistics rely on subtraction and distance\n\nUse log-scale\n\n\n\\[\nlog(\\frac{x}{y}) = log(x) - log(y)\n\\]\n\nTaking the log turns multiplicative relationships (ratios) into additive ones (differences), making subtraction meaningful."
   },
   {
     "objectID": "transformation.html#intuition-5",
     "href": "transformation.html#intuition-5",
     "title": "Transformation",
     "section": "Intuition",
-    "text": "Intuition\n\nValues dependent, only ratios matter.\nStandard statistics rely on subtraction and distance.\n\nUse log-scale\n\nLibrary sizes are arbitrary\n\n\nLibrary sizes are arbitrary. This means that the scale of values are arbitrary. How to remove the effect of them?"
+    "text": "Intuition\n\nValues dependent, only ratios matter\nStandard statistics rely on subtraction and distance\n\nUse log-scale\n\nLibrary sizes are arbitrary\n\n\nLibrary sizes are arbitrary. This means that the scale of values are arbitrary. How to remove the effect of them?"
   },
   {
     "objectID": "transformation.html#intuition-6",
     "href": "transformation.html#intuition-6",
     "title": "Transformation",
     "section": "Intuition",
-    "text": "Intuition\n\nValues dependent, only ratios matter.\nStandard statistics rely on subtraction and distance.\n\nUse log-scale\n\nLibrary sizes are arbitrary\n\nCenter the data\n\n\n\nBy centering the data, i.e., removing the mean."
+    "text": "Intuition\n\nValues dependent, only ratios matter\nStandard statistics rely on subtraction and distance\n\nUse log-scale\n\nLibrary sizes are arbitrary\n\nCenter the data\n\n\n\nBy centering the data, i.e., removing the mean."
   },
   {
     "objectID": "transformation.html#intuition-7",
     "href": "transformation.html#intuition-7",
     "title": "Transformation",
     "section": "Intuition",
-    "text": "Intuition\n\nValues dependent, only ratios matter.\nStandard statistics rely on subtraction and distance.\n\nUse log-scale\n\nLibrary sizes are arbitrary\n\nCenter the data\n\n\n\nCLR converts compositional data into a format where subtraction, distances, and correlations make sense. This solves both the dependency and library size issues."
+    "text": "Intuition\n\nValues dependent, only ratios matter\nStandard statistics rely on subtraction and distance\n\nUse log-scale\n\nLibrary sizes are arbitrary\n\nCenter the data\n\n\n\nCLR converts compositional data into a format where subtraction, distances, and correlations make sense. This solves both the dependency and library size issues."
   },
   {
     "objectID": "transformation.html#centering",

@@ -296,7 +296,7 @@ This is the idea behind CLR transformation.
 
 ## Intuition {auto-animate="true"}
 
-1. Values dependent, only ratios matter.
+1. Values dependent, only ratios matter
 
 ::: {.notes}
 
@@ -306,8 +306,8 @@ When we want to compare values in compositional data, only ratios make sense.
 
 ## Intuition {auto-animate="true"}
 
-1. Values dependent, only ratios matter.
-2. Standard statistics rely on subtraction and distance.
+1. Values dependent, only ratios matter
+2. Standard statistics rely on subtraction and distance
 
 ::: {.notes}
 
@@ -318,8 +318,8 @@ rely that substraction make sense. How to make ratios subtractions?
 
 ## Intuition {auto-animate="true"}
 
-1. Values dependent, only ratios matter.
-2. Standard statistics rely on subtraction and distance.
+1. Values dependent, only ratios matter
+2. Standard statistics rely on subtraction and distance
 
 $$
 \frac{x}{y} = a-b
@@ -333,8 +333,8 @@ This is the situation.
 
 ## Intuition {auto-animate="true"}
 
-1. Values dependent, only ratios matter.
-2. Standard statistics rely on subtraction and distance.
+1. Values dependent, only ratios matter
+2. Standard statistics rely on subtraction and distance
     - Use log-scale
 
 $$
@@ -349,8 +349,8 @@ Taking the log turns multiplicative relationships (ratios) into additive ones (d
 
 ## Intuition {auto-animate="true"}
 
-1. Values dependent, only ratios matter.
-2. Standard statistics rely on subtraction and distance.
+1. Values dependent, only ratios matter
+2. Standard statistics rely on subtraction and distance
     - Use log-scale
 3. Library sizes are arbitrary
 
@@ -362,8 +362,8 @@ Library sizes are arbitrary. This means that the scale of values are arbitrary. 
 
 ## Intuition {auto-animate="true"}
 
-1. Values dependent, only ratios matter.
-2. Standard statistics rely on subtraction and distance.
+1. Values dependent, only ratios matter
+2. Standard statistics rely on subtraction and distance
     - Use log-scale
 3. Library sizes are arbitrary
     - Center the data
@@ -453,8 +453,8 @@ values are in logarithmic space, we have to use geometric mean.
 
 ## Intuition
 
-1. Values dependent, only ratios matter.
-2. Standard statistics rely on subtraction and distance.
+1. Values dependent, only ratios matter
+2. Standard statistics rely on subtraction and distance
     - Use log-scale
 3. Library sizes are arbitrary
     - Center the data
