@@ -20,7 +20,7 @@ bibliography: references.bib
 
 ::: {.notes}
 
-- **High variability** → heteroscedasticity: the variance increases more than the mean. Abundant taxa have lots of variability.
+- **High variability** → lots of variation in abundances
 - **Zero-inflation** → many features are absent in most samples, which complicates statistical modelling and increases sparsity of the data matrix.
 - **Compositionality** → sequencing depth differs between samples; only *ratios* of features within a sample are meaningful, absolute counts are not.
 
@@ -50,7 +50,7 @@ ggplot(df1, aes(x, y)) +
 
 ::: {.notes}
 
-The variance increases when abundance increases
+heteroscedasticity: the variance increases more than the mean. Abundant taxa have lots of variability.
 
 :::
 
@@ -72,19 +72,24 @@ Real microbiome data. Lots of zeroes.
 
 ## Compositionality
 
-- Numbers are dependent: if one increases, at least one must decrease
-- Simplex space
-  - If we know N-1 values, we know the last one
-  - Constraint: all values positive and sum to a constant (often 1)
+- Sequencing measures **relative abundances**, not true microbial counts
+- Values are **parts of a whole**
+- Parts are **linked by a fixed total** (library size)
+    - If one increases, at least one other must decrease
 
 ::: {.notes}
 
-Standard statistics require that values are in Euclidean space.
+Sequencing does not measure the true number of bacteria in a sample. Each sample produces an arbitrary total number of reads (library size) due to technical variation and bias.
 
-Compositional data live in the simplex (compositional space), not Euclidean space (where subtractions, distances and variances make sense).
+Because all microbes share this fixed total, we observe only relative abundances, not absolute quantities.
 
-Results can be misleading without transformation.
+Most standard statistical methods assume variables can change independently. Compositional data violate this assumption: all values must sum to the same total, so changes are always relative.
 
+Ignoring this constraint can lead to misleading results, even when the data look reasonable.
+
+Everyday examples of compositional data include:
+- A budget
+- How you spend 24 hours in a day (more work means less time for something else)
 :::
 
 ##
@@ -95,37 +100,38 @@ Results can be misleading without transformation.
 library(ggplot2)
 library(dplyr)
 library(tidyr)
+library(patchwork)
 
 # Simulate absolute counts for 3 taxa across two samples
 df_absolute <- tibble(
     Sample = c("Sample 1", "Sample 2"),
-    Taxon_A = c(50, 150),  # Tribled
-    Taxon_B = c(25, 25),   # Constant
-    Taxon_C = c(25, 25)    # Constant
+    `A` = c(50, 150),  # Tribled
+    `B` = c(25, 25),   # Constant
+    `C` = c(25, 25)    # Constant
 )
 
 # Add relative abundances (simulate sequencing)
 df_relative <- df_absolute %>%
-    mutate(across(starts_with("Taxon"), ~ .x / rowSums(across(starts_with("Taxon"))))) %>%
-    pivot_longer(cols = -Sample, names_to = "Taxon", values_to = "RelativeAbundance")
+    mutate(across(starts_with("Bacteria"), ~ .x / rowSums(across(starts_with("Bacteria"))))) %>%
+    pivot_longer(cols = -Sample, names_to = "Bacteria", values_to = "RelativeAbundance")
 
 # Pivot absolute too for comparison
 df_absolute_long <- df_absolute %>%
-    pivot_longer(cols = -Sample, names_to = "Taxon", values_to = "Count")
+    pivot_longer(cols = -Sample, names_to = "Bacteria", values_to = "Count")
 
 # Plot 1: Absolute counts
-p1 <- ggplot(df_absolute_long, aes(x = Sample, y = Count, fill = Taxon)) +
+p1 <- ggplot(df_absolute_long, aes(x = Sample, y = Count, fill = Bacteria)) +
     geom_bar(stat = "identity", position = "stack") +
     labs(title = "Absolute counts", y = "Read count") +
-    theme_minimal()
+    theme_minimal() + scale_fill_brewer(palette = "Paired")
 
 # Plot 2: Relative abundances
-p2 <- ggplot(df_relative, aes(x = Sample, y = RelativeAbundance, fill = Taxon)) +
+p2 <- ggplot(df_relative, aes(x = Sample, y = RelativeAbundance, fill = Bacteria)) +
     geom_bar(stat = "identity", position = "fill") +
     labs(title = "Relative abundance", y = "Proportion") +
-    theme_minimal()
+    theme_minimal() + scale_fill_brewer(palette = "Paired")
 
-library(patchwork)
+
 # Combine plots and keep only one legend
 p1 + p2 + plot_layout(guides = "collect") & theme(legend.position = "bottom")
 
@@ -134,7 +140,15 @@ p1 + p2 + plot_layout(guides = "collect") & theme(legend.position = "bottom")
 
 ::: {.notes}
 
-Compositional bias.
+These plots show the same two samples in two different ways.
+
+On the left, we see absolute counts. Taxon A increases in Sample 2, while taxa B and C stay exactly the same.
+
+On the right, we see relative abundances, which is what sequencing gives us. Because each sample has a fixed library size, all taxa must share the same total.
+
+As taxon A takes up a larger share in Sample 2, the proportions of B and C go down — even though their true counts did not change.
+
+This is compositional bias: changes in one taxon can make others appear to change simply because everything is expressed as proportions.
 
 :::
 
@@ -174,6 +188,8 @@ temp
 
 ## Relative abundance
 
+>_Library sizes are arbitrary_
+
 $$
 \text{X}_{ij} = \frac{\text{Count}_{ij}}{\sum_{k=1}^m \text{Count}_{ik}}
 $$
@@ -195,6 +211,8 @@ Library sizes were arbitrary --> remove their effect.
 :::
 
 ## Log-transformed relative abundance
+
+>_Library sizes are arbitrary and data zero-inflated_
 
 $$
 \text{X}_{ij} = \log \left( \text{Relative abundance}_{ij} + \epsilon \right)
@@ -250,58 +268,109 @@ If one goes up, at least one of the others must go down. This is called a constr
 
 ## Centered log-ratio (CLR)
 
+>_Library sizes are arbitrary and values are dependent_
+
 $$
 \text{CLR}(x_i) = \log\left(\frac{x_i}{g(x)}\right),\quad
 g(x) = \left(\prod_{j=1}^{D} x_j \right)^{1/D}
 $$
 
-- $x_i$: the $i$-th component of the composition  
-- $g(x)$: geometric mean of the composition
+- $x_i$: abundance of bacteria $i$  
+- $g(x)$: geometric mean across all bacteria in the sample
 
 ::: {.notes}
 
-- CLR removes compositional constraints and maps data from the simplex to Euclidean space.
-
-Compositionality; only ratios meaningful:
-How to make ratios meaningful subtraction operations?
-Working in log-scale --> that is why we take log.
-
-The current scale is arbitrary and caused by the effect of library sizes:
-How to center the data distribution?
-Subtracting mean, because we are working in log-scale we use geometric mean.
-
-1. Standard statistical tests assume Euclidean space, where subtraction and distances make sense.
-
-2. Subtraction does not make sense on raw compositional data because only ratios between components carry information. --> How to convert ratios into subtraction? --> Using log-scale
-
-3. Taking the log converts ratios into differences: log⁡(x/y)=log⁡(x)−log⁡(y)
-so subtraction now has a meaningful interpretation.
-
-4. The log-values still have an arbitrary baseline, so we center them around zero by subtracting the arithmetic mean of the logs, which is equivalent to dividing each component by the geometric mean of the original composition:
-
-5. The result is a vector in Euclidean space with sum zero, suitable for standard analyses.
+CLR is a standard transformation for compositional data. It accounts for
+dependency between parts and arbitrary library sizes, which simple relative
+abundance transformations cannot.
 
 :::
 
-##
+## Intuition
+
+::: {.notes}
+
+This is the idea behind CLR transformation.
+
+:::
+
+## Intuition {auto-animate="true"}
+
+1. Values dependent, only ratios matter.
+
+::: {.notes}
+
+When we want to compare values in compositional data, only ratios make sense.
+
+:::
+
+## Intuition {auto-animate="true"}
+
+1. Values dependent, only ratios matter.
+2. Standard statistics rely on subtraction and distance.
+
+::: {.notes}
+
+However, most statistical tests
+rely that substraction make sense. How to make ratios subtractions?
+
+:::
+
+## Intuition {auto-animate="true"}
+
+1. Values dependent, only ratios matter.
+2. Standard statistics rely on subtraction and distance.
 
 $$
-\text{Arithmetic mean} = \frac{2 + 8 + 32}{3} = \frac{42}{3} = 14
-$$
-
-$$
-\text{Geometric mean} = \sqrt[3]{2 \cdot 8 \cdot 32} \\[2mm]
-= \exp\Bigg( \frac{\log 2 + \log 8 + \log 32}{3} \Bigg) \\[2mm]
-= 8
+\frac{x}{y} = a-b
 $$
 
 ::: {.notes}
 
-There is nothing inherently special about the geometric mean — it is just the arithmetic mean in log-space, which is the space we are currently working in.
+This is the situation.
 
-Dividing each value by the geometric mean is equivalent to subtracting the arithmetic mean of the logs.
+:::
 
-This centers the data around zero in log-ratio space, making differences between components meaningful for standard statistical analyses.
+## Intuition {auto-animate="true"}
+
+1. Values dependent, only ratios matter.
+2. Standard statistics rely on subtraction and distance.
+    - Use log-scale
+
+$$
+log(\frac{x}{y}) = log(x) - log(y)
+$$
+
+::: {.notes}
+
+Taking the log turns multiplicative relationships (ratios) into additive ones (differences), making subtraction meaningful.
+
+:::
+
+## Intuition {auto-animate="true"}
+
+1. Values dependent, only ratios matter.
+2. Standard statistics rely on subtraction and distance.
+    - Use log-scale
+3. Library sizes are arbitrary
+
+::: {.notes}
+
+Library sizes are arbitrary. This means that the scale of values are arbitrary. How to remove the effect of them?
+
+:::
+
+## Intuition {auto-animate="true"}
+
+1. Values dependent, only ratios matter.
+2. Standard statistics rely on subtraction and distance.
+    - Use log-scale
+3. Library sizes are arbitrary
+    - Center the data
+
+::: {.notes}
+
+By centering the data, i.e., removing the mean.
 
 :::
 
@@ -348,6 +417,56 @@ Centering means that we subtract mean from each value to get the distribution ce
 
 :::
 
+## Centering
+
+$$
+\text{CLR}(x_i) \;=\; \log\left(\frac{x_i}{g(x)}\right) \\[2mm]
+= \log(x_i) - \log(g(x)) \\[2mm]
+$$
+
+::: {.notes}
+
+We remove the mean.
+
+Why we remove geometric mean?
+
+:::
+
+##
+
+$$
+\text{Arithmetic mean} = \frac{2 + 8 + 32}{3} = \frac{42}{3} = 14
+$$
+
+$$
+\text{Geometric mean} = \sqrt[3]{2 \cdot 8 \cdot 32} \\[2mm]
+= \exp\Bigg( \frac{\log 2 + \log 8 + \log 32}{3} \Bigg) \\[2mm]
+= 8
+$$
+
+::: {.notes}
+
+The geometric mean is just the arithmetic mean in log-space. Because now the
+values are in logarithmic space, we have to use geometric mean.
+
+:::
+
+## Intuition
+
+1. Values dependent, only ratios matter.
+2. Standard statistics rely on subtraction and distance.
+    - Use log-scale
+3. Library sizes are arbitrary
+    - Center the data
+
+
+::: {.notes}
+
+CLR converts compositional data into a format where subtraction, distances, and
+correlations make sense. This solves both the dependency and library size issues.
+
+:::
+
 ## Centered log-ratio (CLR)
 
 $$
@@ -360,19 +479,6 @@ $$
 
 - Take a logarithm of the values --> ratios become subtraction which is what we want in Euclidean space
 - Center values to mean 0
-
-:::
-
-## Interpretation:
-
-- Positive CLR → feature is more abundant than the sample’s average
-- Negative CLR → feature is less abundant than the sample’s average
-- Magnitude → how strongly the feature deviates from the average
-  - On a log scale: CLR = 1 → ~2.7× average
-  - CLR = 2 → ~7.4× average
-  - CLR = −1 → ~0.37× average
-
-::: {.notes}
 
 - CLR values show how each feature compares to the sample’s geometric mean.
 - Positive = enriched, Negative = depleted.
@@ -426,6 +532,27 @@ p1 + p2
 Makes the data more normally distributed. Distributed around zero. Without constrains (goes from negative infinity to positive)
 
 :::
+
+## Correct transformation depends on
+
+1. Your research question
+2. On the analysis method
+
+>_Use the simplest justified approach that works_
+
+::: {.notes}
+
+There is increasing amount of benchmarking literature on this.
+We combine them to online book.
+
+The “best” transformation depends on what you want to learn and the statistical
+methods you plan to use. Often, a simple, well-justified approach works well in
+practice.
+
+
+
+:::
+
 
 ## Demonstration
 
