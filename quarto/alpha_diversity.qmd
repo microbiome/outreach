@@ -14,20 +14,25 @@ bibliography: references.bib
 
 ## Alpha diversity
 
-- Measures diversity **within a single sample**
-- Two key aspects:
-  - **Richness:** how many taxa are present  
-  - **Evenness:** how evenly distributed the taxa are
+Measures diversity **within a single sample**
 
-::: {.notes}
+Captures two key aspects:
 
-- Alpha diversity gives a single-sample summary of microbial diversity.  
-- Richness = count of taxa; Evenness = balance of abundances.  
-- Useful for comparing samples, understanding ecological structure, and detecting dysbiosis.
+-   **Richness:** how many unique species are present\
+-   **Evenness:** how evenly distributed they are
 
+::: notes
+-   Alpha diversity summarizes microbial diversity in a single number per sample.\
+-   Richness = count of unique species (or taxa);
+-   Evenness = balance of abundances; opposite to dominance\
+-   Useful for comparing samples, understanding ecological structure, and detecting dysbiosis.
 :::
 
-##
+## Counting richness and evenness
+
+![](images/clipboard-2623052059.png)
+
+## 
 
 ```{r}
 #| label: alpha
@@ -91,120 +96,302 @@ ggplot(df, aes(x = x, y = y)) +
   )
 ```
 
-::: {.notes}
-
+::: notes
 Each circle represents a sample.
 
-- Point color = species identity.
-- High richness = more colors present.
-- High evenness = similar number of points per species.
-- Low evenness = dominance by one species.
-
+-   Point color = species identity.
+-   High richness = more colors present.
+-   High evenness = similar number of points per species.
+-   Low evenness = dominance by one species.
 :::
+
+## Finite sampling
+
+![](images/clipboard-1787424035.png)
+
+github.com/mblstamps/stamps2019
+
+## Applications
+
+Alpha diversity, ageing and body-mass index across the life span.
+
+Data: HITChip Atlas, [Lahti et al. Nat Comm 2014](https://doi.org/10.1038/ncomms5344)
+
+![](images/clipboard-1521514707.png)
+
+## Applications
+
+![](images/clipboard-455301884.png)
 
 ## Richness
 
-
 $$
-S = \text{Number of observed taxa}
+R = \text{Number of unique species}
 $$
 
-- Counts unique species/ASVs/OTUs in a sample
+::: notes
+[Observed richness]{.underline} is the simplest diversity metric.
 
-::: {.notes}
-Richness is the simplest diversity metric: just counts how many unique taxa are observed.
+It tells *how many* *unique species* can be directly observed in a sample.
 :::
 
-## Simpson's evenness
+[Observed richness]{.underline}
 
-$$
-E_{\mathrm{Simpson}} = \frac{1}{S \sum_{i=1}^{S} p_i^2}
-$$
+-   *observed richness*: counting the number of unique species
 
-*where:*
+[True richness]{.underline} to be estimated based on a finite sample (Sanders, 1968).
 
-- $p_i$ = relative abundance of taxon $i$  
-- $S$ = number of taxa  
+-   Chao1: is more sensitive to sampling effort
 
-- Bounded between 0 (low evenness) and 1 (perfectly even)  
-
-::: {.notes}
-
-Simpson's evenness measures how evenly individuals are distributed among taxa.  
-It is easy to interpret and always ranges between 0 and 1.
-
-:::
+-   ACE: more stable, emphasizes information from rare taxa
 
 ## Shannon diversity
 
 $$
-H' = - \sum_{i=1}^{S} p_i \log(p_i)
+H' = - \sum_{i=1}^{R} p_i \log(p_i)
 $$
 
 *where:*
 
-- $p_i$ = relative abundance of taxon $i$  
-- $S$ = total number of taxa
+-   $p_i$ = relative abundance of species $i$\
 
-- Combines richness and evenness in one metric
+-   $R$ = total number of species
 
-::: {.notes}
-Shannon diversity accounts for both **richness** and **evenness**.  
+Combines richness and evenness in one metric.
+
+::: notes
+Shannon diversity is another common diversity index.
+
+Like Simpson, It accounts for both **richness** and **evenness**.\
+
 Higher values mean more diverse communities. (Value can be over 1, no upper bound)
+
+True richness: exp(H) (how many species with equal abundance will give that diversity)
 :::
+
+## Pielou's evenness
+
+$$ E = \frac{Shannon\ diversity}{ln(Obs.\ Richness)} = \frac{H}{ln(S)}$$
+
+## Berger-Parker dominance
+
+Maximum relative abundance in the sample; or relative abundance $p_i$ of the most abundant type.
+
+$$
+max_i (p_i)
+$$
+
+## Simpson's dominance index
+
+Simpson index $\lambda$ measures how likely two randomly picked individuals represent the same species.
+
+$$\lambda = \sum_{i=1}^{R} p_i^2$$
+
+*where:*
+
+-   $p_i$ = relative abundance of species $i$\
+
+-   $R$ = richness, or the number of unique species
+
+::: notes
+Simpson's index measures how evenly individuals are distributed into different types (or species).\
+
+It is easy to interpret and always ranges between 0 and 1.
+
+This formula assumes large sample size and sampling with replacement. Variations exist for small sample size and sampling without replacement (see e.g. Wikipedia). These can be useful in low-diversity environments (to check mia/vegan versions)
+:::
+
+## Simpson's diversity?
+
+However, the original Simpson index $\lambda$ decreases with diversity. Therefore we typically use:
+
+-   Inverse Simpson: $1 / \lambda$ (the most common case of Simpson's diversity)
+
+-   Reciprocal Simpson (or Gini-Simpson): $1 - \lambda$
+
+## Hill's diversity: a unifying concept
+
+True diversity, the effective number of types, refers to the number of equally abundant types needed for the average proportional abundance of the types to equal what is observed in the dataset of interest.
+
+$$
+^qD = \frac{1}{M_{q-1}} = (\sum_{i=1}^R p_i^q)^\frac{1}{1-q},
+$$
+
+where (again)
+
+-   $p_i$ is relative abundance of species $i$,
+-   $R$ is the richness (number of species)
+-   $q^D$ is the Hill number of order $q$, the effective number of species
+-   Denominator $M_{q-1}$: average relative abundance, with weighted generalized mean with exponent $q − 1$.
+
+::: notes
+In M, q = 0 corresponds to the weighted harmonic mean,
+
+q = 1 to the weighted geometric mean, and
+
+q = 2 to the weighted arithmetic mean.\[7\]
+
+As q approaches infinity, the weighted generalized mean with exponent q − 1 approaches the maximum p_i value, which is the proportional abundance of the most abundant species in the dataset.
+:::
+
+## Hill's diversity: a unifying concept
+
+Common diversity measures are special cases:
+
+-   $q = 0$: Observed Richness
+-   $q = 1$: Shannon diversity
+-   $q = 2$: (Inverse) Simpson diversity
+-   $q ≠ 1$: Renyi entropy
+-   $q = \infty$: $\frac{1}{{^{\infty}}D}$: Berger-Parker index
+
+## Faith phylogenetic diversity
+
+Faith index incorporates phylogenetic differences (tree) to diversity: sum of branch lengths in a phylogenetic tree that connects all species present in a sample.
+
+```{r}
+#| label: faith
+
+library(ape)
+library(phytools)
+library(ggtree)
+
+# Example: Create or load a phylogenetic tree
+set.seed(123)
+tree <- rtree(10)  # Random tree with 10 tips
+
+# Define which species are present in a sample
+present_species <- c("t1", "t3", "t5", "t7")
+
+# Calculate Faith's PD manually for visualization
+pd_value <- sum(tree$edge.length[tree$edge[,2] %in% 
+                which(tree$tip.label %in% present_species)])
+
+# Visualize with ggtree
+library(ggtree)
+library(ggplot2)
+
+# Mark present species
+tip_data <- data.frame(
+  label = tree$tip.label,
+  present = tree$tip.label %in% present_species
+)
+
+# Plot
+p1 <- ggtree(tree) %<+% tip_data +
+  geom_tiplab(aes(color = present), size = 4) +
+  geom_tippoint(aes(color = present), size = 3) +
+  scale_color_manual(values = c("FALSE" = "gray70", "TRUE" = "red")) +
+  theme(legend.position = "right") +
+  ggtitle(paste0("Faith's PD = ", round(pd_value, 2)))
+
+
+library(tidytree)
+
+# Get the minimal subtree spanning present species
+present_nodes <- which(tree$tip.label %in% present_species)
+
+# Identify all branches in the path
+edge_data <- as.data.frame(tree$edge)
+colnames(edge_data) <- c("parent", "node")
+edge_data$length <- tree$edge.length
+edge_data$edge_num <- 1:nrow(edge_data)
+
+# Mark edges that contribute to PD
+# (This requires finding the minimal spanning tree)
+library(tidytree)
+tree_tbl <- as_tibble(tree)
+
+# Create plot with edge highlighting
+p2 <- ggtree(tree, aes(color = node %in% present_nodes)) +
+  geom_tiplab(size = 3) +
+  scale_color_manual(values = c("TRUE" = "red", "FALSE" = "gray70")) +
+  geom_text(aes(x = branch, label = round(branch.length, 2)), 
+            vjust = -0.5, size = 2.5)
+
+
+library(cowplot)
+p1 + p2
+
+library(picante)
+
+# Your OTU table (samples x species)
+otu_table <- matrix(rpois(50, 5), nrow = 5, ncol = 10)
+rownames(otu_table) <- paste0("Sample", 1:5)
+colnames(otu_table) <- tree$tip.label
+
+# Calculate Faith's PD
+pd_result <- pd(otu_table, tree, include.root = TRUE)
+# print(pd_result)
+```
+
+
+## Faith phylogenetic diversity
+
+Phylogenetic diversity provides increased statistical power to differentiate age groups in shotgun metagenomics but not in 16S rRNA sequencing.
+
+![](images/clipboard-2789562119.png)
+
+Armstrong et al. (2021), Genome Research.
+
+## Faith phylogenetic diversity {.smaller}
+
+Phylogenetic tree colored by age-group log of the likelihood ratio of older to younger adults per node.
+
+![](images/clipboard-3485585062.png)
+
+(*A*) Distribution of Faith's PD by age group on the full data set.
+
+(*B*) Web of Life (WoL) phylogenetic tree, branches colored by log likelihood of old vs. young adults (**FINRISK cohort**).
+
+Armstrong et al. (2021), Genome Research.
+
+::: notes
+*inner* circle: colored by the log of likelihood ratio of older adults compared to younger adults in the tips of the tree.
+
+*outer* circle: colored by the phylum of the taxon represented by each tree tip. Red ellipses mark two clades enriched for samples from older individuals.
+:::
+
+## Fast Faith implementation
+
+Efficient computation of Faith's phylogenetic diversity with applications in characterizing microbiomes. Armstrong et al. (2021), Genome Research.
+
+TreeSE: gray versus phyloseq (black)
+
+![](images/clipboard-3504647365.png)
 
 ## Recommendation
 
-Guidelines for alpha diversity: @cassol2025
+Guidelines for alpha diversity, to capture complementary views: @cassol2025
 
-- **Richness:** The number of observed unique features
-- **Dominance:** Berger-Parker
-- **Information:** Shannon
-- **Phylogenetics:** Faith
+-   **Richness:** number of observed unique species
+-   **Dominance:** Berger-Parker
+-   **Information:** Shannon
+-   **Phylogenetics:** Faith
 
-::: {.notes}
+::: notes
 Recommended to analyse and report all aspects.
+
+Dominance captures evenness (with inverse direction)
 :::
 
-##
 
-```{r}
-#| label: show_ss
-#| fig-width: 15
-#| fig-height: 15
 
-library(webshot2)
-library(magick)
-
-# Take the screenshot and save to a temporary file
-tmpfile <- tempfile(fileext = ".png")
-
-temp <- webshot(
-    url = "https://pmc.ncbi.nlm.nih.gov/articles/PMC7968621/",
-    file = tmpfile,
-    cliprect = c(0, 500, 1100, 800)
-)
-temp
-```
-
-::: {.notes}
-
+::: notes
 Chages in alpha diversity are associated with health outcome.
-
 :::
 
 ## Demonstration
 
-## {auto-animate="true"}
+##  {auto-animate="true"}
 
-```r
+``` r
 library(mia)
 tse <- addAlpha(tse)
 ```
 
-## {auto-animate="true"}
+##  {auto-animate="true"}
 
-```r
+``` r
 library(mia)
 tse <- addAlpha(tse)
 
@@ -231,6 +418,55 @@ plotBoxplot(tse, col.var = "faith_diversity", x = "patient_status") +
 
 From [OMA online book, Chapter 14: Alpha diversity](https://microbiome.github.io/OMA/docs/devel/pages/alpha_diversity.html)
 
-- 1.2, 1.3, 1.4, 1.9, 1.10
+-   1.2, 1.3, 1.4, 1.9, 1.10
+
+## Metacommunity and total richness
+
+![](images/clipboard-2471327880.png)
+
+::: notes
+High-quality reference genomes are required for functional characterization and taxonomic assignment of the human gut microbiota.
+
+Unified Human Gastrointestinal Genome (UHGG): 4,644 gut prokaryotes (\>70% lack cultured representatives) 204,938 nonredundant genomes
+
+Encode \>170 million protein sequences, collated into Unified Human Gastrointestinal Protein (UHGP) catalog.
+
+UHGP more than doubles the number of gut proteins in comparison to those present in the Integrated Gene Catalog. 40% of the UHGP lack functional annotations
+
+Intraspecies genomic variation analyses revealed a large reservoir of accessory genes and single-nucleotide variants, many of which are specific to individual human populations.
+
+The UHGG and UHGP collections enable studies linking genotypes to phenotypes in the human gut microbiome.
+:::
+
+## Detecting species in metagenomics
+
+![](images/clipboard-1006398166.png)
+
+## On reference databases
+
+![](images/clipboard-702576345.png)
 
 ## References
+
+
+
+## 
+
+```{r}
+#| label: show_ss
+#| fig-width: 15
+#| fig-height: 15
+
+library(webshot2)
+library(magick)
+
+# Take the screenshot and save to a temporary file
+tmpfile <- tempfile(fileext = ".png")
+
+temp <- webshot(
+    url = "https://pmc.ncbi.nlm.nih.gov/articles/PMC7968621/",
+    file = tmpfile,
+    cliprect = c(0, 500, 1100, 800)
+)
+temp
+```

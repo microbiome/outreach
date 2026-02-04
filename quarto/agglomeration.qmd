@@ -14,25 +14,53 @@ bibliography: references.bib
 
 ## Agglomeration
 
-_Combining features into higher-level taxa_
+*Combining features into higher-level taxa*
+
+**Example data** ([Gupta et al., *mSystems* 2019](https://doi.org/10.1128/msystems.00438-19))
+
+-   Download zip file from Slack (day1)
+
+-   Import the data (script also [online](https://github.com/microbiome/data/blob/main/GuptaA_2019/import.R)
+
+```{r}
+#| label: data
+#| echo: true
+library(mia)
+library(ape)
+
+dir <- "GuptaA_2019"
+
+# Read taxonomy data into TreeSE
+rd <- read.csv(file.path(dir, "taxonomy_table.csv"), row.names = 1L) |> DataFrame()
+cd <- read.csv(file.path(dir, "sample_metadata.csv"), row.names = 1L) |> DataFrame()
+assay <- read.csv(file.path(dir, "taxonomy_abundance.csv"), row.names = 1L) |> as.matrix()
+tree <- read.tree(file.path(dir, "phylogeny.tree"))
+tse <- TreeSummarizedExperiment(
+    assays = SimpleList(counts = assay),
+    rowData = rd,
+    colData = cd,
+    rowTree = tree
+)
+
+saveRDS(tse, "Gupta2019.rds")
+tse <- readRDS("Gupta2019.rds")
+```
 
 ## Why?
 
-- Focus on biologically meaningful units
-- Reduce sparsity and noise
-- Improve interpretability of downstream analyses
+-   Focus on biologically meaningful units
+-   Reduce sparsity and noise
+-   Improve interpretability of downstream analyses
 
-::: {.notes}
-
-- Focusing on higher-level taxa (e.g., genera instead of thousands of ASVs) helps highlight biologically relevant patterns.
-- 16S sequencing often does not resolve taxa below genus level reliably.
-- Agglomeration reduces noise from sequencing artifacts and rare features.
-- Makes downstream analyses like diversity metrics, ordination, and association studies more interpretable.
-- Note: Some resolution is lost when collapsing features—balance simplicity with detail.
-
+::: notes
+-   Focusing on higher-level taxa (e.g., genera instead of thousands of ASVs) helps highlight biologically relevant patterns.
+-   16S sequencing often does not resolve taxa below genus level reliably.
+-   Agglomeration reduces noise from sequencing artifacts and rare features.
+-   Makes downstream analyses like diversity metrics, ordination, and association studies more interpretable.
+-   Note: Some resolution is lost when collapsing features—balance simplicity with detail.
 :::
 
-##
+## 
 
 ```{r}
 #| label: agglomeration
@@ -60,15 +88,13 @@ ggplot(df,
 
 ```
 
-::: {.notes}
-
+::: notes
 Species belonging to Genus A are summed up together...
-
 :::
 
 ## Demonstration
 
-```r
+``` r
 library(mia)
 
 tse <- agglomerateByRank(tse, rank = "Phylum")
@@ -85,12 +111,13 @@ tse <- agglomerateByRank(tse, rank = "Phylum")
 tse
 ```
 
-## {auto-animate="true"}
+##  {auto-animate="true"}
 
-```r
+``` r
 tse <- agglomerateByRanks(tse)
 print(tse)
 ```
+
 ```{r}
 #| label: agglomerate_all_ranks
 
@@ -103,8 +130,8 @@ tse
 
 ## Exercises
 
-From [OMA online book, Chapter 11: Agglomeration](https://microbiome.github.io/OMA/docs/devel/pages/agglomeration.html)
+From [OMA online book, Chapter 10: Agglomeration](https://microbiome.github.io/OMA/docs/devel/pages/agglomeration.html)
 
-- 1.2, 1.3, 1.4, 1.5, 1.6
+-   1.2, 1.3, 1.4, 1.5, 1.6
 
 ## References
