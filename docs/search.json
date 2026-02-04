@@ -1033,7 +1033,7 @@
     "href": "ordination.html#section",
     "title": "Ordination",
     "section": "",
-    "text": "This is now 3 dimensional plot. The idea is to rotate the data so that it maximizes the information in 2D."
+    "text": "Rotate 3 dimensional plot so that it maximizes the information in 2D. Illustrate the idea of PCA.\nThis is now 3 dimensional plot. The idea is to rotate the data so that it maximizes the information in 2D."
   },
   {
     "objectID": "ordination.html#section-1",
@@ -1047,14 +1047,14 @@
     "href": "ordination.html#ordination-methods",
     "title": "Ordination",
     "section": "Ordination methods",
-    "text": "Ordination methods\n\nPCA, PCoA/MDS, RDA, …\nEuclidean vs non-Euclidean\nUnsupervised vs supervised\n\n\n\nDifferent techniques depending on goal. PCA is the most basic one and commonly used. However, microbiome data has unique nature that must be taken into account when applying."
+    "text": "Ordination methods\n\nPCA, PCoA/MDS, RDA, …\nEuclidean vs non-Euclidean\nUnsupervised vs supervised\n\n\n\nDifferent techniques depending on goal. PCA is the most basic one and commonly used. However, microbiome data has unique nature that must be taken into account when applying.\nTransformation lecture…\nThere are different ways to calculate distance or dissimilarity between samples. We can use different measurements. Euclidean is the simplest (elementary school distance, real distance). But there are also other methods.\nIn ML, unsupervised means that the method does not take into account sample information (it odes it blindfoldedly). After applying the method, we can check if the results associates with some metadata, for instance, diagnosis. If it does, it is very robust indication of association.\nIn supervised ML, we specifically say to model to take the diagnosis information into account."
   },
   {
     "objectID": "ordination.html#principal-component-analysis-pca",
     "href": "ordination.html#principal-component-analysis-pca",
     "title": "Ordination",
     "section": "Principal component analysis (PCA)",
-    "text": "Principal component analysis (PCA)\n\nUnsupervised ordination method\nEuclidean distance\nAitchison distance: CLR + Euclidean distance\n\n\n\nCLR must be applied. Preserves variance."
+    "text": "Principal component analysis (PCA)\n\nUnsupervised ordination method\nEuclidean distance\nAitchison distance: CLR + Euclidean distance\n\n\n\nCLR must be applied. Preserves variance.\nAfter we run the PCA, we can visualize results. Each point here is a sample. Then we can also color the points and check if the results of PCA, associates with sample grouping."
   },
   {
     "objectID": "ordination.html#principal-coordinate-analysis-pcoa",

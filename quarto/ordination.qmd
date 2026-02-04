@@ -28,6 +28,7 @@ Clusters indicate similarity in community composition.
 ##
 
 ```{r}
+#| label: ordination illustration
 # Load required libraries
 library(ggplot2)
 
@@ -78,6 +79,8 @@ plot_ly(
 ```
 
 ::: {.notes}
+
+Rotate 3 dimensional plot so that it maximizes the information in 2D. Illustrate the idea of PCA.
 
 This is now 3 dimensional plot. The idea is to rotate the data so that it maximizes the information in 2D.
 
@@ -165,6 +168,18 @@ ggplot() +
 Different techniques depending on goal. PCA is the most basic one and commonly used. However, microbiome
 data has unique nature that must be taken into account when applying.
 
+Transformation lecture...
+
+There are different ways to calculate distance or dissimilarity between samples.
+We can use different measurements. Euclidean is the simplest (elementary school distance, real distance).
+But there are also other methods.
+
+In ML, unsupervised means that the method does not take into account sample information (it odes it blindfoldedly).
+After applying the method, we can check if the results associates with some metadata, for instance, diagnosis.
+If it does, it is very robust indication of association.
+
+In supervised ML, we specifically say to model to take the diagnosis information
+into account.
 :::
 
 ## Principal component analysis (PCA)
@@ -198,6 +213,10 @@ plotReducedDim(tse, "PCA", colour_by = "patient_status")
 
 CLR must be applied. Preserves variance.
 
+After we run the PCA, we can visualize results. Each point here is a sample.
+Then we can also color the points and check if the results of PCA, associates
+with sample grouping.
+
 :::
 
 ## Principal coordinate analysis (PCoA)
@@ -227,7 +246,8 @@ plotReducedDim(tse, "MDS", colour_by = "patient_status")
 
 ::: {.notes}
 
-Extension to PCA. Preserves distances. If Euclidean distance is chosen, same as PCA.
+Extension to PCA.
+Preserves distances. If Euclidean distance is chosen, same as PCA.
 
 :::
 
