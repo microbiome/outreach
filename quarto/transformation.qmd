@@ -44,7 +44,8 @@ df1 <- data.frame(x, y)
 ggplot(df1, aes(x, y)) +
   geom_point(alpha = 0.6) +
   geom_smooth(method = "lm", se = FALSE, color = "red") +
-  theme_classic()
+  theme_classic() +
+  labs(x = "Abundance", y = "Abundance + variation")
 
 ```
 
