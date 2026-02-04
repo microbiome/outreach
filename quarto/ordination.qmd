@@ -28,7 +28,7 @@ Clusters indicate similarity in community composition.
 ##
 
 ```{r}
-#| label: ordination illustration
+#| label: ordination_illustration
 # Load required libraries
 library(ggplot2)
 
