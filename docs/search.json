@@ -410,7 +410,7 @@
     "href": "daa.html#differential-abundance-analysis-daa",
     "title": "Differential abundance analysis (DAA)",
     "section": "Differential abundance analysis (DAA)",
-    "text": "Differential abundance analysis (DAA)\n\nGoal: identify taxa with different abundance between groups\nApproaches:\n\nClassical statistical tests\nMicrobiome-specific methods\n\nChallenges: compositionality, sparsity, multiple testing\n\n\nDAA is central in microbiome studies, but requires caution due to unique properties of sequencing data."
+    "text": "Differential abundance analysis (DAA)\nGoal: identify features (e.g., species) whose abundance varies with external factors: groups, gradients"
   },
   {
     "objectID": "daa.html#elementary-methods-provide-more-replicable-results-in-microbial-differential-abundance-analysis",
@@ -445,21 +445,21 @@
     "href": "daa.html#section",
     "title": "Differential abundance analysis (DAA)",
     "section": "",
-    "text": "library(maaslin3)\n\nmaaslin3_out &lt;- maaslin3(\n    input_data = tse,\n    formula = \"~ patient_status\",\n    normalization = \"TSS\",\n    transform = \"LOG\",\n)"
+    "text": "A Critique of Differential Abundance Analysis, and Advocacy for an Alternative. Thomas P. Quinn, Elliott Gordon-Rodriguez, Ionas Erb. arXiv:2104.07266 [stat.ME]"
   },
   {
     "objectID": "daa.html#exercises",
     "href": "daa.html#exercises",
     "title": "Differential abundance analysis (DAA)",
     "section": "Exercises",
-    "text": "Exercises\nFrom OMA online book, Chapter 17: Differential abundance\n\nAll exercises"
+    "text": "Exercises\nFrom OMA online book, Chapter 16: Differential abundance\n\nAll exercises"
   },
   {
     "objectID": "daa.html#references",
     "href": "daa.html#references",
     "title": "Differential abundance analysis (DAA)",
     "section": "References",
-    "text": "References\n\n\n\n\nhttps://microbiome.github.io/"
+    "text": "References"
   },
   {
     "objectID": "reproducible_reporting.html#reproducible-reporting",
@@ -1559,5 +1559,306 @@
     "title": "Alpha diversity",
     "section": "Fast Faith implementation",
     "text": "Fast Faith implementation\nEfficient computation of Faith’s phylogenetic diversity with applications in characterizing microbiomes. Armstrong et al. (2021), Genome Research.\nTreeSE: gray versus phyloseq (black)"
+  },
+  {
+    "objectID": "daa.html#overview-of-day-4",
+    "href": "daa.html#overview-of-day-4",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Overview of Day 4",
+    "text": "Overview of Day 4\n\n\n\nTime\nTheme\n\n\n\n\n12-14\nAssociation testing (alpha & beta diversity)\n\n\n14-16\nDifferential abundance analysis"
+  },
+  {
+    "objectID": "daa.html#differential-abundance-1",
+    "href": "daa.html#differential-abundance-1",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Differential abundance",
+    "text": "Differential abundance\n\nAlpha diversity: how diverse the community is?\nBeta diversity: how similar the microbial communities are?\nDifferential abundance: how individual taxa differ between conditions?"
+  },
+  {
+    "objectID": "daa.html#beta-diversity-revisited",
+    "href": "daa.html#beta-diversity-revisited",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Beta diversity revisited",
+    "text": "Beta diversity revisited"
+  },
+  {
+    "objectID": "daa.html#multiple-testing-problem-otu367",
+    "href": "daa.html#multiple-testing-problem-otu367",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Multiple testing problem: OTU367",
+    "text": "Multiple testing problem: OTU367\nAlso: should we transform the data for comparisons..?\n\nSignificance (p-value) for the selected feature:\n\n\n[1] 0.002581178\n\n\nNote: data has 308 OTUs -&gt; multiple testing"
+  },
+  {
+    "objectID": "daa.html#assumptions-about-the-data",
+    "href": "daa.html#assumptions-about-the-data",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Assumptions about the data",
+    "text": "Assumptions about the data\nTaxonomic profiling data:\n\nSparse\nNon-Gaussian\nZero-inflated\nOverdispersed\netc.\n\n-&gt; Usual statistical tests (Wilcoxon, t-test) are potentially problematic."
+  },
+  {
+    "objectID": "daa.html#da-methods",
+    "href": "daa.html#da-methods",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "DA methods",
+    "text": "DA methods\nDifferential abundance (aim to) perform rigorous testing, tailored for high-throughput taxonomic profiling data with heavy multiple testing.\nSome popular tools to perform DAA:\n\nALDEx2\nANCOM-BC\nLinDA\ncorncob\nMaAsLin2\nDESeq2\nLEFse\nlimma voom"
+  },
+  {
+    "objectID": "daa.html#exercise",
+    "href": "daa.html#exercise",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Exercise",
+    "text": "Exercise\nTest your chosen DA analysis method using the examples in OMA, Chapter 11.\n\nIf you are uncertain, we recommend ALDEx2\nANCOMBC supports TreeSE but is not currently installed in the notebook"
+  },
+  {
+    "objectID": "daa.html#aldex2-vs.-ancombc",
+    "href": "daa.html#aldex2-vs.-ancombc",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "ALDEx2 vs. ANCOMBC",
+    "text": "ALDEx2 vs. ANCOMBC\nNearing et al. (2022):\n\nALDEx2 and ANCOM-II produce the most consistent results across studies and agree best with the intersect of results from different approaches.\nBoth ANCOM-II and ALDEx2 had the highest precision\nHowever, they suffered lower recall values\nThe most conservative tools, ALDEx2 and ANCOM-II, primarily identified features that were also identified by almost all other methods.\nWe recommend that researchers should use a consensus approach based on multiple DA methods to help ensure robust biological interpretations.\n\n-&gt; These tools are more conservative and have higher precision, with potentially lowersensitivity. s"
+  },
+  {
+    "objectID": "daa.html#aldex2",
+    "href": "daa.html#aldex2",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "ALDEx2",
+    "text": "ALDEx2\nALDEx2 is one well-performing DA method (see Nearing et al. 2022).\nLet us first load some necessary libraries.\n\nlibrary(mia)\nlibrary(Cairo)\nlibrary(patchwork)\nlibrary(tidySummarizedExperiment)\nlibrary(ALDEx2)\nlibrary(knitr)\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "daa.html#aldex2-1",
+    "href": "daa.html#aldex2-1",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "ALDEx2",
+    "text": "ALDEx2\nInitialize ALDEx2 analysis.\n\nx &lt;- aldex.clr(\n  reads = assay(tse, \"counts\"),\n  conds = colData(tse)$Diet, \n  # 128 recommened for ttest, 1000 for rigorous effect size calculation\n  mc.samples = 128, \n  denom = \"all\",\n  verbose = FALSE\n)"
+  },
+  {
+    "objectID": "daa.html#aldex2-2",
+    "href": "daa.html#aldex2-2",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "ALDEx2",
+    "text": "ALDEx2\nALDEx2 t-test.\n\nx_tt &lt;- aldex.ttest(\n  x, \n  paired.test = FALSE, \n  verbose = FALSE)\n# effect sizes\nx_effect &lt;- aldex.effect(x, CI = TRUE, verbose = FALSE)\n# combine all outputs \naldex_out &lt;- data.frame(x_tt, x_effect)"
+  },
+  {
+    "objectID": "daa.html#aldex2-visualization",
+    "href": "daa.html#aldex2-visualization",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "ALDEx2 visualization",
+    "text": "ALDEx2 visualization\nMA-plot\n\npar(mfrow = c(1, 2))\naldex.plot(\n  aldex_out, \n  type = \"MA\", \n  test = \"welch\", \n  xlab = \"Log-ratio abundance\",\n  ylab = \"Difference\",\n  cutoff = 0.05\n)"
+  },
+  {
+    "objectID": "daa.html#aldex2-summary-table",
+    "href": "daa.html#aldex2-summary-table",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "ALDEx2 summary table",
+    "text": "ALDEx2 summary table\n\nrownames_to_column(aldex_out, \"Genus\") %&gt;%\n  filter(wi.eBH &lt;= 0.05)  %&gt;% # here we chose the wilcoxon output rather than tt\n  select(Genus, we.eBH, wi.eBH, effect, overlap) %&gt;%\n  kable()"
+  },
+  {
+    "objectID": "daa.html#section-3",
+    "href": "daa.html#section-3",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "",
+    "text": "library(maaslin3)\n\nmaaslin3_out &lt;- maaslin3(\n    input_data = tse,\n    formula = \"~ patient_status\",\n    normalization = \"TSS\",\n    transform = \"LOG\",\n)"
+  },
+  {
+    "objectID": "daa.html#what-is-a-suitable-unit-for-analysis",
+    "href": "daa.html#what-is-a-suitable-unit-for-analysis",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "What is a suitable unit for analysis?",
+    "text": "What is a suitable unit for analysis?\n\nIndividual taxa vs. total community composition?\n-&gt; Consider broader subecosystems as an intermediate between these two extremes."
+  },
+  {
+    "objectID": "daa.html#summary-on-da-analysis",
+    "href": "daa.html#summary-on-da-analysis",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Summary on DA analysis",
+    "text": "Summary on DA analysis\nTo identify individual significant taxa (w.r.t. age, diet etc.).\n\nmake useful statistical assumptions for taxonomic profiling data\ncontrol for multiple testing\nprovide automated tools to summarize results (significances, effect sizes, visualizations)\n\n-&gt; Complements community level beta diversity analyses."
+  },
+  {
+    "objectID": "daa.html#heatmaps-and-other-visualization-techniques",
+    "href": "daa.html#heatmaps-and-other-visualization-techniques",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Heatmaps and other visualization techniques",
+    "text": "Heatmaps and other visualization techniques\nTask: spend a moment testing and understanding the example visualizing taxonomic abundances on heatmaps in OMA Chapter 9"
+  },
+  {
+    "objectID": "daa.html#time-series",
+    "href": "daa.html#time-series",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Time series",
+    "text": "Time series\nA brief demonstration on time series tools.\n\nmiaTime\nmiaSim\nmiaViz"
+  },
+  {
+    "objectID": "daa.html#multiassayexperiment-for-multi-omic-data-integration",
+    "href": "daa.html#multiassayexperiment-for-multi-omic-data-integration",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "MultiAssayExperiment for multi-omic data integration",
+    "text": "MultiAssayExperiment for multi-omic data integration\nThe MultiAssayExperiment (MAE) mechanism facilitates the incorporation of multiple omics (e.g. taxonomic and functional profiling).\n\n\n\n\n\n\n\n\n\nOption\nRows (features)\nCols (samples)\nRecommendation\n\n\n\n\nassays\nmatch\nmatch\nData transformations\n\n\naltExp\nfree\nmatch\nAlternative experiments\n\n\nMultiAssay\nfree\nfree (mapping)\nMulti-omic experiments"
+  },
+  {
+    "objectID": "daa.html#multiassayexperiment-example-data",
+    "href": "daa.html#multiassayexperiment-example-data",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "MultiAssayExperiment example data",
+    "text": "MultiAssayExperiment example data\nLoad example data set and list the available experiments:\n\nlibrary(mia)\ndata(HintikkaXOData)\nmae &lt;- HintikkaXOData\nexperiments(mae)\n\nExperimentList class object of length 3:\n [1] microbiota: TreeSummarizedExperiment with 12706 rows and 40 columns\n [2] metabolites: TreeSummarizedExperiment with 38 rows and 40 columns\n [3] biomarkers: TreeSummarizedExperiment with 39 rows and 40 columns"
+  },
+  {
+    "objectID": "daa.html#multiassayexperiment-example-data-1",
+    "href": "daa.html#multiassayexperiment-example-data-1",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "MultiAssayExperiment example data",
+    "text": "MultiAssayExperiment example data\nEach element in a MultiAssayExperiment is a (Tree)SummarizedExperiment.\n\nexperiments(mae)[[\"microbiota\"]]\n\nclass: TreeSummarizedExperiment \ndim: 12706 40 \nmetadata(0):\nassays(1): counts\nrownames(12706): GAYR01026362.62.2014 CVJT01000011.50.2173 ...\n  JRJTB:03787:02429 JRJTB:03787:02478\nrowData names(7): Phylum Class ... Species OTU\ncolnames(40): C1 C2 ... C39 C40\ncolData names(0):\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: NULL\nrowTree: NULL\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "daa.html#multiassayexperiment-example-data-2",
+    "href": "daa.html#multiassayexperiment-example-data-2",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "MultiAssayExperiment example data",
+    "text": "MultiAssayExperiment example data\nEach element in a MultiAssayExperiment is a (Tree)SummarizedExperiment.\n\nexperiments(mae)[[\"metabolites\"]]\n\nclass: TreeSummarizedExperiment \ndim: 38 40 \nmetadata(0):\nassays(1): nmr\nrownames(38): Butyrate Acetate ... Malonate 1,3-dihydroxyacetone\nrowData names(0):\ncolnames(40): C1 C2 ... C39 C40\ncolData names(0):\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: NULL\nrowTree: NULL\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "daa.html#multiassayexperiment-example-data-3",
+    "href": "daa.html#multiassayexperiment-example-data-3",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "MultiAssayExperiment example data",
+    "text": "MultiAssayExperiment example data\nEach element in a MultiAssayExperiment is a (Tree)SummarizedExperiment.\n\nexperiments(mae)[[\"biomarkers\"]]\n\nclass: TreeSummarizedExperiment \ndim: 39 40 \nmetadata(0):\nassays(1): signals\nrownames(39): Triglycerides_liver CLSs_epi ... NPY_serum Glycogen_liver\nrowData names(0):\ncolnames(40): C1 C2 ... C39 C40\ncolData names(0):\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: NULL\nrowTree: NULL\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "daa.html#machine-learning-random-forests",
+    "href": "daa.html#machine-learning-random-forests",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Machine learning (Random Forests)",
+    "text": "Machine learning (Random Forests)\n\nYou can always run any ML or other analysis method available in R by just extracting individual components from TreeSE (abundance assays and sample metadata)\nFor important methods, the R/Bioconductor developer community tends to come up with more integrated solutions\nThe development work always benefits from feedback"
+  },
+  {
+    "objectID": "daa.html#what-this-course-was-all-about",
+    "href": "daa.html#what-this-course-was-all-about",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "What this course was all about?",
+    "text": "What this course was all about?\nThe scope of this course:\n\nBrief introduction to microbiome data science and some of its latest methods\n\nThis was not intended as a course in community ecology or machine learning in general."
+  },
+  {
+    "objectID": "daa.html#learning-goals",
+    "href": "daa.html#learning-goals",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Learning goals",
+    "text": "Learning goals\n\n\n\nmicrobiome data science with R/Bioconductor, a popular open-source environment for life science informatics\nkey concepts in microbiome bioinformatics\nopen & reproducible data science workflow\n\nAfter the course you will know how to approach new tasks in the analysis of taxonomic profiling data by taking advantage of available documentation and R tools.\n\n\n\n\nMoreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology."
+  },
+  {
+    "objectID": "daa.html#workflow",
+    "href": "daa.html#workflow",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Workflow",
+    "text": "Workflow\n\nDomenick Braccia, EuroBioc 2020 (microbiome.github.io)These slides have been generated with Quarto"
+  },
+  {
+    "objectID": "daa.html#overview-of-the-week",
+    "href": "daa.html#overview-of-the-week",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Overview of the week",
+    "text": "Overview of the week\nDay 1 Basic data wrangling\nDay 2 Assays, transformations & alpha diversity\nDay 3 Aggregating and splitting data; beta diversity\nDay 4 DA analysis, heatmaps, time series, multi-omics integration"
+  },
+  {
+    "objectID": "daa.html#where-to-find-more-information-and-examples",
+    "href": "daa.html#where-to-find-more-information-and-examples",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Where to find more information and examples?",
+    "text": "Where to find more information and examples?\nOMA online book (beta version!)\nFunction references and vignettes in individual packages:\n\nmia: basic manipulation\nmiaViz: visualization\nmiaTime: time series\nmiaSim: simulation\nphilr: phylogenetic balances (Silverman et al)\nANCOMBC (Lin & Peddada)\ncuratedMetagenomicData; (Pasolli et al.) human demo data\nmicrobiomeDataSets; other demo data\nSingleCell tool family\nSE tool family\n…"
+  },
+  {
+    "objectID": "daa.html#join-the-community",
+    "href": "daa.html#join-the-community",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Join the community",
+    "text": "Join the community\nSupport the development and documentation by actively providing feedback & suggestions.\n\nOnline support chat (Gitter) https://gitter.im/microbiome/miaverse\nBioconductor Slack (#miaverse channel)\nMailing list (see microbiome.github.io)\nGithub issues (e.g. OMA issues)"
+  },
+  {
+    "objectID": "daa.html#thanks",
+    "href": "daa.html#thanks",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Thanks!",
+    "text": "Thanks!\n\nAll participants!\nOrganizer: Finnish IT Center for Science (CSC)\nDevelopers:\n\nLeo Lahti, Assoc. Prof.\nTuomas Borman, PhD researcher\nChouaib Benchraka, Scientific programmer\nFor a full list of key developers and contributors, see OMA acknowledgments\n\n\nDepartment of Computing, University of Turku, Finland datascience.utu.fi"
+  },
+  {
+    "objectID": "daa.html#feedback",
+    "href": "daa.html#feedback",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Feedback",
+    "text": "Feedback\n\nCSC will send a feedback form"
+  },
+  {
+    "objectID": "daa.html#q-a-session",
+    "href": "daa.html#q-a-session",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Q & A session",
+    "text": "Q & A session"
+  },
+  {
+    "objectID": "alpha_diversity.html#beta-diversity-revisited",
+    "href": "alpha_diversity.html#beta-diversity-revisited",
+    "title": "Alpha diversity",
+    "section": "Beta diversity revisited",
+    "text": "Beta diversity revisited\n\n\n\n\n\nCassol, Ignacio, Mauro Ibañez, and Juan Pablo Bustamante. 2025. “Key Features and Guidelines for the Application of Microbial Alpha Diversity Metrics.” Scientific Reports 15 (1). https://doi.org/10.1038/s41598-024-77864-y."
+  },
+  {
+    "objectID": "daa.html#differential-abundance",
+    "href": "daa.html#differential-abundance",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Differential abundance",
+    "text": "Differential abundance\n\nAlpha diversity: how diverse the community is?\nBeta diversity: how similar the microbial communities are?\nDifferential abundance: how individual taxa differ between conditions?"
+  },
+  {
+    "objectID": "daa.html#section-1",
+    "href": "daa.html#section-1",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "",
+    "text": "A Critique of Differential Abundance Analysis, and Advocacy for an Alternative. Thomas P. Quinn, Elliott Gordon-Rodriguez, Ionas Erb. arXiv:2104.07266 [stat.ME]"
+  },
+  {
+    "objectID": "daa.html#section-2",
+    "href": "daa.html#section-2",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "",
+    "text": "library(maaslin3)\n\nmaaslin3_out &lt;- maaslin3(\n    input_data = tse,\n    formula = \"~ patient_status\",\n    normalization = \"TSS\",\n    transform = \"LOG\",\n)"
+  },
+  {
+    "objectID": "daa.html#differential-abundance-analysis-daa-1",
+    "href": "daa.html#differential-abundance-analysis-daa-1",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Differential abundance analysis (DAA)",
+    "text": "Differential abundance analysis (DAA)\nApproaches:\n\nClassical statistical tests\nMicrobiome-specific methods\n\nChallenges: compositionality, sparsity, multiple testing\n\nDAA is central in microbiome studies, but requires caution due to unique properties of sequencing data."
+  },
+  {
+    "objectID": "daa.html#simple-example",
+    "href": "daa.html#simple-example",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Simple example",
+    "text": "Simple example\n\nSignificance (p-value) for the selected feature:\n\n\n[1] 0.002581178\n\n\nNote: data has 308 OTUs -&gt; multiple testing"
+  },
+  {
+    "objectID": "daa.html#problems",
+    "href": "daa.html#problems",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Problems",
+    "text": "Problems\n\nmultiple testing?\ntransformations?\nrarefaction?\ncovariates"
+  },
+  {
+    "objectID": "daa.html#summary-on-differential-abundance",
+    "href": "daa.html#summary-on-differential-abundance",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "Summary on differential abundance",
+    "text": "Summary on differential abundance\nTo identify individual significant taxa (w.r.t. age, diet etc.).\n\nmake useful statistical assumptions for taxonomic profiling data\ncontrol for multiple testing\nprovide automated tools to summarize results (significances, effect sizes, visualizations)\n\n-&gt; Complements community level beta diversity analyses."
+  },
+  {
+    "objectID": "daa.html#section-5",
+    "href": "daa.html#section-5",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "",
+    "text": "A Critique of Differential Abundance Analysis, and Advocacy for an Alternative. Thomas P. Quinn, Elliott Gordon-Rodriguez, Ionas Erb. arXiv:2104.07266 [stat.ME]"
+  },
+  {
+    "objectID": "daa.html#section-4",
+    "href": "daa.html#section-4",
+    "title": "Differential abundance analysis (DAA)",
+    "section": "",
+    "text": "A Critique of Differential Abundance Analysis, and Advocacy for an Alternative. Thomas P. Quinn, Elliott Gordon-Rodriguez, Ionas Erb. arXiv:2104.07266 [stat.ME]"
   }
 ]

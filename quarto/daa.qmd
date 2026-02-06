@@ -12,70 +12,156 @@ date-format: full
 bibliography: references.bib
 ---
 
+## Overview of Day 4
+
+|  Time | Theme                                        |
+|------:|:---------------------------------------------|
+| 12-14 | Association testing (alpha & beta diversity) |
+| 14-16 | Differential abundance analysis              |
+
+## Differential abundance
+
+-   Alpha diversity: how diverse the community is?
+-   Beta diversity: how similar the microbial communities are?
+-   **Differential abundance:** how individual taxa differ between conditions?
+
 ## Differential abundance analysis (DAA)
 
-- Goal: identify taxa with different abundance **between groups**
-- Approaches:
-  - Classical statistical tests
-  - Microbiome-specific methods
-- Challenges: compositionality, sparsity, multiple testing
+Goal: identify features (e.g., species) whose abundance varies with external factors: groups, gradients
 
-::: {.notes}
+```{r}
+#| warning: false
+# Load demo data
+library(mia)
+library(dplyr)
 
+tse <- readRDS("Gupta2019.rds")
+
+# Add library sizes
+tse$librarysize <- assay(tse, "counts") %>% colSums %>% unname
+
+# Compare one taxonomic unit vs. Diet
+tax <- "species-Escherichia_coli"
+
+# Pick abundances
+y <- assay(tse, "counts")[tax,]
+
+
+# Plot abundances versus the group
+par(mfrow=c(1, 2))
+boxplot(y ~ tse$disease)
+plot(tse$librarysize, y)
+```
+
+## Differential abundance analysis (DAA)
+
+Approaches:
+
+-   Classical statistical tests
+-   Microbiome-specific methods
+
+Challenges: compositionality, sparsity, multiple testing
+
+::: notes
 DAA is central in microbiome studies, but requires caution due to unique properties of sequencing data.
-
 :::
+
+## Simple example
+
+```{r}
+#| warning: false
+# Load demo data
+library(mia)
+tse <- readRDS("Gupta2019.rds")
+#data(peerj13075)
+#tse <- peerj13075
+
+# Compare one taxonomic unit vs. Diet
+par(mfrow=c(1, 2))
+tax <- "species-Escherichia_coli"
+boxplot(assay(tse, "counts")[tax,] ~ tse$disease, main = "Original counts")
+boxplot(log10(assay(tse, "counts")[tax,]) ~ tse$disease, main = "Log10 counts")
+```
+
+Significance (p-value) for the selected feature:
+
+```{r}
+wilcox.test(assay(tse, "counts")[tax,] ~ tse$disease)$p.value
+```
+
+**Note:** data has `r nrow(tse)` OTUs -\> multiple testing
+
+## Assumptions about the data
+
+Taxonomic profiling data:
+
+-   Sparse
+-   Non-Gaussian
+-   Zero-inflated
+-   Overdispersed
+-   etc.
+
+**-\> Usual statistical tests (Wilcoxon, t-test) are _potentially_ problematic.**
+
+
+## 
+
+
+![](images/paste-9167A05C.png)
+
+## 
+
+![](images/paste-D7771178.png)
+
 
 ## Elementary methods provide more replicable results in microbial differential abundance analysis
 
-- Relative abundances with a Wilcoxon test
-- Log-transformed relative abundances with a t-test
-- Presence/absence of taxa with logistic regression
+-   Relative abundances with a Wilcoxon test
+-   Log-transformed relative abundances with a t-test
+-   Presence/absence of taxa with logistic regression
 
-[Pelto et al. 2025](https://academic.oup.com/bib/article/26/2/bbaf130/8093585){preview-link="true"}
-show that simple methods often give **more replicable** results.
+[Pelto et al. 2025](https://academic.oup.com/bib/article/26/2/bbaf130/8093585){preview-link="true"} show that simple methods often give **more replicable** results.
 
-::: {.notes}
-
+::: notes
 Instead of complex pipelines, simple classical tests may be more reproducible across studies.
-
 :::
 
 ## Classical tests are linear models {.smaller}
 
-- **Relative abundances with a Wilcoxon test**  
-  - Non-parametric, but can be expressed as a rank-based linear model
-  
+-   **Relative abundances with a Wilcoxon test**
+    -   Non-parametric, but can be expressed as a rank-based linear model
+
 $$
 \mathrm{Rank}(\mathrm{Relative\ abundance}) \sim \mathrm{Group}
 $$
 
-- **Log-transformed relative abundances with a t-test**  
-  - Standard linear model
-  
+-   **Log-transformed relative abundances with a t-test**
+    -   Standard linear model
+
 $$
 \log(\mathrm{Relative\ abundance}) \sim \mathrm{Group}
 $$
 
-- **Presence/absence of taxa with logistic regression**  
-  - Generalized linear model with logit link
+-   **Presence/absence of taxa with logistic regression**
+    -   Generalized linear model with logit link
 
 $$
 \mathrm{Presence} \sim \mathrm{Group}, \quad \mathrm{Presence} \in \{0,1\}
 $$
 
-::: {.notes}
-
+::: notes
 Instead of complex pipelines, simple classical tests may be more reproducible across studies.
-
 :::
 
 ## Wilcoxon vs t-test
 
-- **Wilcoxon:** compares medians, robust to outliers, non-parametric
-- **t-test:** compares means, assumes normality, sensitive to outliers
+-   **Wilcoxon:** compares medians, robust to outliers, non-parametric
+-   **t-test:** compares means, assumes normality, sensitive to outliers
 
 ```{r}
+library(mia)
+tse <- readRDS("Gupta2019.rds")
+
 library(ggplot2)
 library(ggpubr)
 
@@ -104,18 +190,15 @@ ggplot(df, aes(x = group, y = value, fill = group)) +
     theme(legend.position = "none")
 ```
 
-::: {.notes}
-
-This plot illustrates how outliers affect the t-test but not the Wilcoxon test.
-Blue line = mean, red line = median.
-
+::: notes
+This plot illustrates how outliers affect the t-test but not the Wilcoxon test. Blue line = mean, red line = median.
 :::
 
 ## Demonstration
 
-## {auto-animate="true"}
+##  {auto-animate="true"}
 
-```r
+``` r
 library(maaslin3)
 
 maaslin3_out <- maaslin3(
@@ -126,10 +209,42 @@ maaslin3_out <- maaslin3(
 )
 ```
 
+## Summary on differential abundance
+
+To identify individual significant taxa (w.r.t. age, diet etc.).
+
+-   make useful statistical assumptions for taxonomic profiling data
+-   control for multiple testing
+-   provide automated tools to summarize results (significances, effect sizes, visualizations)
+
+**-\> Complements community level beta diversity analyses.**
+
+# 
+
 ## Exercises
 
-[From OMA online book, Chapter 17:  Differential abundance](https://microbiome.github.io/OMA/docs/devel/pages/differential_abundance.html)
+[From OMA online book, Chapter 16: Differential abundance](https://microbiome.github.io/OMA/docs/devel/pages/differential_abundance.html)
 
-- All exercises
+-   All exercises
 
 ## References
+
+## 
+
+![A Critique of Differential Abundance Analysis, and Advocacy for an Alternative. Thomas P. Quinn, Elliott Gordon-Rodriguez, Ionas Erb. arXiv:2104.07266 \[stat.ME\]](images/paste-279D931A.png)
+
+## What is a suitable unit for analysis?
+
+-   Individual taxa vs. total community composition?
+
+    -\> Consider broader subecosystems as an intermediate between these two extremes.
+
+![](images/paste-D9A4C39B.png)
+
+# Visualization techniques
+
+## Heatmaps and other visualization techniques
+
+Task: spend a moment testing and understanding the example visualizing taxonomic abundances on heatmaps in [OMA Chapter 9](https://microbiome.github.io/OMA/microbiome-community.html#visual-composition)
+
+![](images/heatmap-1.png){width="455"}

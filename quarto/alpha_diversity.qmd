@@ -470,3 +470,8 @@ temp <- webshot(
 )
 temp
 ```
+
+
+## Beta diversity revisited
+
+![](images/paste-206AEE5B.png)

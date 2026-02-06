@@ -198,3 +198,179 @@ This heatmap visualizes cross-omics correlations after CLR normalization.
 - All exercises
 
 ## References
+
+
+
+## Time series
+
+A brief demonstration on time series tools.
+
+-   [miaTime](https://microbiome.github.io/miaTime/reference/index.html)
+-   [miaSim](https://microbiome.github.io/miaSim/reference/index.html)
+-   [miaViz](https://microbiome.github.io/miaViz/reference/index.html)
+
+## MultiAssayExperiment for multi-omic data integration {.smaller}
+
+The *MultiAssayExperiment* (*MAE*) mechanism facilitates the incorporation of multiple omics (e.g. taxonomic and functional profiling).
+
+|         Option | Rows (features) | Cols (samples) | Recommendation          |
+|---------------:|:----------------|:---------------|:------------------------|
+|         assays | match           | match          | Data transformations    |
+|         altExp | free            | match          | Alternative experiments |
+| **MultiAssay** | free            | free (mapping) | Multi-omic experiments  |
+
+## MultiAssayExperiment example data
+
+Load example data set and list the available experiments:
+
+```{r}
+#| echo: true
+library(mia)
+data(HintikkaXOData)
+mae <- HintikkaXOData
+experiments(mae)
+```
+
+## MultiAssayExperiment example data
+
+Each element in a MultiAssayExperiment is a (Tree)SummarizedExperiment.
+
+```{r}
+#| echo: true
+experiments(mae)[["microbiota"]]
+```
+
+## MultiAssayExperiment example data
+
+Each element in a MultiAssayExperiment is a (Tree)SummarizedExperiment.
+
+```{r}
+#| echo: true
+experiments(mae)[["metabolites"]]
+```
+
+## MultiAssayExperiment example data
+
+Each element in a MultiAssayExperiment is a (Tree)SummarizedExperiment.
+
+```{r}
+#| echo: true
+experiments(mae)[["biomarkers"]]
+```
+
+## 
+
+![](images/paste-240F1817.png)
+
+## 
+
+![](images/paste-7093A62A.png)
+
+## Machine learning (Random Forests)
+
+-   You can always run any ML or other analysis method available in R by just extracting individual components from TreeSE (abundance assays and sample metadata)
+
+-   For important methods, the R/Bioconductor developer community tends to come up with more integrated solutions
+
+-   The development work always benefits from feedback
+
+## 
+
+![](images/paste-700762DC.png)
+
+# Summary
+
+## What this course was all about?
+
+The scope of this course:
+
+-   **Brief introduction to *microbiome data science*** and some of its latest methods
+
+This was *not* intended as a course in community ecology or machine learning in general.
+
+## Learning goals
+
+::: columns
+::: {.column width="70%"}
+-   microbiome data science with R/Bioconductor, a popular open-source environment for life science informatics
+
+-   key concepts in microbiome bioinformatics
+
+-   open & reproducible data science workflow
+
+After the course you will know how to approach new tasks in the analysis of taxonomic profiling data by taking advantage of available documentation and R tools.
+:::
+
+::: {.column width="30%"}
+![Moreno-Indias et al. (2021) Statistical and Machine Learning Techniques in Human Microbiome Studies: Contemporary Challenges and Solutions. Frontiers in Microbiology.](images/paste-DD45BC4A.png)
+:::
+:::
+
+## Workflow {.smaller}
+
+![Domenick Braccia, EuroBioc 2020 (microbiome.github.io)](images/paste-5203C683.png)
+
+**These slides have been generated with Quarto**
+
+## Overview of the week
+
+**Day 1** Basic data wrangling
+
+**Day 2** Assays, transformations & alpha diversity
+
+**Day 3** Aggregating and splitting data; beta diversity
+
+**Day 4** DA analysis, heatmaps, time series, multi-omics integration
+
+## 
+
+![](images/FigureOverviewV2_mod.png)
+
+## Where to find more information and examples? {.smaller}
+
+[OMA online book](https://microbiome.github.io/OMA) (beta version!)
+
+Function references and vignettes in individual packages:
+
+-   [mia](https://microbiome.github.io/mia/reference/index.html): basic manipulation
+-   [miaViz](https://microbiome.github.io/miaViz/reference/index.html): visualization
+-   [miaTime](https://microbiome.github.io/miaTime/reference/index.html): time series
+-   [miaSim](https://microbiome.github.io/miaSim/reference/index.html): simulation
+-   [philr](http://bioconductor.org/packages/devel/bioc/html/philr.html): phylogenetic balances (Silverman et al)
+-   [ANCOMBC](https://bioconductor.org/packages/devel/bioc/vignettes/ANCOMBC/inst/doc/ANCOMBC.html) (Lin & Peddada)
+-   [curatedMetagenomicData](https://waldronlab.io/curatedMetagenomicData/); (Pasolli et al.) human demo data
+-   [microbiomeDataSets](https://microbiome.github.io/microbiomeDataSets/index.html); other demo data
+-   SingleCell tool family
+-   SE tool family
+-   ...
+
+## Join the community
+
+Support the development and documentation by actively providing feedback & suggestions.
+
+-   Online support chat (Gitter) <https://gitter.im/microbiome/miaverse>
+-   [Bioconductor Slack](https://bioc-community.herokuapp.com/) (#miaverse channel)
+-   Mailing list (see [microbiome.github.io](microbiome.github.io))
+-   Github issues (e.g. [OMA issues](https://github.com/microbiome/OMA/issues))
+
+## Thanks!
+
+-   All participants!
+
+-   Organizer: Finnish IT Center for Science (CSC)
+
+-   Developers:
+
+    -   Leo Lahti, Assoc. Prof.
+    -   Tuomas Borman, PhD researcher
+    -   Chouaib Benchraka, Scientific programmer
+    -   For a full list of key developers and contributors, see [OMA acknowledgments](https://microbiome.github.io/OMA/acknowledgments.html)
+
+Department of Computing, University of Turku, Finland [datascience.utu.fi](datascience.utu.fi)  
+
+## Feedback
+
+-   CSC will send a feedback form
+
+## Q & A session
+
