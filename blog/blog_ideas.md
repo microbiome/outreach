@@ -6,7 +6,7 @@ This document is the starting point for our research group's outreach blog. Befo
 
 *Why are we starting this blog?
 
-To share out groups research, methodology and philosophy
+To share our groups research, methodology and philosophy. A less formal way to disseminate our ongoing work and growth.
 
 ## 2. Target Audience
 
@@ -18,7 +18,7 @@ A broad audience with varying levels of expertise in data-analysis. Some might n
 
 *What broad categories will our posts fall under?*
 
-1. **Paper Demystified:** Lay summaries of our latest publications.
+1. **Paper Demystified:** Summaries of our latest papers in lay-mans terms.
 2. **Methods & Tools:** Tutorials, software releases, or protocol deep-dives.
 3. **Op-Eds / Perspectives:** Opinion pieces on the state of our field.
 
@@ -40,7 +40,9 @@ A broad audience with varying levels of expertise in data-analysis. Some might n
 
 ## 5. Next Steps for the Group
 
-- [ ] (**Step 1:** Everyone add at least ONE idea to the backlog table by `[Insert Date]`. ???)
-- [ ] **Step 2:** Decide on the platform (e.g., GitHub Pages, Substack, Medium).
-- [ ] **Step 3:** Assign the first two posts to volunteers.
-- [ ] **Step 4:** Define a basic review process (e.g., PI review vs. peer review within the lab).
+- [ ] (**Step 0:** Everyone add at least ONE idea to the backlog table by `[Insert Date]`. ???)
+- [ ] **Step 1:** Decide on the platform (e.g., GitHub Pages, Substack, Medium).
+- [ ] **Step 2:** Assign the first two posts to volunteers.
+- [ ] **Step 3:** Define a basic review process (e.g., PI review vs. peer review within the lab).
+- [ ] **Step 4:** Decide on publishing cadence. Once a month? Bi-weekly?
+- [ ] **Step 5:** Launch the blog once sufficient "stockpile" (2-4 posts?) in reserve.
