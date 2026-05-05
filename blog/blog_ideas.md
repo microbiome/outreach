@@ -4,13 +4,13 @@ This document is the starting point for our research group's outreach blog. Befo
 
 ## 1. Core Objectives
 
-*Why are we starting this blog?
+*Why are we starting this blog?*
 
 To share our groups research, methodology and philosophy. A less formal way to disseminate our ongoing work and growth.
 
 ## 2. Target Audience
 
-*Who are we writing for?
+*Who are we writing for?*
 
 A broad audience with varying levels of expertise in data-analysis. Some might not have domain knowledge of data-analytics or topics of research, but have interest or are looking to expand their views.
 
@@ -31,8 +31,16 @@ A broad audience with varying levels of expertise in data-analysis. Some might n
 | Working Title / Topic | Primary Author | Content Pillar | Status | Notes / Links |
 | :--- | :--- | :--- | :--- | :--- |
 | *Example: Explaining our latest paper* | @username | Paper Demystified | Needs Outline | *Link to the paper draft* |
-| *Example: How we organize our Python scripts* | @username | Methods & Tools | Claimed | *Focus on best practices* |
 | Organizing reproducible analysis projects in R | @raivo-otus | Methods & Tools | Claimed | Introduce Research compendiums as R packages, and Targets + Nix pipeline environment management |
+| OMA is now in Bioc Books | | Op-Eds / Perspectives | unclaimed | https://bioconductor.org/help/bioconductor-books/ |
+| mia/Faith alpha diversity implementation provides markable speedups | unclaimed | Methods & Tools | | |
+| Schloss method for rarified alpha & beta diversity analysis | | Methods & Tools | unclaimed | |
+| cross-correlation analysis | | Methods & Tools | unclaimed | |
+| Joint-RPCA | | Methods & Tools | unclaimed | |
+| Integrated learner | | Methods & Tools | unclaimed | |
+| Mediation analysis | | Methods & Tools | unclaimed | |
+| TreeSE container | | Methods & Tools | unclaimed | |
+| MAE container | | Methods & Tools | unclaimed | |
 | | | | | |
 | | | | | |
 
@@ -40,7 +48,6 @@ A broad audience with varying levels of expertise in data-analysis. Some might n
 
 ## 5. Next Steps for the Group
 
-- [ ] (**Step 0:** Everyone add at least ONE idea to the backlog table by `[Insert Date]`. ???)
 - [ ] **Step 1:** Decide on the platform (e.g., GitHub Pages, Substack, Medium).
 - [ ] **Step 2:** Assign the first two posts to volunteers.
 - [ ] **Step 3:** Define a basic review process (e.g., PI review vs. peer review within the lab).
