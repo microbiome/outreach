@@ -216,13 +216,10 @@ Review process when submitting (novel, relevant, works as it should be, document
 
 ## Collaborative development
 
-\- software & data repository
-
-\- tutorials & documentation
-
-\- community support
-
-\- 50,000+ citations in PubMed
+- software & data repository
+- tutorials & documentation
+- community support
+- 50,000+ citations in PubMed
 
 ## Collaborative development
 

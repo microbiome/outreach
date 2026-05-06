@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Orchestrating Microbiome Analysis with Bioconductor</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="20260506_bioc_africa.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Orchestrating Microbiome Analysis with Bioconductor</h1>
+<p class="subtitle lead">Bioconductor Africa Seminar Series, May 2026</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">Wednesday, May 6, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="about-me" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="about-me">About me</h2>
+<div class="columns">
+<div class="column" style="width:35%;">
+<div class="quarto-figure quarto-figure-left">
+<figure class="figure">
+<p><img src="images/borman.jpeg" class="img-fluid quarto-figure quarto-figure-left figure-img" style="width:45.0%"></p>
+</figure>
+</div>
+<p><strong>Tuomas Borman</strong></p>
+<ul>
+<li><p>Doctoral Researcher at the University of Turku, Finland (<a href="https://datascience.utu.fi/">Turku Data Science Group</a>)</p></li>
+<li><p>Developing microbiome data science R/Bioconductor packages</p></li>
+</ul>
+</div><div class="column" style="width:65%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>timeline_arrows <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">2017</span>, <span class="dv">2020</span>, <span class="dv">2023</span>, <span class="dv">2024</span>, <span class="dv">2025</span>, <span class="dv">2020</span>),</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">end   =</span> <span class="fu">c</span>(<span class="dv">2022</span>, <span class="dv">2023</span>, <span class="dv">2026</span>, <span class="dv">2026</span>, <span class="dv">2026</span>, <span class="dv">2026</span>),</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">y     =</span> <span class="fu">c</span>(<span class="fl">0.20</span>, <span class="fl">0.10</span>, <span class="fl">0.05</span>, <span class="sc">-</span><span class="fl">0.15</span>, <span class="sc">-</span><span class="fl">0.25</span>, <span class="sc">-</span><span class="fl">0.35</span>),</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">label =</span> <span class="fu">c</span>(</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"BSc + MSc (Tech)"</span>,</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"BSc + MSc (Econ)"</span>,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DSc (Tech)"</span>,</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Board Member</span><span class="sc">\n</span><span class="st">Finnish Society for Bioinformatics"</span>,</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Board Member</span><span class="sc">\n</span><span class="st">Bioconductor CAB"</span>,</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Researcher</span><span class="sc">\n</span><span class="st">Turku Data Science Group"</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  ),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">type =</span> <span class="fu">c</span>(<span class="st">"Academic"</span>, <span class="st">"Academic"</span>, <span class="st">"Academic"</span>, <span class="st">"Service"</span>, <span class="st">"Service"</span>, <span class="st">"Service"</span>),</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">ongoing =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>timeline_arrows<span class="sc">$</span>mid <span class="ot">&lt;-</span> (timeline_arrows<span class="sc">$</span>start <span class="sc">+</span> timeline_arrows<span class="sc">$</span>end) <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"segment"</span>, <span class="at">x =</span> <span class="dv">2016</span>, <span class="at">xend =</span> <span class="dv">2026</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> <span class="dv">0</span>,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.4</span>, <span class="st">"cm"</span>), <span class="at">type =</span> <span class="st">"closed"</span>),</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="fl">1.2</span>, <span class="at">color =</span> <span class="st">"black"</span></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> timeline_arrows,</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> start, <span class="at">xend =</span> end, <span class="at">y =</span> y, <span class="at">yend =</span> y,</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">color =</span> type, <span class="at">linetype =</span> ongoing),</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.35</span>, <span class="st">"cm"</span>), <span class="at">type =</span> <span class="st">"closed"</span>),</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">linewidth =</span> <span class="dv">2</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_label_repel</span>(</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> timeline_arrows,</span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">x =</span> mid, <span class="at">y =</span> y, <span class="at">label =</span> label),</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">size =</span> <span class="fl">4.5</span>,</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">box.padding =</span> <span class="fl">0.5</span>,</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">point.padding =</span> <span class="fl">0.8</span>,</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">direction =</span> <span class="st">"y"</span>,</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">nudge_y =</span> <span class="fl">0.05</span>,</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">max.overlaps =</span> <span class="cn">Inf</span>,</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">segment.color =</span> <span class="cn">NA</span>,</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"white"</span>,</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>    <span class="at">label.size =</span> <span class="dv">0</span></span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"Academic"</span> <span class="ot">=</span> <span class="st">"#2C3E50"</span>, <span class="st">"Service"</span> <span class="ot">=</span> <span class="st">"#2C3E50"</span>)) <span class="sc">+</span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"FALSE"</span> <span class="ot">=</span> <span class="st">"solid"</span>, <span class="st">"TRUE"</span> <span class="ot">=</span> <span class="st">"dashed"</span>)) <span class="sc">+</span></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">2017</span><span class="sc">:</span><span class="dv">2026</span>, <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">2016</span>, <span class="dv">2026</span>)) <span class="sc">+</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.4</span>, <span class="fl">0.35</span>)) <span class="sc">+</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">14</span>) <span class="sc">+</span></span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(</span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>),</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>    <span class="at">legend.position =</span> <span class="st">"none"</span></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="20260506_bioc_africa_files/figure-html/personal_timeline-1.png" class="img-fluid figure-img" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="european-bioconductor-conference-2026-in-turku" class="level2">
+<h2 class="anchored" data-anchor-id="european-bioconductor-conference-2026-in-turku">European Bioconductor Conference 2026 in Turku!</h2>
+<div class="cell" data-layout-align="right">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(webshot2)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magick)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Linking to ImageMagick 6.9.12.98
+Enabled features: fontconfig, freetype, fftw, heic, lcms, pango, raw, webp, x11
+Disabled features: cairo, ghostscript, rsvg</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Using 22 threads</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Take the screenshot and save to a temporary file</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>tmpfile <span class="ot">&lt;-</span> <span class="fu">tempfile</span>(<span class="at">fileext =</span> <span class="st">".png"</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">webshot</span>(</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">url =</span> <span class="st">"https://eurobioc2026.bioconductor.org/"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">file =</span> tmpfile</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>https://eurobioc2026.bioconductor.org/ screenshot completed</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>temp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-right">
+<figure class="figure">
+<p><img src="20260506_bioc_africa_files/figure-html/show_eurobioc-1.png" class="img-fluid quarto-figure quarto-figure-right figure-img" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-simple callout-tip no-icon" title="">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p><a href="https://eurobioc2026.bioconductor.org" data-preview-link="true">eurobioc2026.bioconductor.org</a></p>
+</div>
+</div>
+</div>
+</section>
+<section id="topics" class="level2">
+<h2 class="anchored" data-anchor-id="topics">Topics</h2>
+<p>Week 1. Ecosystems<br>
+Week 2. End-to-end workflow<br>
+Week 3. Statistical analysis</p>
+</section>
+<section id="microbiome-data-science-ecosystems" class="level1">
+<h1>Microbiome data science ecosystems</h1>
+<section id="bioconductor" class="level2">
+<h2 class="anchored" data-anchor-id="bioconductor">Bioconductor</h2>
+<ul>
+<li>Community-driven, global open-source project</li>
+<li>Started in 2001 from genomics</li>
+<li>High impact across bioinformatics</li>
+</ul>
+<div class="quarto-figure quarto-figure-right">
+<figure class="figure">
+<p><img src="images/bioconductor_logo_rgb.jpg" class="img-fluid quarto-figure quarto-figure-right figure-img" style="width:10.0%" alt="Bioconductor logo."></p>
+</figure>
+</div>
+<div class="notes">
+<ul>
+<li>Project for developing software in bioinformatics.</li>
+<li>Over 1.5 million distinct IPs per year are downloading.</li>
+<li>50,000+ citations in PubMed</li>
+</ul>
+</div>
+</section>
+<section id="collaborative-development" class="level2">
+<h2 class="anchored" data-anchor-id="collaborative-development">Collaborative development</h2>
+<p><img src="images/alchemy.png" class="img-fluid"></p>
+<div class="notes">
+<ul>
+<li><p>Alchemists tried to do gold from inexpensive materials (iron, urine) in middle ages and before and after that</p></li>
+<li><p>They did lots of studies which of course failed. But instead of criticizing the theory, they were blaming the laboratory equipment.</p></li>
+<li><p>Also, if experiments seemed to be working, they did not replicate the results.</p></li>
+<li><p>Closed communities without critisism.</p></li>
+<li><p>Chemistry as a field of science was formed when they started to form communities that criticized the theories which led to advancements</p></li>
+<li><p>Same goes with bioinformatics. That is why communities and open science are very important.</p></li>
+<li><p>Open source code, publishing code and data.</p></li>
+</ul>
+<p>Science is a community effort: <strong>quality &amp; impact</strong></p>
+</div>
+</section>
+<section id="collaborative-development-1" class="level2">
+<h2 class="anchored" data-anchor-id="collaborative-development-1">Collaborative development</h2>
+<ul>
+<li>Software &amp; data repository</li>
+<li>Tutorials &amp; documentation</li>
+<li>Community support &amp; events</li>
+</ul>
+<p><img src="images/community_map.png" class="img-fluid" width="327"></p>
+<div class="notes">
+<ul>
+<li>Bioconductor is based on collaborative developments</li>
+<li>Everyone can contribute. Open access.</li>
+<li>Documentation helps to replicate results and critically assess the methods</li>
+<li>Community building is important in building community that can assess discoveries</li>
+<li>Conferences in North America, Asia and Europe</li>
+</ul>
+</div>
+</section>
+<section id="open-microbiome-data-science-ecosystems" class="level2">
+<h2 class="anchored" data-anchor-id="open-microbiome-data-science-ecosystems">Open (microbiome) data science ecosystems</h2>
+<p><img src="images/microbiome_ecosystems.png" class="img-fluid"></p>
+<div class="notes">
+<ul>
+<li>Several microbiome data cience community exist</li>
+<li>They differ from their scope and community, but they are also overlapping</li>
+</ul>
+<p>QIIME2 you can do the upstream and downstream analysis, but Bioconductor aces in statistical analysis.</p>
+<p>Bioconductor emphasizes interoperability across ecosystems. You can utilize QIIME2 in taxonomy mapping and Bioconductor in statistical analysis. From ecosystem to ecosystem, from R to Python.</p>
+<p>All these ecosystems have own pros and cons, and you should be aware that they exist.</p>
+</div>
+</section>
+<section id="bioconductor-software" class="level2">
+<h2 class="anchored" data-anchor-id="bioconductor-software">Bioconductor software</h2>
+<ul>
+<li>~2,300 R packages</li>
+<li>Review, testing, documentation</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Get packages and info based on their BiocViews</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> BiocPkgTools<span class="sc">::</span><span class="fu">biocPkgList</span>()</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>pkgs[[<span class="st">"SE"</span>]] <span class="ot">&lt;-</span> <span class="fu">sapply</span>(pkgs<span class="sc">$</span>Depends, <span class="cf">function</span>(x) <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"summarizedexperiment"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) )</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>fields <span class="ot">&lt;-</span> <span class="fu">sapply</span>(pkgs<span class="sc">$</span>biocViews, <span class="cf">function</span>(x){</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    field <span class="ot">&lt;-</span> <span class="st">"Other"</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"genomic|genetic|gene|genom|DNA"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Genomics"</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"proteomics|protein"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Proteomics"</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"metabolomics|metabolome|metabolite|Lipidom|massspectro"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Metabolomics"</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"transcripto|RNA-seq|RNA"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Transcriptomics"</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"immuno"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Immunology"</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"cytom"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Cytometrics"</span></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"microarray|chip"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Microarray"</span></span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"single-cell|singlecell"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Single-cell"</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"metagenom|microbiome|16S|microbiota|amplicon|shotgun|microb|metatranscript|metametabolo|metaproteo"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Microbiome"</span></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(field)</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>pkgs[[<span class="st">"Field"</span>]] <span class="ot">&lt;-</span> fields</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>pkgs[pkgs[[<span class="st">"Package"</span>]] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"mia"</span>, <span class="st">"miaViz"</span>, <span class="st">"miaSim"</span>, <span class="st">"iSEEtree"</span>, <span class="st">"HoloFoodR"</span>, <span class="st">"MGnifyR"</span>), <span class="st">"Field"</span>] <span class="ot">&lt;-</span> <span class="st">"Microbiome"</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Get download stats </span></span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> BiocPkgTools<span class="sc">::</span><span class="fu">biocDownloadStats</span>()</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset to include only packages which BiocView we have</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[df<span class="sc">$</span>Package <span class="sc">%in%</span> pkgs<span class="sc">$</span>Package, ]</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a><span class="co"># submitted &lt;- BiocPkgTools::firstInBioc(df)</span></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- df[df$Package %in% pkgs$Package, ] # Take into account only current packages</span></span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> pkgs[, <span class="fu">c</span>(<span class="st">"Package"</span>, <span class="st">"SE"</span>, <span class="st">"Field"</span>)]</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a><span class="co"># Get table that shows which package is available in each date</span></span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> df<span class="sc">$</span>Date <span class="sc">|&gt;</span> <span class="fu">unique</span>()</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> dates[ dates <span class="sc">&lt;</span> lubridate<span class="sc">::</span><span class="fu">floor_date</span>(<span class="fu">Sys.time</span>(), <span class="st">"month"</span>) ]</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>available <span class="ot">&lt;-</span> <span class="fu">lapply</span>(dates, <span class="cf">function</span>(date){</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> df[df[[<span class="st">"Date"</span>]] <span class="sc">==</span> date, ]</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> temp[<span class="fu">match</span>(<span class="fu">unique</span>(df<span class="sc">$</span>Package), temp<span class="sc">$</span>Package), ]</span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> temp[[<span class="st">"Nb_of_distinct_IPs"</span>]] <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span> temp[[<span class="st">"Nb_of_downloads"</span>]] <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>    temp[<span class="fu">is.na</span>(temp)] <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(temp)</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(temp)</span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>available <span class="ot">&lt;-</span> <span class="fu">do.call</span>(cbind, available) <span class="sc">|&gt;</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(available) <span class="ot">&lt;-</span> <span class="fu">unique</span>(df<span class="sc">$</span>Package)</span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(available) <span class="ot">&lt;-</span> dates</span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> pkgs[<span class="fu">match</span>(<span class="fu">unique</span>(df<span class="sc">$</span>Package), pkgs<span class="sc">$</span>Package), <span class="st">"Field"</span>][[<span class="dv">1</span>]]</span>
+<span id="cb8-61"><a href="#cb8-61" aria-hidden="true" tabindex="-1"></a>pkgs_date <span class="ot">&lt;-</span> <span class="fu">rowsum</span>(available, <span class="at">group =</span> ind)</span>
+<span id="cb8-62"><a href="#cb8-62" aria-hidden="true" tabindex="-1"></a><span class="co"># Put into long format</span></span>
+<span id="cb8-63"><a href="#cb8-63" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.0     ✔ readr     2.1.5
+✔ forcats   1.0.1     ✔ stringr   1.5.2
+✔ lubridate 1.9.4     ✔ tibble    3.3.0
+✔ purrr     1.2.1     ✔ tidyr     1.3.1
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>pkgs_date <span class="ot">&lt;-</span> pkgs_date <span class="sc">%&gt;%</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="st">"Field"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">cols =</span> <span class="fu">colnames</span>(pkgs_date)[ <span class="sc">!</span><span class="fu">colnames</span>(pkgs_date) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Field"</span>)], </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">names_to =</span> <span class="st">"Date"</span>,</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_to =</span> <span class="st">"N"</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>pkgs_date[[<span class="st">"Date"</span>]] <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(pkgs_date[[<span class="st">"Date"</span>]])</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a plot that shows number of package through date</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(pkgs_date, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> N, <span class="at">fill =</span> Field)) <span class="sc">+</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_area</span>() <span class="sc">+</span> <span class="fu">theme_classic</span>() <span class="sc">+</span> <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Paired"</span>) <span class="sc">+</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Number of packages"</span>) <span class="sc">+</span></span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">limits =</span> <span class="fu">c</span>(<span class="fu">min</span>(pkgs_date[[<span class="st">"Date"</span>]]), <span class="fu">max</span>(pkgs_date[[<span class="st">"Date"</span>]]))</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiocPkgTools)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: htmlwidgets</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(scales)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'scales'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:purrr':
+
+    discard</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:readr':
+
+    col_factor</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span><span class="fu">biocDownloadStats</span>()</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[df<span class="sc">$</span>Package <span class="sc">==</span> <span class="st">"mia"</span>, ]</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="fu">firstInBioc</span>(df)[[<span class="st">"Year"</span>]]<span class="sc">:</span><span class="fu">as.integer</span>(<span class="fu">format</span>(<span class="fu">Sys.Date</span>(), <span class="st">"%Y"</span>))</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="dv">2009</span><span class="sc">:</span><span class="fu">as.integer</span>(<span class="fu">format</span>(<span class="fu">Sys.Date</span>(), <span class="st">"%Y"</span>))</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>base_url <span class="ot">&lt;-</span> <span class="st">"https://bioconductor.org/packages/stats/bioc"</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>all_data <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (yr <span class="cf">in</span> years) {</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    url <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">"%s/bioc_%d_stats.tab"</span>, base_url, yr)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># try downloading safely</span></span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">try</span>({</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>        df <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(url)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>        df<span class="sc">$</span>Year <span class="ot">&lt;-</span> yr</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>        all_data[[<span class="fu">as.character</span>(yr)]] <span class="ot">&lt;-</span> df</span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>    }, <span class="at">silent=</span><span class="cn">TRUE</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>all_data <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, all_data)</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> all_data[all_data[[<span class="st">"Month"</span>]] <span class="sc">==</span> <span class="st">"all"</span>, ]</span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">"date"</span>]] <span class="ot">&lt;-</span> <span class="fu">as.Date</span>(<span class="fu">paste0</span>(df[[<span class="st">"Year"</span>]], <span class="st">"-01-01"</span>))</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> Nb_of_distinct_IPs)) <span class="sc">+</span></span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">"gray"</span>, <span class="at">colour =</span> <span class="st">"black"</span>) <span class="sc">+</span></span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">labels =</span> <span class="fu">label_number</span>(<span class="at">scale_cut =</span> <span class="fu">cut_si</span>(<span class="st">""</span>)),</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a>        <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_date</span>(</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>        <span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>),</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a>        <span class="at">limits =</span> <span class="fu">c</span>(<span class="fu">min</span>(df[[<span class="st">"date"</span>]]), <span class="fu">max</span>(df[[<span class="st">"date"</span>]]))</span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>        <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>        <span class="at">y =</span> <span class="st">"Number of downloads from distinct IPs"</span>,</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) </span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 2 rows containing missing values or values outside the scale range
+(`geom_col()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="20260506_bioc_africa_files/figure-html/number_of_users-1.png" class="img-fluid figure-img" width="1440"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<ol type="1">
+<li>Popularity has grown.</li>
+<li>Broad range of fields (microbiome is rather small, but steadily raising ~ 50 packages)</li>
+<li>Over 2,300 R packages</li>
+<li>Not limited to R, but R has been the main language. Activity in Python and Julia.</li>
+<li>Special abut Bioconductor is the rather strict requirements which ensure the high-quality.</li>
+</ol>
+<p>Review process when submitting (novel, relevant, works as it should be, documentation is sufficient) Testing is done automatically (daily). Software must be accessible. –&gt; documentation must be good</p>
+</div>
+</section>
+<section id="bioconductor-ecosystems" class="level2">
+<h2 class="anchored" data-anchor-id="bioconductor-ecosystems">Bioconductor ecosystems</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggrepel)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Timeline data</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>timeline_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">year =</span> <span class="fu">c</span>(<span class="dv">2012</span>, <span class="dv">2015</span>, <span class="dv">2017</span>, <span class="dv">2019</span>),</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">event =</span> <span class="fu">c</span>(</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">"phyloseq</span><span class="sc">\n</span><span class="st">McMurdie and Holmes, 2013"</span>,</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">"SummarizedExperiment</span><span class="sc">\n</span><span class="st">Huber et al., 2015"</span>,</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>        <span class="st">"SingleCellExperiment</span><span class="sc">\n</span><span class="st">Amezquita et al., 2020"</span>, </span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>        <span class="st">"TreeSummarizedExperiment</span><span class="sc">\n</span><span class="st">Huang et al., 2021"</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a single polygon for the entire arrow (rectangle + arrowhead)</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>arrow_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">2021</span>, <span class="fl">2024.5</span>, <span class="fl">2024.5</span>, <span class="dv">2025</span>, <span class="fl">2024.5</span>, <span class="fl">2024.5</span>, <span class="dv">2021</span>),</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.14</span>, <span class="sc">-</span><span class="fl">0.14</span>, <span class="sc">-</span><span class="fl">0.16</span>, <span class="sc">-</span><span class="fl">0.10</span>, <span class="sc">-</span><span class="fl">0.04</span>, <span class="sc">-</span><span class="fl">0.06</span>, <span class="sc">-</span><span class="fl">0.06</span>)</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(timeline_data, <span class="fu">aes</span>(<span class="at">x =</span> year, <span class="at">y =</span> <span class="dv">0</span>)) <span class="sc">+</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Base timeline</span></span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>        <span class="st">"segment"</span>, <span class="at">x =</span> <span class="dv">2011</span>, <span class="at">xend =</span> <span class="dv">2025</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> <span class="dv">0</span>,</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.4</span>, <span class="st">"cm"</span>), <span class="at">type =</span> <span class="st">"closed"</span>),</span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a>        <span class="at">linewidth =</span> <span class="fl">1.5</span>, <span class="at">color =</span> <span class="st">"gray40"</span></span>
+<span id="cb19-27"><a href="#cb19-27" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb19-28"><a href="#cb19-28" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-29"><a href="#cb19-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Timeline points and segments</span></span>
+<span id="cb19-30"><a href="#cb19-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="dv">5</span>, <span class="at">color =</span> <span class="st">"#2C3E50"</span>) <span class="sc">+</span></span>
+<span id="cb19-31"><a href="#cb19-31" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-32"><a href="#cb19-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Repelled labels</span></span>
+<span id="cb19-33"><a href="#cb19-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_label_repel</span>(</span>
+<span id="cb19-34"><a href="#cb19-34" aria-hidden="true" tabindex="-1"></a>        <span class="fu">aes</span>(</span>
+<span id="cb19-35"><a href="#cb19-35" aria-hidden="true" tabindex="-1"></a>          <span class="at">label =</span> event),</span>
+<span id="cb19-36"><a href="#cb19-36" aria-hidden="true" tabindex="-1"></a>          <span class="at">direction =</span> <span class="st">"y"</span>,</span>
+<span id="cb19-37"><a href="#cb19-37" aria-hidden="true" tabindex="-1"></a>          <span class="at">nudge_y =</span> <span class="fl">0.02</span>,</span>
+<span id="cb19-38"><a href="#cb19-38" aria-hidden="true" tabindex="-1"></a>          <span class="at">box.padding =</span> <span class="fl">0.4</span>,</span>
+<span id="cb19-39"><a href="#cb19-39" aria-hidden="true" tabindex="-1"></a>          <span class="at">point.padding =</span> <span class="fl">0.5</span>,</span>
+<span id="cb19-40"><a href="#cb19-40" aria-hidden="true" tabindex="-1"></a>          <span class="at">size =</span> <span class="dv">5</span>,</span>
+<span id="cb19-41"><a href="#cb19-41" aria-hidden="true" tabindex="-1"></a>          <span class="at">fontface =</span> <span class="st">"bold"</span>,</span>
+<span id="cb19-42"><a href="#cb19-42" aria-hidden="true" tabindex="-1"></a>          <span class="at">color =</span> <span class="st">"#34495E"</span>,</span>
+<span id="cb19-43"><a href="#cb19-43" aria-hidden="true" tabindex="-1"></a>          <span class="at">segment.color =</span> <span class="st">"gray60"</span></span>
+<span id="cb19-44"><a href="#cb19-44" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb19-45"><a href="#cb19-45" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-46"><a href="#cb19-46" aria-hidden="true" tabindex="-1"></a>    <span class="co"># mia: draw arrow-box from 2021 to 2025</span></span>
+<span id="cb19-47"><a href="#cb19-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_polygon</span>(</span>
+<span id="cb19-48"><a href="#cb19-48" aria-hidden="true" tabindex="-1"></a>        <span class="at">data =</span> arrow_data,</span>
+<span id="cb19-49"><a href="#cb19-49" aria-hidden="true" tabindex="-1"></a>        <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y),</span>
+<span id="cb19-50"><a href="#cb19-50" aria-hidden="true" tabindex="-1"></a>        <span class="at">fill =</span> <span class="st">"white"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">linewidth =</span> <span class="fl">0.8</span></span>
+<span id="cb19-51"><a href="#cb19-51" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb19-52"><a href="#cb19-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">annotate</span>(</span>
+<span id="cb19-53"><a href="#cb19-53" aria-hidden="true" tabindex="-1"></a>        <span class="st">"text"</span>, <span class="at">x =</span> <span class="fl">2022.75</span>, <span class="at">y =</span> <span class="sc">-</span><span class="fl">0.10</span>,</span>
+<span id="cb19-54"><a href="#cb19-54" aria-hidden="true" tabindex="-1"></a>        <span class="at">label =</span> <span class="st">"OMA</span><span class="sc">\n</span><span class="st">(Borman et al., 2025)"</span>,</span>
+<span id="cb19-55"><a href="#cb19-55" aria-hidden="true" tabindex="-1"></a>        <span class="at">size =</span> <span class="dv">5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>, <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">lineheight =</span> <span class="fl">1.1</span></span>
+<span id="cb19-56"><a href="#cb19-56" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb19-57"><a href="#cb19-57" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb19-58"><a href="#cb19-58" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Final theming</span></span>
+<span id="cb19-59"><a href="#cb19-59" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_x_continuous</span>(</span>
+<span id="cb19-60"><a href="#cb19-60" aria-hidden="true" tabindex="-1"></a>        <span class="at">breaks =</span> <span class="fu">c</span>(timeline_data<span class="sc">$</span>year, <span class="dv">2021</span>, <span class="dv">2025</span>),</span>
+<span id="cb19-61"><a href="#cb19-61" aria-hidden="true" tabindex="-1"></a>        <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">2010</span>, <span class="dv">2025</span>)</span>
+<span id="cb19-62"><a href="#cb19-62" aria-hidden="true" tabindex="-1"></a>        ) <span class="sc">+</span></span>
+<span id="cb19-63"><a href="#cb19-63" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">limits =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.25</span>, <span class="fl">0.3</span>)) <span class="sc">+</span></span>
+<span id="cb19-64"><a href="#cb19-64" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">15</span>) <span class="sc">+</span></span>
+<span id="cb19-65"><a href="#cb19-65" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(</span>
+<span id="cb19-66"><a href="#cb19-66" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-67"><a href="#cb19-67" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.y =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-68"><a href="#cb19-68" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">16</span>),</span>
+<span id="cb19-69"><a href="#cb19-69" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.ticks =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-70"><a href="#cb19-70" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb19-71"><a href="#cb19-71" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"none"</span>,</span>
+<span id="cb19-72"><a href="#cb19-72" aria-hidden="true" tabindex="-1"></a>        <span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">face =</span> <span class="st">"bold"</span>, <span class="at">size =</span> <span class="dv">16</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>)</span>
+<span id="cb19-73"><a href="#cb19-73" aria-hidden="true" tabindex="-1"></a>    )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="20260506_bioc_africa_files/figure-html/microbiome_bioconductor-1.png" class="img-fluid figure-img" width="1440"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>Over the years, several approaches to data organization have been developed. One of the first widely adopted data containers in microbiome research was <em><a href="https://bioconductor.org/packages/3.22/phyloseq">phyloseq</a></em> <span class="citation" data-cites="McMurdie2013">(<a href="#ref-McMurdie2013" role="doc-biblioref">McMurdie and Holmes 2013</a>)</span>, designed for 16S amplicon sequencing data. However, it has limitations, particularly in linking multiple experiments and ensuring interoperability between tools in Bioconductor.</p>
+<p><em><a href="https://bioconductor.org/packages/3.22/SummarizedExperiment">SummarizedExperiment</a></em> (SE) <span class="citation" data-cites="Huber2015">(<a href="#ref-Huber2015" role="doc-biblioref">Huber et al. 2015</a>)</span>, on the other hand, was introduced as a general-purpose container for biological data and has become the most widely used format within the Bioconductor ecosystem. It has since been extended to more specialized formats, including <em><a href="https://bioconductor.org/packages/3.22/SingleCellExperiment">SingleCellExperiment</a></em> <span class="citation" data-cites="Amezquita2020">(<a href="#ref-Amezquita2020" role="doc-biblioref">Amezquita et al. 2020</a>)</span> for single-cell data and <em><a href="https://bioconductor.org/packages/3.22/TreeSummarizedExperiment">TreeSummarizedExperiment</a></em> (TreeSE) <span class="citation" data-cites="Huang2021">(<a href="#ref-Huang2021" role="doc-biblioref">Huang et al. 2021</a>)</span>, which is tailored for microbiome datasets.</p>
+</div>
+</section>
+<section id="orchestrating-microbiome-analysis-oma" class="level2">
+<h2 class="anchored" data-anchor-id="orchestrating-microbiome-analysis-oma">Orchestrating Microbiome Analysis, OMA</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(BiocPkgTools)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>perc <span class="ot">&lt;-</span> <span class="fu">pkgDownloadRank</span>(<span class="st">"mia"</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>perc <span class="ot">&lt;-</span> <span class="fu">paste0</span>(perc, <span class="st">"%"</span>)</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span><span class="fu">biocDownloadStats</span>()</span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[df<span class="sc">$</span>Package <span class="sc">==</span> <span class="st">"mia"</span>, ]</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>years <span class="ot">&lt;-</span> <span class="fu">firstInBioc</span>(df)[[<span class="st">"Year"</span>]]<span class="sc">:</span><span class="fu">as.integer</span>(<span class="fu">format</span>(<span class="fu">Sys.Date</span>(), <span class="st">"%Y"</span>))</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a>base_url <span class="ot">&lt;-</span> <span class="st">"https://bioconductor.org/packages/stats/bioc/mia"</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>all_data <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (yr <span class="cf">in</span> years) {</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a>    url <span class="ot">&lt;-</span> <span class="fu">sprintf</span>(<span class="st">"%s/mia_%d_stats.tab"</span>, base_url, yr)</span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>    <span class="co"># try downloading safely</span></span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">try</span>({</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>        df <span class="ot">&lt;-</span> <span class="fu">read.delim</span>(url)</span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>        df<span class="sc">$</span>Year <span class="ot">&lt;-</span> yr</span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a>        all_data[[<span class="fu">as.character</span>(yr)]] <span class="ot">&lt;-</span> df</span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>    }, <span class="at">silent=</span><span class="cn">TRUE</span>)</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a>all_data <span class="ot">&lt;-</span> <span class="fu">do.call</span>(rbind, all_data)</span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> all_data[all_data[[<span class="st">"Month"</span>]] <span class="sc">==</span> <span class="st">"all"</span>, ]</span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>last_year <span class="ot">&lt;-</span> <span class="fu">sort</span>(df[[<span class="st">"Year"</span>]])[ <span class="fu">which</span>(<span class="fu">sort</span>(df[[<span class="st">"Year"</span>]]) <span class="sc">==</span> <span class="fu">as.integer</span>(<span class="fu">format</span>(<span class="fu">Sys.Date</span>(), <span class="st">"%Y"</span>)))<span class="sc">-</span><span class="dv">1</span> ]</span>
+<span id="cb20-28"><a href="#cb20-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-29"><a href="#cb20-29" aria-hidden="true" tabindex="-1"></a>num_downloads <span class="ot">&lt;-</span> df[df[[<span class="st">"Year"</span>]] <span class="sc">==</span> last_year, <span class="st">"Nb_of_distinct_IPs"</span>]</span>
+<span id="cb20-30"><a href="#cb20-30" aria-hidden="true" tabindex="-1"></a>num_downloads <span class="ot">&lt;-</span> <span class="fu">floor</span>(num_downloads <span class="sc">/</span> <span class="dv">1000</span>) <span class="sc">*</span> <span class="dv">1000</span></span>
+<span id="cb20-31"><a href="#cb20-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-32"><a href="#cb20-32" aria-hidden="true" tabindex="-1"></a>num_downloads <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="fu">format</span>(num_downloads, <span class="at">big.mark =</span> <span class="st">","</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ul>
+<li>Microbiome data science ecosystem</li>
+<li>“Downstream”, statistical analysis</li>
+<li>Microbiome Analysis (<em><a href="https://bioconductor.org/packages/3.22/mia">mia</a></em>): &gt; 15,000 yearly downloads from distinct IPs (top 8.05% in Bioconductor)</li>
+</ul>
+<div style="text-align: right;">
+<p><img src="images/BioconductorSticker1.png" alt="Bioconductor sticker" width="200" style="margin-left: 10px;"> <img src="images/mia_logo.png" alt="mia logo" width="200"></p>
+</div>
+<div class="notes">
+<ol type="1">
+<li>Within Bioconductor, we have developed microbiome data science ecosystem</li>
+<li>For downstream analysis</li>
+<li>Aligned and tightly linked with broader Bioconductor ecosystem</li>
+</ol>
+</div>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+<p><a href="https://www.biorxiv.org/content/10.1101/2025.10.29.685036v1"><img src="images/oma_publication.png" class="img-fluid"></a></p>
+<div class="notes">
+<p>Preprint available</p>
+</div>
+</section>
+<section id="benefits" class="level2">
+<h2 class="anchored" data-anchor-id="benefits">Benefits</h2>
+<ol type="1">
+<li>Tightly linked with broader Bioconductor ecosystem</li>
+<li>Improved scalability</li>
+<li>Improved multi-table integration</li>
+</ol>
+<div class="notes">
+<ol type="1">
+<li>We use same data format as broader Bioconductor ecosystem. Some of you might know phyloseq. That was specifically designed for 16S amplicon data, and is not supported outside its ecosystem. Moreover, microbiome data science is nowadays more than sequencing data, it links different fields from metabolomics to genomics. Same data format allows us to use methods from different fields.</li>
+<li>The ecosystem is more scalable; speed and memory wise than phyloseq and its more efficient alternative, speedyseq. It is not uncommon anymore that there are tens of thousands of samples and features so we need efficient software to run these big datasets.</li>
+<li>This ecosystem allows us to link multiple tables together, facilitating multi-omics integration by supporting management of this kind of complex datasets.</li>
+</ol>
+</div>
+</section>
+<section id="community-driven-ecosystem-of-tools" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="community-driven-ecosystem-of-tools">Community-driven ecosystem of tools</h2>
+<div class="columns">
+<div class="column" style="width:70%;">
+<ul>
+<li><em><a href="https://bioconductor.org/packages/3.22/mia">mia</a></em> (Data analysis)</li>
+<li><em><a href="https://bioconductor.org/packages/3.22/miaViz">miaViz</a></em> (Visualization)</li>
+<li><em><a href="https://bioconductor.org/packages/3.22/miaSim">miaSim</a></em> (Simulation)</li>
+<li><a href="https://github.com/microbiome/miaTime">miaTime</a> (Time series analysis)</li>
+<li><em><a href="https://bioconductor.org/packages/3.22/miaDash">miaDash</a></em> (Graphical user interface)</li>
+<li><em><a href="https://bioconductor.org/packages/3.22/iSEETree">iSEETree</a></em> (Interactive visualization)</li>
+<li><a href="https://microbiome.github.io/OMA/docs/devel/pages/miaverse.html#sec-packages">Expanded by independent developers</a></li>
+</ul>
+</div><div class="column" style="width:30%;">
+<p><img src="https://raw.githubusercontent.com/microbiome/mia/refs/heads/devel/man/figures/mia_logo.png" class="img-fluid" style="width:20.0%" alt="mia logo."> <img src="https://raw.githubusercontent.com/EBI-Metagenomics/MGnifyR/refs/heads/devel/man/figures/mgnifyr_logo.png" class="img-fluid" style="width:20.0%" alt="MGnifyR logo."> <img src="https://raw.githubusercontent.com/EBI-Metagenomics/HoloFoodR/refs/heads/devel/man/figures/holofoodr_logo.png" class="img-fluid" style="width:20.0%" alt="HoloFoodR logo."> <img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/iSEE/iSEE.png" class="img-fluid" style="width:20.0%" alt="iSEE logo."> <img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/MultiAssayExperiment/MultiAssayExperiment.png" class="img-fluid" style="width:20.0%" alt="MAE logo."> <img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SummarizedExperiment/SummarizedExperiment.png" class="img-fluid" style="width:20.0%" alt="SE logo."> <img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SingleCellExperiment/SingleCellExperiment.png" class="img-fluid" style="width:20.0%" alt="SCE logo."> <img src="https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/scater/scater.png" class="img-fluid" style="width:20.0%" alt="scater logo."> <img src="https://pbs.twimg.com/media/FDNU5KgWYAcnU8w.jpg" class="img-fluid" style="width:20.0%" alt="benchdamic logo."> <img src="https://netcomi.de/logo.png" class="img-fluid" style="width:20.0%" alt="netcomi logo."> <img src="https://raw.githubusercontent.com/statdivlab/radEmu/refs/heads/main/man/figures/logo.png" class="img-fluid" style="width:20.0%" alt="radEmu logo."> <img src="https://mikelove.github.io/assets/DESeq2.png" class="img-fluid" style="width:20.0%" alt="DESeq2 logo."> <img src="https://avatars.githubusercontent.com/u/18152373?s=280&amp;v=4.png" class="img-fluid" style="width:20.0%" alt="Biobakery logo."> <img src="https://raw.githubusercontent.com/thomazbastiaanssen/anansi/refs/heads/devel/man/figures/anansi_hex.png" class="img-fluid" style="width:20.0%" alt="anansi logo."></p>
+</div>
+</div>
+<div class="notes">
+<p>Ecosystem of packages developed by the community. mia provides the basic operations in microbiome data analysis. miaViz has the methods for visualization.</p>
+<p>Developed by independent developers who have started to support the ecosystem.</p>
+</div>
+</section>
+<section id="orchestrating-microbiome-analysis-with-bioconductor" class="level2">
+<h2 class="anchored" data-anchor-id="orchestrating-microbiome-analysis-with-bioconductor">Orchestrating Microbiome Analysis with Bioconductor</h2>
+<ul>
+<li>Resources and tutorials for microbiome analysis</li>
+<li>Community-built best practices</li>
+<li>Open to contributions!</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Go to the Orchestrating Microbiome Analysis (OMA) online book
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><a href="https://bioconductor.org/books/release/OMA/" data-preview-link="true">bioconductor.org/books/release/OMA/</a></p>
+</div>
+</div>
+<div class="notes">
+<p>To support users and to collect best practices, there is online book available.</p>
+</div>
+</section>
+<section id="take-home-message" class="level2">
+<h2 class="anchored" data-anchor-id="take-home-message">Take home message</h2>
+<ol type="1">
+<li>Community is the key</li>
+</ol>
+</section>
+</section>
+<section id="data-containers" class="level1">
+<h1>Data containers</h1>
+<section id="data-containers-1" class="level2">
+<h2 class="anchored" data-anchor-id="data-containers-1">Data containers</h2>
+<ul>
+<li>The core of software</li>
+<li>Structured, standardized way to manage complex data</li>
+<li>Enables modular, efficient workflows</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggforce)</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Adjusting the text positions for better alignment</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>ellipse_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>),         <span class="co"># Centers of ellipses</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">0</span>),         <span class="co"># Centers of ellipses</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">a =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">3</span>, <span class="dv">2</span>),         <span class="co"># Widths of ellipses</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">b =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>),         <span class="co"># Heights of ellipses</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">c</span>(<span class="st">"COMMUNITY"</span>, <span class="st">"METHODS"</span>, <span class="st">"DATA CONTAINER"</span>),  <span class="co"># Labels for each ellipse</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">label_y =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="fl">1.75</span>, <span class="dv">0</span>) <span class="co"># Adjusted vertical positions for labels</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot with adjusted labels</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_ellipse</span>(<span class="at">data =</span> ellipse_data, </span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>                 <span class="fu">aes</span>(<span class="at">x0 =</span> x, <span class="at">y0 =</span> y, <span class="at">a =</span> a, <span class="at">b =</span> b, <span class="at">angle =</span> <span class="dv">0</span>),</span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>                 <span class="at">color =</span> <span class="st">"darkgreen"</span>, <span class="at">fill =</span> <span class="st">"grey90"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_text</span>(<span class="at">data =</span> ellipse_data, </span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> label_y, <span class="at">label =</span> label), </span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>              <span class="at">size =</span> <span class="dv">5</span>, <span class="at">fontface =</span> <span class="st">"bold"</span>) <span class="sc">+</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>    <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_void</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="20260506_bioc_africa_files/figure-html/data_container-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>The core of software is formed by data containers.</p>
+<p>Structured way to present complex data. Interlinks tables and data types.</p>
+<p>In biology, usually we have abundance table, sample metadata, taxonomy table, phylogeny, …</p>
+<p>Managing this complex data set becomes a burden and lead easily to errors.</p>
+</div>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1"></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magick)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>img1 <span class="ot">&lt;-</span> <span class="fu">image_read</span>(<span class="st">"images/pile_of_papers.png"</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>img2 <span class="ot">&lt;-</span> <span class="fu">image_read</span>(<span class="st">"images/book.png"</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>arrow <span class="ot">&lt;-</span> <span class="fu">image_blank</span>(<span class="at">width =</span> <span class="dv">500</span>, <span class="at">height =</span> <span class="dv">1000</span>, <span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">image_annotate</span>(<span class="st">"→"</span>, <span class="at">size =</span> <span class="dv">200</span>, <span class="at">gravity =</span> <span class="st">"center"</span>, <span class="at">color =</span> <span class="st">"black"</span>)</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine images with the arrow</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>final_image <span class="ot">&lt;-</span> <span class="fu">image_append</span>(<span class="fu">c</span>(img1, arrow, img2), <span class="at">stack =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the final image</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a>final_image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="20260506_bioc_africa_files/figure-html/pages_and_book-1.png" class="img-fluid figure-img" width="1463"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>Imagine pile of paper sheets that are unordered. Then imagine a book that holds these same pages in structured way. Would you rather read 100 pages from pile of mess or from book?</p>
+</div>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2"></h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(magick)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>img1 <span class="ot">&lt;-</span> <span class="fu">image_read</span>(<span class="st">"images/unorganized_data.png"</span>)</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>img2 <span class="ot">&lt;-</span> <span class="fu">image_read</span>(<span class="st">"images/TreeSE.png"</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>img2 <span class="ot">&lt;-</span> <span class="fu">image_scale</span>(img2, <span class="st">"125%"</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>arrow <span class="ot">&lt;-</span> <span class="fu">image_blank</span>(<span class="at">width =</span> <span class="dv">500</span>, <span class="at">height =</span> <span class="dv">1000</span>, <span class="at">color =</span> <span class="st">"none"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">image_annotate</span>(<span class="st">"→"</span>, <span class="at">size =</span> <span class="dv">200</span>, <span class="at">gravity =</span> <span class="st">"center"</span>, <span class="at">color =</span> <span class="st">"black"</span>)</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Combine images with the arrow</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>final_image <span class="ot">&lt;-</span> <span class="fu">image_append</span>(<span class="fu">c</span>(img1, arrow, img2), <span class="at">stack =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Display the final image</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>final_image</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="20260506_bioc_africa_files/figure-html/data_and_data_container-1.png" class="img-fluid figure-img" width="1790"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>The same idea goes with the data containers. Instead of managing tables separately you can put them to this data container.</p>
+</div>
+</section>
+<section id="optimal-container-for-microbiome-data" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="optimal-container-for-microbiome-data">Optimal container for microbiome data?</h2>
+</section>
+<section id="optimal-container-for-microbiome-data-1" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="optimal-container-for-microbiome-data-1">Optimal container for microbiome data?</h2>
+<ul>
+<li><strong>Multiple assays</strong>: seamless interlinking</li>
+</ul>
+<div class="notes">
+<p>Original assay and transformations, along with different experiments</p>
+</div>
+</section>
+<section id="optimal-container-for-microbiome-data-2" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="optimal-container-for-microbiome-data-2">Optimal container for microbiome data?</h2>
+<ul>
+<li><strong>Multiple assays</strong>: seamless interlinking</li>
+<li><strong>Hierarchical data</strong>: supporting samples &amp; features</li>
+</ul>
+<div class="notes">
+<p>Phylogeny and sample hierarchy (patients are relatives, or sampling places can be structured hierarchically etc)</p>
+</div>
+</section>
+<section id="optimal-container-for-microbiome-data-3" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="optimal-container-for-microbiome-data-3">Optimal container for microbiome data?</h2>
+<ul>
+<li><strong>Multiple assays</strong>: seamless interlinking</li>
+<li><strong>Hierarchical data</strong>: supporting samples &amp; features</li>
+<li><strong>Side information</strong>: extended capabilities &amp; data types</li>
+</ul>
+<div class="notes">
+<p>Sample metadata, taxonomy table…</p>
+</div>
+</section>
+<section id="optimal-container-for-microbiome-data-4" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="optimal-container-for-microbiome-data-4">Optimal container for microbiome data?</h2>
+<ul>
+<li><strong>Multiple assays</strong>: seamless interlinking</li>
+<li><strong>Hierarchical data</strong>: supporting samples &amp; features</li>
+<li><strong>Side information</strong>: extended capabilities &amp; data types</li>
+<li><strong>Optimized</strong>: for speed &amp; memory</li>
+</ul>
+<div class="notes">
+<p>Datasets have increased in size. Both sample-wise and feature-wise (more resolution).</p>
+</div>
+</section>
+<section id="optimal-container-for-microbiome-data-5" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="optimal-container-for-microbiome-data-5">Optimal container for microbiome data?</h2>
+<ul>
+<li><strong>Multiple assays</strong>: seamless interlinking</li>
+<li><strong>Hierarchical data</strong>: supporting samples &amp; features</li>
+<li><strong>Side information</strong>: extended capabilities &amp; data types</li>
+<li><strong>Optimized</strong>: for speed &amp; memory</li>
+<li><strong>Integrated</strong>: with other applications &amp; frameworks</li>
+</ul>
+<div class="notes">
+<p>Not anymore just sequencing data, but microbiome is combining different fields –&gt; we have to have way to apply these methods from different fields.</p>
+<p>Advancing bioinformatics in collaboration with other fields.</p>
+<p>Innovations (applicable methods from other field)</p>
+<p>Bioconductor aims to harmonize the data format so that the same format can be used through the ecosystem.</p>
+<p>In biological data science, we apply similar techniques despite the field.</p>
+</div>
+</section>
+<section id="treesummarizedexperiment" class="level2">
+<h2 class="anchored" data-anchor-id="treesummarizedexperiment"><em><a href="https://bioconductor.org/packages/3.22/TreeSummarizedExperiment">TreeSummarizedExperiment</a></em></h2>
+<p><small><span class="citation" data-cites="Huang2021">(<a href="#ref-Huang2021" role="doc-biblioref">Huang et al. 2021</a>)</span></small></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/TreeSE.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:10.0%" alt="TreeSummarizedExperiment class"></p>
+</figure>
+</div>
+<div class="notes">
+<p>Extension to SummarizedExperiment</p>
+<p>Tailored for biological data science.</p>
+<p>Go thorugh every slot.</p>
+</div>
+</section>
+<section id="summarizedexperiment" class="level2">
+<h2 class="anchored" data-anchor-id="summarizedexperiment"><em><a href="https://bioconductor.org/packages/3.22/SummarizedExperiment">SummarizedExperiment</a></em></h2>
+<p><small><span class="citation" data-cites="Huber2015">(<a href="#ref-Huber2015" role="doc-biblioref">Huber et al. 2015</a>)</span></small></p>
+<div class="cell" data-layout-align="right">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span>( <span class="sc">!</span><span class="fu">require</span>(<span class="st">"BiocManager"</span>) ){</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">install</span>(<span class="st">"BiocManager"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: BiocManager</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Bioconductor version '3.22' is out-of-date; the current release version '3.23'
+  is available with R version '4.6'; see https://bioconductor.org/install</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"BiocPkgTools"</span>, <span class="st">"lubridate"</span>, <span class="st">"tidyverse"</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>temp <span class="ot">&lt;-</span> <span class="fu">sapply</span>(pkgs, <span class="cf">function</span>(pkg){</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="sc">!</span><span class="fu">require</span>(pkg, <span class="at">character.only =</span> <span class="cn">TRUE</span>) ){</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>        BiocManager<span class="sc">::</span><span class="fu">install</span>(pkg)</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>        <span class="fu">library</span>(pkg, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Get packages and info based on their BiocViews</span></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">biocPkgList</span>()</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>pkgs[[<span class="st">"SE"</span>]] <span class="ot">&lt;-</span> <span class="fu">sapply</span>(pkgs[[<span class="st">"Depends"</span>]], <span class="cf">function</span>(x) <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"summarizedexperiment"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) )</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> pkgs[pkgs[[<span class="st">"SE"</span>]], ]</span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>fields <span class="ot">&lt;-</span> <span class="fu">sapply</span>(pkgs<span class="sc">$</span>biocViews, <span class="cf">function</span>(x){</span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>    field <span class="ot">&lt;-</span> <span class="st">"Other"</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"genomic|genetic|gene|genom|DNA"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Genomics"</span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"proteomics|protein"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Proteomics"</span></span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"metabolomics|metabolome|metabolite|Lipidom|massspectro"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Metabolomics"</span></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"transcripto|RNA-seq|RNA"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Transcriptomics"</span></span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"immuno"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Immunology"</span></span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"cytom"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Cytometrics"</span></span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"microarray|chip"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Microarray"</span></span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"single-cell|singlecell"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Single-cell"</span></span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span>( <span class="fu">any</span>(<span class="fu">grepl</span>(<span class="st">"metagenom|microbiome|16S|microbiota|amplicon|shotgun|microb|metatranscript|metametabolo|metaproteo"</span>, x, <span class="at">ignore.case =</span> <span class="cn">TRUE</span>)) ){</span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>        field <span class="ot">&lt;-</span> <span class="st">"Microbiome"</span></span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(field)</span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a>pkgs[[<span class="st">"Field"</span>]] <span class="ot">&lt;-</span> fields</span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a>pkgs[pkgs[[<span class="st">"Package"</span>]] <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"mia"</span>, <span class="st">"miaViz"</span>, <span class="st">"miaSim"</span>, <span class="st">"iSEEtree"</span>, <span class="st">"HoloFoodR"</span>, <span class="st">"MGnifyR"</span>), <span class="st">"Field"</span>] <span class="ot">&lt;-</span> <span class="st">"Microbiome"</span></span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a><span class="co"># Get download stats </span></span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">biocDownloadStats</span>()</span>
+<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a><span class="co"># Subset to include only packages which BiocView we have</span></span>
+<span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df[df[[<span class="st">"Package"</span>]] <span class="sc">%in%</span> pkgs<span class="sc">$</span>Package, ]</span>
+<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a><span class="co"># Add field info</span></span>
+<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a>df[[<span class="st">"Field"</span>]] <span class="ot">&lt;-</span> pkgs[<span class="fu">match</span>(df[[<span class="st">"Package"</span>]], pkgs[[<span class="st">"Package"</span>]]), <span class="st">"Field"</span>][[<span class="dv">1</span>]]</span>
+<span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a><span class="co"># df &lt;- df[df$Package %in% pkgs$Package, ] # Take into account only current packages</span></span>
+<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a>pkgs <span class="ot">&lt;-</span> pkgs[, <span class="fu">c</span>(<span class="st">"Package"</span>, <span class="st">"SE"</span>, <span class="st">"Field"</span>)]</span>
+<span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Get table that shows which package is available in each date</span></span>
+<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> df<span class="sc">$</span>Date <span class="sc">|&gt;</span> <span class="fu">unique</span>()</span>
+<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a>dates <span class="ot">&lt;-</span> dates[ dates <span class="sc">&lt;</span> <span class="fu">floor_date</span>(<span class="fu">Sys.time</span>(), <span class="st">"month"</span>) ]</span>
+<span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a>available <span class="ot">&lt;-</span> <span class="fu">lapply</span>(dates, <span class="cf">function</span>(date){</span>
+<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> df[df[[<span class="st">"Date"</span>]] <span class="sc">==</span> date, ]</span>
+<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> temp[<span class="fu">match</span>(<span class="fu">unique</span>(df<span class="sc">$</span>Package), temp<span class="sc">$</span>Package), ]</span>
+<span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> temp[[<span class="st">"Nb_of_distinct_IPs"</span>]] <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">|</span> temp[[<span class="st">"Nb_of_downloads"</span>]] <span class="sc">&gt;</span> <span class="dv">0</span></span>
+<span id="cb27-62"><a href="#cb27-62" aria-hidden="true" tabindex="-1"></a>    temp[<span class="fu">is.na</span>(temp)] <span class="ot">&lt;-</span> <span class="cn">FALSE</span></span>
+<span id="cb27-63"><a href="#cb27-63" aria-hidden="true" tabindex="-1"></a>    temp <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(temp)</span>
+<span id="cb27-64"><a href="#cb27-64" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(temp)</span>
+<span id="cb27-65"><a href="#cb27-65" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb27-66"><a href="#cb27-66" aria-hidden="true" tabindex="-1"></a>available <span class="ot">&lt;-</span> <span class="fu">do.call</span>(cbind, available) <span class="sc">|&gt;</span> <span class="fu">as.data.frame</span>()</span>
+<span id="cb27-67"><a href="#cb27-67" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(available) <span class="ot">&lt;-</span> <span class="fu">unique</span>(df[[<span class="st">"Package"</span>]])</span>
+<span id="cb27-68"><a href="#cb27-68" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(available) <span class="ot">&lt;-</span> dates</span>
+<span id="cb27-69"><a href="#cb27-69" aria-hidden="true" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb27-70"><a href="#cb27-70" aria-hidden="true" tabindex="-1"></a>ind <span class="ot">&lt;-</span> pkgs[<span class="fu">match</span>(<span class="fu">unique</span>(df[[<span class="st">"Package"</span>]]), pkgs[[<span class="st">"Package"</span>]]), <span class="st">"Field"</span>][[<span class="dv">1</span>]]</span>
+<span id="cb27-71"><a href="#cb27-71" aria-hidden="true" tabindex="-1"></a>pkgs_date <span class="ot">&lt;-</span> <span class="fu">rowsum</span>(available, <span class="at">group =</span> ind)</span>
+<span id="cb27-72"><a href="#cb27-72" aria-hidden="true" tabindex="-1"></a><span class="co"># Put into long format</span></span>
+<span id="cb27-73"><a href="#cb27-73" aria-hidden="true" tabindex="-1"></a>pkgs_date <span class="ot">&lt;-</span> pkgs_date <span class="sc">|&gt;</span></span>
+<span id="cb27-74"><a href="#cb27-74" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rownames_to_column</span>(<span class="st">"Field"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb27-75"><a href="#cb27-75" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(</span>
+<span id="cb27-76"><a href="#cb27-76" aria-hidden="true" tabindex="-1"></a>        <span class="at">cols =</span> <span class="fu">colnames</span>(pkgs_date)[ <span class="sc">!</span><span class="fu">colnames</span>(pkgs_date) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Field"</span>)], </span>
+<span id="cb27-77"><a href="#cb27-77" aria-hidden="true" tabindex="-1"></a>        <span class="at">names_to =</span> <span class="st">"Date"</span>,</span>
+<span id="cb27-78"><a href="#cb27-78" aria-hidden="true" tabindex="-1"></a>        <span class="at">values_to =</span> <span class="st">"N"</span></span>
+<span id="cb27-79"><a href="#cb27-79" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb27-80"><a href="#cb27-80" aria-hidden="true" tabindex="-1"></a>pkgs_date[[<span class="st">"Date"</span>]] <span class="ot">&lt;-</span> pkgs_date[[<span class="st">"Date"</span>]] <span class="sc">|&gt;</span> <span class="fu">as.Date</span>()</span>
+<span id="cb27-81"><a href="#cb27-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-82"><a href="#cb27-82" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a plot that shows number of package through date</span></span>
+<span id="cb27-83"><a href="#cb27-83" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(pkgs_date, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> N, <span class="at">fill =</span> Field)) <span class="sc">+</span></span>
+<span id="cb27-84"><a href="#cb27-84" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_area</span>() <span class="sc">+</span></span>
+<span id="cb27-85"><a href="#cb27-85" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>(<span class="at">base_size =</span> <span class="dv">18</span>) <span class="sc">+</span></span>
+<span id="cb27-86"><a href="#cb27-86" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_fill_brewer</span>(<span class="at">palette =</span> <span class="st">"Paired"</span>) <span class="sc">+</span></span>
+<span id="cb27-87"><a href="#cb27-87" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">"Year"</span>, <span class="at">y =</span> <span class="st">"Number of packages"</span>) <span class="sc">+</span></span>
+<span id="cb27-88"><a href="#cb27-88" aria-hidden="true" tabindex="-1"></a>    <span class="fu">scale_y_continuous</span>(<span class="at">expand =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>), <span class="at">limits =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="cn">NA</span>)) <span class="sc">+</span></span>
+<span id="cb27-89"><a href="#cb27-89" aria-hidden="true" tabindex="-1"></a>     <span class="fu">scale_x_date</span>(</span>
+<span id="cb27-90"><a href="#cb27-90" aria-hidden="true" tabindex="-1"></a>          <span class="at">limits =</span> <span class="fu">c</span>(<span class="fu">as.Date</span>(<span class="st">"2015-01-01"</span>), <span class="fu">max</span>(pkgs_date[[<span class="st">"Date"</span>]]))</span>
+<span id="cb27-91"><a href="#cb27-91" aria-hidden="true" tabindex="-1"></a>      )</span>
+<span id="cb27-92"><a href="#cb27-92" aria-hidden="true" tabindex="-1"></a>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: Removed 648 rows containing non-finite outside the scale range
+(`stat_align()`).</code></pre>
+</div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-right">
+<figure class="figure">
+<p><img src="20260506_bioc_africa_files/figure-html/se_field-1.png" class="img-fluid quarto-figure quarto-figure-right figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="notes">
+<p>The same data container is used in different fields. So to analyse multi-omics data, you need to know only one data container.</p>
+</div>
+</section>
+<section id="take-home-messages" class="level2">
+<h2 class="anchored" data-anchor-id="take-home-messages">Take home messages</h2>
+<ol type="1">
+<li>Community is the key</li>
+<li>(Tree)SummarizedExperiment is a structured way to handle complex (biological) data</li>
+</ol>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/TreeSE.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:10.0%" alt="TreeSummarizedExperiment class"></p>
+</figure>
+</div>
+</section>
+<section id="references" class="level2">
+
+
+
+
+</section>
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-Amezquita2020" class="csl-entry" role="listitem">
+Amezquita, Robert A, Aaron T L Lun, Etienne Becht, Vince J Carey, Lindsay N Carpp, Ludwig Geistlinger, Federico Marini, et al. 2020. <span>“Orchestrating Single-Cell Analysis with <span>Bioconductor</span>.”</span> <em>Nature Methods</em> 17 (2): 137–45. <a href="https://doi.org/10.1038/s41592-019-0654-x">https://doi.org/10.1038/s41592-019-0654-x</a>.
+</div>
+<div id="ref-Huang2021" class="csl-entry" role="listitem">
+Huang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. <span>“TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.”</span> <em>F1000Research</em> 9: 1246. <a href="https://doi.org/10.12688/f1000research.26669.2">https://doi.org/10.12688/f1000research.26669.2</a>.
+</div>
+<div id="ref-Huber2015" class="csl-entry" role="listitem">
+Huber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. <span>“<span>O</span>rchestrating High-Throughput Genomic Analysis with <span>B</span>ioconductor.”</span> <em>Nature Methods</em> 12 (2): 115–21. <a href="http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html">http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html</a>.
+</div>
+<div id="ref-McMurdie2013" class="csl-entry" role="listitem">
+McMurdie, PJ, and S Holmes. 2013. <span>“<span><em>Phyloseq:</em></span> An r Package for Reproducible Interactive Analysis and Graphics of Microbiome Census Data.”</span> <em>PLoS ONE</em> 8: e61217. <a href="https://doi.org/10.1371/journal.pone.0061217">https://doi.org/10.1371/journal.pone.0061217</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
