@@ -1,0 +1,871 @@
+---
+title: "Orchestrating Microbiome Analysis with Bioconductor"
+subtitle: "Bioconductor Africa Seminar Series, May 2026"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+date: last-modified
+date-format: full
+bibliography: references.bib
+---
+
+## About me {.smaller}
+
+::: columns
+
+::: {.column width="35%"}
+
+![](images/borman.jpeg){fig-align="left" width="45%"}
+
+**Tuomas Borman**
+
+- Doctoral Researcher at the University of Turku, Finland ([Turku Data Science Group](https://datascience.utu.fi/))
+
+- Developing microbiome data science R/Bioconductor packages
+:::
+
+::: {.column width="65%"}
+
+```{r}
+#| label: personal_timeline
+#| fig-width: 8
+#| fig-height: 6
+
+library(ggplot2)
+library(ggrepel)
+
+timeline_arrows <- data.frame(
+  start = c(2017, 2020, 2023, 2024, 2025, 2020),
+  end   = c(2022, 2023, 2026, 2026, 2026, 2026),
+  y     = c(0.20, 0.10, 0.05, -0.15, -0.25, -0.35),
+  label = c(
+    "BSc + MSc (Tech)",
+    "BSc + MSc (Econ)",
+    "DSc (Tech)",
+    "Board Member\nFinnish Society for Bioinformatics",
+    "Board Member\nBioconductor CAB",
+    "Researcher\nTurku Data Science Group"
+  ),
+  type = c("Academic", "Academic", "Academic", "Service", "Service", "Service"),
+  ongoing = c(FALSE, FALSE, TRUE, TRUE, TRUE, TRUE)
+)
+
+timeline_arrows$mid <- (timeline_arrows$start + timeline_arrows$end) / 2
+
+ggplot() +
+  annotate(
+    "segment", x = 2016, xend = 2026, y = 0, yend = 0,
+    arrow = arrow(length = unit(0.4, "cm"), type = "closed"),
+    linewidth = 1.2, color = "black"
+  ) +
+  geom_segment(
+    data = timeline_arrows,
+    aes(x = start, xend = end, y = y, yend = y,
+        color = type, linetype = ongoing),
+    arrow = arrow(length = unit(0.35, "cm"), type = "closed"),
+    linewidth = 2
+  ) +
+  geom_label_repel(
+    data = timeline_arrows,
+    aes(x = mid, y = y, label = label),
+    size = 4.5,
+    fontface = "bold",
+    box.padding = 0.5,
+    point.padding = 0.8,
+    direction = "y",
+    nudge_y = 0.05,
+    max.overlaps = Inf,
+    segment.color = NA,
+    fill = "white",
+    label.size = 0
+  ) +
+  scale_color_manual(values = c("Academic" = "#2C3E50", "Service" = "#2C3E50")) +
+  scale_linetype_manual(values = c("FALSE" = "solid", "TRUE" = "dashed")) +
+  scale_x_continuous(breaks = 2017:2026, limits = c(2016, 2026)) +
+  scale_y_continuous(limits = c(-0.4, 0.35)) +
+  theme_minimal(base_size = 14) +
+  theme(
+    axis.title = element_blank(),
+    axis.text.y = element_blank(),
+    axis.text.x = element_text(size = 12),
+    axis.ticks = element_blank(),
+    panel.grid = element_blank(),
+    legend.position = "none"
+  )
+```
+
+:::
+
+:::
+
+## European Bioconductor Conference 2026 in Turku!
+
+```{r}
+#| label: show_eurobioc
+#| fig-width: 10
+#| fig-height: 10
+#| fig-align: right
+#| eval: true
+
+library(webshot2)
+library(magick)
+
+# Take the screenshot and save to a temporary file
+tmpfile <- tempfile(fileext = ".png")
+
+temp <- webshot(
+    url = "https://eurobioc2026.bioconductor.org/",
+    file = tmpfile
+)
+temp
+```
+
+::: {.callout-tip appearance="simple" title="" icon=false}
+[eurobioc2026.bioconductor.org](https://eurobioc2026.bioconductor.org){preview-link="true"}
+:::
+
+## Topics
+
+Week 1. Ecosystems  
+Week 2. End-to-end workflow  
+Week 3. Statistical analysis
+
+# Microbiome data science ecosystems
+
+## Bioconductor
+
+- Community-driven, global open-source project
+- Started in 2001 from genomics
+- High impact across bioinformatics
+
+![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo." fig-align="right" width="10%"}
+
+::: notes
+- Project for developing software in bioinformatics.
+- Over 1.5 million distinct IPs per year are downloading.
+- 50,000+ citations in PubMed
+:::
+
+## Collaborative development
+
+![](images/alchemy.png)
+
+::: notes
+
+- Alchemists tried to do gold from inexpensive materials (iron, urine) in middle ages and before and after that
+- They did lots of studies which of course failed. But instead of criticizing the theory, they were blaming the laboratory equipment.
+- Also, if experiments seemed to be working, they did not replicate the results.
+
+- Closed communities without critisism.
+
+- Chemistry as a field of science was formed when they started to form communities that criticized the theories which led to advancements
+
+- Same goes with bioinformatics. That is why communities and open science are very important.
+- Open source code, publishing code and data.
+
+Science is a community effort: **quality & impact**
+:::
+
+## Collaborative development
+
+- Software & data repository
+- Tutorials & documentation
+- Community support & events
+
+![](images/community_map.png){width="327"}
+
+::: notes
+- Bioconductor is based on collaborative developments
+- Everyone can contribute. Open access.
+- Documentation helps to replicate results and critically assess the methods
+- Community building is important in building community that can assess discoveries
+- Conferences in North America, Asia and Europe
+:::
+
+## Open (microbiome) data science ecosystems
+
+![](images/microbiome_ecosystems.png)
+
+::: notes
+- Several microbiome data cience community exist
+- They differ from their scope and community, but they are also overlapping
+
+QIIME2 you can do the upstream and downstream analysis, but Bioconductor aces in statistical analysis.
+
+Bioconductor emphasizes interoperability across ecosystems. You can utilize QIIME2 in taxonomy mapping and Bioconductor in statistical analysis. From ecosystem to ecosystem, from R to Python.
+
+All these ecosystems have own pros and cons, and you should be aware that they exist.
+:::
+
+## Bioconductor software
+
+-   \~2,300 R packages
+-   Review, testing, documentation
+
+```{r}
+#| label: bioc_packages
+#| eval: true
+
+# Get packages and info based on their BiocViews
+pkgs <- BiocPkgTools::biocPkgList()
+#
+pkgs[["SE"]] <- sapply(pkgs$Depends, function(x) any(grepl("summarizedexperiment", x, ignore.case = TRUE)) )
+fields <- sapply(pkgs$biocViews, function(x){
+    field <- "Other"
+    if( any(grepl("genomic|genetic|gene|genom|DNA", x, ignore.case = TRUE)) ){
+        field <- "Genomics"
+    }
+    if( any(grepl("proteomics|protein", x, ignore.case = TRUE)) ){
+        field <- "Proteomics"
+    }
+    if( any(grepl("metabolomics|metabolome|metabolite|Lipidom|massspectro", x, ignore.case = TRUE)) ){
+        field <- "Metabolomics"
+    }
+    if( any(grepl("transcripto|RNA-seq|RNA", x, ignore.case = TRUE)) ){
+        field <- "Transcriptomics"
+    }
+    if( any(grepl("immuno", x, ignore.case = TRUE)) ){
+        field <- "Immunology"
+    }
+    if( any(grepl("cytom", x, ignore.case = TRUE)) ){
+        field <- "Cytometrics"
+    }
+    if( any(grepl("microarray|chip", x, ignore.case = TRUE)) ){
+        field <- "Microarray"
+    }
+    if( any(grepl("single-cell|singlecell", x, ignore.case = TRUE)) ){
+        field <- "Single-cell"
+    }
+    if( any(grepl("metagenom|microbiome|16S|microbiota|amplicon|shotgun|microb|metatranscript|metametabolo|metaproteo", x, ignore.case = TRUE)) ){
+        field <- "Microbiome"
+    }
+    return(field)
+})
+pkgs[["Field"]] <- fields
+pkgs[pkgs[["Package"]] %in% c("mia", "miaViz", "miaSim", "iSEEtree", "HoloFoodR", "MGnifyR"), "Field"] <- "Microbiome"
+# Get download stats 
+df <- BiocPkgTools::biocDownloadStats()
+# Subset to include only packages which BiocView we have
+df <- df[df$Package %in% pkgs$Package, ]
+# submitted <- BiocPkgTools::firstInBioc(df)
+# df <- df[df$Package %in% pkgs$Package, ] # Take into account only current packages
+pkgs <- pkgs[, c("Package", "SE", "Field")]
+# Get table that shows which package is available in each date
+dates <- df$Date |> unique()
+dates <- dates[ dates < lubridate::floor_date(Sys.time(), "month") ]
+available <- lapply(dates, function(date){
+    temp <- df[df[["Date"]] == date, ]
+    temp <- temp[match(unique(df$Package), temp$Package), ]
+    temp <- temp[["Nb_of_distinct_IPs"]] > 0 | temp[["Nb_of_downloads"]] > 0
+    temp[is.na(temp)] <- FALSE
+    temp <- as.numeric(temp)
+    return(temp)
+})
+available <- do.call(cbind, available) |> as.data.frame()
+rownames(available) <- unique(df$Package)
+colnames(available) <- dates
+#
+ind <- pkgs[match(unique(df$Package), pkgs$Package), "Field"][[1]]
+pkgs_date <- rowsum(available, group = ind)
+# Put into long format
+library(tidyverse)
+pkgs_date <- pkgs_date %>%
+    rownames_to_column("Field") %>%
+    pivot_longer(
+        cols = colnames(pkgs_date)[ !colnames(pkgs_date) %in% c("Field")], 
+        names_to = "Date",
+        values_to = "N"
+    )
+pkgs_date[["Date"]] <- as.Date(pkgs_date[["Date"]])
+
+# Create a plot that shows number of package through date
+p1 <- ggplot(pkgs_date, aes(x = Date, y = N, fill = Field)) +
+    geom_area() + theme_classic() + scale_fill_brewer(palette = "Paired") +
+    labs(x = "Year", y = "Number of packages") +
+    scale_x_date(
+        expand = c(0, 0),
+        limits = c(min(pkgs_date[["Date"]]), max(pkgs_date[["Date"]]))
+    ) +
+    scale_y_continuous(expand = c(0, 0)) +
+    theme_classic(base_size = 18)
+```
+
+```{r}
+#| label: number_of_users
+#| fig-width: 15
+
+library(BiocPkgTools)
+library(ggplot2)
+library(scales)
+library(patchwork)
+
+df <-biocDownloadStats()
+df <- df[df$Package == "mia", ]
+
+years <- firstInBioc(df)[["Year"]]:as.integer(format(Sys.Date(), "%Y"))
+
+years <- 2009:as.integer(format(Sys.Date(), "%Y"))
+
+base_url <- "https://bioconductor.org/packages/stats/bioc"
+all_data <- list()
+
+for (yr in years) {
+    url <- sprintf("%s/bioc_%d_stats.tab", base_url, yr)
+    # try downloading safely
+    try({
+        df <- read.delim(url)
+        df$Year <- yr
+        all_data[[as.character(yr)]] <- df
+    }, silent=TRUE)
+}
+
+all_data <- do.call(rbind, all_data)
+df <- all_data[all_data[["Month"]] == "all", ]
+
+df[["date"]] <- as.Date(paste0(df[["Year"]], "-01-01"))
+
+p2 <- ggplot(df, aes(x = date, y = Nb_of_distinct_IPs)) +
+    geom_col(fill = "gray", colour = "black") +
+    scale_y_continuous(
+        labels = label_number(scale_cut = cut_si("")),
+        expand = c(0, 0)
+    ) +
+    scale_x_date(
+        expand = c(0, 0),
+        limits = c(min(df[["date"]]), max(df[["date"]]))
+    ) +
+    labs(
+        x = NULL,
+        y = "Number of downloads from distinct IPs",
+    ) +
+    theme_classic(base_size = 18) 
+
+p1 + p2
+```
+
+::: notes
+1.  Popularity has grown.
+2.  Broad range of fields (microbiome is rather small, but steadily raising \~ 50 packages)
+3.  Over 2,300 R packages
+4.  Not limited to R, but R has been the main language. Activity in Python and Julia.
+5.  Special abut Bioconductor is the rather strict requirements which ensure the high-quality.
+
+Review process when submitting (novel, relevant, works as it should be, documentation is sufficient) Testing is done automatically (daily). Software must be accessible. --\> documentation must be good
+:::
+
+
+## Bioconductor ecosystems
+
+```{r}
+#| label: microbiome_bioconductor
+#| fig-width: 15
+#| fig-height: 6
+
+library(ggplot2)
+library(ggrepel)
+
+# Timeline data
+timeline_data <- data.frame(
+    year = c(2012, 2015, 2017, 2019),
+    event = c(
+        "phyloseq\nMcMurdie and Holmes, 2013",
+        "SummarizedExperiment\nHuber et al., 2015",
+        "SingleCellExperiment\nAmezquita et al., 2020", 
+        "TreeSummarizedExperiment\nHuang et al., 2021"
+    )
+)
+
+# Create a single polygon for the entire arrow (rectangle + arrowhead)
+arrow_data <- data.frame(
+    x = c(2021, 2024.5, 2024.5, 2025, 2024.5, 2024.5, 2021),
+    y = c(-0.14, -0.14, -0.16, -0.10, -0.04, -0.06, -0.06)
+)
+
+ggplot(timeline_data, aes(x = year, y = 0)) +
+    # Base timeline
+    annotate(
+        "segment", x = 2011, xend = 2025, y = 0, yend = 0,
+        arrow = arrow(length = unit(0.4, "cm"), type = "closed"),
+        linewidth = 1.5, color = "gray40"
+        ) +
+    
+    # Timeline points and segments
+    geom_point(size = 5, color = "#2C3E50") +
+    
+    # Repelled labels
+    geom_label_repel(
+        aes(
+          label = event),
+          direction = "y",
+          nudge_y = 0.02,
+          box.padding = 0.4,
+          point.padding = 0.5,
+          size = 5,
+          fontface = "bold",
+          color = "#34495E",
+          segment.color = "gray60"
+        ) +
+    
+    # mia: draw arrow-box from 2021 to 2025
+    geom_polygon(
+        data = arrow_data,
+        mapping = aes(x = x, y = y),
+        fill = "white", color = "black", linewidth = 0.8
+        ) +
+    annotate(
+        "text", x = 2022.75, y = -0.10,
+        label = "OMA\n(Borman et al., 2025)",
+        size = 5, fontface = "bold", color = "black", lineheight = 1.1
+        ) +
+    
+    # Final theming
+    scale_x_continuous(
+        breaks = c(timeline_data$year, 2021, 2025),
+        limits = c(2010, 2025)
+        ) +
+    scale_y_continuous(limits = c(-0.25, 0.3)) +
+    theme_minimal(base_size = 15) +
+    theme(
+        axis.title = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_text(size = 16),
+        axis.ticks = element_blank(),
+        panel.grid = element_blank(),
+        legend.position = "none",
+        plot.title = element_text(face = "bold", size = 16, hjust = 0.5)
+    )
+```
+
+::: notes
+Over the years, several approaches to data organization have been developed. One of the first widely adopted data containers in microbiome research was `r BiocStyle::Biocpkg("phyloseq")` [@McMurdie2013], designed for 16S amplicon sequencing data. However, it has limitations, particularly in linking multiple experiments and ensuring interoperability between tools in Bioconductor.
+
+`r BiocStyle::Biocpkg("SummarizedExperiment")` (SE) [@Huber2015], on the other hand, was introduced as a general-purpose container for biological data and has become the most widely used format within the Bioconductor ecosystem. It has since been extended to more specialized formats, including `r BiocStyle::Biocpkg("SingleCellExperiment")` [@Amezquita2020] for single-cell data and `r BiocStyle::Biocpkg("TreeSummarizedExperiment")` (TreeSE) [@Huang2021], which is tailored for microbiome datasets.
+:::
+
+## Orchestrating Microbiome Analysis, OMA
+
+```{r}
+#| label: mia_stats
+#| eval: true
+
+library(BiocPkgTools)
+
+perc <- pkgDownloadRank("mia")
+perc <- paste0(perc, "%")
+
+df <-biocDownloadStats()
+df <- df[df$Package == "mia", ]
+
+years <- firstInBioc(df)[["Year"]]:as.integer(format(Sys.Date(), "%Y"))
+
+base_url <- "https://bioconductor.org/packages/stats/bioc/mia"
+all_data <- list()
+
+for (yr in years) {
+    url <- sprintf("%s/mia_%d_stats.tab", base_url, yr)
+    # try downloading safely
+    try({
+        df <- read.delim(url)
+        df$Year <- yr
+        all_data[[as.character(yr)]] <- df
+    }, silent=TRUE)
+}
+
+all_data <- do.call(rbind, all_data)
+df <- all_data[all_data[["Month"]] == "all", ]
+
+last_year <- sort(df[["Year"]])[ which(sort(df[["Year"]]) == as.integer(format(Sys.Date(), "%Y")))-1 ]
+
+num_downloads <- df[df[["Year"]] == last_year, "Nb_of_distinct_IPs"]
+num_downloads <- floor(num_downloads / 1000) * 1000
+
+num_downloads <- paste0(format(num_downloads, big.mark = ","))
+```
+
+-   Microbiome data science ecosystem
+-   "Downstream", statistical analysis
+-   Microbiome Analysis (`r BiocStyle::Biocpkg("mia")`): \> `r if(exists("num_downloads")) num_downloads else "*ERROR*"` yearly downloads from distinct IPs (top `r if(exists("perc")) perc else "*ERROR*"` in Bioconductor)
+
+::: {style="text-align: right;"}
+<img src="images/BioconductorSticker1.png" alt="Bioconductor sticker" width="200" style="margin-left: 10px;"/> <img src="images/mia_logo.png" alt="mia logo" width="200"/>
+:::
+
+::: notes
+1.  Within Bioconductor, we have developed microbiome data science ecosystem
+2.  For downstream analysis
+3.  Aligned and tightly linked with broader Bioconductor ecosystem
+:::
+
+## 
+
+[![](images/oma_publication.png)](https://www.biorxiv.org/content/10.1101/2025.10.29.685036v1)
+
+::: notes
+Preprint available
+:::
+
+## Benefits
+
+1.  Tightly linked with broader Bioconductor ecosystem
+2.  Improved scalability
+3.  Improved multi-table integration
+
+::: notes
+1.  We use same data format as broader Bioconductor ecosystem. Some of you might know phyloseq. That was specifically designed for 16S amplicon data, and is not supported outside its ecosystem. Moreover, microbiome data science is nowadays more than sequencing data, it links different fields from metabolomics to genomics. Same data format allows us to use methods from different fields.
+2.  The ecosystem is more scalable; speed and memory wise than phyloseq and its more efficient alternative, speedyseq. It is not uncommon anymore that there are tens of thousands of samples and features so we need efficient software to run these big datasets.
+3.  This ecosystem allows us to link multiple tables together, facilitating multi-omics integration by supporting management of this kind of complex datasets.
+:::
+
+## Community-driven ecosystem of tools {.smaller}
+
+::::: columns
+::: {.column width="70%"}
+-   `r BiocStyle::Biocpkg("mia")` (Data analysis)
+-   `r BiocStyle::Biocpkg("miaViz")` (Visualization)
+-   `r BiocStyle::Biocpkg("miaSim")` (Simulation)
+-   [miaTime](https://github.com/microbiome/miaTime) (Time series analysis)
+-   `r BiocStyle::Biocpkg("miaDash")` (Graphical user interface)
+-   `r BiocStyle::Biocpkg("iSEETree")` (Interactive visualization)
+-   [Expanded by independent developers](https://microbiome.github.io/OMA/docs/devel/pages/miaverse.html#sec-packages)
+:::
+
+::: {.column width="30%"}
+![](https://raw.githubusercontent.com/microbiome/mia/refs/heads/devel/man/figures/mia_logo.png){fig-alt="mia logo." width="20%"} ![](https://raw.githubusercontent.com/EBI-Metagenomics/MGnifyR/refs/heads/devel/man/figures/mgnifyr_logo.png){fig-alt="MGnifyR logo." width="20%"} ![](https://raw.githubusercontent.com/EBI-Metagenomics/HoloFoodR/refs/heads/devel/man/figures/holofoodr_logo.png){fig-alt="HoloFoodR logo." width="20%"} ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/iSEE/iSEE.png){fig-alt="iSEE logo." width="20%"} ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/MultiAssayExperiment/MultiAssayExperiment.png){fig-alt="MAE logo." width="20%"} ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SummarizedExperiment/SummarizedExperiment.png){fig-alt="SE logo." width="20%"} ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SingleCellExperiment/SingleCellExperiment.png){fig-alt="SCE logo." width="20%"} ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/scater/scater.png){fig-alt="scater logo." width="20%"} ![](https://pbs.twimg.com/media/FDNU5KgWYAcnU8w.jpg){fig-alt="benchdamic logo." width="20%"} ![](https://netcomi.de/logo.png){fig-alt="netcomi logo." width="20%"} ![](https://raw.githubusercontent.com/statdivlab/radEmu/refs/heads/main/man/figures/logo.png){fig-alt="radEmu logo." width="20%"} ![](https://mikelove.github.io/assets/DESeq2.png){fig-alt="DESeq2 logo." width="20%"} ![](https://avatars.githubusercontent.com/u/18152373?s=280&v=4){fig-alt="Biobakery logo." width="20%"} ![](https://raw.githubusercontent.com/thomazbastiaanssen/anansi/refs/heads/devel/man/figures/anansi_hex.png){fig-alt="anansi logo." width="20%"}
+:::
+:::::
+
+::: notes
+Ecosystem of packages developed by the community. mia provides the basic operations in microbiome data analysis. miaViz has the methods for visualization.
+
+Developed by independent developers who have started to support the ecosystem.
+:::
+
+## Orchestrating Microbiome Analysis with Bioconductor
+
+-   Resources and tutorials for microbiome analysis
+-   Community-built best practices
+-   Open to contributions!
+
+::: callout-tip
+## Go to the Orchestrating Microbiome Analysis (OMA) online book
+
+[bioconductor.org/books/release/OMA/](https://bioconductor.org/books/release/OMA/){preview-link="true"}
+:::
+
+::: notes
+To support users and to collect best practices, there is online book available.
+:::
+
+## Take home message
+
+1. Community is the key
+
+# Data containers
+
+## Data containers
+
+- The core of software
+- Structured, standardized way to manage complex data
+- Enables modular, efficient workflows
+
+```{r}
+#| label: data_container
+
+# Load libraries
+library(ggplot2)
+library(ggforce)
+
+# Adjusting the text positions for better alignment
+ellipse_data <- data.frame(
+    x = c(0, 0, 0),         # Centers of ellipses
+    y = c(2, 1, 0),         # Centers of ellipses
+    a = c(4, 3, 2),         # Widths of ellipses
+    b = c(3, 2, 1),         # Heights of ellipses
+    label = c("COMMUNITY", "METHODS", "DATA CONTAINER"),  # Labels for each ellipse
+    label_y = c(4, 1.75, 0) # Adjusted vertical positions for labels
+)
+
+# Plot with adjusted labels
+ggplot() +
+    geom_ellipse(data = ellipse_data, 
+                 aes(x0 = x, y0 = y, a = a, b = b, angle = 0),
+                 color = "darkgreen", fill = "grey90", alpha = 0.7) +
+    geom_text(data = ellipse_data, 
+              aes(x = x, y = label_y, label = label), 
+              size = 5, fontface = "bold") +
+    coord_fixed() +
+    theme_void()
+```
+
+::: {.notes}
+
+The core of software is formed by data containers.
+
+Structured way to present complex data. Interlinks tables and data types.
+
+In biology, usually we have abundance table, sample metadata, taxonomy table, phylogeny, ...
+
+Managing this complex data set becomes a burden and lead easily to errors.
+
+:::
+
+##
+
+```{r}
+#| label: pages_and_book
+
+library(magick)
+
+img1 <- image_read("images/pile_of_papers.png")
+img2 <- image_read("images/book.png")
+arrow <- image_blank(width = 500, height = 1000, color = "none") %>%
+  image_annotate("→", size = 200, gravity = "center", color = "black")
+
+# Combine images with the arrow
+final_image <- image_append(c(img1, arrow, img2), stack = FALSE)
+
+# Display the final image
+final_image
+```
+
+::: {.notes}
+
+Imagine pile of paper sheets that are unordered. Then imagine a book that holds these same pages in structured way. Would you rather read 100 pages from pile of mess or from book?
+
+:::
+
+##
+
+```{r}
+#| label: data_and_data_container
+
+library(magick)
+
+img1 <- image_read("images/unorganized_data.png")
+img2 <- image_read("images/TreeSE.png")
+img2 <- image_scale(img2, "125%")
+arrow <- image_blank(width = 500, height = 1000, color = "none") |>
+  image_annotate("→", size = 200, gravity = "center", color = "black")
+
+# Combine images with the arrow
+final_image <- image_append(c(img1, arrow, img2), stack = FALSE)
+
+# Display the final image
+final_image
+```
+
+::: {.notes}
+
+The same idea goes with the data containers. Instead of managing tables separately you can put them to this data container.
+
+:::
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+
+::: {.notes}
+
+Original assay and transformations, along with different experiments
+
+:::
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+
+::: {.notes}
+
+Phylogeny and sample hierarchy (patients are relatives, or sampling places can be structured hierarchically etc)
+
+:::
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+- **Side information**: extended capabilities & data types
+
+::: {.notes}
+
+Sample metadata, taxonomy table...
+
+:::
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+- **Side information**: extended capabilities & data types
+- **Optimized**: for speed & memory
+
+::: {.notes}
+
+Datasets have increased in size. Both sample-wise and feature-wise (more resolution).
+
+:::
+
+## Optimal container for microbiome data? {auto-animate=true}
+
+- **Multiple assays**: seamless interlinking
+- **Hierarchical data**: supporting samples & features
+- **Side information**: extended capabilities & data types
+- **Optimized**: for speed & memory
+- **Integrated**: with other applications & frameworks
+
+::: {.notes}
+
+Not anymore just sequencing data, but microbiome is combining different fields --> we have to have way to apply these methods from different fields.
+
+Advancing bioinformatics in collaboration with other fields.
+
+Innovations (applicable methods from other field)
+
+Bioconductor aims to harmonize the data format so that the same format can be used through the ecosystem.
+
+In biological data science, we apply similar techniques despite the field.
+
+:::
+
+## `r BiocStyle::Biocpkg("TreeSummarizedExperiment")`
+<small>[@Huang2021]</small>
+
+![](images/TreeSE.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=10%}
+
+::: {.notes}
+
+Extension to SummarizedExperiment
+
+Tailored for biological data science.
+
+Go thorugh every slot.
+
+:::
+
+## `r BiocStyle::Biocpkg("SummarizedExperiment")`
+<small>[@Huber2015]</small>
+
+```{r}
+#| label: se_field
+#| fig-align: "right"
+#| eval: true
+
+
+if( !require("BiocManager") ){
+    install("BiocManager")
+}
+pkgs <- c("BiocPkgTools", "lubridate", "tidyverse")
+temp <- sapply(pkgs, function(pkg){
+    if( !require(pkg, character.only = TRUE) ){
+        BiocManager::install(pkg)
+        library(pkg, character.only = TRUE)
+    }
+})
+
+# Get packages and info based on their BiocViews
+pkgs <- biocPkgList()
+#
+pkgs[["SE"]] <- sapply(pkgs[["Depends"]], function(x) any(grepl("summarizedexperiment", x, ignore.case = TRUE)) )
+pkgs <- pkgs[pkgs[["SE"]], ]
+fields <- sapply(pkgs$biocViews, function(x){
+    field <- "Other"
+    if( any(grepl("genomic|genetic|gene|genom|DNA", x, ignore.case = TRUE)) ){
+        field <- "Genomics"
+    }
+    if( any(grepl("proteomics|protein", x, ignore.case = TRUE)) ){
+        field <- "Proteomics"
+    }
+    if( any(grepl("metabolomics|metabolome|metabolite|Lipidom|massspectro", x, ignore.case = TRUE)) ){
+        field <- "Metabolomics"
+    }
+    if( any(grepl("transcripto|RNA-seq|RNA", x, ignore.case = TRUE)) ){
+        field <- "Transcriptomics"
+    }
+    if( any(grepl("immuno", x, ignore.case = TRUE)) ){
+        field <- "Immunology"
+    }
+    if( any(grepl("cytom", x, ignore.case = TRUE)) ){
+        field <- "Cytometrics"
+    }
+    if( any(grepl("microarray|chip", x, ignore.case = TRUE)) ){
+        field <- "Microarray"
+    }
+    if( any(grepl("single-cell|singlecell", x, ignore.case = TRUE)) ){
+        field <- "Single-cell"
+    }
+    if( any(grepl("metagenom|microbiome|16S|microbiota|amplicon|shotgun|microb|metatranscript|metametabolo|metaproteo", x, ignore.case = TRUE)) ){
+        field <- "Microbiome"
+    }
+    return(field)
+})
+pkgs[["Field"]] <- fields
+pkgs[pkgs[["Package"]] %in% c("mia", "miaViz", "miaSim", "iSEEtree", "HoloFoodR", "MGnifyR"), "Field"] <- "Microbiome"
+# Get download stats 
+df <- biocDownloadStats()
+# Subset to include only packages which BiocView we have
+df <- df[df[["Package"]] %in% pkgs$Package, ]
+# Add field info
+df[["Field"]] <- pkgs[match(df[["Package"]], pkgs[["Package"]]), "Field"][[1]]
+# df <- df[df$Package %in% pkgs$Package, ] # Take into account only current packages
+pkgs <- pkgs[, c("Package", "SE", "Field")]
+# Get table that shows which package is available in each date
+dates <- df$Date |> unique()
+dates <- dates[ dates < floor_date(Sys.time(), "month") ]
+available <- lapply(dates, function(date){
+    temp <- df[df[["Date"]] == date, ]
+    temp <- temp[match(unique(df$Package), temp$Package), ]
+    temp <- temp[["Nb_of_distinct_IPs"]] > 0 | temp[["Nb_of_downloads"]] > 0
+    temp[is.na(temp)] <- FALSE
+    temp <- as.numeric(temp)
+    return(temp)
+})
+available <- do.call(cbind, available) |> as.data.frame()
+rownames(available) <- unique(df[["Package"]])
+colnames(available) <- dates
+#
+ind <- pkgs[match(unique(df[["Package"]]), pkgs[["Package"]]), "Field"][[1]]
+pkgs_date <- rowsum(available, group = ind)
+# Put into long format
+pkgs_date <- pkgs_date |>
+    rownames_to_column("Field") |>
+    pivot_longer(
+        cols = colnames(pkgs_date)[ !colnames(pkgs_date) %in% c("Field")], 
+        names_to = "Date",
+        values_to = "N"
+    )
+pkgs_date[["Date"]] <- pkgs_date[["Date"]] |> as.Date()
+
+# Create a plot that shows number of package through date
+p <- ggplot(pkgs_date, aes(x = Date, y = N, fill = Field)) +
+    geom_area() +
+    theme_classic(base_size = 18) +
+    scale_fill_brewer(palette = "Paired") +
+    labs(x = "Year", y = "Number of packages") +
+    scale_y_continuous(expand = c(0, 0), limits = c(0, NA)) +
+     scale_x_date(
+          limits = c(as.Date("2015-01-01"), max(pkgs_date[["Date"]]))
+      )
+p
+```
+
+::: {.notes}
+
+The same data container is used in different fields. So to analyse multi-omics data, you need to know only one data container.
+
+:::
+
+## Take home messages
+
+1. Community is the key
+2. (Tree)SummarizedExperiment is a structured way to handle complex (biological) data
+
+![](images/TreeSE.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=10%}
+
+## References
