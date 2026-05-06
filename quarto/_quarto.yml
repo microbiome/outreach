@@ -3,6 +3,7 @@ project:
   output-dir: ../docs
   render:
     - index.qmd
+    - 20260506_bioc_africa.qmd
     - agglomeration.qmd
     - alpha_diversity.qmd
     - beta_diversity.qmd
@@ -25,5 +26,3 @@ project:
     - outro.qmd
     - reproducible_reporting.qmd
     - transformation.qmd
-
-

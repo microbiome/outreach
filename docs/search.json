@@ -564,7 +564,7 @@
     "href": "index.html#topics",
     "title": "Quarto presentations",
     "section": "Topics",
-    "text": "Topics\n\nIntroduction\n\nBioconductor\nReproducible reporting\nData containers\nImport data\n\nPreprocessing\n\nAgglomeration\nTransformation\n\nDiversity\n\nAlpha diversity\nBeta diversity\n\nOrdination\n\n\nAssociation\n\nDifferential abundance analysis\nFunctional analysis\n\nMulti-omics\n\nMulti-omics\n\nMachine learning\n\nMachine learning\n\n\n\nPackages\n\nMGnifyR: An R package for accessing MGnify microbiome data\nmiaDash: Microbiome Analysis Dashboard\nmiaSim: Microbiome simulation\n\n\n\nData sets\n\nHintikkaXO\nTengeler2020\n\n\n\nConference and seminar presentations\n\nOrchestrating microbiome multi-omics (BioC2023)\nOrchestrating Microbiome Analysis with Bioconductor (OH-BOOST, Microbiota Data Analysis and Statistics, webinar)\nOrchestrating Microbiome Analysis with Bioconductor (GBCC2025)\nOrchestrating Microbiome Analysis with Bioconductor (ISMB/ECCB 2025)\n\n\n\nCourses\n\nIntroduction\nOutro"
+    "text": "Topics\n\nIntroduction\n\nBioconductor\nReproducible reporting\nData containers\nImport data\n\nPreprocessing\n\nAgglomeration\nTransformation\n\nDiversity\n\nAlpha diversity\nBeta diversity\n\nOrdination\n\n\nAssociation\n\nDifferential abundance analysis\nFunctional analysis\n\nMulti-omics\n\nMulti-omics\n\nMachine learning\n\nMachine learning\n\n\n\nPackages\n\nMGnifyR: An R package for accessing MGnify microbiome data\nmiaDash: Microbiome Analysis Dashboard\nmiaSim: Microbiome simulation\n\n\n\nData sets\n\nHintikkaXO\nTengeler2020\n\n\n\nConference and seminar presentations\n\nOrchestrating microbiome multi-omics (BioC2023)\nOrchestrating Microbiome Analysis with Bioconductor (OH-BOOST, Microbiota Data Analysis and Statistics, webinar)\nOrchestrating Microbiome Analysis with Bioconductor (GBCC2025)\nOrchestrating Microbiome Analysis with Bioconductor (ISMB/ECCB 2025)\nOrchestrating Microbiome Analysis with Bioconductor (Bioconductor Africa Seminar Series, May 2026)\n\n\n\nCourses\n\nIntroduction\nOutro"
   },
   {
     "objectID": "index.html#contributions",
@@ -1860,5 +1860,201 @@
     "title": "Differential abundance analysis (DAA)",
     "section": "",
     "text": "A Critique of Differential Abundance Analysis, and Advocacy for an Alternative. Thomas P. Quinn, Elliott Gordon-Rodriguez, Ionas Erb. arXiv:2104.07266 [stat.ME]"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html",
+    "href": "20260506_bioc_africa.html",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "Tuomas Borman\n\nDoctoral Researcher at the University of Turku, Finland (Turku Data Science Group)\nDeveloping microbiome data science R/Bioconductor packages\n\n\n\nlibrary(ggplot2)\nlibrary(ggrepel)\n\ntimeline_arrows &lt;- data.frame(\n  start = c(2017, 2020, 2023, 2024, 2025, 2020),\n  end   = c(2022, 2023, 2026, 2026, 2026, 2026),\n  y     = c(0.20, 0.10, 0.05, -0.15, -0.25, -0.35),\n  label = c(\n    \"BSc + MSc (Tech)\",\n    \"BSc + MSc (Econ)\",\n    \"DSc (Tech)\",\n    \"Board Member\\nFinnish Society for Bioinformatics\",\n    \"Board Member\\nBioconductor CAB\",\n    \"Researcher\\nTurku Data Science Group\"\n  ),\n  type = c(\"Academic\", \"Academic\", \"Academic\", \"Service\", \"Service\", \"Service\"),\n  ongoing = c(FALSE, FALSE, TRUE, TRUE, TRUE, TRUE)\n)\n\ntimeline_arrows$mid &lt;- (timeline_arrows$start + timeline_arrows$end) / 2\n\nggplot() +\n  annotate(\n    \"segment\", x = 2016, xend = 2026, y = 0, yend = 0,\n    arrow = arrow(length = unit(0.4, \"cm\"), type = \"closed\"),\n    linewidth = 1.2, color = \"black\"\n  ) +\n  geom_segment(\n    data = timeline_arrows,\n    aes(x = start, xend = end, y = y, yend = y,\n        color = type, linetype = ongoing),\n    arrow = arrow(length = unit(0.35, \"cm\"), type = \"closed\"),\n    linewidth = 2\n  ) +\n  geom_label_repel(\n    data = timeline_arrows,\n    aes(x = mid, y = y, label = label),\n    size = 4.5,\n    fontface = \"bold\",\n    box.padding = 0.5,\n    point.padding = 0.8,\n    direction = \"y\",\n    nudge_y = 0.05,\n    max.overlaps = Inf,\n    segment.color = NA,\n    fill = \"white\",\n    label.size = 0\n  ) +\n  scale_color_manual(values = c(\"Academic\" = \"#2C3E50\", \"Service\" = \"#2C3E50\")) +\n  scale_linetype_manual(values = c(\"FALSE\" = \"solid\", \"TRUE\" = \"dashed\")) +\n  scale_x_continuous(breaks = 2017:2026, limits = c(2016, 2026)) +\n  scale_y_continuous(limits = c(-0.4, 0.35)) +\n  theme_minimal(base_size = 14) +\n  theme(\n    axis.title = element_blank(),\n    axis.text.y = element_blank(),\n    axis.text.x = element_text(size = 12),\n    axis.ticks = element_blank(),\n    panel.grid = element_blank(),\n    legend.position = \"none\"\n  )"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#about-me",
+    "href": "20260506_bioc_africa.html#about-me",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "Tuomas Borman\n\nDoctoral Researcher at the University of Turku, Finland (Turku Data Science Group)\nDeveloping microbiome data science R/Bioconductor packages\n\n\n\nlibrary(ggplot2)\nlibrary(ggrepel)\n\ntimeline_arrows &lt;- data.frame(\n  start = c(2017, 2020, 2023, 2024, 2025, 2020),\n  end   = c(2022, 2023, 2026, 2026, 2026, 2026),\n  y     = c(0.20, 0.10, 0.05, -0.15, -0.25, -0.35),\n  label = c(\n    \"BSc + MSc (Tech)\",\n    \"BSc + MSc (Econ)\",\n    \"DSc (Tech)\",\n    \"Board Member\\nFinnish Society for Bioinformatics\",\n    \"Board Member\\nBioconductor CAB\",\n    \"Researcher\\nTurku Data Science Group\"\n  ),\n  type = c(\"Academic\", \"Academic\", \"Academic\", \"Service\", \"Service\", \"Service\"),\n  ongoing = c(FALSE, FALSE, TRUE, TRUE, TRUE, TRUE)\n)\n\ntimeline_arrows$mid &lt;- (timeline_arrows$start + timeline_arrows$end) / 2\n\nggplot() +\n  annotate(\n    \"segment\", x = 2016, xend = 2026, y = 0, yend = 0,\n    arrow = arrow(length = unit(0.4, \"cm\"), type = \"closed\"),\n    linewidth = 1.2, color = \"black\"\n  ) +\n  geom_segment(\n    data = timeline_arrows,\n    aes(x = start, xend = end, y = y, yend = y,\n        color = type, linetype = ongoing),\n    arrow = arrow(length = unit(0.35, \"cm\"), type = \"closed\"),\n    linewidth = 2\n  ) +\n  geom_label_repel(\n    data = timeline_arrows,\n    aes(x = mid, y = y, label = label),\n    size = 4.5,\n    fontface = \"bold\",\n    box.padding = 0.5,\n    point.padding = 0.8,\n    direction = \"y\",\n    nudge_y = 0.05,\n    max.overlaps = Inf,\n    segment.color = NA,\n    fill = \"white\",\n    label.size = 0\n  ) +\n  scale_color_manual(values = c(\"Academic\" = \"#2C3E50\", \"Service\" = \"#2C3E50\")) +\n  scale_linetype_manual(values = c(\"FALSE\" = \"solid\", \"TRUE\" = \"dashed\")) +\n  scale_x_continuous(breaks = 2017:2026, limits = c(2016, 2026)) +\n  scale_y_continuous(limits = c(-0.4, 0.35)) +\n  theme_minimal(base_size = 14) +\n  theme(\n    axis.title = element_blank(),\n    axis.text.y = element_blank(),\n    axis.text.x = element_text(size = 12),\n    axis.ticks = element_blank(),\n    panel.grid = element_blank(),\n    legend.position = \"none\"\n  )"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#european-bioconductor-conference-2026-in-turku",
+    "href": "20260506_bioc_africa.html#european-bioconductor-conference-2026-in-turku",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "European Bioconductor Conference 2026 in Turku!",
+    "text": "European Bioconductor Conference 2026 in Turku!\n\nlibrary(webshot2)\nlibrary(magick)\n\nLinking to ImageMagick 6.9.12.98\nEnabled features: fontconfig, freetype, fftw, heic, lcms, pango, raw, webp, x11\nDisabled features: cairo, ghostscript, rsvg\n\n\nUsing 22 threads\n\n# Take the screenshot and save to a temporary file\ntmpfile &lt;- tempfile(fileext = \".png\")\n\ntemp &lt;- webshot(\n    url = \"https://eurobioc2026.bioconductor.org/\",\n    file = tmpfile\n)\n\nhttps://eurobioc2026.bioconductor.org/ screenshot completed\n\ntemp\n\n\n\n\n\n\n\n\n\n\n\n\n\n\neurobioc2026.bioconductor.org"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#topics",
+    "href": "20260506_bioc_africa.html#topics",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Topics",
+    "text": "Topics\nWeek 1. Ecosystems\nWeek 2. End-to-end workflow\nWeek 3. Statistical analysis"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#bioconductor",
+    "href": "20260506_bioc_africa.html#bioconductor",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Bioconductor",
+    "text": "Bioconductor\n\nCommunity-driven, global open-source project\nStarted in 2001 from genomics\nHigh impact across bioinformatics\n\n\n\n\n\n\n\n\nProject for developing software in bioinformatics.\nOver 1.5 million distinct IPs per year are downloading.\n50,000+ citations in PubMed"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#collaborative-development",
+    "href": "20260506_bioc_africa.html#collaborative-development",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Collaborative development",
+    "text": "Collaborative development\n\n\n\nAlchemists tried to do gold from inexpensive materials (iron, urine) in middle ages and before and after that\nThey did lots of studies which of course failed. But instead of criticizing the theory, they were blaming the laboratory equipment.\nAlso, if experiments seemed to be working, they did not replicate the results.\nClosed communities without critisism.\nChemistry as a field of science was formed when they started to form communities that criticized the theories which led to advancements\nSame goes with bioinformatics. That is why communities and open science are very important.\nOpen source code, publishing code and data.\n\nScience is a community effort: quality & impact"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#collaborative-development-1",
+    "href": "20260506_bioc_africa.html#collaborative-development-1",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Collaborative development",
+    "text": "Collaborative development\n\nSoftware & data repository\nTutorials & documentation\nCommunity support & events\n\n\n\n\nBioconductor is based on collaborative developments\nEveryone can contribute. Open access.\nDocumentation helps to replicate results and critically assess the methods\nCommunity building is important in building community that can assess discoveries\nConferences in North America, Asia and Europe"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#open-microbiome-data-science-ecosystems",
+    "href": "20260506_bioc_africa.html#open-microbiome-data-science-ecosystems",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Open (microbiome) data science ecosystems",
+    "text": "Open (microbiome) data science ecosystems\n\n\n\nSeveral microbiome data cience community exist\nThey differ from their scope and community, but they are also overlapping\n\nQIIME2 you can do the upstream and downstream analysis, but Bioconductor aces in statistical analysis.\nBioconductor emphasizes interoperability across ecosystems. You can utilize QIIME2 in taxonomy mapping and Bioconductor in statistical analysis. From ecosystem to ecosystem, from R to Python.\nAll these ecosystems have own pros and cons, and you should be aware that they exist."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#bioconductor-software",
+    "href": "20260506_bioc_africa.html#bioconductor-software",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Bioconductor software",
+    "text": "Bioconductor software\n\n~2,300 R packages\nReview, testing, documentation\n\n\n# Get packages and info based on their BiocViews\npkgs &lt;- BiocPkgTools::biocPkgList()\n#\npkgs[[\"SE\"]] &lt;- sapply(pkgs$Depends, function(x) any(grepl(\"summarizedexperiment\", x, ignore.case = TRUE)) )\nfields &lt;- sapply(pkgs$biocViews, function(x){\n    field &lt;- \"Other\"\n    if( any(grepl(\"genomic|genetic|gene|genom|DNA\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Genomics\"\n    }\n    if( any(grepl(\"proteomics|protein\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Proteomics\"\n    }\n    if( any(grepl(\"metabolomics|metabolome|metabolite|Lipidom|massspectro\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Metabolomics\"\n    }\n    if( any(grepl(\"transcripto|RNA-seq|RNA\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Transcriptomics\"\n    }\n    if( any(grepl(\"immuno\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Immunology\"\n    }\n    if( any(grepl(\"cytom\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Cytometrics\"\n    }\n    if( any(grepl(\"microarray|chip\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Microarray\"\n    }\n    if( any(grepl(\"single-cell|singlecell\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Single-cell\"\n    }\n    if( any(grepl(\"metagenom|microbiome|16S|microbiota|amplicon|shotgun|microb|metatranscript|metametabolo|metaproteo\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Microbiome\"\n    }\n    return(field)\n})\npkgs[[\"Field\"]] &lt;- fields\npkgs[pkgs[[\"Package\"]] %in% c(\"mia\", \"miaViz\", \"miaSim\", \"iSEEtree\", \"HoloFoodR\", \"MGnifyR\"), \"Field\"] &lt;- \"Microbiome\"\n# Get download stats \ndf &lt;- BiocPkgTools::biocDownloadStats()\n# Subset to include only packages which BiocView we have\ndf &lt;- df[df$Package %in% pkgs$Package, ]\n# submitted &lt;- BiocPkgTools::firstInBioc(df)\n# df &lt;- df[df$Package %in% pkgs$Package, ] # Take into account only current packages\npkgs &lt;- pkgs[, c(\"Package\", \"SE\", \"Field\")]\n# Get table that shows which package is available in each date\ndates &lt;- df$Date |&gt; unique()\ndates &lt;- dates[ dates &lt; lubridate::floor_date(Sys.time(), \"month\") ]\navailable &lt;- lapply(dates, function(date){\n    temp &lt;- df[df[[\"Date\"]] == date, ]\n    temp &lt;- temp[match(unique(df$Package), temp$Package), ]\n    temp &lt;- temp[[\"Nb_of_distinct_IPs\"]] &gt; 0 | temp[[\"Nb_of_downloads\"]] &gt; 0\n    temp[is.na(temp)] &lt;- FALSE\n    temp &lt;- as.numeric(temp)\n    return(temp)\n})\navailable &lt;- do.call(cbind, available) |&gt; as.data.frame()\nrownames(available) &lt;- unique(df$Package)\ncolnames(available) &lt;- dates\n#\nind &lt;- pkgs[match(unique(df$Package), pkgs$Package), \"Field\"][[1]]\npkgs_date &lt;- rowsum(available, group = ind)\n# Put into long format\nlibrary(tidyverse)\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.2.0     ✔ readr     2.1.5\n✔ forcats   1.0.1     ✔ stringr   1.5.2\n✔ lubridate 1.9.4     ✔ tibble    3.3.0\n✔ purrr     1.2.1     ✔ tidyr     1.3.1\n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\npkgs_date &lt;- pkgs_date %&gt;%\n    rownames_to_column(\"Field\") %&gt;%\n    pivot_longer(\n        cols = colnames(pkgs_date)[ !colnames(pkgs_date) %in% c(\"Field\")], \n        names_to = \"Date\",\n        values_to = \"N\"\n    )\npkgs_date[[\"Date\"]] &lt;- as.Date(pkgs_date[[\"Date\"]])\n\n# Create a plot that shows number of package through date\np1 &lt;- ggplot(pkgs_date, aes(x = Date, y = N, fill = Field)) +\n    geom_area() + theme_classic() + scale_fill_brewer(palette = \"Paired\") +\n    labs(x = \"Year\", y = \"Number of packages\") +\n    scale_x_date(\n        expand = c(0, 0),\n        limits = c(min(pkgs_date[[\"Date\"]]), max(pkgs_date[[\"Date\"]]))\n    ) +\n    scale_y_continuous(expand = c(0, 0)) +\n    theme_classic(base_size = 18)\n\n\nlibrary(BiocPkgTools)\n\nLoading required package: htmlwidgets\n\nlibrary(ggplot2)\nlibrary(scales)\n\n\nAttaching package: 'scales'\n\n\nThe following object is masked from 'package:purrr':\n\n    discard\n\n\nThe following object is masked from 'package:readr':\n\n    col_factor\n\nlibrary(patchwork)\n\ndf &lt;-biocDownloadStats()\ndf &lt;- df[df$Package == \"mia\", ]\n\nyears &lt;- firstInBioc(df)[[\"Year\"]]:as.integer(format(Sys.Date(), \"%Y\"))\n\nyears &lt;- 2009:as.integer(format(Sys.Date(), \"%Y\"))\n\nbase_url &lt;- \"https://bioconductor.org/packages/stats/bioc\"\nall_data &lt;- list()\n\nfor (yr in years) {\n    url &lt;- sprintf(\"%s/bioc_%d_stats.tab\", base_url, yr)\n    # try downloading safely\n    try({\n        df &lt;- read.delim(url)\n        df$Year &lt;- yr\n        all_data[[as.character(yr)]] &lt;- df\n    }, silent=TRUE)\n}\n\nall_data &lt;- do.call(rbind, all_data)\ndf &lt;- all_data[all_data[[\"Month\"]] == \"all\", ]\n\ndf[[\"date\"]] &lt;- as.Date(paste0(df[[\"Year\"]], \"-01-01\"))\n\np2 &lt;- ggplot(df, aes(x = date, y = Nb_of_distinct_IPs)) +\n    geom_col(fill = \"gray\", colour = \"black\") +\n    scale_y_continuous(\n        labels = label_number(scale_cut = cut_si(\"\")),\n        expand = c(0, 0)\n    ) +\n    scale_x_date(\n        expand = c(0, 0),\n        limits = c(min(df[[\"date\"]]), max(df[[\"date\"]]))\n    ) +\n    labs(\n        x = NULL,\n        y = \"Number of downloads from distinct IPs\",\n    ) +\n    theme_classic(base_size = 18) \n\np1 + p2\n\nWarning: Removed 2 rows containing missing values or values outside the scale range\n(`geom_col()`).\n\n\n\n\n\n\n\n\n\n\n\nPopularity has grown.\nBroad range of fields (microbiome is rather small, but steadily raising ~ 50 packages)\nOver 2,300 R packages\nNot limited to R, but R has been the main language. Activity in Python and Julia.\nSpecial abut Bioconductor is the rather strict requirements which ensure the high-quality.\n\nReview process when submitting (novel, relevant, works as it should be, documentation is sufficient) Testing is done automatically (daily). Software must be accessible. –&gt; documentation must be good"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#bioconductor-ecosystems",
+    "href": "20260506_bioc_africa.html#bioconductor-ecosystems",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Bioconductor ecosystems",
+    "text": "Bioconductor ecosystems\n\nlibrary(ggplot2)\nlibrary(ggrepel)\n\n# Timeline data\ntimeline_data &lt;- data.frame(\n    year = c(2012, 2015, 2017, 2019),\n    event = c(\n        \"phyloseq\\nMcMurdie and Holmes, 2013\",\n        \"SummarizedExperiment\\nHuber et al., 2015\",\n        \"SingleCellExperiment\\nAmezquita et al., 2020\", \n        \"TreeSummarizedExperiment\\nHuang et al., 2021\"\n    )\n)\n\n# Create a single polygon for the entire arrow (rectangle + arrowhead)\narrow_data &lt;- data.frame(\n    x = c(2021, 2024.5, 2024.5, 2025, 2024.5, 2024.5, 2021),\n    y = c(-0.14, -0.14, -0.16, -0.10, -0.04, -0.06, -0.06)\n)\n\nggplot(timeline_data, aes(x = year, y = 0)) +\n    # Base timeline\n    annotate(\n        \"segment\", x = 2011, xend = 2025, y = 0, yend = 0,\n        arrow = arrow(length = unit(0.4, \"cm\"), type = \"closed\"),\n        linewidth = 1.5, color = \"gray40\"\n        ) +\n    \n    # Timeline points and segments\n    geom_point(size = 5, color = \"#2C3E50\") +\n    \n    # Repelled labels\n    geom_label_repel(\n        aes(\n          label = event),\n          direction = \"y\",\n          nudge_y = 0.02,\n          box.padding = 0.4,\n          point.padding = 0.5,\n          size = 5,\n          fontface = \"bold\",\n          color = \"#34495E\",\n          segment.color = \"gray60\"\n        ) +\n    \n    # mia: draw arrow-box from 2021 to 2025\n    geom_polygon(\n        data = arrow_data,\n        mapping = aes(x = x, y = y),\n        fill = \"white\", color = \"black\", linewidth = 0.8\n        ) +\n    annotate(\n        \"text\", x = 2022.75, y = -0.10,\n        label = \"OMA\\n(Borman et al., 2025)\",\n        size = 5, fontface = \"bold\", color = \"black\", lineheight = 1.1\n        ) +\n    \n    # Final theming\n    scale_x_continuous(\n        breaks = c(timeline_data$year, 2021, 2025),\n        limits = c(2010, 2025)\n        ) +\n    scale_y_continuous(limits = c(-0.25, 0.3)) +\n    theme_minimal(base_size = 15) +\n    theme(\n        axis.title = element_blank(),\n        axis.text.y = element_blank(),\n        axis.text.x = element_text(size = 16),\n        axis.ticks = element_blank(),\n        panel.grid = element_blank(),\n        legend.position = \"none\",\n        plot.title = element_text(face = \"bold\", size = 16, hjust = 0.5)\n    )\n\n\n\n\n\n\n\n\n\nOver the years, several approaches to data organization have been developed. One of the first widely adopted data containers in microbiome research was phyloseq (McMurdie and Holmes 2013), designed for 16S amplicon sequencing data. However, it has limitations, particularly in linking multiple experiments and ensuring interoperability between tools in Bioconductor.\nSummarizedExperiment (SE) (Huber et al. 2015), on the other hand, was introduced as a general-purpose container for biological data and has become the most widely used format within the Bioconductor ecosystem. It has since been extended to more specialized formats, including SingleCellExperiment (Amezquita et al. 2020) for single-cell data and TreeSummarizedExperiment (TreeSE) (Huang et al. 2021), which is tailored for microbiome datasets."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#orchestrating-microbiome-analysis-oma",
+    "href": "20260506_bioc_africa.html#orchestrating-microbiome-analysis-oma",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Orchestrating Microbiome Analysis, OMA",
+    "text": "Orchestrating Microbiome Analysis, OMA\n\nlibrary(BiocPkgTools)\n\nperc &lt;- pkgDownloadRank(\"mia\")\nperc &lt;- paste0(perc, \"%\")\n\ndf &lt;-biocDownloadStats()\ndf &lt;- df[df$Package == \"mia\", ]\n\nyears &lt;- firstInBioc(df)[[\"Year\"]]:as.integer(format(Sys.Date(), \"%Y\"))\n\nbase_url &lt;- \"https://bioconductor.org/packages/stats/bioc/mia\"\nall_data &lt;- list()\n\nfor (yr in years) {\n    url &lt;- sprintf(\"%s/mia_%d_stats.tab\", base_url, yr)\n    # try downloading safely\n    try({\n        df &lt;- read.delim(url)\n        df$Year &lt;- yr\n        all_data[[as.character(yr)]] &lt;- df\n    }, silent=TRUE)\n}\n\nall_data &lt;- do.call(rbind, all_data)\ndf &lt;- all_data[all_data[[\"Month\"]] == \"all\", ]\n\nlast_year &lt;- sort(df[[\"Year\"]])[ which(sort(df[[\"Year\"]]) == as.integer(format(Sys.Date(), \"%Y\")))-1 ]\n\nnum_downloads &lt;- df[df[[\"Year\"]] == last_year, \"Nb_of_distinct_IPs\"]\nnum_downloads &lt;- floor(num_downloads / 1000) * 1000\n\nnum_downloads &lt;- paste0(format(num_downloads, big.mark = \",\"))\n\n\nMicrobiome data science ecosystem\n“Downstream”, statistical analysis\nMicrobiome Analysis (mia): &gt; 15,000 yearly downloads from distinct IPs (top 8.05% in Bioconductor)\n\n\n \n\n\n\nWithin Bioconductor, we have developed microbiome data science ecosystem\nFor downstream analysis\nAligned and tightly linked with broader Bioconductor ecosystem"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section",
+    "href": "20260506_bioc_africa.html#section",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "Preprint available"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#benefits",
+    "href": "20260506_bioc_africa.html#benefits",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Benefits",
+    "text": "Benefits\n\nTightly linked with broader Bioconductor ecosystem\nImproved scalability\nImproved multi-table integration\n\n\n\nWe use same data format as broader Bioconductor ecosystem. Some of you might know phyloseq. That was specifically designed for 16S amplicon data, and is not supported outside its ecosystem. Moreover, microbiome data science is nowadays more than sequencing data, it links different fields from metabolomics to genomics. Same data format allows us to use methods from different fields.\nThe ecosystem is more scalable; speed and memory wise than phyloseq and its more efficient alternative, speedyseq. It is not uncommon anymore that there are tens of thousands of samples and features so we need efficient software to run these big datasets.\nThis ecosystem allows us to link multiple tables together, facilitating multi-omics integration by supporting management of this kind of complex datasets."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#community-driven-ecosystem-of-tools",
+    "href": "20260506_bioc_africa.html#community-driven-ecosystem-of-tools",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Community-driven ecosystem of tools",
+    "text": "Community-driven ecosystem of tools\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEETree (Interactive visualization)\nExpanded by independent developers\n\n\n             \n\n\n\nEcosystem of packages developed by the community. mia provides the basic operations in microbiome data analysis. miaViz has the methods for visualization.\nDeveloped by independent developers who have started to support the ecosystem."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#orchestrating-microbiome-analysis-with-bioconductor",
+    "href": "20260506_bioc_africa.html#orchestrating-microbiome-analysis-with-bioconductor",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Orchestrating Microbiome Analysis with Bioconductor",
+    "text": "Orchestrating Microbiome Analysis with Bioconductor\n\nResources and tutorials for microbiome analysis\nCommunity-built best practices\nOpen to contributions!\n\n\n\n\n\n\n\nGo to the Orchestrating Microbiome Analysis (OMA) online book\n\n\n\nbioconductor.org/books/release/OMA/\n\n\n\nTo support users and to collect best practices, there is online book available."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#take-home-message",
+    "href": "20260506_bioc_africa.html#take-home-message",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Take home message",
+    "text": "Take home message\n\nCommunity is the key"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#data-containers-1",
+    "href": "20260506_bioc_africa.html#data-containers-1",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Data containers",
+    "text": "Data containers\n\nThe core of software\nStructured, standardized way to manage complex data\nEnables modular, efficient workflows\n\n\n# Load libraries\nlibrary(ggplot2)\nlibrary(ggforce)\n\n# Adjusting the text positions for better alignment\nellipse_data &lt;- data.frame(\n    x = c(0, 0, 0),         # Centers of ellipses\n    y = c(2, 1, 0),         # Centers of ellipses\n    a = c(4, 3, 2),         # Widths of ellipses\n    b = c(3, 2, 1),         # Heights of ellipses\n    label = c(\"COMMUNITY\", \"METHODS\", \"DATA CONTAINER\"),  # Labels for each ellipse\n    label_y = c(4, 1.75, 0) # Adjusted vertical positions for labels\n)\n\n# Plot with adjusted labels\nggplot() +\n    geom_ellipse(data = ellipse_data, \n                 aes(x0 = x, y0 = y, a = a, b = b, angle = 0),\n                 color = \"darkgreen\", fill = \"grey90\", alpha = 0.7) +\n    geom_text(data = ellipse_data, \n              aes(x = x, y = label_y, label = label), \n              size = 5, fontface = \"bold\") +\n    coord_fixed() +\n    theme_void()\n\n\n\n\n\n\n\n\n\nThe core of software is formed by data containers.\nStructured way to present complex data. Interlinks tables and data types.\nIn biology, usually we have abundance table, sample metadata, taxonomy table, phylogeny, …\nManaging this complex data set becomes a burden and lead easily to errors."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-1",
+    "href": "20260506_bioc_africa.html#section-1",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "library(magick)\n\nimg1 &lt;- image_read(\"images/pile_of_papers.png\")\nimg2 &lt;- image_read(\"images/book.png\")\narrow &lt;- image_blank(width = 500, height = 1000, color = \"none\") %&gt;%\n  image_annotate(\"→\", size = 200, gravity = \"center\", color = \"black\")\n\n# Combine images with the arrow\nfinal_image &lt;- image_append(c(img1, arrow, img2), stack = FALSE)\n\n# Display the final image\nfinal_image\n\n\n\n\n\n\n\n\n\nImagine pile of paper sheets that are unordered. Then imagine a book that holds these same pages in structured way. Would you rather read 100 pages from pile of mess or from book?"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-2",
+    "href": "20260506_bioc_africa.html#section-2",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "library(magick)\n\nimg1 &lt;- image_read(\"images/unorganized_data.png\")\nimg2 &lt;- image_read(\"images/TreeSE.png\")\nimg2 &lt;- image_scale(img2, \"125%\")\narrow &lt;- image_blank(width = 500, height = 1000, color = \"none\") |&gt;\n  image_annotate(\"→\", size = 200, gravity = \"center\", color = \"black\")\n\n# Combine images with the arrow\nfinal_image &lt;- image_append(c(img1, arrow, img2), stack = FALSE)\n\n# Display the final image\nfinal_image\n\n\n\n\n\n\n\n\n\nThe same idea goes with the data containers. Instead of managing tables separately you can put them to this data container."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#optimal-container-for-microbiome-data",
+    "href": "20260506_bioc_africa.html#optimal-container-for-microbiome-data",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#optimal-container-for-microbiome-data-1",
+    "href": "20260506_bioc_africa.html#optimal-container-for-microbiome-data-1",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\n\n\nOriginal assay and transformations, along with different experiments"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#optimal-container-for-microbiome-data-2",
+    "href": "20260506_bioc_africa.html#optimal-container-for-microbiome-data-2",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\n\n\nPhylogeny and sample hierarchy (patients are relatives, or sampling places can be structured hierarchically etc)"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#optimal-container-for-microbiome-data-3",
+    "href": "20260506_bioc_africa.html#optimal-container-for-microbiome-data-3",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\n\n\nSample metadata, taxonomy table…"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#optimal-container-for-microbiome-data-4",
+    "href": "20260506_bioc_africa.html#optimal-container-for-microbiome-data-4",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\nOptimized: for speed & memory\n\n\nDatasets have increased in size. Both sample-wise and feature-wise (more resolution)."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#optimal-container-for-microbiome-data-5",
+    "href": "20260506_bioc_africa.html#optimal-container-for-microbiome-data-5",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\nOptimized: for speed & memory\nIntegrated: with other applications & frameworks\n\n\nNot anymore just sequencing data, but microbiome is combining different fields –&gt; we have to have way to apply these methods from different fields.\nAdvancing bioinformatics in collaboration with other fields.\nInnovations (applicable methods from other field)\nBioconductor aims to harmonize the data format so that the same format can be used through the ecosystem.\nIn biological data science, we apply similar techniques despite the field."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#treesummarizedexperiment",
+    "href": "20260506_bioc_africa.html#treesummarizedexperiment",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "TreeSummarizedExperiment",
+    "text": "TreeSummarizedExperiment\n(Huang et al. 2021)\n\n\n\n\n\n\nExtension to SummarizedExperiment\nTailored for biological data science.\nGo thorugh every slot."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#summarizedexperiment",
+    "href": "20260506_bioc_africa.html#summarizedexperiment",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "SummarizedExperiment",
+    "text": "SummarizedExperiment\n(Huber et al. 2015)\n\nif( !require(\"BiocManager\") ){\n    install(\"BiocManager\")\n}\n\nLoading required package: BiocManager\n\n\nBioconductor version '3.22' is out-of-date; the current release version '3.23'\n  is available with R version '4.6'; see https://bioconductor.org/install\n\npkgs &lt;- c(\"BiocPkgTools\", \"lubridate\", \"tidyverse\")\ntemp &lt;- sapply(pkgs, function(pkg){\n    if( !require(pkg, character.only = TRUE) ){\n        BiocManager::install(pkg)\n        library(pkg, character.only = TRUE)\n    }\n})\n\n# Get packages and info based on their BiocViews\npkgs &lt;- biocPkgList()\n#\npkgs[[\"SE\"]] &lt;- sapply(pkgs[[\"Depends\"]], function(x) any(grepl(\"summarizedexperiment\", x, ignore.case = TRUE)) )\npkgs &lt;- pkgs[pkgs[[\"SE\"]], ]\nfields &lt;- sapply(pkgs$biocViews, function(x){\n    field &lt;- \"Other\"\n    if( any(grepl(\"genomic|genetic|gene|genom|DNA\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Genomics\"\n    }\n    if( any(grepl(\"proteomics|protein\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Proteomics\"\n    }\n    if( any(grepl(\"metabolomics|metabolome|metabolite|Lipidom|massspectro\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Metabolomics\"\n    }\n    if( any(grepl(\"transcripto|RNA-seq|RNA\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Transcriptomics\"\n    }\n    if( any(grepl(\"immuno\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Immunology\"\n    }\n    if( any(grepl(\"cytom\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Cytometrics\"\n    }\n    if( any(grepl(\"microarray|chip\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Microarray\"\n    }\n    if( any(grepl(\"single-cell|singlecell\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Single-cell\"\n    }\n    if( any(grepl(\"metagenom|microbiome|16S|microbiota|amplicon|shotgun|microb|metatranscript|metametabolo|metaproteo\", x, ignore.case = TRUE)) ){\n        field &lt;- \"Microbiome\"\n    }\n    return(field)\n})\npkgs[[\"Field\"]] &lt;- fields\npkgs[pkgs[[\"Package\"]] %in% c(\"mia\", \"miaViz\", \"miaSim\", \"iSEEtree\", \"HoloFoodR\", \"MGnifyR\"), \"Field\"] &lt;- \"Microbiome\"\n# Get download stats \ndf &lt;- biocDownloadStats()\n# Subset to include only packages which BiocView we have\ndf &lt;- df[df[[\"Package\"]] %in% pkgs$Package, ]\n# Add field info\ndf[[\"Field\"]] &lt;- pkgs[match(df[[\"Package\"]], pkgs[[\"Package\"]]), \"Field\"][[1]]\n# df &lt;- df[df$Package %in% pkgs$Package, ] # Take into account only current packages\npkgs &lt;- pkgs[, c(\"Package\", \"SE\", \"Field\")]\n# Get table that shows which package is available in each date\ndates &lt;- df$Date |&gt; unique()\ndates &lt;- dates[ dates &lt; floor_date(Sys.time(), \"month\") ]\navailable &lt;- lapply(dates, function(date){\n    temp &lt;- df[df[[\"Date\"]] == date, ]\n    temp &lt;- temp[match(unique(df$Package), temp$Package), ]\n    temp &lt;- temp[[\"Nb_of_distinct_IPs\"]] &gt; 0 | temp[[\"Nb_of_downloads\"]] &gt; 0\n    temp[is.na(temp)] &lt;- FALSE\n    temp &lt;- as.numeric(temp)\n    return(temp)\n})\navailable &lt;- do.call(cbind, available) |&gt; as.data.frame()\nrownames(available) &lt;- unique(df[[\"Package\"]])\ncolnames(available) &lt;- dates\n#\nind &lt;- pkgs[match(unique(df[[\"Package\"]]), pkgs[[\"Package\"]]), \"Field\"][[1]]\npkgs_date &lt;- rowsum(available, group = ind)\n# Put into long format\npkgs_date &lt;- pkgs_date |&gt;\n    rownames_to_column(\"Field\") |&gt;\n    pivot_longer(\n        cols = colnames(pkgs_date)[ !colnames(pkgs_date) %in% c(\"Field\")], \n        names_to = \"Date\",\n        values_to = \"N\"\n    )\npkgs_date[[\"Date\"]] &lt;- pkgs_date[[\"Date\"]] |&gt; as.Date()\n\n# Create a plot that shows number of package through date\np &lt;- ggplot(pkgs_date, aes(x = Date, y = N, fill = Field)) +\n    geom_area() +\n    theme_classic(base_size = 18) +\n    scale_fill_brewer(palette = \"Paired\") +\n    labs(x = \"Year\", y = \"Number of packages\") +\n    scale_y_continuous(expand = c(0, 0), limits = c(0, NA)) +\n     scale_x_date(\n          limits = c(as.Date(\"2015-01-01\"), max(pkgs_date[[\"Date\"]]))\n      )\np\n\nWarning: Removed 648 rows containing non-finite outside the scale range\n(`stat_align()`).\n\n\n\n\n\n\n\n\n\n\nThe same data container is used in different fields. So to analyse multi-omics data, you need to know only one data container."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#take-home-messages",
+    "href": "20260506_bioc_africa.html#take-home-messages",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Take home messages",
+    "text": "Take home messages\n\nCommunity is the key\n(Tree)SummarizedExperiment is a structured way to handle complex (biological) data"
   }
 ]
