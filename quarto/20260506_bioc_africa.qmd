@@ -868,4 +868,340 @@ The same data container is used in different fields. So to analyse multi-omics d
 
 ![](images/TreeSE.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=10%}
 
+# Orchestrating Microbiome Analysis with Bioconductor, session 2/3
+Bioconductor Africa Seminar Series, May 2026
+
+## Topics
+
+Week 1. Ecosystems  
+Week 2. End-to-end workflow  
+Week 3. Statistical analysis
+
+::: {.notes}
+These are the topics that we are going to cover in this series. In the last session, we summarized the current ecosystems in microbiome data science.
+Today, we attach these ecosystems to workflow.
+We are not going to have enough time to go through the details in statistical analysis, which is why we dedicate the last session for that.
+:::
+
+## Take home messages from the session 1
+
+1. Community is the key
+2. (Tree)SummarizedExperiment is a structured way to handle complex (biological) data
+
+![](images/TreeSE.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=10%}
+
+::: {.notes}
+These are the main points from the last session. Community is the key in bioinformatics.
+There are several microbiome data science ecosystems. Also in Bioconductor, there is handful of them.
+Some of you askded whether microeco's microtable is a data container. Yes, it is.
+
+However, this TreeSE is the one that ww focus here because the same data container is used accross Bioconductor from metabolomics to proteomics and genomics. If you learn this, you can analyse also these data types with same methods.
+:::
+
+## End-to-end workflow
+
+1. Sampling and sequencing
+2. Upstream, taxonomy mapping
+2. Downstream / statistical analysis
+
+::: {.notes}
+But to today's topics.
+
+We collect samples and sequence them. This is done in wet labs.
+Then we have to map those sequences into taxonomy. This is so called upstream.
+Then we do the downstream part of the workflow which refers to statistical analysis.
+:::
+
+##
+
+![](images/workflow.png){fig-alt="Microbiome data science workflow" fig-align="center" width=40%}
+
+::: {.notes}
+This is the overwiew of the workflow.
+:::
+
+##
+
+![](images/workflow.png){style="width:140%; height:650px; object-fit:cover; object-position:top;" fig-alt="Microbiome data science workflow" fig-align="center"}
+
+::: {.notes}
+If we look closer to the first part, we take samples and sequence them. Then we map the taxonomy. And as a final step, we add them to data container.
+:::
+
+
+##
+
+![](images/workflow.png){style="width:120%; height:800px; object-fit:cover; object-position:bottom;"}
+
+::: {.notes}
+Then we can perform the statistical analysis. And create a reproducible report on the analysis.
+:::
+
+## Data generation
+
+- Different study systems
+- Sample collection
+- Sequencing
+
+![](images/workflow.png){style="width:140%; height:250px; object-fit:cover; object-position:top;" fig-alt="Microbiome data science workflow" fig-align="center"}
+
+::: {.notes}
+Little bit about the data generation as it affects the results.
+
+Microbial ecosystems affect the whole world which is not wonder why there are diverse microbiome research. Some study environmental samples, some for instance microbiome in air.
+In the case of gut microbiome, the usual sample material is feces. 
+
+After collecting the samples, we have to sequence the DNA from them.
+:::
+
+## Microbiome data
+
+1. Who there are? (16S & shotgun)
+2. What they _can_ do? (shotgun)
+2. What they do? (transcriptomics & metabolomics)
+
+::: {.notes}
+By doing sequencing, we can answer to the questions "who there are" and "what they can do".
+16S sequencing can only answer the first question, but shotgun sequencing also to functional potential.
+To get answer to question "what they are actually doing currently", we must do transcriptomics or metabolomics, which is why multi-omics approaches are common nowadays (and ecosystem desgined for that is needed)
+:::
+
+## 16S amplicon sequencing
+
+- Targets the 16S rRNA marker gene
+- Cost-effective and mature reference databases
+- Genus is the lowest taxonomy resolution
+
+![<span style='font-size:0.6em;'>Source: Wikipedia</span>](images/amplicon.png){fig-align="left"}
+
+::: {.notes}
+In the 16S amplicon sequencing, we target the 16S region of DNA. This region is variable across bacteria. Different bacterial families, have different region, and this is how we can identify the bacteria from samples.
+This is cost effective, and as the databases are very established, we usually do not see sequences that cannot be identified.
+- Typically limited to genus-level classification
+- The 16S marker gene is often too similar between closely related species
+- Species-level identification is therefore not always reliable
+:::
+
+## Shotgun metagenomic sequencing
+
+- Random sequencing of all DNA fragments in a sample
+- Higher resolution and functional potential
+- More expensive
+
+![<span style='font-size:0.6em;'>Source: france-genomique.org/technological-expertises/metagenomics/shotgun-metagenomics</span>](images/shotgun.jpg){fig-align="left"}
+
+::: {.notes}
+In shotgun sequencing, we fragment all sequences in the sample and then sequence them randomly. This gives better representation of the DNA, not only marker gene.
+It gives better resolution and we can identify strains from each other. Also, we get functional potential.
+More expensive.
+:::
+
+##
+
+![](images/workflow.png){style="width:140%; height:450px; object-fit:cover; object-position:top;" fig-alt="Microbiome data science workflow" fig-align="center"}
+
+::: {.notes}
+So we are now here. Now we have to map the taxonomy
+:::
+
+## Upstream bioinformatics
+
+::: rows
+- Input: FASTQ files
+- Output: abundance table
+
+:::
+
+::: columns
+
+::: {.column width="50%"}
+
+### 16S
+
+- DADA2 (Bioconductor) [@Callahan2016]
+- QIIME 2 [@Bolyen2019]
+- mothur [@schloss_introducting_2009]
+- ...
+
+:::
+
+::: {.column width="50%"}
+
+### Shotgun
+
+- MetaPhlAn [@BlancoMguez2023] + HUMAnN [@Beghini2021]
+- Kraken2 + Bracken [@Lu2022]
+- QIIME 2 [@Bolyen2019]
+- ...
+
+:::
+
+:::
+
+
+::: {.notes}
+Now we have FASTQ or FASTA files. The output is also the same despite on the sequencing style.
+
+However, we must use different bioinformatics pipelines for 16S and shotgun.
+Good to note is that shotgun computationally more heavy. No Bioconductor packages as R is not designed for that.
+:::
+
+
+## Data to import
+
+- Abundance table (from taxonomy annotation pipeline)
+- Taxonomy table (from taxonomy annotation pipeline)
+- Phylogeny (from used database)
+- Sample metadata
+
+![](images/workflow.png){style="width:45%; height:300px; object-fit:cover; object-position:top;" fig-alt="Microbiome data science workflow" fig-align="center"}
+
+::: {.notes}
+Abundance table	Feature counts or relative abundances per sample
+Taxonomy table	Taxonomic annotations for each feature
+Phylogenetic tree	Evolutionary relationships among features
+Sample metadata	Clinical, environmental, or experimental variables
+
+In shotgun sequencing, we get also functional annotations. This is also why we need ecosystem capable for multi-table data.
+:::
+
+## `r BiocStyle::Biocpkg("TreeSummarizedExperiment")`
+<small>[@Huang2021]</small>
+
+![](images/TreeSE.png){fig-alt="TreeSummarizedExperiment class" fig-align="center" width=10%}
+
+::: {.notes}
+We already went through this, but I believe it is important to go through once more. After this, we see how it looks like in console.
+:::
+
+## Demonstration
+
+## {auto-animate="true"}
+
+```r
+library(mia)
+library(ape)
+
+# Import data
+abundance_table <- read.csv("taxonomy_abundance.csv", row.names = 1)
+taxonomy_table <- read.csv("taxonomy_table.csv", row.names = 1)
+sample_meta <- read.csv("sample_metadata.csv", row.names = 1)
+tree <- read.tree("phylogeny.tree")
+```
+
+## {auto-animate="true"}
+
+```r
+library(mia)
+library(ape)
+
+# Import data
+abundance_table <- read.csv("taxonomy_abundance.csv", row.names = 1)
+taxonomy_table <- read.csv("taxonomy_table.csv", row.names = 1)
+sample_meta <- read.csv("sample_metadata.csv", row.names = 1)
+tree <- read.tree("phylogeny.tree")
+
+# Abundance table must be a matrix
+abundance_table <- abundance_table |> as.matrix()
+```
+
+## {auto-animate="true"}
+
+```r
+# Construct TreeSE
+tse <- TreeSummarizedExperiment(
+    assays = list(counts = abundance_table),
+    rowData = taxonomy_table,
+    colData = sample_meta,
+    rowTree = tree
+)
+```
+
+## {auto-animate="true"}
+
+```r
+# Construct TreeSE
+tse <- TreeSummarizedExperiment(
+    assays = list(counts = abundance_table),
+    rowData = taxonomy_table,
+    colData = sample_meta,
+    rowTree = tree
+)
+
+print(tse)
+```
+
+```{r}
+#| label: show_treese
+library(mia)
+data(GlobalPatterns)
+tse <- GlobalPatterns
+tse
+```
+
+## {auto-animate="true"}
+
+```r
+tse <- agglomerateByRanks(tse)
+```
+
+```{r}
+#| label: agglomerate
+tse <- agglomerateByRanks(tse)
+
+print(tse)
+```
+
+## {auto-animate="true"}
+
+```r
+tse <- transformAssay(
+    tse,
+    assay.type = "counts",
+    method = "relabundance",
+    altexp = altExpNames(tse)
+)
+
+print(tse)
+```
+
+```{r}
+#| label: transform
+tse <- transformAssay(
+    tse,
+    assay.type = "counts",
+    method = "relabundance",
+    altexp = altExpNames(tse)
+)
+
+print(tse)
+```
+
+## {auto-animate="true"}
+
+```r
+library(miaViz)
+
+plotAbundance(
+    tse,
+    rank = "Phylum",
+    as.relative = TRUE
+)
+
+```
+
+```{r}
+#| label: plot_abundance
+library(miaViz)
+plotAbundance(
+    tse,
+    rank = "Phylum",
+    as.relative = TRUE
+)
+```
+
+## Take home messages
+
+![](images/workflow.png){fig-alt="Microbiome data science workflow" fig-align="center" width=40%}
+
 ## References

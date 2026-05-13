@@ -2062,6 +2062,167 @@
     "href": "20260506_bioc_africa.html#references",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "References",
-    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nAmezquita, Robert A, Aaron T L Lun, Etienne Becht, Vince J Carey, Lindsay N Carpp, Ludwig Geistlinger, Federico Marini, et al. 2020. “Orchestrating Single-Cell Analysis with Bioconductor.” Nature Methods 17 (2): 137–45. https://doi.org/10.1038/s41592-019-0654-x.\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html.\n\n\nMcMurdie, PJ, and S Holmes. 2013. “Phyloseq: An r Package for Reproducible Interactive Analysis and Graphics of Microbiome Census Data.” PLoS ONE 8: e61217. https://doi.org/10.1371/journal.pone.0061217."
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nAmezquita, Robert A, Aaron T L Lun, Etienne Becht, Vince J Carey, Lindsay N Carpp, Ludwig Geistlinger, Federico Marini, et al. 2020. “Orchestrating Single-Cell Analysis with Bioconductor.” Nature Methods 17 (2): 137–45. https://doi.org/10.1038/s41592-019-0654-x.\n\n\nBeghini, Francesco, Lauren J McIver, Aitor Blanco-Míguez, Leonard Dubois, Francesco Asnicar, Sagun Maharjan, Ana Mailyan, et al. 2021. “Integrating Taxonomic, Functional, and Strain-Level Profiling of Diverse Microbial Communities with bioBakery 3.” eLife 10 (May). https://doi.org/10.7554/elife.65088.\n\n\nBlanco-Míguez, Aitor, Francesco Beghini, Fabio Cumbo, Lauren J. McIver, Kelsey N. Thompson, Moreno Zolfo, Paolo Manghi, et al. 2023. “Extending and Improving Metagenomic Taxonomic Profiling with Uncharacterized Species Using MetaPhlAn 4.” Nature Biotechnology 41 (11): 1633–44. https://doi.org/10.1038/s41587-023-01688-w.\n\n\nBolyen, Evan, Jai Ram Rideout, Matthew R. Dillon, Nicholas A. Bokulich, Christian C. Abnet, Gabriel A. Al-Ghalith, Harriet Alexander, et al. 2019. “Reproducible, Interactive, Scalable and Extensible Microbiome Data Science Using QIIME 2.” Nature Biotechnology 37 (8): 852–57. https://doi.org/10.1038/s41587-019-0209-9.\n\n\nCallahan, Benjamin J, Paul J McMurdie, Michael J Rosen, Andrew W Han, Amy Jo A Johnson, and Susan P Holmes. 2016. “DADA2: High-Resolution Sample Inference from Illumina Amplicon Data.” Nature Methods 13 (7): 581–83. https://doi.org/10.1038/nmeth.3869.\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html.\n\n\nLu, Jennifer, Natalia Rincon, Derrick E. Wood, Florian P. Breitwieser, Christopher Pockrandt, Ben Langmead, Steven L. Salzberg, and Martin Steinegger. 2022. “Metagenome Analysis Using the Kraken Software Suite.” Nature Protocols 17 (12): 2815–39. https://doi.org/10.1038/s41596-022-00738-y.\n\n\nMcMurdie, PJ, and S Holmes. 2013. “Phyloseq: An r Package for Reproducible Interactive Analysis and Graphics of Microbiome Census Data.” PLoS ONE 8: e61217. https://doi.org/10.1371/journal.pone.0061217.\n\n\nSchloss, Patrick D., Sarah L. Westcott, Thomas Ryabin, Justine R. Hall, Martin Hartmann, Emily B. Hollister, Ryan A. Lesniewski, et al. 2009. “Introducing Mothur: Open-Source, Platform-Independent, Community-Supported Software for Describing and Comparing Microbial Communities.” Applied and Environmental Microbiology 75 (23): 7537–41. https://doi.org/10.1128/AEM.01541-09."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#take-home-messages-from-the-session-1",
+    "href": "20260506_bioc_africa.html#take-home-messages-from-the-session-1",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Take home messages from the session 1",
+    "text": "Take home messages from the session 1\n\nCommunity is the key\n(Tree)SummarizedExperiment is a structured way to handle complex (biological) data\n\n\n\nThese are the main points from the last session. Community is the key in bioinformatics. There are several microbiome data science ecosystems. Also in Bioconductor, there is handful of them. Some of you askded whether microeco’s microtable is a data container. Yes, it is.\nHowever, this TreeSE is the one that ww focus here because the same data container is used accross Bioconductor from metabolomics to proteomics and genomics. If you learn this, you can analyse also these data types with same methods."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#end-to-end-workflow",
+    "href": "20260506_bioc_africa.html#end-to-end-workflow",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "End-to-end workflow",
+    "text": "End-to-end workflow\n\nSampling and sequencing\nUpstream, taxonomy mapping\nDownstream / statistical analysis\n\n\nBut to today’s topics.\nWe collect samples and sequence them. This is done in wet labs. Then we have to map those sequences into taxonomy. This is so called upstream. Then we do the downstream part of the workflow which refers to statistical analysis."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-5",
+    "href": "20260506_bioc_africa.html#section-5",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "Then we can perform the statistical analysis. And create a reproducible report on the analysis."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#topics-1",
+    "href": "20260506_bioc_africa.html#topics-1",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Topics",
+    "text": "Topics\nWeek 1. Ecosystems\nWeek 2. End-to-end workflow\nWeek 3. Statistical analysis\n\nThese are the topics that we are going to cover in this series. In the last session, we summarized the current ecosystems in microbiome data science. Today, we attach these ecosystems to workflow. We are not going to have enough time to go through the details in statistical analysis, which is why we dedicate the last session for that."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-3",
+    "href": "20260506_bioc_africa.html#section-3",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "This is the overwiew of the workflow."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-4",
+    "href": "20260506_bioc_africa.html#section-4",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "If we look closer to the first part, we take samples and sequence them. Then we map the taxonomy. And as a final step, we add them to data container."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#data-generation",
+    "href": "20260506_bioc_africa.html#data-generation",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Data generation",
+    "text": "Data generation\n\nDifferent study systems\nSample collection\nSequencing\n\n\n\n\n\n\n\nLittle bit about the data generation as it affects the results.\nMicrobial ecosystems affect the whole world which is not wonder why there are diverse microbiome research. Some study environmental samples, some for instance microbiome in air. In the case of gut microbiome, the usual sample material is feces.\nAfter collecting the samples, we have to sequence the DNA from them."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#microbiome-data",
+    "href": "20260506_bioc_africa.html#microbiome-data",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Microbiome data",
+    "text": "Microbiome data\n\nWho there are? (16S & shotgun)\nWhat they can do? (shotgun)\nWhat they do? (transcriptomics & metabolomics)\n\n\nBy doing sequencing, we can answer to the questions “who there are” and “what they can do”. 16S sequencing can only answer the first question, but shotgun sequencing also to functional potential. To get answer to question “what they are actually doing currently”, we must do transcriptomics or metabolomics, which is why multi-omics approaches are common nowadays (and ecosystem desgined for that is needed)"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#s-amplicon-sequencing",
+    "href": "20260506_bioc_africa.html#s-amplicon-sequencing",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "16S amplicon sequencing",
+    "text": "16S amplicon sequencing\n\nTargets the 16S rRNA marker gene\nCost-effective and mature reference databases\nGenus is the lowest taxonomy resolution\n\n\nSource: Wikipedia\nIn the 16S amplicon sequencing, we target the 16S region of DNA. This region is variable across bacteria. Different bacterial families, have different region, and this is how we can identify the bacteria from samples. This is cost effective, and as the databases are very established, we usually do not see sequences that cannot be identified. - Typically limited to genus-level classification - The 16S marker gene is often too similar between closely related species - Species-level identification is therefore not always reliable"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#shotgun-metagenomic-sequencing",
+    "href": "20260506_bioc_africa.html#shotgun-metagenomic-sequencing",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Shotgun metagenomic sequencing",
+    "text": "Shotgun metagenomic sequencing\n\nRandom sequencing of all DNA fragments in a sample\nHigher resolution and functional potential\nMore expensive\n\n\nSource: france-genomique.org/technological-expertises/metagenomics/shotgun-metagenomics\nIn shotgun sequencing, we fragment all sequences in the sample and then sequence them randomly. This gives better representation of the DNA, not only marker gene. It gives better resolution and we can identify strains from each other. Also, we get functional potential. More expensive."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-6",
+    "href": "20260506_bioc_africa.html#section-6",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "So we are now here. Now we have to map the taxonomy"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#upstream-bioinformatics",
+    "href": "20260506_bioc_africa.html#upstream-bioinformatics",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Upstream bioinformatics",
+    "text": "Upstream bioinformatics\n\n\nInput: FASTQ files\nOutput: abundance table\n\n\n\n\n16S\n\nDADA2 (Bioconductor) (Callahan et al. 2016)\nQIIME 2 (Bolyen et al. 2019)\nmothur (Schloss et al. 2009)\n…\n\n\nShotgun\n\nMetaPhlAn (Blanco-Míguez et al. 2023) + HUMAnN (Beghini et al. 2021)\nKraken2 + Bracken (Lu et al. 2022)\nQIIME 2 (Bolyen et al. 2019)\n…\n\n\n\nNow we have FASTQ or FASTA files. The output is also the same despite on the sequencing style.\nHowever, we must use different bioinformatics pipelines for 16S and shotgun. Good to note is that shotgun computationally more heavy. No Bioconductor packages as R is not designed for that."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#data-to-import",
+    "href": "20260506_bioc_africa.html#data-to-import",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Data to import",
+    "text": "Data to import\n\nAbundance table (from taxonomy annotation pipeline)\nTaxonomy table (from taxonomy annotation pipeline)\nPhylogeny (from used database)\nSample metadata\n\n\n\n\n\n\n\nAbundance table Feature counts or relative abundances per sample Taxonomy table Taxonomic annotations for each feature Phylogenetic tree Evolutionary relationships among features Sample metadata Clinical, environmental, or experimental variables\nIn shotgun sequencing, we get also functional annotations. This is also why we need ecosystem capable for multi-table data."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#treesummarizedexperiment-1",
+    "href": "20260506_bioc_africa.html#treesummarizedexperiment-1",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "TreeSummarizedExperiment",
+    "text": "TreeSummarizedExperiment\n(Huang et al. 2021)\n\n\nWe already went through this, but I believe it is important to go through once more. After this, we see how it looks like in console."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#demonstration",
+    "href": "20260506_bioc_africa.html#demonstration",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Demonstration",
+    "text": "Demonstration"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-7",
+    "href": "20260506_bioc_africa.html#section-7",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "library(mia)\nlibrary(ape)\n\n# Import data\nabundance_table &lt;- read.csv(\"taxonomy_abundance.csv\", row.names = 1)\ntaxonomy_table &lt;- read.csv(\"taxonomy_table.csv\", row.names = 1)\nsample_meta &lt;- read.csv(\"sample_metadata.csv\", row.names = 1)\ntree &lt;- read.tree(\"phylogeny.tree\")"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-8",
+    "href": "20260506_bioc_africa.html#section-8",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "library(mia)\nlibrary(ape)\n\n# Import data\nabundance_table &lt;- read.csv(\"taxonomy_abundance.csv\", row.names = 1)\ntaxonomy_table &lt;- read.csv(\"taxonomy_table.csv\", row.names = 1)\nsample_meta &lt;- read.csv(\"sample_metadata.csv\", row.names = 1)\ntree &lt;- read.tree(\"phylogeny.tree\")\n\n# Abundance table must be a matrix\nabundance_table &lt;- abundance_table |&gt; as.matrix()"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-9",
+    "href": "20260506_bioc_africa.html#section-9",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "# Construct TreeSE\ntse &lt;- TreeSummarizedExperiment(\n    assays = list(counts = abundance_table),\n    rowData = taxonomy_table,\n    colData = sample_meta,\n    rowTree = tree\n)"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-10",
+    "href": "20260506_bioc_africa.html#section-10",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "# Construct TreeSE\ntse &lt;- TreeSummarizedExperiment(\n    assays = list(counts = abundance_table),\n    rowData = taxonomy_table,\n    colData = sample_meta,\n    rowTree = tree\n)\n\nprint(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 19216 26 \nmetadata(0):\nassays(1): counts\nrownames(19216): 549322 522457 ... 200359 271582\nrowData names(7): Kingdom Phylum ... Genus Species\ncolnames(26): CL3 CC1 ... Even2 Even3\ncolData names(7): X.SampleID Primer ... SampleType Description\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (19216 rows)\nrowTree: 1 phylo tree(s) (19216 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-11",
+    "href": "20260506_bioc_africa.html#section-11",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "tse &lt;- agglomerateByRanks(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 19216 26 \nmetadata(0):\nassays(1): counts\nrownames(19216): 549322 522457 ... 200359 271582\nrowData names(7): Kingdom Phylum ... Genus Species\ncolnames(26): CL3 CC1 ... Even2 Even3\ncolData names(7): X.SampleID Primer ... SampleType Description\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(7): Kingdom Phylum ... Genus Species\nrowLinks: a LinkDataFrame (19216 rows)\nrowTree: 1 phylo tree(s) (19216 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-12",
+    "href": "20260506_bioc_africa.html#section-12",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "tse &lt;- transformAssay(\n    tse,\n    assay.type = \"counts\",\n    method = \"relabundance\",\n    altexp = altExpNames(tse)\n)\n\nprint(tse)\n\n\nclass: TreeSummarizedExperiment \ndim: 19216 26 \nmetadata(0):\nassays(2): counts relabundance\nrownames(19216): 549322 522457 ... 200359 271582\nrowData names(7): Kingdom Phylum ... Genus Species\ncolnames(26): CL3 CC1 ... Even2 Even3\ncolData names(7): X.SampleID Primer ... SampleType Description\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(7): Kingdom Phylum ... Genus Species\nrowLinks: a LinkDataFrame (19216 rows)\nrowTree: 1 phylo tree(s) (19216 leaves)\ncolLinks: NULL\ncolTree: NULL"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-13",
+    "href": "20260506_bioc_africa.html#section-13",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "library(miaViz)\n\nplotAbundance(\n    tse,\n    rank = \"Phylum\",\n    as.relative = TRUE\n)"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#take-home-messages-1",
+    "href": "20260506_bioc_africa.html#take-home-messages-1",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Take home messages",
+    "text": "Take home messages"
   }
 ]
