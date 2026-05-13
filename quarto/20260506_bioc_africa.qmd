@@ -1057,10 +1057,10 @@ Good to note is that shotgun computationally more heavy. No Bioconductor package
 ![](images/workflow.png){style="width:45%; height:300px; object-fit:cover; object-position:top;" fig-alt="Microbiome data science workflow" fig-align="center"}
 
 ::: {.notes}
-Abundance table	Feature counts or relative abundances per sample
-Taxonomy table	Taxonomic annotations for each feature
-Phylogenetic tree	Evolutionary relationships among features
-Sample metadata	Clinical, environmental, or experimental variables
+- Abundance table:	Feature counts or relative abundances per sample
+- Taxonomy table:	Taxonomic annotations for each feature
+- Phylogenetic tree:	Evolutionary relationships among features
+- Sample metadata:	Clinical, environmental, or experimental variables
 
 In shotgun sequencing, we get also functional annotations. This is also why we need ecosystem capable for multi-table data.
 :::

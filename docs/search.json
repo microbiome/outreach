@@ -2153,7 +2153,7 @@
     "href": "20260506_bioc_africa.html#data-to-import",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Data to import",
-    "text": "Data to import\n\nAbundance table (from taxonomy annotation pipeline)\nTaxonomy table (from taxonomy annotation pipeline)\nPhylogeny (from used database)\nSample metadata\n\n\n\n\n\n\n\nAbundance table Feature counts or relative abundances per sample Taxonomy table Taxonomic annotations for each feature Phylogenetic tree Evolutionary relationships among features Sample metadata Clinical, environmental, or experimental variables\nIn shotgun sequencing, we get also functional annotations. This is also why we need ecosystem capable for multi-table data."
+    "text": "Data to import\n\nAbundance table (from taxonomy annotation pipeline)\nTaxonomy table (from taxonomy annotation pipeline)\nPhylogeny (from used database)\nSample metadata\n\n\n\n\n\n\n\n\nAbundance table: Feature counts or relative abundances per sample\nTaxonomy table: Taxonomic annotations for each feature\nPhylogenetic tree: Evolutionary relationships among features\nSample metadata: Clinical, environmental, or experimental variables\n\nIn shotgun sequencing, we get also functional annotations. This is also why we need ecosystem capable for multi-table data."
   },
   {
     "objectID": "20260506_bioc_africa.html#treesummarizedexperiment-1",
