@@ -1532,6 +1532,32 @@ knitr::include_graphics(file_path)
 - You can find us in Zulip. Also email or GitHub. As I mentioned this is community effort so even discussing in Zulip will help us to know possible errors and help others to learn from your experience. Also you will get guidance.
 :::
 
+## European Bioconductor Conference 2026 will have live streaming!
+
+```{r}
+#| label: show_eurobioc2
+#| fig-width: 10
+#| fig-height: 10
+#| fig-align: right
+#| eval: true
+
+library(webshot2)
+library(magick)
+
+# Take the screenshot and save to a temporary file
+tmpfile <- tempfile(fileext = ".png")
+
+temp <- webshot(
+    url = "https://eurobioc2026.bioconductor.org/",
+    file = tmpfile
+)
+temp
+```
+
+::: {.callout-tip appearance="simple" title="" icon=false}
+[eurobioc2026.bioconductor.org](https://eurobioc2026.bioconductor.org){preview-link="true"}
+:::
+
 ## Thank you for your time!
 
 ![](images/mia_logo.png){fig-alt="mia logo" fig-align="center"}
