@@ -1416,6 +1416,8 @@ ggplot(df, aes(x = group, y = abundance)) +
 
 ## Demonstration
 
+Example data: ([Gupta et al., *mSystems* 2019](https://doi.org/10.1128/msystems.00438-19))
+
 ## {auto-animate="true"}
 
 ```r
