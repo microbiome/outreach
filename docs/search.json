@@ -2062,7 +2062,7 @@
     "href": "20260506_bioc_africa.html#references",
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "References",
-    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nAmezquita, Robert A, Aaron T L Lun, Etienne Becht, Vince J Carey, Lindsay N Carpp, Ludwig Geistlinger, Federico Marini, et al. 2020. “Orchestrating Single-Cell Analysis with Bioconductor.” Nature Methods 17 (2): 137–45. https://doi.org/10.1038/s41592-019-0654-x.\n\n\nBeghini, Francesco, Lauren J McIver, Aitor Blanco-Míguez, Leonard Dubois, Francesco Asnicar, Sagun Maharjan, Ana Mailyan, et al. 2021. “Integrating Taxonomic, Functional, and Strain-Level Profiling of Diverse Microbial Communities with bioBakery 3.” eLife 10 (May). https://doi.org/10.7554/elife.65088.\n\n\nBlanco-Míguez, Aitor, Francesco Beghini, Fabio Cumbo, Lauren J. McIver, Kelsey N. Thompson, Moreno Zolfo, Paolo Manghi, et al. 2023. “Extending and Improving Metagenomic Taxonomic Profiling with Uncharacterized Species Using MetaPhlAn 4.” Nature Biotechnology 41 (11): 1633–44. https://doi.org/10.1038/s41587-023-01688-w.\n\n\nBolyen, Evan, Jai Ram Rideout, Matthew R. Dillon, Nicholas A. Bokulich, Christian C. Abnet, Gabriel A. Al-Ghalith, Harriet Alexander, et al. 2019. “Reproducible, Interactive, Scalable and Extensible Microbiome Data Science Using QIIME 2.” Nature Biotechnology 37 (8): 852–57. https://doi.org/10.1038/s41587-019-0209-9.\n\n\nCallahan, Benjamin J, Paul J McMurdie, Michael J Rosen, Andrew W Han, Amy Jo A Johnson, and Susan P Holmes. 2016. “DADA2: High-Resolution Sample Inference from Illumina Amplicon Data.” Nature Methods 13 (7): 581–83. https://doi.org/10.1038/nmeth.3869.\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html.\n\n\nLu, Jennifer, Natalia Rincon, Derrick E. Wood, Florian P. Breitwieser, Christopher Pockrandt, Ben Langmead, Steven L. Salzberg, and Martin Steinegger. 2022. “Metagenome Analysis Using the Kraken Software Suite.” Nature Protocols 17 (12): 2815–39. https://doi.org/10.1038/s41596-022-00738-y.\n\n\nMcMurdie, PJ, and S Holmes. 2013. “Phyloseq: An r Package for Reproducible Interactive Analysis and Graphics of Microbiome Census Data.” PLoS ONE 8: e61217. https://doi.org/10.1371/journal.pone.0061217.\n\n\nSchloss, Patrick D., Sarah L. Westcott, Thomas Ryabin, Justine R. Hall, Martin Hartmann, Emily B. Hollister, Ryan A. Lesniewski, et al. 2009. “Introducing Mothur: Open-Source, Platform-Independent, Community-Supported Software for Describing and Comparing Microbial Communities.” Applied and Environmental Microbiology 75 (23): 7537–41. https://doi.org/10.1128/AEM.01541-09."
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nAmezquita, Robert A, Aaron T L Lun, Etienne Becht, Vince J Carey, Lindsay N Carpp, Ludwig Geistlinger, Federico Marini, et al. 2020. “Orchestrating Single-Cell Analysis with Bioconductor.” Nature Methods 17 (2): 137–45. https://doi.org/10.1038/s41592-019-0654-x.\n\n\nBeghini, Francesco, Lauren J McIver, Aitor Blanco-Míguez, Leonard Dubois, Francesco Asnicar, Sagun Maharjan, Ana Mailyan, et al. 2021. “Integrating Taxonomic, Functional, and Strain-Level Profiling of Diverse Microbial Communities with bioBakery 3.” eLife 10 (May). https://doi.org/10.7554/elife.65088.\n\n\nBlanco-Míguez, Aitor, Francesco Beghini, Fabio Cumbo, Lauren J. McIver, Kelsey N. Thompson, Moreno Zolfo, Paolo Manghi, et al. 2023. “Extending and Improving Metagenomic Taxonomic Profiling with Uncharacterized Species Using MetaPhlAn 4.” Nature Biotechnology 41 (11): 1633–44. https://doi.org/10.1038/s41587-023-01688-w.\n\n\nBolyen, Evan, Jai Ram Rideout, Matthew R. Dillon, Nicholas A. Bokulich, Christian C. Abnet, Gabriel A. Al-Ghalith, Harriet Alexander, et al. 2019. “Reproducible, Interactive, Scalable and Extensible Microbiome Data Science Using QIIME 2.” Nature Biotechnology 37 (8): 852–57. https://doi.org/10.1038/s41587-019-0209-9.\n\n\nCallahan, Benjamin J, Paul J McMurdie, Michael J Rosen, Andrew W Han, Amy Jo A Johnson, and Susan P Holmes. 2016. “DADA2: High-Resolution Sample Inference from Illumina Amplicon Data.” Nature Methods 13 (7): 581–83. https://doi.org/10.1038/nmeth.3869.\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html.\n\n\nHutchison, William J., Timothy J. Keyes, Helena L. Crowell, Jacques Serizay, Charlotte Soneson, Eric S. Davis, Noriaki Sato, et al. 2024. “The Tidyomics Ecosystem: Enhancing Omic Data Analyses.” Nature Methods 21 (7): 1166–70. https://doi.org/10.1038/s41592-024-02299-2.\n\n\nLu, Jennifer, Natalia Rincon, Derrick E. Wood, Florian P. Breitwieser, Christopher Pockrandt, Ben Langmead, Steven L. Salzberg, and Martin Steinegger. 2022. “Metagenome Analysis Using the Kraken Software Suite.” Nature Protocols 17 (12): 2815–39. https://doi.org/10.1038/s41596-022-00738-y.\n\n\nMcMurdie, PJ, and S Holmes. 2013. “Phyloseq: An r Package for Reproducible Interactive Analysis and Graphics of Microbiome Census Data.” PLoS ONE 8: e61217. https://doi.org/10.1371/journal.pone.0061217.\n\n\nSchloss, Patrick D., Sarah L. Westcott, Thomas Ryabin, Justine R. Hall, Martin Hartmann, Emily B. Hollister, Ryan A. Lesniewski, et al. 2009. “Introducing Mothur: Open-Source, Platform-Independent, Community-Supported Software for Describing and Comparing Microbial Communities.” Applied and Environmental Microbiology 75 (23): 7537–41. https://doi.org/10.1128/AEM.01541-09."
   },
   {
     "objectID": "20260506_bioc_africa.html#take-home-messages-from-the-session-1",
@@ -2224,5 +2224,159 @@
     "title": "Orchestrating Microbiome Analysis with Bioconductor",
     "section": "Take home messages",
     "text": "Take home messages"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#topics-2",
+    "href": "20260506_bioc_africa.html#topics-2",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Topics",
+    "text": "Topics\nWeek 1. Ecosystems\nWeek 2. End-to-end workflow\nWeek 3. Statistical analysis\n\n\nThis is the final session. These are the topics that we have covered.\nNow you should have idea on microbiome data science ecosystems, the overview of microbiome data science workflows and how Bioconductor positions in it.\nToday we go through alpha and beta diversity and differential abundance analysis. With these, you can already do simple analysis workflow."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-14",
+    "href": "20260506_bioc_africa.html#section-14",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "As a short recap, this is the overview of the workflow."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-15",
+    "href": "20260506_bioc_africa.html#section-15",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "If we look closer to the first part, we take samples and sequence them. Then we map the taxonomy. And as a final step, we add them to data container."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-16",
+    "href": "20260506_bioc_africa.html#section-16",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "Then we do data wrangling such as apply agglomeration and transformations. So basically, we are now in the statistical analysis part."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-17",
+    "href": "20260506_bioc_africa.html#section-17",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "tse &lt;- addAlpha(tse)\n\n\nShow results in colData"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#alpha-diversity",
+    "href": "20260506_bioc_africa.html#alpha-diversity",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Alpha diversity",
+    "text": "Alpha diversity\n\nShannon diversity, Faith’s phylogenetic diversity, …\n\n\n\n\nAlpha diversity refers to diversity within a sample.\nAll metrics measure evenness and richness, but they whey them differently\nEvenness: How evenly the abundances are distributed?\nRichness: How many different taxa are present?\nHere are three different samples… (go them through)\nAfter calculating alpha diversity, we can then compare alpha diversities between samples."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#beta-diversity",
+    "href": "20260506_bioc_africa.html#beta-diversity",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Beta diversity",
+    "text": "Beta diversity\n\nPrincipal Component Analysis (PCA), Principal Coordinate Analysis (PCoA), …\n\n\n\n\nBeta diversity refers to diversity within a samples.\nUsual way is to apply these ordination methods that projects high-dimensional data into low dimension while preserving information.\nThe goal is to find patterns from the sample grouping."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#differential-abundance-analysis",
+    "href": "20260506_bioc_africa.html#differential-abundance-analysis",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Differential abundance analysis",
+    "text": "Differential abundance analysis\n\n\n\nIn differential abundance analysis, we go one by one each taxa and ask question: “does the abundance of this taxon differs between the groups?”\nThis related to the question from the last session about the transformation. Microbiome data is compositional which is why commonly centered log-ratio transformation is applied. However, there is more evidence that the simplest approaches such as relative transformation and linear model work better in DAA, and CLR can be harmful.\nIn ML applications simple presence/absence works the best, but for instance, in correlation CLR can be useful as it makes the data behave better (more nrmally distributed and not constrained to 0)."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#demonstration-1",
+    "href": "20260506_bioc_africa.html#demonstration-1",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Demonstration",
+    "text": "Demonstration"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-18",
+    "href": "20260506_bioc_africa.html#section-18",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "tse &lt;- addAlpha(tse)\nplotBoxplot(tse, col.var = \"faith_diversity\", x = \"Diet\")"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-19",
+    "href": "20260506_bioc_africa.html#section-19",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "tse &lt;- addMDS(tse, method = \"unifrac\")\n\n\nShow results in reducedDim"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-20",
+    "href": "20260506_bioc_africa.html#section-20",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "tse &lt;- addMDS(tse, method = \"bray\")\n\nlibrary(scater)\nplotReducedDim(tse, dimred = \"MDS\", colour_by = \"Diet\")"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-21",
+    "href": "20260506_bioc_africa.html#section-21",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "library(maaslin3)\n\ndaa_res &lt;- maaslin3(\n    input_data = tse,\n    formula = \"~ Diet\",\n    normalization = \"TSS\",\n    transform = \"LOG\",\n    output = \"maaslin3_output\"\n)"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-22",
+    "href": "20260506_bioc_africa.html#section-22",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "library(maaslin3)\n\ndaa_res &lt;- maaslin3(\n    input_data = tse,\n    formula = \"~ Diet\",\n    normalization = \"TSS\",\n    transform = \"LOG\",\n    output = \"maaslin3_output\"\n)\n\nfile_path &lt;- file.path(\"maaslin3_output\", \"figures\", \"summary_plot.png\")\nknitr::include_graphics(file_path)"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#section-23",
+    "href": "20260506_bioc_africa.html#section-23",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "",
+    "text": "library(maaslin3)\n\ndaa_res &lt;- maaslin3(\n    input_data = tse,\n    formula = \"~ Diet\",\n    normalization = \"TSS\",\n    transform = \"LOG\",\n    output = \"maaslin3_output\"\n)\n\nfile_path &lt;- file.path(\"maaslin3_output\", \"figures\", \"summary_plot.png\")\nknitr::include_graphics(file_path)"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#tidyomics-hutchison2024",
+    "href": "20260506_bioc_africa.html#tidyomics-hutchison2024",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "tidyomics (Hutchison et al. 2024)",
+    "text": "tidyomics (Hutchison et al. 2024)\nlibrary(tidySummarizedExperiment)\nlibrary(tidymodels)\n\n# Convert to tibble table\ntse_df &lt;- as_tibble(tse)\n\n# Specify a model\nmodel &lt;- logistic_reg() %&gt;%\n    set_engine(\"glm\")\n\n# Fit the model\nfit &lt;- model %&gt;%\n    fit(disease ~ counts, data = tse_df)\n\n\nThere were great questions last time. I want to come back to this tidymodels question.\nThere is this project in Bioconductor, that develops methods in tidy syntax for SummarizedExperiment objects\nAs we are using TreeSE, we can utilize the methods.\nThis means that we can operate and create these tidy pipelines.\nThis example is very simple as is only intended to show the possibilities"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#orchestrating-microbiome-analysis-with-bioconductor-1",
+    "href": "20260506_bioc_africa.html#orchestrating-microbiome-analysis-with-bioconductor-1",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Orchestrating Microbiome Analysis with Bioconductor",
+    "text": "Orchestrating Microbiome Analysis with Bioconductor\n\n\n\n\n\n\nGo to the Orchestrating Microbiome Analysis (OMA) online book\n\n\nbioconductor.org/books/release/OMA/"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#zulip",
+    "href": "20260506_bioc_africa.html#zulip",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Zulip",
+    "text": "Zulip"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#tidyomics",
+    "href": "20260506_bioc_africa.html#tidyomics",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "tidyomics",
+    "text": "tidyomics\nlibrary(tidySummarizedExperiment)\nlibrary(tidymodels)\n\n# Convert to tibble table\ntse_df &lt;- as_tibble(tse)\n\n# Specify a model\nmodel &lt;- logistic_reg() %&gt;%\n    set_engine(\"glm\")\n\n# Fit the model\nfit &lt;- model %&gt;%\n    fit(disease ~ counts, data = tse_df)"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#beta-diversity-1",
+    "href": "20260506_bioc_africa.html#beta-diversity-1",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Beta diversity",
+    "text": "Beta diversity\n\nPrincipal Component Analysis (PCA), Principal Coordinate Analysis (PCoA), …"
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#next-steps",
+    "href": "20260506_bioc_africa.html#next-steps",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Next steps",
+    "text": "Next steps\n\nOMA online book\nSlides\n“miaverse” channel on Bioconductor Zulip\n\n\n\nOnline book and slides are freely available\nYou can find us in Zulip. Also email or GitHub. As I mentioned this is community effort so even discussing in Zulip will help us to know possible errors and help others to learn from your experience. Also you will get guidance."
+  },
+  {
+    "objectID": "20260506_bioc_africa.html#thank-you-for-your-time",
+    "href": "20260506_bioc_africa.html#thank-you-for-your-time",
+    "title": "Orchestrating Microbiome Analysis with Bioconductor",
+    "section": "Thank you for your time!",
+    "text": "Thank you for your time!"
   }
 ]

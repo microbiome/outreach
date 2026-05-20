@@ -1206,4 +1206,334 @@ plotAbundance(
 
 ![](images/workflow.png){fig-alt="Microbiome data science workflow" fig-align="center" width=40%}
 
+# Orchestrating Microbiome Analysis with Bioconductor, session 3/3
+Bioconductor Africa Seminar Series, May 2026
+
+## Topics
+
+Week 1. Ecosystems  
+Week 2. End-to-end workflow  
+Week 3. Statistical analysis
+
+::: {.notes}
+
+- This is the final session. These are the topics that we have covered.
+- Now you should have idea on microbiome data science ecosystems, the overview of microbiome data science workflows and how Bioconductor positions in it.
+- Today we go through alpha and beta diversity and differential abundance analysis. With these, you can already do simple analysis workflow.
+
+:::
+
+## tidyomics [@Hutchison2024]
+
+```r
+library(tidySummarizedExperiment)
+library(tidymodels)
+
+# Convert to tibble table
+tse_df <- as_tibble(tse)
+
+# Specify a model
+model <- logistic_reg() %>%
+    set_engine("glm")
+
+# Fit the model
+fit <- model %>%
+    fit(disease ~ counts, data = tse_df)
+```
+
+::: {.notes}
+- There were great questions last time. I want to come back to this tidymodels question.
+- There is this project in Bioconductor, that develops methods in tidy syntax for SummarizedExperiment objects
+- As we are using TreeSE, we can utilize the methods.
+- This means that we can operate and create these tidy pipelines.
+- This example is very simple as is only intended to show the possibilities
+:::
+
+##
+
+![](images/workflow.png){fig-alt="Microbiome data science workflow" fig-align="center" width=40%}
+
+::: {.notes}
+As a short recap, this is the overview of the workflow.
+:::
+
+##
+
+![](images/workflow.png){style="width:140%; height:650px; object-fit:cover; object-position:top;" fig-alt="Microbiome data science workflow" fig-align="center"}
+
+::: {.notes}
+If we look closer to the first part, we take samples and sequence them. Then we map the taxonomy. And as a final step, we add them to data container.
+:::
+
+##
+
+![](images/workflow.png){style="width:120%; height:800px; object-fit:cover; object-position:bottom;"}
+
+::: {.notes}
+- Then we do data wrangling such as apply agglomeration and transformations. So basically, we are now in the statistical analysis part.
+:::
+
+## Alpha diversity
+
+- Shannon diversity, Faith's phylogenetic diversity, ...
+
+```{r}
+#| label: alpha
+
+library(ggplot2)
+library(dplyr)
+library(ggforce)
+
+set.seed(42)
+
+# Helper to generate random points in circle
+random_in_circle <- function(n, radius = 1) {
+  theta <- runif(n, 0, 2 * pi)
+  r <- radius * sqrt(runif(n))
+  data.frame(
+    x = r * cos(theta),
+    y = r * sin(theta)
+  )
+}
+
+# Define 3 consistent colors
+colors <- c("#1b9e77", "#d95f02", "#7570b3", "black")
+
+# Panel 1: High richness (3 species), low evenness (dominance by species 1)
+df1 <- random_in_circle(10) |>
+  mutate(
+    species = factor(c(rep(1, 7), rep(2, 1), rep(3, 1), rep(4, 1))),
+    Sample = "High richness,\nlow evenness"
+  )
+
+# Panel 2: Low richness (1 species), high evenness (even use, but only 1 type)
+df2 <- random_in_circle(6) |>
+  mutate(
+    species = factor(c(rep(1, 3), rep(2, 3))),
+    Sample = "Low richness,\nhigh evenness"
+  )
+
+# Panel 3
+df3 <- random_in_circle(8) |>
+  mutate(
+    species = factor(c(rep(1, 2), rep(2, 2), rep(3, 2), rep(4, 2))),
+    Sample = "High richness,\nhigh evenness"
+  )
+
+# Combine
+df <- bind_rows(df1, df2, df3)
+
+# Plot
+ggplot(df, aes(x = x, y = y)) +
+  geom_circle(aes(x0 = 0, y0 = 0, r = 1.1), 
+              inherit.aes = FALSE, color = "gray60", linetype = "dashed") +
+  geom_point(aes(fill = species), shape = 21, color = "black", size = 10, alpha = 0.9) +
+  scale_fill_manual(values = colors) +
+  facet_wrap(~Sample, nrow = 1) +
+  coord_fixed(xlim = c(-1.3, 1.3), ylim = c(-1.3, 1.3)) +
+  theme_void(base_size = 14) +
+  theme(
+    legend.position = "none",
+    strip.text = element_text(face = "bold", size = 13),
+    plot.title = element_text(hjust = 0.5, face = "bold", size = 16)
+  )
+```
+
+::: {.notes}
+- Alpha diversity refers to diversity within a sample.
+- All metrics measure evenness and richness, but they whey them differently
+- Evenness: How evenly the abundances are distributed?
+- Richness: How many different taxa are present?
+- Here are three different samples... (go them through)
+- After calculating alpha diversity, we can then compare alpha diversities between samples.
+:::
+
+## Beta diversity
+
+- Principal Component Analysis (PCA), Principal Coordinate Analysis (PCoA), ...
+
+```{r}
+#| label: pca
+#| fig-width: 6
+#| fig-height: 3
+
+library(mia)
+data("Tengeler2020")
+tse <- Tengeler2020
+# Transform data
+tse <- transformAssay(tse, method = "clr", pseudocount = 1L)
+
+library(scater)
+
+tse <- runPCA(
+    tse,
+    assay.type = "clr"
+)
+
+plotReducedDim(tse, "PCA", colour_by = "patient_status")
+```
+
+::: {.notes}
+- Beta diversity refers to diversity within a samples.
+- Usual way is to apply these ordination methods that projects high-dimensional data into low dimension while preserving information.
+- The goal is to find patterns from the sample grouping.
+:::
+
+## Differential abundance analysis
+
+```{r}
+#| label: daa
+
+set.seed(123)
+
+df <- data.frame(
+  group = rep(c("Control", "Treated"), each = 20),
+  abundance = c(
+    rnorm(20, mean = 50, sd = 10),   # Control group
+    rnorm(20, mean = 80, sd = 15)    # Treated group (higher abundance)
+  )
+)
+
+library(ggplot2)
+
+ggplot(df, aes(x = group, y = abundance)) +
+  geom_boxplot(alpha = 0.7, outlier.shape = NA) +
+  geom_jitter(width = 0.15, alpha = 0.5) +
+  labs(
+    title = "Escherichia coli",
+    x = "",
+    y = "Abundance"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+```
+
+::: {.notes}
+- In differential abundance analysis, we go one by one each taxa and ask question: "does the abundance of this taxon differs between the groups?"
+- This related to the question from the last session about the transformation. Microbiome data is compositional which is why commonly centered log-ratio transformation is applied. However, there is more evidence that the simplest approaches such as relative transformation and linear model work better in DAA, and CLR can be harmful.
+- In ML applications simple presence/absence works the best, but for instance, in correlation CLR can be useful as it makes the data behave better (more nrmally distributed and not constrained to 0).
+:::
+
+## Demonstration
+
+## {auto-animate="true"}
+
+```r
+tse <- addAlpha(tse)
+```
+
+::: {.notes}
+- Show results in colData
+:::
+
+## {auto-animate="true"}
+
+```r
+tse <- addAlpha(tse)
+plotBoxplot(tse, col.var = "faith_diversity", x = "Diet")
+```
+
+```{r}
+#| label: alpha_demo
+library(mia)
+library(miaViz)
+
+data("peerj13075")
+tse <- peerj13075
+tse <- addAlpha(tse)
+plotBoxplot(tse, col.var = "shannon_diversity", x = "Diet")
+```
+
+## {auto-animate="true"}
+
+```r
+tse <- addMDS(tse, method = "unifrac")
+```
+
+::: {.notes}
+- Show results in reducedDim
+:::
+
+## {auto-animate="true"}
+
+```r
+tse <- addMDS(tse, method = "bray")
+
+library(scater)
+plotReducedDim(tse, dimred = "MDS", colour_by = "Diet")
+```
+
+```{r}
+#| label: beta_demo
+library(scater)
+tse <- addMDS(tse, method = "bray")
+plotReducedDim(tse, dimred = "MDS", colour_by = "Diet")
+```
+
+## {auto-animate="true"}
+
+```r
+library(maaslin3)
+
+daa_res <- maaslin3(
+    input_data = tse,
+    formula = "~ Diet",
+    normalization = "TSS",
+    transform = "LOG",
+    output = "maaslin3_output"
+)
+```
+
+## {auto-animate="true"}
+
+```r
+library(maaslin3)
+
+daa_res <- maaslin3(
+    input_data = tse,
+    formula = "~ Diet",
+    normalization = "TSS",
+    transform = "LOG",
+    output = "maaslin3_output"
+)
+
+file_path <- file.path("maaslin3_output", "figures", "summary_plot.png")
+knitr::include_graphics(file_path)
+```
+
+```{r}
+#| label: daa_demo
+#| message: false
+#| warning: false
+library(maaslin3)
+
+daa_res <- maaslin3(
+    input_data = tse,
+    formula = "~ Diet",
+    normalization = "TSS",
+    transform = "LOG",
+    output = "maaslin3_output",
+    verbosity = "ERROR"
+)
+
+file_path <- file.path("maaslin3_output", "figures", "summary_plot.png")
+knitr::include_graphics(file_path)
+```
+
+## Next steps
+
+- [OMA online book](https://bioconductor.org/books/release/OMA/){preview-link="true"}
+- [Slides](https://microbiome.github.io/outreach/)
+- "miaverse" channel on Bioconductor Zulip
+
+
+::: notes
+- Online book and slides are freely available
+- You can find us in Zulip. Also email or GitHub. As I mentioned this is community effort so even discussing in Zulip will help us to know possible errors and help others to learn from your experience. Also you will get guidance.
+:::
+
+## Thank you for your time!
+
+![](images/mia_logo.png){fig-alt="mia logo" fig-align="center"}
+
 ## References
