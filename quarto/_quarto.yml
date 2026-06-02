@@ -11,6 +11,7 @@ project:
     - bioconductor.qmd
     - daa.qmd
     - data_containers.qmd
+    - eurobioc2026.qmd
     - functional_analysis.qmd
     - gbcc2025.qmd
     - import.qmd
