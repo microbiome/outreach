@@ -1,0 +1,28 @@
+---
+title: "Orchestrating Hologenomic Analysis with Bioconductor"
+subtitle: "ECCB2026"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+date: last-modified
+date-format: full
+bibliography: references.bib
+---
+
+##
+
+![](images/workflow.png){fig-alt="Microbiome data science workflow" fig-align="center" width=40%}
+
+::: {.notes}
+This is the overwiew of the workflow.
+:::
+
+## Thank you for your time!
+
+![](images/mia_logo.png){fig-alt="mia logo" fig-align="center"}
+
+## References

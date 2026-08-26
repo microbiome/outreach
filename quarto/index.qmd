@@ -49,10 +49,11 @@ This website hosts quarto presentations about microbiome analysis and data integ
 - [Orchestrating Microbiome Analysis with Bioconductor (Bioconductor Africa Seminar Series, May 2026)](https://microbiome.github.io/outreach/20260506_bioc_africa.html){target="_blank"}
 - [Orchestrating Microbiome Analysis with Bioconductor (EuroBioC2026)](https://microbiome.github.io/outreach/eurobioc2026.html){target="_blank"}
 
-### Courses
+### Courses and workshops
 
 - [Introduction](https://microbiome.github.io/outreach/intro.html){target="_blank"}
 - [Outro](https://microbiome.github.io/outreach/outro.html){target="_blank"}
+- [ECCB2026](https://microbiome.github.io/outreach/20260903_ECCB2026.html){target="_blank"}
 
 ## Contributions
 
