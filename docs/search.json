@@ -102,20 +102,265 @@
     "href": "20260903_ECCB2026.html#section",
     "title": "Orchestrating Hologenomic Analysis with Bioconductor",
     "section": "",
-    "text": "This is the overwiew of the workflow."
+    "text": "Imagine pile of paper sheets that are unordered. Then imagine a book that holds these same pages in structured way. Would you rather read 100 pages from pile of mess or from book?"
   },
   {
     "objectID": "20260903_ECCB2026.html#thank-you-for-your-time",
     "href": "20260903_ECCB2026.html#thank-you-for-your-time",
     "title": "Orchestrating Hologenomic Analysis with Bioconductor",
     "section": "Thank you for your time!",
-    "text": "Thank you for your time!"
+    "text": "Thank you for your time!\nJoin us!\n\nOMA book: bioconductor.org/books/release/OMA/\nDiscussion forums: Bioconductor Zulip\nMicrobiome working group"
   },
   {
     "objectID": "20260903_ECCB2026.html#references",
     "href": "20260903_ECCB2026.html#references",
     "title": "Orchestrating Hologenomic Analysis with Bioconductor",
     "section": "References",
-    "text": "References"
+    "text": "References\n\n\n\n\nhttps://microbiome.github.io/\n\n\n\n\nArgelaguet, Ricard, Damien Arnol, Danila Bredikhin, Yonatan Deloro, Britta Velten, John C. Marioni, and Oliver Stegle. 2020. “MOFA+: A Statistical Framework for Comprehensive Integration of Multi-Modal Single-Cell Data.” Genome Biology 21 (1): 111. https://doi.org/10.1186/s13059-020-02015-1.\n\n\nBastiaanssen, Thomaz F S, Thomas P Quinn, and John F Cryan. 2023. “Knowledge-Based Integration of Multi-Omic Datasets with Anansi: Annotation-Based Analysis of Specific Interactions.” arXiv. https://doi.org/10.48550/arXiv.2305.10832.\n\n\nCordazzo Vargas, Bianca, Cameron Martino, Amanda Hazel Dilmore, Jessica Metcalf, Zachary Burcham, Leo Lahti, Aituar Bektanov, et al. 2026. “Joint-RPCA: Domain-Aware Multi-Omics Integration for Systems Microbiology.” Molecular Systems Biology.\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html.\n\n\nMallick, Himel, Anupreet Porwal, Satabdi Saha, Piyali Basak, Vladimir Svetnik, and Erina Paul. 2024. “An Integrated Bayesian Framework for Multi-Omics Prediction and Classification.” Statistics in Medicine 43 (5): 983–1002. https://doi.org/10.1002/sim.9953.\n\n\nMangnier, Loïc, Antoine Bodein, Margaux Mariaz, Alban Mathieu, Marie-Pier Scott-Boyer, Neerja Vashist, Matthew S. Bramble, and Arnaud Droit. 2025. “A Systematic Benchmark of Integrative Strategies for Microbiome-Metabolome Data.” Communications Biology 8 (1). https://doi.org/10.1038/s42003-025-08515-9.\n\n\nNyholm, Lasse, Adam Koziol, Sofia Marcos, Amanda Bolt Botnen, Ostaizka Aizpurua, Shyam Gopalakrishnan, Morten T. Limborg, M.Thomas P. Gilbert, and Antton Alberdi. 2020. “Holo-Omics: Integrated Host-Microbiota Multi-Omics for Basic and Applied Biological Research.” iScience 23 (8): 101414. https://doi.org/10.1016/j.isci.2020.101414.\n\n\nRamos, Marcel, Lucas Schiffer, Angela Re, Rimsha Azhar, Azfar Basunia, Carmen Rodriguez, Tiffany Chan, et al. 2017. “Software for the Integration of Multiomics Experiments in Bioconductor.” Cancer Research 77 (21): e39–42. https://doi.org/10.1158/0008-5472.CAN-17-0344.\n\n\nRohart, Florian, Benoı̂t Gautier, Amrit Singh, and Kim-Anh Lê Cao. 2017. “mixOmics: An R Package for ‘Omics Feature Selection and Multiple Data Integration.” PLoS Computational Biology 13 (11): e1005752. https://doi.org/10.1371/journal.pcbi.1005752.\n\n\nVerma, Shivangi, Nalin Arora, Chandra Prakash Ajay, Pankhuri Singh, Himel Mallick, and Tarini Shankar Ghosh. 2026. “HuMMANet: A Harmonized Cross-Study Resource for Integrative Analysis of Human Gut Microbiome Metabolome Associations.” bioRxiv. https://doi.org/10.64898/2026.08.24.746727."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#orchestrating-hologenomic-analysis-with-bioconductor",
+    "href": "20260903_ECCB2026.html#orchestrating-hologenomic-analysis-with-bioconductor",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "text": "Orchestrating Hologenomic Analysis with Bioconductor"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#orchestrating-hologenomic-analysis-with-bioconductor-1",
+    "href": "20260903_ECCB2026.html#orchestrating-hologenomic-analysis-with-bioconductor-1",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "text": "Orchestrating Hologenomic Analysis with Bioconductor\n\nIntroduces microbiome analysis framework, focusing multiomics methods\nFor participants with sufficient programming skills"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#time-outline",
+    "href": "20260903_ECCB2026.html#time-outline",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Time outline",
+    "text": "Time outline\n\n\n\n\n\n\n\nTime\nActivity\n\n\n\n\n9:00-9:30\nIntroduction to hologenomics\n\n\n9:30-10:30\nBioconductor’s data science framework\n\n\n10:30-10:45\nCoffee break\n\n\n10:45-11:45\nTabular data analysis for microbiomes\n\n\n11:45-12:45\nIncorporating hierarchical side information\n\n\n12:45-13:45\nLunch\n\n\n13:45-14:30\nProgrammatic access to hologenome data collections\n\n\n14:30-15:15\nMulti-table data structures\n\n\n15:15-15:30\nCoffee break\n\n\n15:30-17:00\nMethods for taxonomic, functional, and host omic integration\n\n\n17:00-17:30\nQ&A and closing session"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#participation",
+    "href": "20260903_ECCB2026.html#participation",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Participation",
+    "text": "Participation\n\nAn interactive tutorial\nOrchestrating Microbiome Analysis (OMA) online book\nhttps://orchestraplatform.org/"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#questions",
+    "href": "20260903_ECCB2026.html#questions",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Questions",
+    "text": "Questions\n\nHow is hologenome and multiomics data science conducted in the TreeSummarizedExperiment and MultiAssayExperiment ecosystem?\nWhat benefits does this integrated ecosystem have for analyzing multiple omics layers?"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#objectives",
+    "href": "20260903_ECCB2026.html#objectives",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Objectives",
+    "text": "Objectives\n\nAnalyze and apply methods: Apply the TreeSummarizedExperiment and MultiAssayExperiment ecosystem to process, integrate, and analyze hologenome and multiomics data.\nCreate visualizations: Generate and interpret visualizations for multiomics data.\nExplore documentation: Use the OMA to explore additional tools and methods for hologenome analysis."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#hologenomics",
+    "href": "20260903_ECCB2026.html#hologenomics",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Hologenomics",
+    "text": "Hologenomics\n\nHolobiont = Host + microbiome (Nyholm et al. 2020)\nUnderstanding the host often requires understanding its microbes.\nHologenomic approaches integrate information across the host–microbiome system"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#multi-omics",
+    "href": "20260903_ECCB2026.html#multi-omics",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Multi-omics",
+    "text": "Multi-omics\nMulti-omics = combining different types of molecular data"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#multi-omics-integration",
+    "href": "20260903_ECCB2026.html#multi-omics-integration",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Multi-omics integration",
+    "text": "Multi-omics integration\nThere are different ways to combine omics data:\n\nAnalyse separately: Each omics layer independently\nFind associations: Identify relationships between omics layers\nJointly model: Combine omics layers to explain outcomes or mechanisms"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#why-bioconductor",
+    "href": "20260903_ECCB2026.html#why-bioconductor",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Why Bioconductor?",
+    "text": "Why Bioconductor?\nBioconductor provides tools for:\n\nData handling\nAnalysis\nVisualization\nIntegration\nReproducible workflows"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#bioconductor",
+    "href": "20260903_ECCB2026.html#bioconductor",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Bioconductor",
+    "text": "Bioconductor\n\nCommunity-driven, global open-source project\nStarted in 2001 from genomics\nHigh impact across bioinformatics\n\n\n\nProject for developing software in bioinformatics.\nOver 1.5 million distinct IPs per year are downloading."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#community-is-the-key",
+    "href": "20260903_ECCB2026.html#community-is-the-key",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Community is the key",
+    "text": "Community is the key\n\nTraining programs & workshops\nCommunity support\nConferences\n\n\n\n\nBioconductor is more than software.\nWorldwide community of bioinformaticians; both users and developers."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#software",
+    "href": "20260903_ECCB2026.html#software",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Software",
+    "text": "Software\n\n~2,300 R packages\nReview, testing, documentation\n\n\n\n\nPopularity has grown.\nBroad range of fields (microbiome is rather small, but steadily raising ~ 50 packages)\nOver 2,300 R packages\nNot limited to R, but R has been the main language. Activity in Python and Julia.\nSpecial abut Bioconductor is the rather strict requirements which ensure the high-quality.\n\nReview process when submitting (novel, relevant, works as it should be, documentation is sufficient) Testing is done automatically (daily). Software must be accessible. –&gt; documentation must be good"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#data-containers",
+    "href": "20260903_ECCB2026.html#data-containers",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Data containers",
+    "text": "Data containers\n\nThe core of software\nStructured, standardized way to manage complex data\nEnables modular, efficient workflows\n\n\n\nThe core of software is formed by data containers.\nStructured way to present complex data. Interlinks tables and data types.\nIn biology, usually we have abundance table, sample metadata, taxonomy table, phylogeny, …\nManaging this complex data set becomes a burden and lead easily to errors."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#section-1",
+    "href": "20260903_ECCB2026.html#section-1",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "",
+    "text": "The same idea goes with the data containers. Instead of managing tables separately you can put them to this data container."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#optimal-container-for-microbiome-data",
+    "href": "20260903_ECCB2026.html#optimal-container-for-microbiome-data",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Optimal container for microbiome data?",
+    "text": "Optimal container for microbiome data?\n\nMultiple assays: seamless interlinking\nHierarchical data: supporting samples & features\nSide information: extended capabilities & data types\nOptimized: for speed & memory\nIntegrated: with other applications & frameworks\n\n\nBioconductor aims to harmonize the data format so that the same format can be used through the ecosystem.\nIn biological data science, we apply similar techniques despite the field."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#treesummarizedexperiment",
+    "href": "20260903_ECCB2026.html#treesummarizedexperiment",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "TreeSummarizedExperiment",
+    "text": "TreeSummarizedExperiment\n(Huang et al. 2021)\n\n\nExtension to SummarizedExperiment\nTailored for biological data science.\nGo thorugh every slot."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#summarizedexperiment",
+    "href": "20260903_ECCB2026.html#summarizedexperiment",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "SummarizedExperiment",
+    "text": "SummarizedExperiment\n(Huber et al. 2015)\n\n\nThe same data container is used in different fields. So to analyse multi-omics data, you need to know only one data container."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#data-import",
+    "href": "20260903_ECCB2026.html#data-import",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Data import",
+    "text": "Data import"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#section-4",
+    "href": "20260903_ECCB2026.html#section-4",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "",
+    "text": "mia is for downstream analysis"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#importers-and-converters",
+    "href": "20260903_ECCB2026.html#importers-and-converters",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Importers and converters",
+    "text": "Importers and converters\n\nmia includes importers and converters for standard data formats\n\nImporter: Import file\nConverter: Convert R object to other format\n\nYou can also create TreeSE object manually\n\n\nImporters and converters for standard data formats.\nYou can also create TreeSE object manually by hand if you have csv or excel files."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#microbiome-analysis-mia",
+    "href": "20260903_ECCB2026.html#microbiome-analysis-mia",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Microbiome Analysis (mia)",
+    "text": "Microbiome Analysis (mia)\n\nMicrobiome data science ecosystem\n“Downstream”, statistical analysis\n&gt; 15,000 yearly downloads from distinct IPs (top 8.05% in Bioconductor)\n\n\n \n\n\n\nWithin Bioconductor, we have developed microbiome data science ecosystem\nFor downstream analysis\nAligned and tightly linked with broader Bioconductor ecosystem"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#community-driven-ecosystem-of-tools",
+    "href": "20260903_ECCB2026.html#community-driven-ecosystem-of-tools",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Community-driven ecosystem of tools",
+    "text": "Community-driven ecosystem of tools\n\n\n\nmia (Data analysis)\nmiaViz (Visualization)\nmiaSim (Simulation)\nmiaTime (Time series analysis)\nmiaDash (Graphical user interface)\niSEETree (Interactive visualization)\nExpanded by independent developers\n\n\n             \n\n\nEcosystem of packages developed by the community. mia provides the basic operations in microbiome data analysis. miaViz has the methods for visualization.\nDeveloped by independent developers who have started to support the ecosystem."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#orchestrating-microbiome-analysis-with-bioconductor",
+    "href": "20260903_ECCB2026.html#orchestrating-microbiome-analysis-with-bioconductor",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Orchestrating Microbiome Analysis with Bioconductor",
+    "text": "Orchestrating Microbiome Analysis with Bioconductor\n\nResources and tutorials for microbiome analysis\nCommunity-built best practices\nOpen to contributions!\n\n\n\n\n\n\n\nGo to the Orchestrating Microbiome Analysis (OMA) online book\n\n\nmicrobiome.github.io/OMA\n\n\n\n\nTo support users and to collect best practices, there is online book available."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#multiassayexperiment",
+    "href": "20260903_ECCB2026.html#multiassayexperiment",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "MultiAssayExperiment",
+    "text": "MultiAssayExperiment\n(Ramos et al. 2017)\n\nFor more complex sample mapping\n\n\n\nTreeSE already supports linking multiple experiments, but this allows more flexibility.\nTreeSE requires 1-to-1 mapping, but usually samples might be missing from some experiments."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#section-5",
+    "href": "20260903_ECCB2026.html#section-5",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "",
+    "text": "A systematic benchmark of integrative strategies for microbiome-metabolome data (Mangnier et al. 2025)\n\n\n\nMulti-omics statistical approaches\n\n\nAim\nMethod\n\n\n\n\nGlobal associations\nMantel\n\n\nData summarization\nRDA\n\n\nIndividual associations\nMiRKAT\n\n\nFeature selection\nCODA-LASSO"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#mantel-test",
+    "href": "20260903_ECCB2026.html#mantel-test",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Mantel test",
+    "text": "Mantel test\nQuestion: Are two omics datasets related?\n\nCompares distance matrices\nTests for a global association between omics layers\n\n\nThe Mantel test asks whether samples that are similar in one omics dataset are also similar in another."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#microbiome-regression-based-kernel-association-test-mirkat",
+    "href": "20260903_ECCB2026.html#microbiome-regression-based-kernel-association-test-mirkat",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Microbiome Regression-based Kernel Association Test (MiRKAT)",
+    "text": "Microbiome Regression-based Kernel Association Test (MiRKAT)\nQuestion: Is a pathway associated with the global microbiome profile?\n\nRepresents microbiome similarity between samples\nTests its association with a pathway\n\n\nMiRKAT uses a kernel to represent similarity between microbiome profiles. It therefore tests the microbiome at a global level rather than testing individual taxa."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#pairwise-association",
+    "href": "20260903_ECCB2026.html#pairwise-association",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Pairwise association",
+    "text": "Pairwise association\nQuestion: Which features are associated?\n\nTests feature–feature associations\nCan reveal candidate biological interactions\n\n\nRather than asking whether the two datasets are globally related, pairwise methods identify specific associations between features.\nLimitation: pairwise associations consider features individually and do not account for the role of microbes within the broader microbial network."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#joint-robust-principal-component-analysis-joint-rpca-cordazzovargas2026",
+    "href": "20260903_ECCB2026.html#joint-robust-principal-component-analysis-joint-rpca-cordazzovargas2026",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Joint robust principal component analysis (joint RPCA) (Cordazzo Vargas et al. 2026)",
+    "text": "Joint robust principal component analysis (joint RPCA) (Cordazzo Vargas et al. 2026)\nQuestion: What are the main shared patterns?\n\nDenoise: learn a lower-dimensional representation (samples × dimensions)\nPCA: find components that capture maximum variance\nVisualize: samples in PCA space and identify the loadings driving the variation\n\n\nJoint RPCA first denoises each data layer by approximating it in a lower dimensional space, allowing layer-specific weights. The resulting representations are then combined and PCA is applied to obtain a shared low-dimensional space. A scatter plot can then be used to visualize how samples relate across the integrated omics data."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#integrated-machine-learning-for-multi-omics-prediction-and-classification-mallick2024",
+    "href": "20260903_ECCB2026.html#integrated-machine-learning-for-multi-omics-prediction-and-classification-mallick2024",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Integrated machine learning for multi-omics prediction and classification (Mallick et al. 2024)",
+    "text": "Integrated machine learning for multi-omics prediction and classification (Mallick et al. 2024)"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#section-6",
+    "href": "20260903_ECCB2026.html#section-6",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "",
+    "text": "Early fusion\nCombine first\nConcatenate omics tables into a single feature matrix and train one model.\n\nIntermediate fusion\nLearn first\nTrain separate models for each omics layer, then combine their learned representations.\n\nLate fusion\nPredict first\nTrain separate models for each omics layer, then combine their predictions."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#other-approaches",
+    "href": "20260903_ECCB2026.html#other-approaches",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Other approaches",
+    "text": "Other approaches\n\nAnansi tests biologically informed pairwise associations (Bastiaanssen, Quinn, and Cryan 2023).\nMulti-Omics Factor Analysis (MOFA) finds shared and layer-specific latent factors (Argelaguet et al. 2020).\nDIABLO, implemented in mixOmics, identifies multi-omics features that discriminate groups (Rohart et al. 2017)."
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#several-resources-provide-microbiome-multi-omics-data",
+    "href": "20260903_ECCB2026.html#several-resources-provide-microbiome-multi-omics-data",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Several resources provide microbiome multi-omics data",
+    "text": "Several resources provide microbiome multi-omics data\n\nHoloFoodR\ncuratedMetagenomicData (only metagenomics)\nmicrobiome-metabolome-curated-data repository\nHuMMANet (Verma et al. 2026)"
+  },
+  {
+    "objectID": "20260903_ECCB2026.html#multi-omics-data-fusion",
+    "href": "20260903_ECCB2026.html#multi-omics-data-fusion",
+    "title": "Orchestrating Hologenomic Analysis with Bioconductor",
+    "section": "Multi-omics data fusion",
+    "text": "Multi-omics data fusion\n\n\n\n\n\nEarly fusion: Concatenate the different data tables into a single table and train one machine-learning model on the combined features.\nIntermediate fusion: Train separate models for each omics layer and then use a meta-model to combine the information or predictions from these models. This approach can often capture complementary information more flexibly than simple early or late fusion.\nLate fusion: Train a separate model for each omics layer and combine their predictions, for example by averaging or weighting them."
   }
 ]

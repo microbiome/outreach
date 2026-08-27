@@ -92,10 +92,7 @@ bibliography: references.bib
 ## Hologenomics
 
 - _Holobiont_ = Host + microbiome [@nyholmHoloOmicsIntegratedHostMicrobiota2020]
-
-> Understanding the host often requires understanding its microbes.
-
-- Biological systems are inherently **multi-omic**
+- Understanding the host often requires understanding its microbes.
 - Hologenomic approaches integrate information across the host–microbiome system
 
 ![](images/paste-DD45BC4A.png){fig-align="right"}
@@ -755,7 +752,7 @@ To support users and to collect best practices, there is online book available.
 
 # (13:45-14:30) Programmatic access to hologenome data collections
 
-- Several resources provide microbiome multi-omics data:
+## Several resources provide microbiome multi-omics data
 
 - `r BiocStyle::Biocpkg("HoloFoodR")`
 - `r BiocStyle::Biocpkg("curatedMetagenomicData")` (only metagenomics)
@@ -869,15 +866,26 @@ samples relate across the integrated omics data.
 
 ## Integrated machine learning for multi-omics prediction and classification [@mallick2024]
 
-![](images/IL.png){style="width:50%; height:700px; object-fit:cover; object-position:bottom;"}
 
-## 
+## Multi-omics data fusion {.smaller}
+
+:::: {.columns}
+
+::: {.column width="45%"}
+![](images/IL.png){style="width:100%; height:650px; object-fit:cover; object-position:bottom;"}
+:::
+
+::: {.column width="55%"}
 
 - **Early fusion:** Concatenate the different data tables into a single table and train one machine-learning model on the combined features.
 
+- **Intermediate fusion:** Train separate models for each omics layer and then use a meta-model to combine the information or predictions from these models. This approach can often capture complementary information more flexibly than simple early or late fusion.
+
 - **Late fusion:** Train a separate model for each omics layer and combine their predictions, for example by averaging or weighting them.
 
-- **Intermediate fusion:** Train separate models for each omics layer and then use a meta-model to combine the information or predictions from these models. This approach can often capture complementary information more flexibly than simple early or late fusion.
+:::
+
+::::
 
 ::: notes
 
