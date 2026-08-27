@@ -872,7 +872,7 @@ samples relate across the integrated omics data.
 :::: {.columns}
 
 ::: {.column width="45%"}
-![](images/IL.png){style="width:100%; height:650px; object-fit:cover; object-position:bottom;"}
+![](images/IL.png){style="width:100%; height:585px; object-fit:cover; object-position:top;"}
 :::
 
 ::: {.column width="55%"}
