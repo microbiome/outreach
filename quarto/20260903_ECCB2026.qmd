@@ -1,5 +1,5 @@
 ---
-title: "Orchestrating Hologenomic Analysis with Bioconductor"
+title: "Orchestrating Hologenome Analysis with Bioconductor"
 subtitle: "ECCB2026"
 author: "Tuomas Borman, Mahkameh Salehi, Sneha Das, Himmi Lindgren, Leo Lahti"
 format:
@@ -14,11 +14,11 @@ date-format: full
 bibliography: references.bib
 ---
 
-## Orchestrating Hologenomic Analysis with Bioconductor
+## Orchestrating Hologenome Analysis with Bioconductor
 
 ![](images/mia_logo.png){fig-alt="mia logo." fig-align="right" width=10%}
 
-## Orchestrating Hologenomic Analysis with Bioconductor {auto-animate="true"}
+## Orchestrating Hologenome Analysis with Bioconductor {auto-animate="true"}
 
 - Introduces microbiome analysis framework, focusing multiomics methods
 - For participants with sufficient programming skills
@@ -163,11 +163,9 @@ ggplot() +
   theme_void()
 ```
 
-
 ::: {.notes}
 
 :::
-
 
 ## Multi-omics integration
 
