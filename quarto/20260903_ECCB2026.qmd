@@ -53,7 +53,9 @@ bibliography: references.bib
 
 - [An interactive tutorial](https://microbiome.github.io/ECCB2026OMA/)
 - [Orchestrating Microbiome Analysis (OMA) online book](https://bioconductor.org/books/release/OMA/)
-- [https://orchestraplatform.org/](https://orchestraplatform.org/)
+- [https://orchestraplatform.org/](https://orchestraplatform.org/) (by Sean Davis)
+
+![](images/nci.png){fig-alt="NCI logo." fig-align="right" width=20%}
 
 ::: {.notes}
 
