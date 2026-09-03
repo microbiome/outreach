@@ -53,7 +53,7 @@ This website hosts quarto presentations about microbiome analysis and data integ
 
 - [Introduction](https://microbiome.github.io/outreach/intro.html){target="_blank"}
 - [Outro](https://microbiome.github.io/outreach/outro.html){target="_blank"}
-- [Orchestrating Hologenomic Analysis with Bioconductor (ECCB2026)](https://microbiome.github.io/outreach/20260903_ECCB2026.html){target="_blank"}
+- [Orchestrating Hologenome Analysis with Bioconductor (ECCB2026)](https://microbiome.github.io/outreach/20260903_ECCB2026.html){target="_blank"}
 
 ## Contributions
 
