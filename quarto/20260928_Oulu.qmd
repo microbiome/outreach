@@ -18,7 +18,26 @@ bibliography: references.bib
 **University of Oulu**, **Sep 28–30, 2026 (Mon–Wed)**  
 Daily: ~**9:00–16:00** (lectures + demos + hands-on)
 
-![](images/mia_logo.png){fig-alt="mia logo." fig-align="right" width=10%}
+::: {.center}
+
+::: columns
+::: column{width="50%"}
+![](images/mia_logo.png){fig-alt="mia logo" width=10%}
+![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo" width=35%}
+![](images/University_of_Oulu_logo.jpg){fig-alt="University of Oulu logo" width=10%}
+![](images/University_of_Turku.png){fig-alt="UTU logo" width=30%}
+:::
+:::
+  
+::: columns
+::: column{width="50%"}
+![](images/complifesci.png){fig-alt="CompLifeSci logo" width=25%}
+![](images/csc.png){fig-alt="CSC logo" width=15%}
+![](images/bioinfo_society.jpg){fig-alt="Bioinformatics society logo" width=20%}
+:::
+:::
+
+:::
 
 ## Code of Conduct
 
@@ -98,16 +117,17 @@ After the course, you will be able to:
 | Time | Activity |
 |-------------|----------|
 | 9:00–10:00  | Coffee, welcome & practicalities |
-| 10:00–11:00 | Lecture: open & reproducible workflows |
-| 11:00–12:00 | Introduction to CSC RStudio notebook |
+| 10:00–11:00 | Introduction to CSC RStudio notebook |
+| 11:00–12:00 | Lecture: open & reproducible workflows |
 | 12:00–13:00 | Lunch break |
-| 13:00–14:00 | Reproducible reporting with Quarto |
-| 14:00–16:00 | Working with data containers and workflows |
+| 13:00–16:00 | Working with data containers and workflows |
 | Evening     | Informal course dinner (own cost) |
 
 ## Learning goals
 
-- Goals for the day
+- Understand principles of open & reproducible microbiome/omics analysis
+- Become familiar with the Bioconductor ecosystem
+- Learn the role of standardized data containers for omics data
 
 ## Microbiome research
 
@@ -121,15 +141,15 @@ After the course, you will be able to:
 Tämä dia voi mennä muualle, mutta jos muistan oikein, olemme olettaneet edellisillä kursseilla, että ihmiset tietää, mikä on mikrobiomi. Se kannattaa käydä nopeasti alussa läpi.
 :::
 
-## Reprpduicible reporting
+## Slides
 
 -   [Data containers](https://microbiome.github.io/outreach/data_containers.html){target="_blank"}
 
 ## Day 1 — Wrap-up
 
-- `r BiocStyle::Biocpkg("TreeSummarizedExperiment")`
-- x
-- x
+- **Reproducible & transparent reporting**: makes analyses verifiable and easier to reuse, review, and extend (for you and others)
+- `TreeSummarizedExperiment`: standard container for microbiome data
+- **Bioconductor** provides interoperable packages built on shared data infrastructure
 
 ::: notes
 
@@ -178,15 +198,6 @@ Tämä dia voi mennä muualle, mutta jos muistan oikein, olemme olettaneet edell
 - x
 - x
 - x
-
-## Acknowledgments {.smaller}
-
-![](images/mia_logo.png){fig-alt="mia logo." fig-align="right" width=10%}
-![](images/bioconductor_logo_cmyk.jpg){fig-alt="Bioconductor logo." fig-align="right" width=10%}
-![](images/csc.png){fig-alt="mia logo." fig-align="right" width=10%}
-![](images/University_of_Oulu_logo.jpg){fig-alt="University of Oulu logo." fig-align="right" width=10%}
-![](images/University_of_Turku.png){fig-alt="UTU logo." fig-align="right" width=10%}
-![](images/bioinfo_society.jpg){fig-alt="Bioinformatics society logo." fig-align="right" width=10%}
 
 ## Acknowledgements
 

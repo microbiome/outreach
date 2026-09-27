@@ -452,14 +452,14 @@
     "href": "20260928_Oulu.html#day-1-open-data-science-1",
     "title": "Microbiome data science and multi-omics with R/Bioconductor",
     "section": "Day 1 — Open data science",
-    "text": "Day 1 — Open data science\n\n\n\nTime\nActivity\n\n\n\n\n9:00–10:00\nCoffee, welcome & practicalities\n\n\n10:00–11:00\nLecture: open & reproducible workflows\n\n\n11:00–12:00\nIntroduction to CSC RStudio notebook\n\n\n12:00–13:00\nLunch break\n\n\n13:00–14:00\nReproducible reporting with Quarto\n\n\n14:00–16:00\nWorking with data containers and workflows\n\n\nEvening\nInformal course dinner (own cost)"
+    "text": "Day 1 — Open data science\n\n\n\nTime\nActivity\n\n\n\n\n9:00–10:00\nCoffee, welcome & practicalities\n\n\n10:00–11:00\nIntroduction to CSC RStudio notebook\n\n\n11:00–12:00\nLecture: open & reproducible workflows\n\n\n12:00–13:00\nLunch break\n\n\n13:00–16:00\nWorking with data containers and workflows\n\n\nEvening\nInformal course dinner (own cost)"
   },
   {
     "objectID": "20260928_Oulu.html#microbiome-research",
     "href": "20260928_Oulu.html#microbiome-research",
     "title": "Microbiome data science and multi-omics with R/Bioconductor",
     "section": "Microbiome research",
-    "text": "Microbiome research\n\nMicrobiome: community of microbes and their genes in certain habitat (e.g., human gut)\nVital role\nData typically sequencing profiles, along with additional molecular layers"
+    "text": "Microbiome research\n\nMicrobiome: community of microbes and their genes in certain habitat (e.g., human gut)\nVital role\nData typically sequencing profiles, along with additional molecular layers\n\n\n\nTämä dia voi mennä muualle, mutta jos muistan oikein, olemme olettaneet edellisillä kursseilla, että ihmiset tietää, mikä on mikrobiomi. Se kannattaa käydä nopeasti alussa läpi."
   },
   {
     "objectID": "20260928_Oulu.html#reprpduicible-reporting",
@@ -473,7 +473,7 @@
     "href": "20260928_Oulu.html#day-1-wrap-up",
     "title": "Microbiome data science and multi-omics with R/Bioconductor",
     "section": "Day 1 — Wrap-up",
-    "text": "Day 1 — Wrap-up\n\nr BiocStyle::Biocpkg(\"TreeSummarizedExperiment\")\nx\nx"
+    "text": "Day 1 — Wrap-up\n\nReproducible & transparent reporting: makes analyses verifiable and easier to reuse, review, and extend (for you and others)\nTreeSummarizedExperiment: standard container for microbiome data\nBioconductor provides interoperable packages built on shared data infrastructure"
   },
   {
     "objectID": "20260928_Oulu.html#day-2-tabular-data-analysis-1",
@@ -530,5 +530,40 @@
     "title": "Microbiome data science and multi-omics with R/Bioconductor",
     "section": "Acknowledgements",
     "text": "Acknowledgements"
+  },
+  {
+    "objectID": "20260928_Oulu.html#learning-goals-1",
+    "href": "20260928_Oulu.html#learning-goals-1",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Learning goals",
+    "text": "Learning goals\n\nUnderstand principles of open & reproducible microbiome/omics analysis\nBecome familiar with the Bioconductor ecosystem\nLearn the role of standardized data containers for omics data"
+  },
+  {
+    "objectID": "20260928_Oulu.html#learning-goals-2",
+    "href": "20260928_Oulu.html#learning-goals-2",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Learning goals",
+    "text": "Learning goals\n\nGoals for the day"
+  },
+  {
+    "objectID": "20260928_Oulu.html#learning-goals-3",
+    "href": "20260928_Oulu.html#learning-goals-3",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Learning goals",
+    "text": "Learning goals\n\nGoals for the day"
+  },
+  {
+    "objectID": "20260928_Oulu.html#reproducible-reporting",
+    "href": "20260928_Oulu.html#reproducible-reporting",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Reproducible reporting",
+    "text": "Reproducible reporting\n\nData containers"
+  },
+  {
+    "objectID": "20260928_Oulu.html#slides",
+    "href": "20260928_Oulu.html#slides",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Slides",
+    "text": "Slides\n\nData containers"
   }
 ]
