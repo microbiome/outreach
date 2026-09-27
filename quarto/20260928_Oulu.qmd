@@ -105,6 +105,10 @@ After the course, you will be able to:
 | 14:00–16:00 | Working with data containers and workflows |
 | Evening     | Informal course dinner (own cost) |
 
+## Learning goals
+
+- Goals for the day
+
 ## Microbiome research
 
 - Microbiome: community of microbes and their genes in certain habitat (e.g., human gut)
@@ -112,6 +116,10 @@ After the course, you will be able to:
 - Data typically sequencing profiles, along with additional molecular layers
 
 ![](images/paste-DD45BC4A.png){fig-align="right"}
+
+::: notes
+Tämä dia voi mennä muualle, mutta jos muistan oikein, olemme olettaneet edellisillä kursseilla, että ihmiset tietää, mikä on mikrobiomi. Se kannattaa käydä nopeasti alussa läpi.
+:::
 
 ## Reprpduicible reporting
 
@@ -139,6 +147,10 @@ After the course, you will be able to:
 | 13:00–14:00 | Univariate data analysis and visualization |
 | 14:00–16:00 | Multivariate data analysis and visualization |
 
+## Learning goals
+
+- Goals for the day
+
 ## Day 2 — Wrap-up
 
 - x
@@ -156,6 +168,10 @@ After the course, you will be able to:
 | 12:00–13:00 | Lunch break |
 | 13:00–15:00 | Q&A and advanced techniques (time series, machine learning, simulation) |
 | 15:00–16:00 | Summary and wrap-up |
+
+## Learning goals
+
+- Goals for the day
 
 ## Summary
 
