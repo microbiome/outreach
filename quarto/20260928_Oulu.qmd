@@ -67,7 +67,7 @@ Emphasize: you don't need to know everything—learn the ecosystem and how to na
 
 **Instructors:** Leo Lahti, Tuomas Borman  
 **Coordinator:** Anna Kaisanlahti  
-**Organizers:** HBS-DP (University of Oulu Graduate School)  
+**Organizers:** HBS-DP (University of Oulu Graduate School) 
 **Computing support:** CSC (cloud services)
 
 ## Target audience
@@ -155,6 +155,15 @@ Tämä dia voi mennä muualle, mutta jos muistan oikein, olemme olettaneet edell
 
 :::
 
+## Feedback
+
+```{r}
+#| label: feedback_qr
+#| fig-cap: "https://forms.gle/iEkoNdMVp9BUnyqNA"
+qrcode::qr_code("https://forms.gle/iEkoNdMVp9BUnyqNA") |> plot()
+```
+
+
 # Day 2 — Tabular data analysis
 
 ## Day 2 — Tabular data analysis {.smaller}
@@ -177,6 +186,14 @@ Tämä dia voi mennä muualle, mutta jos muistan oikein, olemme olettaneet edell
 - x
 - x
 
+## Feedback
+
+```{r}
+#| label: feedback_qr2
+#| fig-cap: "https://forms.gle/iEkoNdMVp9BUnyqNA"
+qrcode::qr_code("https://forms.gle/iEkoNdMVp9BUnyqNA") |> plot()
+```
+
 # Day 3 — Multi-assay data integration
 
 ## Day 3 — Multi-assay data integration {.smaller}
@@ -198,6 +215,14 @@ Tämä dia voi mennä muualle, mutta jos muistan oikein, olemme olettaneet edell
 - x
 - x
 - x
+
+## Feedback
+
+```{r}
+#| label: feedback_qr3
+#| fig-cap: "https://forms.gle/iEkoNdMVp9BUnyqNA"
+qrcode::qr_code("https://forms.gle/iEkoNdMVp9BUnyqNA") |> plot()
+```
 
 ## Acknowledgements
 
