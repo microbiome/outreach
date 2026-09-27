@@ -592,6 +592,6 @@
     "href": "20260928_Oulu.html#exercises",
     "title": "Microbiome data science and multi-omics with R/Bioconductor",
     "section": "Exercises",
-    "text": "Exercises\n\nChapter 4, Exercises 1.2-1.7 ## Day 1 — Wrap-up\nReproducible & transparent reporting: makes analyses verifiable and easier to reuse, review, and extend (for you and others)\nTreeSummarizedExperiment: standard container for microbiome data\nBioconductor provides interoperable packages built on shared data infrastructure"
+    "text": "Exercises\n\nChapter 4, Exercises 1.2-1.7"
   }
 ]

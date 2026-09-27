@@ -148,6 +148,14 @@ Tämä dia voi mennä muualle, mutta jos muistan oikein, olemme olettaneet edell
 ## Exercises
 
 - [Chapter 4, Exercises 1.2-1.7](https://bioconductor.org/books/release/OMA/pages/import.html)
+
+<!--
+- [Chapter 8, all exercises](https://bioconductor.org/books/release/OMA/pages/quality_control.html)
+- [Chapter 10, all exercises](https://bioconductor.org/books/release/OMA/pages/agglomeration.html)
+- [Chapter 11, all exercises](https://bioconductor.org/books/release/OMA/pages/transformation.html)
+- [Chapter 12, all exercises](https://bioconductor.org/books/release/OMA/pages/composition.html)
+-->
+
 ## Day 1 — Wrap-up
 
 - **Reproducible & transparent reporting**: makes analyses verifiable and easier to reuse, review, and extend (for you and others)
