@@ -5,6 +5,7 @@ project:
     - index.qmd
     - 20260506_bioc_africa.qmd
     - 20260903_ECCB2026.qmd
+    - 20260928_Oulu.qmd
     - agglomeration.qmd
     - alpha_diversity.qmd
     - beta_diversity.qmd

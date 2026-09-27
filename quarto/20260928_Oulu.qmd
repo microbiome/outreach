@@ -1,0 +1,203 @@
+---
+title: "Microbiome data science and multi-omics with R/Bioconductor"
+subtitle: "Oulu, September 2026"
+author: "Leo Lahti, Tuomas Borman, Anna Kaisanlahti"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+date: last-modified
+bibliography: references.bib
+---
+
+## Microbiome data science and multi-omics with R/Bioconductor
+
+**University of Oulu**, **Sep 28–30, 2026 (Mon–Wed)**  
+Daily: ~**9:00–16:00** (lectures + demos + hands-on)
+
+![](images/mia_logo.png){fig-alt="mia logo." fig-align="right" width=10%}
+
+## Code of Conduct
+
+Bioconductor community values:
+
+- sharing of ideas, code, software, and expertise
+- collaboration
+- diversity and inclusivity
+- a kind and welcoming environment
+
+Full CoC: <https://bioconductor.github.io/bioc_coc_multilingual/>
+
+## Course overview
+
+The course provides a gentle introduction to **microbiome and multi-omic data science**
+with **R/Bioconductor**, focusing on:
+
+- reproducible data analysis workflows
+- standardized data containers for biomedical data integration
+- how to approach new analysis tasks using documentation + existing tools
+
+::: notes
+Emphasize: you don't need to know everything—learn the ecosystem and how to navigate.
+:::
+
+## Instructors and organizers
+
+**Instructors:** Leo Lahti, Tuomas Borman  
+**Coordinator:** Anna Kaisanlahti  
+**Organizers:** HBS-DP (University of Oulu Graduate School)  
+**Computing support:** CSC (cloud services)
+
+## Target audience
+
+For MSc students, PhD candidates, postdocs, and researchers who want to build skills in:
+
+- statistical programming in R
+- omics data analysis and visualization
+- reproducible reporting
+
+::: notes
+
+:::
+
+## Learning goals
+
+After the course, you will be able to:
+
+- use **Bioconductor** data infrastructure for omics data analysis
+- work with standardized containers for **single-omics** and **multi-omics**
+- build **reproducible workflows** with Quarto
+- continue learning independently using the OMA documentation
+
+## Materials & links
+
+- OMA book: <https://bioconductor.org/books/release/OMA/>
+- CSC environment: <https://noppe.rahtiapp.fi/>
+- Google docs for questions
+
+## Practicalities
+
+- Each topic: **short lecture + demonstration**
+- Majority of time: **hands-on exercises**
+- Help available during exercises
+- Materials remain available after the course
+
+## Schedule overview
+
+**Day 1:** Reproducible workflows with R/Bioconductor and Quarto  
+**Day 2:** Tabular data analysis (working with single 'omics)  
+**Day 3:** Multi-assay data integration (multi-omics methods)
+
+# Day 1 — Open data science
+
+## Day 1 — Open data science {.smaller}
+
+| Time | Activity |
+|-------------|----------|
+| 9:00–10:00  | Coffee, welcome & practicalities |
+| 10:00–11:00 | Lecture: open & reproducible workflows |
+| 11:00–12:00 | Introduction to CSC RStudio notebook |
+| 12:00–13:00 | Lunch break |
+| 13:00–14:00 | Reproducible reporting with Quarto |
+| 14:00–16:00 | Working with data containers and workflows |
+| Evening     | Informal course dinner (own cost) |
+
+## Microbiome research
+
+- Microbiome: community of microbes and their genes in certain habitat (e.g., human gut)
+- Vital role
+- Data typically sequencing profiles, along with additional molecular layers
+
+![](images/paste-DD45BC4A.png){fig-align="right"}
+
+## Reprpduicible reporting
+
+-   [Data containers](https://microbiome.github.io/outreach/data_containers.html){target="_blank"}
+
+## Day 1 — Wrap-up
+
+- `r BiocStyle::Biocpkg("TreeSummarizedExperiment")`
+- x
+- x
+
+::: notes
+
+:::
+
+# Day 2 — Tabular data analysis
+
+## Day 2 — Tabular data analysis {.smaller}
+
+| Time | Activity |
+|-------------|----------|
+| 9:00–10:00  | Lecture: analysis & visualization of tabular data (single omics) |
+| 10:00–12:00 | Subsetting, transformations, and data summaries |
+| 12:00–13:00 | Lunch break |
+| 13:00–14:00 | Univariate data analysis and visualization |
+| 14:00–16:00 | Multivariate data analysis and visualization |
+
+## Day 2 — Wrap-up
+
+- x
+- x
+- x
+
+# Day 3 — Multi-assay data integration
+
+## Day 3 — Multi-assay data integration {.smaller}
+
+| Time | Activity |
+|-------------|----------|
+| 9:00–10:00  | Lecture: analysis & visualization of multi-assay data (multi-omics) |
+| 10:00–12:00 | Multi-assay data analysis and visualization |
+| 12:00–13:00 | Lunch break |
+| 13:00–15:00 | Q&A and advanced techniques (time series, machine learning, simulation) |
+| 15:00–16:00 | Summary and wrap-up |
+
+## Summary
+
+- x
+- x
+- x
+
+## Acknowledgments {.smaller}
+
+![](images/mia_logo.png){fig-alt="mia logo." fig-align="right" width=10%}
+![](images/bioconductor_logo_cmyk.jpg){fig-alt="Bioconductor logo." fig-align="right" width=10%}
+![](images/csc.png){fig-alt="mia logo." fig-align="right" width=10%}
+![](images/University_of_Oulu_logo.jpg){fig-alt="University of Oulu logo." fig-align="right" width=10%}
+![](images/University_of_Turku.png){fig-alt="UTU logo." fig-align="right" width=10%}
+![](images/bioinfo_society.jpg){fig-alt="Bioinformatics society logo." fig-align="right" width=10%}
+
+## Acknowledgements
+
+::: {.center}
+
+::: columns
+::: column{width="50%"}
+![](images/mia_logo.png){fig-alt="mia logo" width=10%}
+![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo" width=35%}
+:::
+:::
+  
+::: columns
+::: column{width="50%"}
+![](images/University_of_Oulu_logo.jpg){fig-alt="University of Oulu logo" width=10%}
+![](images/University_of_Turku.png){fig-alt="UTU logo" width=30%}
+![](images/complifesci.png){fig-alt="CompLifeSci logo" width=25%}
+:::
+:::
+  
+::: columns
+::: column{width="50%"}
+![](images/csc.png){fig-alt="CSC logo" width=15%}
+![](images/bioinfo_society.jpg){fig-alt="Bioinformatics society logo" width=20%}
+:::
+:::
+
+:::
+
+## References

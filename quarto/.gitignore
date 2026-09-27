@@ -6,3 +6,5 @@ GuptaA*
 site_libs
 *.html
 *.rmarkdown
+
+**/*.quarto_ipynb

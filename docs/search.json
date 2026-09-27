@@ -18,7 +18,7 @@
     "href": "index.html#topics",
     "title": "Quarto presentations",
     "section": "Topics",
-    "text": "Topics\n\nIntroduction\n\nBioconductor\nReproducible reporting\nData containers\nImport data\n\nPreprocessing\n\nAgglomeration\nTransformation\n\nDiversity\n\nAlpha diversity\nBeta diversity\n\nOrdination\n\n\nAssociation\n\nDifferential abundance analysis\nFunctional analysis\n\nMulti-omics\n\nMulti-omics\n\nMachine learning\n\nMachine learning\n\n\n\nPackages\n\nMGnifyR: An R package for accessing MGnify microbiome data\nmiaDash: Microbiome Analysis Dashboard\nmiaSim: Microbiome simulation\n\n\n\nData sets\n\nHintikkaXO\nTengeler2020\n\n\n\nConference and seminar presentations\n\nOrchestrating microbiome multi-omics (BioC2023)\nOrchestrating Microbiome Analysis with Bioconductor (OH-BOOST, Microbiota Data Analysis and Statistics, webinar)\nOrchestrating Microbiome Analysis with Bioconductor (GBCC2025)\nOrchestrating Microbiome Analysis with Bioconductor (ISMB/ECCB 2025)\nOrchestrating Microbiome Analysis with Bioconductor (Bioconductor Africa Seminar Series, May 2026)\nOrchestrating Microbiome Analysis with Bioconductor (EuroBioC2026)\n\n\n\nCourses and workshops\n\nIntroduction\nOutro\nOrchestrating Hologenome Analysis with Bioconductor (ECCB2026)"
+    "text": "Topics\n\nIntroduction\n\nBioconductor\nReproducible reporting\nData containers\nImport data\n\nPreprocessing\n\nAgglomeration\nTransformation\n\nDiversity\n\nAlpha diversity\nBeta diversity\n\nOrdination\n\n\nAssociation\n\nDifferential abundance analysis\nFunctional analysis\n\nMulti-omics\n\nMulti-omics\n\nMachine learning\n\nMachine learning\n\n\n\nPackages\n\nMGnifyR: An R package for accessing MGnify microbiome data\nmiaDash: Microbiome Analysis Dashboard\nmiaSim: Microbiome simulation\n\n\n\nData sets\n\nHintikkaXO\nTengeler2020\n\n\n\nConference and seminar presentations\n\nOrchestrating microbiome multi-omics (BioC2023)\nOrchestrating Microbiome Analysis with Bioconductor (OH-BOOST, Microbiota Data Analysis and Statistics, webinar)\nOrchestrating Microbiome Analysis with Bioconductor (GBCC2025)\nOrchestrating Microbiome Analysis with Bioconductor (ISMB/ECCB 2025)\nOrchestrating Microbiome Analysis with Bioconductor (Bioconductor Africa Seminar Series, May 2026)\nOrchestrating Microbiome Analysis with Bioconductor (EuroBioC2026)\n\n\n\nCourses and workshops\n\nIntroduction\nOutro\nOrchestrating Hologenome Analysis with Bioconductor (ECCB2026)\nMicrobiome data science and multi-omics with R/Bioconductor (Oulu, September 2026)"
   },
   {
     "objectID": "index.html#contributions",
@@ -376,5 +376,159 @@
     "title": "Orchestrating Hologenome Analysis with Bioconductor",
     "section": "Orchestrating Hologenome Analysis with Bioconductor",
     "text": "Orchestrating Hologenome Analysis with Bioconductor\n\nIntroduces microbiome analysis framework, focusing multiomics methods\nFor participants with sufficient programming skills"
+  },
+  {
+    "objectID": "20260928_Oulu.html",
+    "href": "20260928_Oulu.html",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "",
+    "text": "University of Oulu, Sep 28–30, 2026 (Mon–Wed)\nDaily: ~9:00–16:00 (lectures + demos + hands-on)"
+  },
+  {
+    "objectID": "20260928_Oulu.html#microbiome-data-science-and-multi-omics-with-rbioconductor",
+    "href": "20260928_Oulu.html#microbiome-data-science-and-multi-omics-with-rbioconductor",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Microbiome data science and multi-omics with R/Bioconductor",
+    "text": "Microbiome data science and multi-omics with R/Bioconductor\nUniversity of Oulu, Sep 28–30, 2026 (Mon–Wed)\nDaily: ~9:00–16:00 (lectures + demos + hands-on)"
+  },
+  {
+    "objectID": "20260928_Oulu.html#code-of-conduct",
+    "href": "20260928_Oulu.html#code-of-conduct",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Code of Conduct",
+    "text": "Code of Conduct\nBioconductor community values:\n\nsharing of ideas, code, software, and expertise\ncollaboration\ndiversity and inclusivity\na kind and welcoming environment\n\nFull CoC: https://bioconductor.github.io/bioc_coc_multilingual/"
+  },
+  {
+    "objectID": "20260928_Oulu.html#course-overview",
+    "href": "20260928_Oulu.html#course-overview",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Course overview",
+    "text": "Course overview\nThe course provides a gentle introduction to microbiome and multi-omic data science with R/Bioconductor, focusing on:\n\nreproducible data analysis workflows\nstandardized data containers for biomedical data integration\nhow to approach new analysis tasks using documentation + existing tools\n\n\nEmphasize: you don’t need to know everything—learn the ecosystem and how to navigate."
+  },
+  {
+    "objectID": "20260928_Oulu.html#instructors-and-organizers",
+    "href": "20260928_Oulu.html#instructors-and-organizers",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Instructors and organizers",
+    "text": "Instructors and organizers\nInstructors: Leo Lahti, Tuomas Borman\nCoordinator: Anna Kaisanlahti\nOrganizers: HBS-DP (University of Oulu Graduate School)\nComputing support: CSC (cloud services)"
+  },
+  {
+    "objectID": "20260928_Oulu.html#target-audience",
+    "href": "20260928_Oulu.html#target-audience",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Target audience",
+    "text": "Target audience\nFor MSc students, PhD candidates, postdocs, and researchers who want to build skills in:\n\nstatistical programming in R\nomics data analysis and visualization\nreproducible reporting"
+  },
+  {
+    "objectID": "20260928_Oulu.html#learning-goals",
+    "href": "20260928_Oulu.html#learning-goals",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Learning goals",
+    "text": "Learning goals\nAfter the course, you will be able to:\n\nuse Bioconductor data infrastructure for omics data analysis\nwork with standardized containers for single-omics and multi-omics\nbuild reproducible workflows with Quarto\ncontinue learning independently using the OMA documentation"
+  },
+  {
+    "objectID": "20260928_Oulu.html#materials-links",
+    "href": "20260928_Oulu.html#materials-links",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Materials & links",
+    "text": "Materials & links\n\nOMA book: https://bioconductor.org/books/release/OMA/\nCSC environment: https://noppe.rahtiapp.fi/\nGoogle docs for questions"
+  },
+  {
+    "objectID": "20260928_Oulu.html#practicalities",
+    "href": "20260928_Oulu.html#practicalities",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Practicalities",
+    "text": "Practicalities\n\nEach topic: short lecture + demonstration\nMajority of time: hands-on exercises\nHelp available during exercises\nMaterials remain available after the course"
+  },
+  {
+    "objectID": "20260928_Oulu.html#schedule-overview",
+    "href": "20260928_Oulu.html#schedule-overview",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Schedule overview",
+    "text": "Schedule overview\nDay 1: Reproducible workflows with R/Bioconductor and Quarto\nDay 2: Tabular data analysis (working with single ’omics)\nDay 3: Multi-assay data integration (multi-omics methods)"
+  },
+  {
+    "objectID": "20260928_Oulu.html#day-1-open-data-science-1",
+    "href": "20260928_Oulu.html#day-1-open-data-science-1",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Day 1 — Open data science",
+    "text": "Day 1 — Open data science\n\n\n\nTime\nActivity\n\n\n\n\n9:00–10:00\nCoffee, welcome & practicalities\n\n\n10:00–11:00\nLecture: open & reproducible workflows\n\n\n11:00–12:00\nIntroduction to CSC RStudio notebook\n\n\n12:00–13:00\nLunch break\n\n\n13:00–14:00\nReproducible reporting with Quarto\n\n\n14:00–16:00\nWorking with data containers and workflows\n\n\nEvening\nInformal course dinner (own cost)"
+  },
+  {
+    "objectID": "20260928_Oulu.html#microbiome-research",
+    "href": "20260928_Oulu.html#microbiome-research",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Microbiome research",
+    "text": "Microbiome research\n\nMicrobiome: community of microbes and their genes in certain habitat (e.g., human gut)\nVital role\nData typically sequencing profiles, along with additional molecular layers"
+  },
+  {
+    "objectID": "20260928_Oulu.html#reprpduicible-reporting",
+    "href": "20260928_Oulu.html#reprpduicible-reporting",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Reprpduicible reporting",
+    "text": "Reprpduicible reporting\n\nData containers"
+  },
+  {
+    "objectID": "20260928_Oulu.html#day-1-wrap-up",
+    "href": "20260928_Oulu.html#day-1-wrap-up",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Day 1 — Wrap-up",
+    "text": "Day 1 — Wrap-up\n\nr BiocStyle::Biocpkg(\"TreeSummarizedExperiment\")\nx\nx"
+  },
+  {
+    "objectID": "20260928_Oulu.html#day-2-tabular-data-analysis-1",
+    "href": "20260928_Oulu.html#day-2-tabular-data-analysis-1",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Day 2 — Tabular data analysis",
+    "text": "Day 2 — Tabular data analysis\n\n\n\n\n\n\n\nTime\nActivity\n\n\n\n\n9:00–10:00\nLecture: analysis & visualization of tabular data (single omics)\n\n\n10:00–12:00\nSubsetting, transformations, and data summaries\n\n\n12:00–13:00\nLunch break\n\n\n13:00–14:00\nUnivariate data analysis and visualization\n\n\n14:00–16:00\nMultivariate data analysis and visualization"
+  },
+  {
+    "objectID": "20260928_Oulu.html#day-2-wrap-up",
+    "href": "20260928_Oulu.html#day-2-wrap-up",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Day 2 — Wrap-up",
+    "text": "Day 2 — Wrap-up\n\nx\nx\nx"
+  },
+  {
+    "objectID": "20260928_Oulu.html#day-3-multi-assay-data-integration-1",
+    "href": "20260928_Oulu.html#day-3-multi-assay-data-integration-1",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Day 3 — Multi-assay data integration",
+    "text": "Day 3 — Multi-assay data integration\n\n\n\n\n\n\n\nTime\nActivity\n\n\n\n\n9:00–10:00\nLecture: analysis & visualization of multi-assay data (multi-omics)\n\n\n10:00–12:00\nMulti-assay data analysis and visualization\n\n\n12:00–13:00\nLunch break\n\n\n13:00–15:00\nQ&A and advanced techniques (time series, machine learning, simulation)\n\n\n15:00–16:00\nSummary and wrap-up"
+  },
+  {
+    "objectID": "20260928_Oulu.html#summary",
+    "href": "20260928_Oulu.html#summary",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Summary",
+    "text": "Summary\n\nx\nx\nx"
+  },
+  {
+    "objectID": "20260928_Oulu.html#acknowledgments",
+    "href": "20260928_Oulu.html#acknowledgments",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Acknowledgments",
+    "text": "Acknowledgments"
+  },
+  {
+    "objectID": "20260928_Oulu.html#references",
+    "href": "20260928_Oulu.html#references",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "References",
+    "text": "References"
+  },
+  {
+    "objectID": "20260928_Oulu.html#acknowledgements",
+    "href": "20260928_Oulu.html#acknowledgements",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements"
+  },
+  {
+    "objectID": "20260928_Oulu.html#acknowledgements-1",
+    "href": "20260928_Oulu.html#acknowledgements-1",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Acknowledgements",
+    "text": "Acknowledgements"
   }
 ]
