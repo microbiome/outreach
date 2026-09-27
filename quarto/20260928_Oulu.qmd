@@ -145,6 +145,9 @@ Tämä dia voi mennä muualle, mutta jos muistan oikein, olemme olettaneet edell
 
 -   [Data containers](https://microbiome.github.io/outreach/data_containers.html){target="_blank"}
 
+## Exercises
+
+- [Chapter 4, Exercises 1.2-1.7](https://bioconductor.org/books/release/OMA/pages/import.html)
 ## Day 1 — Wrap-up
 
 - **Reproducible & transparent reporting**: makes analyses verifiable and easier to reuse, review, and extend (for you and others)
