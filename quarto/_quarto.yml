@@ -26,7 +26,6 @@ project:
     - miasim.qmd
     - multi-omics.qmd
     - oh-boost_webinar2024.qmd
-    - ordination.qmd
     - outro.qmd
     - reproducible_reporting.qmd
     - transformation.qmd
