@@ -1,7 +1,11 @@
 ---
 title: "Bioconductor"
+subtitle: "Open-source software for bioinformatics"
 format:
   revealjs:
+    theme: [default, bioconductor.scss]
+    transition: fade
+    transition-speed: fast
     self-contained: true
     slide-number: true
     preview-links: auto
@@ -10,15 +14,26 @@ format:
 date: last-modified
 date-format: full
 bibliography: references.bib
+execute:
+  echo: false
+  warning: false
+  message: false
 ---
 
 ## Bioconductor
 
+::: columns
+::: {.column width="55%"}
 -   Community-driven, global open-source project
 -   Started in 2001 from genomics
 -   High impact across bioinformatics
+:::
 
-![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo." fig-align="right" width="10%"}
+::: {.column .no-round width="45%"}
+<br><br>
+![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo."}
+:::
+:::
 
 ::: notes
 Project for developing software in bioinformatics.
@@ -229,13 +244,12 @@ Review process when submitting (novel, relevant, works as it should be, document
 
 ![](images/paste-505993C5.png)
 
-## Benefits
+## Benefits of open collaboration
 
 Science is a community effort:
 
-- Quality
-
-- Impact
+-   Quality
+-   Impact
 
 
 ## Open (microbiome) data science ecosystems
@@ -244,19 +258,21 @@ Science is a community effort:
 
 ## R/Bioc community
 
+::: columns
+::: {.column width="45%"}
 Bioconductor conferences:
 
 -   North America
-
 -   Asia
-
 -   Europe
-
 -   (Africa)
-
 -   (South America)
+:::
 
-![](images/paste-424E5F35.png){width="327"}
+::: {.column width="55%"}
+![](images/paste-424E5F35.png){fig-alt="Bioconductor conference"}
+:::
+:::
 
 ## Microbiome Analysis (`r BiocStyle::Biocpkg("mia")`)
 
@@ -312,7 +328,7 @@ num_downloads <- paste0(format(num_downloads, big.mark = ","))
 3.  Aligned and tightly linked with broader Bioconductor ecosystem
 :::
 
-## 
+## {.center}
 
 [![](images/oma_publication.png)](https://www.biorxiv.org/content/10.1101/2025.10.29.685036v1)
 
@@ -408,7 +424,7 @@ Over the years, several approaches to data organization have been developed. One
 `r BiocStyle::Biocpkg("SummarizedExperiment")` (SE) [@Huber2015], on the other hand, was introduced as a general-purpose container for biological data and has become the most widely used format within the Bioconductor ecosystem. It has since been extended to more specialized formats, including `r BiocStyle::Biocpkg("SingleCellExperiment")` [@Amezquita2020] for single-cell data and `r BiocStyle::Biocpkg("TreeSummarizedExperiment")` (TreeSE) [@Huang2021], which is tailored for microbiome datasets.
 :::
 
-## Benefits
+## Benefits of a shared data framework
 
 1.  Tightly linked with broader Bioconductor ecosystem
 2.  Improved scalability
@@ -433,7 +449,7 @@ Over the years, several approaches to data organization have been developed. One
 -   [Expanded by independent developers](https://microbiome.github.io/OMA/docs/devel/pages/miaverse.html#sec-packages)
 :::
 
-::: {.column width="30%"}
+::: {.column .sticker-grid width="30%"}
 ![](https://raw.githubusercontent.com/microbiome/mia/refs/heads/devel/man/figures/mia_logo.png){fig-alt="mia logo." width="20%"} ![](https://raw.githubusercontent.com/EBI-Metagenomics/MGnifyR/refs/heads/devel/man/figures/mgnifyr_logo.png){fig-alt="MGnifyR logo." width="20%"} ![](https://raw.githubusercontent.com/EBI-Metagenomics/HoloFoodR/refs/heads/devel/man/figures/holofoodr_logo.png){fig-alt="HoloFoodR logo." width="20%"} ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/iSEE/iSEE.png){fig-alt="iSEE logo." width="20%"} ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/MultiAssayExperiment/MultiAssayExperiment.png){fig-alt="MAE logo." width="20%"} ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SummarizedExperiment/SummarizedExperiment.png){fig-alt="SE logo." width="20%"} ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/SingleCellExperiment/SingleCellExperiment.png){fig-alt="SCE logo." width="20%"} ![](https://raw.githubusercontent.com/Bioconductor/BiocStickers/refs/heads/devel/scater/scater.png){fig-alt="scater logo." width="20%"} ![](https://pbs.twimg.com/media/FDNU5KgWYAcnU8w.jpg){fig-alt="benchdamic logo." width="20%"} ![](https://netcomi.de/logo.png){fig-alt="netcomi logo." width="20%"} ![](https://raw.githubusercontent.com/statdivlab/radEmu/refs/heads/main/man/figures/logo.png){fig-alt="radEmu logo." width="20%"} ![](https://mikelove.github.io/assets/DESeq2.png){fig-alt="DESeq2 logo." width="20%"} ![](https://avatars.githubusercontent.com/u/18152373?s=280&v=4){fig-alt="Biobakery logo." width="20%"} ![](https://raw.githubusercontent.com/thomazbastiaanssen/anansi/refs/heads/devel/man/figures/anansi_hex.png){fig-alt="anansi logo." width="20%"}
 :::
 :::::
@@ -462,14 +478,25 @@ To support users and to collect best practices, there is online book available.
 
 ## Recommended reading
 
-Modern Statistics for Modern Biology (Susan Holmes & Wolfgang Huber, Cambridge University Press 2019): <https://www.huber.embl.de/msmb/>
+::: columns
+::: {.column width="55%"}
+**Modern Statistics for Modern Biology**
 
-![](images/clipboard-1687746124.png)
+Susan Holmes & Wolfgang Huber<br>
+Cambridge University Press, 2019
+
+[huber.embl.de/msmb](https://www.huber.embl.de/msmb/)
+:::
+
+::: {.column width="45%"}
+![](images/clipboard-1687746124.png){fig-alt="Modern Statistics for Modern Biology book cover"}
+:::
+:::
 
 ## Next: Data containers
 
--   [Data containers](https://microbiome.github.io/outreach/data_containers.html){target="_blank"}
-
-## 
+::: cta
+[Data containers →](https://microbiome.github.io/outreach/data_containers.html){target="_blank"}
+:::
 
 ## References

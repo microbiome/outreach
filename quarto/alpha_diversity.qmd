@@ -1,7 +1,11 @@
 ---
 title: "Alpha diversity"
+subtitle: "Diversity within a single sample"
 format:
   revealjs:
+    theme: [default, bioconductor.scss]
+    transition: fade
+    transition-speed: fast
     self-contained: true
     slide-number: true
     preview-links: auto
@@ -10,6 +14,13 @@ format:
 date: last-modified
 date-format: full
 bibliography: references.bib
+execute:
+  echo: false
+  warning: false
+  message: false
+knitr:
+  opts_chunk:
+    dev: ragg_png
 ---
 
 ## Alpha diversity
@@ -18,7 +29,7 @@ Measures diversity **within a single sample**
 
 Captures two key aspects:
 
--   **Richness:** how many unique species are present\
+-   **Richness:** how many unique species are present
 -   **Evenness:** how evenly distributed they are
 
 ::: notes
@@ -32,7 +43,7 @@ Captures two key aspects:
 
 ![](images/clipboard-2623052059.png)
 
-## 
+## Richness versus evenness
 
 ```{r}
 #| label: alpha
@@ -107,17 +118,21 @@ Each circle represents a sample.
 
 ## Finite sampling
 
-![](images/clipboard-1787424035.png)
+![](images/clipboard-1787424035.png){fig-align="center"}
 
-github.com/mblstamps/stamps2019
+::: {.aside}
+Source: [github.com/mblstamps/stamps2019](https://github.com/mblstamps/stamps2019)
+:::
 
 ## Applications
 
 Alpha diversity, ageing and body-mass index across the life span.
 
-Data: HITChip Atlas, [Lahti et al. Nat Comm 2014](https://doi.org/10.1038/ncomms5344)
+![](images/clipboard-1521514707.png){fig-align="center"}
 
-![](images/clipboard-1521514707.png)
+::: {.aside}
+Data: HITChip Atlas, [Lahti et al. Nat Comm 2014](https://doi.org/10.1038/ncomms5344)
+:::
 
 ## Applications
 
@@ -129,21 +144,20 @@ $$
 R = \text{Number of unique species}
 $$
 
+**Observed richness**
+
+-   Counting the number of unique species
+
+**True richness** to be estimated based on a finite sample (Sanders, 1968)
+
+-   Chao1: more sensitive to sampling effort
+-   ACE: more stable, emphasizes information from rare taxa
+
 ::: notes
 [Observed richness]{.underline} is the simplest diversity metric.
 
 It tells *how many* *unique species* can be directly observed in a sample.
 :::
-
-[Observed richness]{.underline}
-
--   *observed richness*: counting the number of unique species
-
-[True richness]{.underline} to be estimated based on a finite sample (Sanders, 1968).
-
--   Chao1: is more sensitive to sampling effort
-
--   ACE: more stable, emphasizes information from rare taxa
 
 ## Shannon diversity
 
@@ -153,8 +167,7 @@ $$
 
 *where:*
 
--   $p_i$ = relative abundance of species $i$\
-
+-   $p_i$ = relative abundance of species $i$
 -   $R$ = total number of species
 
 Combines richness and evenness in one metric.
@@ -189,8 +202,7 @@ $$\lambda = \sum_{i=1}^{R} p_i^2$$
 
 *where:*
 
--   $p_i$ = relative abundance of species $i$\
-
+-   $p_i$ = relative abundance of species $i$
 -   $R$ = richness, or the number of unique species
 
 ::: notes
@@ -206,10 +218,9 @@ This formula assumes large sample size and sampling with replacement. Variations
 However, the original Simpson index $\lambda$ decreases with diversity. Therefore we typically use:
 
 -   Inverse Simpson: $1 / \lambda$ (the most common case of Simpson's diversity)
-
 -   Reciprocal Simpson (or Gini-Simpson): $1 - \lambda$
 
-## Hill's diversity: a unifying concept
+## Hill's diversity: a unifying concept {.smaller}
 
 True diversity, the effective number of types, refers to the number of equally abundant types needed for the average proportional abundance of the types to equal what is observed in the dataset of interest.
 
@@ -309,7 +320,7 @@ p2 <- ggtree(tree, aes(color = node %in% present_nodes)) +
             vjust = -0.5, size = 2.5)
 
 
-library(cowplot)
+library(patchwork)
 p1 + p2
 
 library(picante)
@@ -329,9 +340,11 @@ pd_result <- pd(otu_table, tree, include.root = TRUE)
 
 Phylogenetic diversity provides increased statistical power to differentiate age groups in shotgun metagenomics but not in 16S rRNA sequencing.
 
-![](images/clipboard-2789562119.png)
+![](images/clipboard-2789562119.png){fig-align="center"}
 
+::: {.aside}
 Armstrong et al. (2021), Genome Research.
+:::
 
 ## Faith phylogenetic diversity {.smaller}
 
@@ -343,7 +356,9 @@ Phylogenetic tree colored by age-group log of the likelihood ratio of older to y
 
 (*B*) Web of Life (WoL) phylogenetic tree, branches colored by log likelihood of old vs. young adults (**FINRISK cohort**).
 
+::: {.aside}
 Armstrong et al. (2021), Genome Research.
+:::
 
 ::: notes
 *inner* circle: colored by the log of likelihood ratio of older adults compared to younger adults in the tips of the tree.
@@ -353,11 +368,15 @@ Armstrong et al. (2021), Genome Research.
 
 ## Fast Faith implementation
 
-Efficient computation of Faith's phylogenetic diversity with applications in characterizing microbiomes. Armstrong et al. (2021), Genome Research.
+Efficient computation of Faith's phylogenetic diversity with applications in characterizing microbiomes.
 
-TreeSE: gray versus phyloseq (black)
+TreeSE (gray) versus phyloseq (black)
 
-![](images/clipboard-3504647365.png)
+![](images/clipboard-3504647365.png){fig-align="center"}
+
+::: {.aside}
+Armstrong et al. (2021), Genome Research.
+:::
 
 ## Recommendation
 
@@ -372,15 +391,11 @@ Guidelines for alpha diversity, to capture complementary views: @cassol2025
 Recommended to analyse and report all aspects.
 
 Dominance captures evenness (with inverse direction)
+
+Changes in alpha diversity are associated with health outcome.
 :::
 
-
-
-::: notes
-Chages in alpha diversity are associated with health outcome.
-:::
-
-## Demonstration
+## Demonstration {.center}
 
 ##  {auto-animate="true"}
 
@@ -416,9 +431,13 @@ plotBoxplot(tse, col.var = "faith_diversity", x = "patient_status") +
 
 ## Exercises
 
-From [OMA online book, Chapter 13: Alpha diversity](https://microbiome.github.io/OMA/docs/devel/pages/alpha_diversity.html)
+::: callout-tip
+## OMA online book, Chapter 13: Alpha diversity
 
--   1.2, 1.3, 1.4, 1.9, 1.10
+[microbiome.github.io/OMA › Alpha diversity](https://microbiome.github.io/OMA/docs/devel/pages/alpha_diversity.html)
+
+Exercises **1.2, 1.3, 1.4, 1.9, 1.10**
+:::
 
 ## Metacommunity and total richness
 
@@ -448,7 +467,8 @@ The UHGG and UHGP collections enable studies linking genotypes to phenotypes in 
 
 ## References
 
-
+::: {#refs}
+:::
 
 ## 
 

@@ -6,6 +6,7 @@ project:
     - 20260506_bioc_africa.qmd
     - 20260903_ECCB2026.qmd
     - 20260928_Oulu.qmd
+    - 20260928_Oulu_visual.qmd
     - agglomeration.qmd
     - alpha_diversity.qmd
     - beta_diversity.qmd
@@ -25,7 +26,7 @@ project:
     - miasim.qmd
     - multi-omics.qmd
     - oh-boost_webinar2024.qmd
-    - ordination.qmd
     - outro.qmd
     - reproducible_reporting.qmd
     - transformation.qmd
+    - workflow.qmd
