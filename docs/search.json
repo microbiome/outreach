@@ -18,7 +18,7 @@
     "href": "index.html#topics",
     "title": "Quarto presentations",
     "section": "Topics",
-    "text": "Topics\n\nIntroduction\n\nBioconductor\nReproducible reporting\nData containers\nImport data\n\nPreprocessing\n\nAgglomeration\nTransformation\n\nDiversity\n\nAlpha diversity\nBeta diversity\n\nOrdination\n\n\nAssociation\n\nDifferential abundance analysis\nFunctional analysis\n\nMulti-omics\n\nMulti-omics\n\nMachine learning\n\nMachine learning\n\n\n\nPackages\n\nMGnifyR: An R package for accessing MGnify microbiome data\nmiaDash: Microbiome Analysis Dashboard\nmiaSim: Microbiome simulation\n\n\n\nData sets\n\nHintikkaXO\nTengeler2020\n\n\n\nConference and seminar presentations\n\nOrchestrating microbiome multi-omics (BioC2023)\nOrchestrating Microbiome Analysis with Bioconductor (OH-BOOST, Microbiota Data Analysis and Statistics, webinar)\nOrchestrating Microbiome Analysis with Bioconductor (GBCC2025)\nOrchestrating Microbiome Analysis with Bioconductor (ISMB/ECCB 2025)\nOrchestrating Microbiome Analysis with Bioconductor (Bioconductor Africa Seminar Series, May 2026)\nOrchestrating Microbiome Analysis with Bioconductor (EuroBioC2026)\n\n\n\nCourses and workshops\n\nIntroduction\nOutro\nOrchestrating Hologenome Analysis with Bioconductor (ECCB2026)\nMicrobiome data science and multi-omics with R/Bioconductor (Oulu, September 2026)"
+    "text": "Topics\n\nIntroduction\n\nBioconductor\nReproducible reporting\nData containers\nImport data\n\nPreprocessing\n\nAgglomeration\nTransformation\n\nDiversity\n\nAlpha diversity\nBeta diversity\n\nOrdination\n\n\nAssociation\n\nDifferential abundance analysis\nFunctional analysis\n\nMulti-omics\n\nMulti-omics\n\nMachine learning\n\nMachine learning\n\nWorkflow\n\nMicrobiome data science workflow\n\n\n\nPackages\n\nMGnifyR: An R package for accessing MGnify microbiome data\nmiaDash: Microbiome Analysis Dashboard\nmiaSim: Microbiome simulation\n\n\n\nData sets\n\nHintikkaXO\nTengeler2020\n\n\n\nConference and seminar presentations\n\nOrchestrating microbiome multi-omics (BioC2023)\nOrchestrating Microbiome Analysis with Bioconductor (OH-BOOST, Microbiota Data Analysis and Statistics, webinar)\nOrchestrating Microbiome Analysis with Bioconductor (GBCC2025)\nOrchestrating Microbiome Analysis with Bioconductor (ISMB/ECCB 2025)\nOrchestrating Microbiome Analysis with Bioconductor (Bioconductor Africa Seminar Series, May 2026)\nOrchestrating Microbiome Analysis with Bioconductor (EuroBioC2026)\n\n\n\nCourses and workshops\n\nIntroduction\nOutro\nOrchestrating Hologenome Analysis with Bioconductor (ECCB2026)\nMicrobiome data science and multi-omics with R/Bioconductor (Oulu, September 2026)"
   },
   {
     "objectID": "index.html#contributions",
@@ -915,5 +915,131 @@
     "title": "Bioconductor",
     "section": "References",
     "text": "References\n\n\n\n\nAmezquita, Robert A, Aaron T L Lun, Etienne Becht, Vince J Carey, Lindsay N Carpp, Ludwig Geistlinger, Federico Marini, et al. 2020. “Orchestrating Single-Cell Analysis with Bioconductor.” Nature Methods 17 (2): 137–45. https://doi.org/10.1038/s41592-019-0654-x.\n\n\nHuang, Ruizhu, Charlotte Soneson, Felix G. M. Ernst, et al. 2021. “TreeSummarizedExperiment: A S4 Class for Data with Hierarchical Structure.” F1000Research 9: 1246. https://doi.org/10.12688/f1000research.26669.2.\n\n\nHuber, W., V. J. Carey, R. Gentleman, S. Anders, M. Carlson, B. S. Carvalho, H. C. Bravo, et al. 2015. “Orchestrating High-Throughput Genomic Analysis with Bioconductor.” Nature Methods 12 (2): 115–21. http://www.nature.com/nmeth/journal/v12/n2/full/nmeth.3252.html.\n\n\nMcMurdie, PJ, and S Holmes. 2013. “Phyloseq: An r Package for Reproducible Interactive Analysis and Graphics of Microbiome Census Data.” PLoS ONE 8: e61217. https://doi.org/10.1371/journal.pone.0061217."
+  },
+  {
+    "objectID": "workflow.html#a-typical-workflow",
+    "href": "workflow.html#a-typical-workflow",
+    "title": "Microbiome data science workflow",
+    "section": "A typical workflow",
+    "text": "A typical workflow\n\nImport Preprocess Alpha Beta Taxa Report\n\n\nKey elements of a taxonomic profiling study\nMixed and matched in real case studies\nExamples for each step in OMA\n\n\nThis session gives an overview of the key elements of a typical data science workflow in a taxonomic profiling study. Real case studies mix these in various ways."
+  },
+  {
+    "objectID": "workflow.html#your-task",
+    "href": "workflow.html#your-task",
+    "title": "Microbiome data science workflow",
+    "section": "Your task",
+    "text": "Your task\n\nBuild a clear, compact and reproducible report on your data.\n\n\n\n📓\nReproducible\nQuarto / R Markdown report that renders from raw data\n\n\n🎯\nSelective\nChoose summaries and analyses that answer your question\n\n\n📚\nBuild on OMA\nReuse material and examples from the OMA book"
+  },
+  {
+    "objectID": "workflow.html#setup",
+    "href": "workflow.html#setup",
+    "title": "Microbiome data science workflow",
+    "section": "Setup",
+    "text": "Setup\n\nlibrary(mia)\nlibrary(miaViz)\nlibrary(scater)\nlibrary(patchwork)\nset.seed(1)  # reproducible permutation tests\n\n# Example data set: skin microbiome with sample metadata\ndata(\"peerj13075\", package = \"mia\")\ntse &lt;- peerj13075\n\n# Relative abundances and CLR for downstream steps\ntse &lt;- transformAssay(tse, method = \"relabundance\")\ntse &lt;- transformAssay(tse, method = \"clr\", pseudocount = TRUE)\n\n# Genus-level summary\ntse_genus &lt;- agglomerateByRank(tse, rank = \"genus\")\n\n\nThe workflow operates on a TreeSummarizedExperiment. Replace the example data with your own."
+  },
+  {
+    "objectID": "workflow.html#alpha-diversity-within-sample",
+    "href": "workflow.html#alpha-diversity-within-sample",
+    "title": "Microbiome data science workflow",
+    "section": "Alpha diversity: within-sample",
+    "text": "Alpha diversity: within-sample\n\n\nTasks\n\nEstimate alpha diversity per sample\nDraw a histogram\nCompare two or more indices, visually and/or statistically\n\n\n\ntse &lt;- addAlpha(\n    tse, index = c(\"shannon\", \"observed\"))\n\np1 &lt;- plotHistogram(\n    tse, col.var = \"shannon\", bins = 15)\np2 &lt;- plotColData(\n    tse, x = \"observed\", y = \"shannon\")\np1 + p2\n\n\n\n\n\n\n\n\n\nTip\n\n\nDo richness and evenness agree? Here Spearman \\(\\rho\\) = 0.43."
+  },
+  {
+    "objectID": "workflow.html#beta-diversity-community-variation",
+    "href": "workflow.html#beta-diversity-community-variation",
+    "title": "Microbiome data science workflow",
+    "section": "Beta diversity: community variation",
+    "text": "Beta diversity: community variation\nVisualize community variation with PCoA, and check how the data transformation affects it:\n\n\nBray–Curtis\non compositional (relative abundance) data\n\n\nEuclidean\non CLR-transformed data (Aitchison distance)\n\n\n\ntse &lt;- runMDS(tse, FUN = getDissimilarity, method = \"bray\",\n              assay.type = \"relabundance\", name = \"PCoA_BC\")\ntse &lt;- runMDS(tse, FUN = getDissimilarity, method = \"euclidean\",\n              assay.type = \"clr\", name = \"PCoA_CLR\")\n\nplotReducedDim(tse, \"PCoA_BC\",  colour_by = \"Diet\")\nplotReducedDim(tse, \"PCoA_CLR\", colour_by = \"Diet\")"
+  },
+  {
+    "objectID": "workflow.html#community-level-comparisons",
+    "href": "workflow.html#community-level-comparisons",
+    "title": "Microbiome data science workflow",
+    "section": "Community-level comparisons",
+    "text": "Community-level comparisons\nDoes community composition differ between groups?\n\n\n\nPERMANOVA tests group differences in composition\nAdd covariates (e.g. age, sex) and see how the results change\nCheck homogeneity of dispersion\n\n\n\nres &lt;- getPERMANOVA(\n    tse,\n    assay.type = \"relabundance\",\n    method = \"bray\",\n    formula = x ~ Geographical_location + Gender + Age,\n    test.homogeneity = TRUE)\n\nres$permanova |&gt;\n    knitr::kable(digits = 3)\n\n\n\n\nPERMANOVA is sensitive to differences in group spread (dispersion), not only location, so check homogeneity of dispersion alongside the test (res$homogeneity)."
+  },
+  {
+    "objectID": "workflow.html#prevalence",
+    "href": "workflow.html#prevalence",
+    "title": "Microbiome data science workflow",
+    "section": "Prevalence",
+    "text": "Prevalence\nWhat is the most prevalent genus in the data?\n\nprev &lt;- getPrevalence(\n    tse_genus, assay.type = \"relabundance\",\n    detection = 0, sort = TRUE)\nround(head(prev, 4), 2)\n\n Staphylococcus   Paenibacillus        Bacillus Corynebacterium \n           1.00            1.00            1.00            0.93 \n\n\nprevalence = fraction of samples where a taxon is detected above a given abundance threshold"
+  },
+  {
+    "objectID": "workflow.html#core-microbiota",
+    "href": "workflow.html#core-microbiota",
+    "title": "Microbiome data science workflow",
+    "section": "Core microbiota",
+    "text": "Core microbiota\nTaxa above 0.1 % relative abundance in over 50 % of samples (Salonen et al. 2012). How sensitive is this to the thresholds?\n\n\ncore &lt;- getPrevalent(\n    tse_genus,\n    assay.type = \"relabundance\",\n    detection = 0.1 / 100,\n    prevalence = 50 / 100)\n\nplotAbundanceDensity(\n    tse_genus[core, ],\n    layout = \"jitter\",\n    assay.type = \"relabundance\")"
+  },
+  {
+    "objectID": "workflow.html#differential-abundance",
+    "href": "workflow.html#differential-abundance",
+    "title": "Microbiome data science workflow",
+    "section": "Differential abundance",
+    "text": "Differential abundance\nWhich genera are associated with a group difference (e.g. sex)?\n\nlibrary(DESeq2)\n\ndds &lt;- DESeqDataSet(tse_genus, design = ~ Gender)\ndds &lt;- DESeq(dds)\nres &lt;- results(dds)\n\ntop &lt;- head(res[order(res$padj), ])\ndata.frame(log2FC = round(top$log2FoldChange, 2),\n           padj = signif(top$padj, 2),\n           row.names = rownames(top)) |&gt;\n    knitr::kable()\n\n\n\nDESeq2 (Love, Huber, and Anders 2014); for alternatives and benchmarks see the OMA DAA chapter\nCompare several methods: results can differ substantially"
+  },
+  {
+    "objectID": "workflow.html#role-of-covariates",
+    "href": "workflow.html#role-of-covariates",
+    "title": "Microbiome data science workflow",
+    "section": "Role of covariates",
+    "text": "Role of covariates\n\nKey covariates (diet, medication, age, …) can change the interpretation.\n\n\nStool consistency, medication and diet explain a considerable part of population-level gut microbiome variation (Falony et al. 2016)\nInclude relevant covariates in PERMANOVA and differential abundance models\nCompare results with and without covariates"
+  },
+  {
+    "objectID": "workflow.html#checklist-for-your-report",
+    "href": "workflow.html#checklist-for-your-report",
+    "title": "Microbiome data science workflow",
+    "section": "Checklist for your report",
+    "text": "Checklist for your report\n\n\nAlpha\nIndices, histogram, comparison\n\n\nBeta\nPCoA (BC vs CLR), PERMANOVA with covariates\n\n\nTaxa\nPrevalence, core microbiota, differential abundance\n\n\nReport\nClear, compact, reproducible"
+  },
+  {
+    "objectID": "workflow.html#resources",
+    "href": "workflow.html#resources",
+    "title": "Microbiome data science workflow",
+    "section": "Resources",
+    "text": "Resources\n\nOrchestrating Microbiome Analysis (OMA)\nmia and miaViz documentation\nDESeq2 vignette"
+  },
+  {
+    "objectID": "workflow.html#references",
+    "href": "workflow.html#references",
+    "title": "Microbiome data science workflow",
+    "section": "References",
+    "text": "References\n\n\n\n\nFalony, Gwen, Marie Joossens, Sara Vieira-Silva, Jun Wang, Youssef Darzi, Karoline Faust, Alexander Kurilshikov, et al. 2016. “Population-Level Analysis of Gut Microbiome Variation.” Science 352 (6285): 560–64. https://doi.org/10.1126/science.aad3503.\n\n\nLove, Michael I., Wolfgang Huber, and Simon Anders. 2014. “Moderated Estimation of Fold Change and Dispersion for RNA-seq Data with DESeq2.” Genome Biology 15 (12): 550. https://doi.org/10.1186/s13059-014-0550-8.\n\n\nSalonen, A., J. Salojärvi, L. Lahti, and W. M. de Vos. 2012. “The Adult Intestinal Core Microbiota Is Determined by Analysis Depth and Health Status.” Clinical Microbiology and Infection 18 (s4): 16–20. https://doi.org/10.1111/j.1469-0691.2012.03855.x."
+  },
+  {
+    "objectID": "workflow.html#beta-diversity-pcoa",
+    "href": "workflow.html#beta-diversity-pcoa",
+    "title": "Microbiome data science workflow",
+    "section": "Beta diversity: PCoA",
+    "text": "Beta diversity: PCoA\nVisualize community variation with PCoA, and check how the data transformation affects it:\n\n\nBray–Curtis\non compositional (relative abundance) data\n\n\nEuclidean\non CLR-transformed data (Aitchison distance)\n\n\n\ntse &lt;- runMDS(tse, FUN = getDissimilarity, method = \"bray\",\n              assay.type = \"relabundance\", name = \"PCoA_BC\")\ntse &lt;- runMDS(tse, FUN = getDissimilarity, method = \"euclidean\",\n              assay.type = \"clr\", name = \"PCoA_CLR\")\n\nplotReducedDim(tse, \"PCoA_BC\",  colour_by = \"Geographical_location\") +\nplotReducedDim(tse, \"PCoA_CLR\", colour_by = \"Geographical_location\") +\n    plot_layout(guides = \"collect\")"
+  },
+  {
+    "objectID": "workflow.html#alpha-diversity-within-sample-output",
+    "href": "workflow.html#alpha-diversity-within-sample-output",
+    "title": "Microbiome data science workflow",
+    "section": "Alpha diversity: within-sample",
+    "text": "Alpha diversity: within-sample"
+  },
+  {
+    "objectID": "workflow.html#beta-diversity-pcoa-output",
+    "href": "workflow.html#beta-diversity-pcoa-output",
+    "title": "Microbiome data science workflow",
+    "section": "Beta diversity: PCoA",
+    "text": "Beta diversity: PCoA"
+  },
+  {
+    "objectID": "workflow.html#community-level-comparisons-output",
+    "href": "workflow.html#community-level-comparisons-output",
+    "title": "Microbiome data science workflow",
+    "section": "Community-level comparisons",
+    "text": "Community-level comparisons\n\n\n\n\n\nDf\nSumOfSqs\nR2\nF\nPr(&gt;F)\n\n\n\n\nGeographical_location\n2\n1.956\n0.093\n2.887\n0.001\n\n\nGender\n1\n0.238\n0.011\n0.702\n0.698\n\n\nAge\n2\n0.872\n0.041\n1.287\n0.199\n\n\nResidual\n52\n17.616\n0.836\nNA\nNA\n\n\nTotal\n57\n21.079\n1.000\nNA\nNA"
+  },
+  {
+    "objectID": "workflow.html#differential-abundance-output",
+    "href": "workflow.html#differential-abundance-output",
+    "title": "Microbiome data science workflow",
+    "section": "Differential abundance",
+    "text": "Differential abundance\n\n\n\n\n\nlog2FC\npadj\n\n\n\n\nClostridium\n4.16\n4.2e-06\n\n\nPseudomonas\n5.06\n4.2e-06\n\n\nFinegoldia\n5.93\n2.1e-04\n\n\nOrientia\n4.23\n6.1e-03\n\n\nKocuria\n-4.51\n9.7e-03\n\n\nAmphritea\n5.42\n1.4e-02"
   }
 ]
