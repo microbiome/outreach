@@ -24,6 +24,18 @@ execute:
   message: false
 ---
 
+## The data science workflow
+
+![](images/r4ds_data_science_visualize.png){fig-align="center" width="100%" fig-alt="Data science workflow: import, tidy, then an understand loop of transform, visualize and model, followed by communicate; programming surrounds all steps."}
+
+::: aside
+[R for Data Science](https://r4ds.hadley.nz) [@Wickham2023], CC BY-NC-ND 3.0
+:::
+
+::: notes
+The general data science cycle from R for Data Science. Data are imported and tidied, then understood by iterating between transforming, visualizing and modelling, and finally the results are communicated. Programming surrounds every step and ties it together into a reproducible whole. The microbiome workflow on the next slide follows the same pattern.
+:::
+
 ## A typical workflow
 
 ::: flow
