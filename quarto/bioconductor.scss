@@ -37,6 +37,7 @@ $callout-color-tip: $bioc-green;
   border-radius: 3px;
   background: linear-gradient(90deg, $bioc-blue, $bioc-green);
 }
+.reveal h2:empty::after { display: none; }
 
 // Title slide
 .reveal .slides section#title-slide h1.title {
