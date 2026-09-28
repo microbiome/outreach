@@ -1041,5 +1041,264 @@
     "title": "Microbiome data science workflow",
     "section": "Differential abundance",
     "text": "Differential abundance\n\n\n\n\n\nlog2FC\npadj\n\n\n\n\nClostridium\n4.16\n4.2e-06\n\n\nPseudomonas\n5.06\n4.2e-06\n\n\nFinegoldia\n5.93\n2.1e-04\n\n\nOrientia\n4.23\n6.1e-03\n\n\nKocuria\n-4.51\n9.7e-03\n\n\nAmphritea\n5.42\n1.4e-02"
+  },
+  {
+    "objectID": "agglomeration.html#why-agglomerate",
+    "href": "agglomeration.html#why-agglomerate",
+    "title": "Agglomeration",
+    "section": "Why agglomerate?",
+    "text": "Why agglomerate?\n\nFocus on biologically meaningful units\nReduce sparsity and noise\nImprove interpretability of downstream analyses\n\n\n\nFocusing on higher-level taxa (e.g., genera instead of thousands of ASVs) helps highlight biologically relevant patterns.\n16S sequencing often does not resolve taxa below genus level reliably.\nAgglomeration reduces noise from sequencing artifacts and rare features.\nMakes downstream analyses like diversity metrics, ordination, and association studies more interpretable.\nNote: Some resolution is lost when collapsing features—balance simplicity with detail."
+  },
+  {
+    "objectID": "agglomeration.html#summing-up-the-taxonomy",
+    "href": "agglomeration.html#summing-up-the-taxonomy",
+    "title": "Agglomeration",
+    "section": "Summing up the taxonomy",
+    "text": "Summing up the taxonomy\n\n\nCounts of species belonging to the same genus are summed up: Genus A gets 3 + 5 + 4 = 12."
+  },
+  {
+    "objectID": "agglomeration.html#example-data",
+    "href": "agglomeration.html#example-data",
+    "title": "Agglomeration",
+    "section": "Example data",
+    "text": "Example data\nColorectal cancer gut metagenomes (Gupta et al. 2019)\n\nData and import script: github.com/microbiome/data\n\n\nlibrary(mia)\nlibrary(ape)\n\nread &lt;- function(f) read.csv(file.path(\"GuptaA_2019\", f), row.names = 1)\n\ntse &lt;- TreeSummarizedExperiment(\n    assays  = list(counts = as.matrix(read(\"taxonomy_abundance.csv\"))),\n    rowData = read(\"taxonomy_table.csv\"),\n    colData = read(\"sample_metadata.csv\"),\n    rowTree = read.tree(\"GuptaA_2019/phylogeny.tree\")\n)\n\n\nThe demonstration below uses the GlobalPatterns data set that ships with mia, so it runs without downloads."
+  },
+  {
+    "objectID": "agglomeration.html#demonstration",
+    "href": "agglomeration.html#demonstration",
+    "title": "Agglomeration",
+    "section": "Demonstration",
+    "text": "Demonstration"
+  },
+  {
+    "objectID": "agglomeration.html#agglomerate-to-one-rank",
+    "href": "agglomeration.html#agglomerate-to-one-rank",
+    "title": "Agglomeration",
+    "section": "Agglomerate to one rank",
+    "text": "Agglomerate to one rank\n\nlibrary(mia)\ndata(\"GlobalPatterns\", package = \"mia\")\ntse &lt;- GlobalPatterns\n\ntse_phylum &lt;- agglomerateByRank(tse, rank = \"Phylum\")\nc(features = nrow(tse), phyla = nrow(tse_phylum))\n\nfeatures    phyla \n   19216       66 \n\n\n\n19,216 features collapse to 66 phyla. Assays are summed and rowData is trimmed to the ranks at and above phylum."
+  },
+  {
+    "objectID": "agglomeration.html#agglomerate-to-all-ranks",
+    "href": "agglomeration.html#agglomerate-to-all-ranks",
+    "title": "Agglomeration",
+    "section": "Agglomerate to all ranks",
+    "text": "Agglomerate to all ranks\n\ntse &lt;- agglomerateByRanks(tse)\nsapply(altExps(tse), nrow)\n\nKingdom  Phylum   Class   Order  Family   Genus Species \n      2      66     139     204     341     996     944 \n\n\n\nagglomerateByRanks stores every rank as an alternative experiment, e.g. altExp(tse, “Genus”)."
+  },
+  {
+    "objectID": "agglomeration.html#exercises",
+    "href": "agglomeration.html#exercises",
+    "title": "Agglomeration",
+    "section": "Exercises",
+    "text": "Exercises\n\n\n\n\n\n\nOMA online book, Chapter 10: Agglomeration\n\n\nmicrobiome.github.io/OMA › Agglomeration\nExercises 1.2, 1.3, 1.4, 1.5, 1.6"
+  },
+  {
+    "objectID": "agglomeration.html#references",
+    "href": "agglomeration.html#references",
+    "title": "Agglomeration",
+    "section": "References",
+    "text": "References\n\n\nGupta, Ankit, Darshan B. Dhakan, Abhijit Maji, Rituja Saxena, Vishnu Prasoodanan P. K., Shruti Mahajan, Joby Pulikkan, et al. 2019. “Association of Flavonifractor plautii, a Flavonoid-Degrading Bacterium, with the Gut Microbiome of Colorectal Cancer Patients in India.” mSystems 4 (6): e00438–19. https://doi.org/10.1128/msystems.00438-19."
+  },
+  {
+    "objectID": "transformation.html#microbiome-data",
+    "href": "transformation.html#microbiome-data",
+    "title": "Transformation",
+    "section": "Microbiome data",
+    "text": "Microbiome data\n\nHigh variability: feature abundances vary widely across samples\nZero-inflation: many taxa absent in most samples\nCompositionality: only relative abundances observed; total counts per sample are arbitrary\n\n\n\nHigh variability → lots of variation in abundances\nZero-inflation → many features are absent in most samples, which complicates statistical modelling and increases sparsity of the data matrix.\nCompositionality → sequencing depth differs between samples; only ratios of features within a sample are meaningful, absolute counts are not."
+  },
+  {
+    "objectID": "transformation.html#heteroscedasticity",
+    "href": "transformation.html#heteroscedasticity",
+    "title": "Transformation",
+    "section": "Heteroscedasticity",
+    "text": "Heteroscedasticity\n\n\nHeteroscedasticity: the variance increases with the mean. Abundant taxa have lots of variability."
+  },
+  {
+    "objectID": "transformation.html#zero-inflation",
+    "href": "transformation.html#zero-inflation",
+    "title": "Transformation",
+    "section": "Zero-inflation",
+    "text": "Zero-inflation\n\n\nReal microbiome data. Lots of zeroes."
+  },
+  {
+    "objectID": "transformation.html#compositionality",
+    "href": "transformation.html#compositionality",
+    "title": "Transformation",
+    "section": "Compositionality",
+    "text": "Compositionality\n\nSequencing measures relative abundances, not true microbial counts\nValues are parts of a whole\nParts are linked by a fixed total (library size)\n\nIf one increases, at least one other must decrease\n\n\n\nSequencing does not measure the true number of bacteria in a sample. Each sample produces an arbitrary total number of reads (library size) due to technical variation and bias.\nBecause all microbes share this fixed total, we observe only relative abundances, not absolute quantities.\nMost standard statistical methods assume variables can change independently. Compositional data violate this assumption: all values must sum to the same total, so changes are always relative.\nIgnoring this constraint can lead to misleading results, even when the data look reasonable.\nEveryday examples of compositional data include: - A budget - How you spend 24 hours in a day (more work means less time for something else)"
+  },
+  {
+    "objectID": "transformation.html#same-counts-different-proportions",
+    "href": "transformation.html#same-counts-different-proportions",
+    "title": "Transformation",
+    "section": "Same counts, different proportions",
+    "text": "Same counts, different proportions\n\n\nThese plots show the same two samples in two different ways.\nOn the left, we see absolute counts. Taxon A increases in Sample 2, while taxa B and C stay exactly the same.\nOn the right, we see relative abundances, which is what sequencing gives us. Because each sample has a fixed library size, all taxa must share the same total.\nAs taxon A takes up a larger share in Sample 2, the proportions of B and C go down — even though their true counts did not change.\nThis is compositional bias: changes in one taxon can make others appear to change simply because everything is expressed as proportions."
+  },
+  {
+    "objectID": "transformation.html#compositionality-is-not-optional",
+    "href": "transformation.html#compositionality-is-not-optional",
+    "title": "Transformation",
+    "section": "Compositionality is not optional",
+    "text": "Compositionality is not optional\n\n“… microbiome datasets generated by HTS are compositional because they have an arbitrary total imposed by the instrument.”\n\n\n“… HTS datasets derived from microbiome studies can and should be treated as compositions at all stages of analysis.”\n\n\n\nQuoted from the abstract of Gloor et al. (2017). HTS = high-throughput sequencing.\n\n\nGloor et al. (2017), Microbiome datasets are compositional: and this is not optional"
+  },
+  {
+    "objectID": "transformation.html#goals-of-transformation",
+    "href": "transformation.html#goals-of-transformation",
+    "title": "Transformation",
+    "section": "Goals of transformation",
+    "text": "Goals of transformation\n\nMitigate biases in abundances\nMake features comparable across samples\nMeet assumptions of downstream statistical analyses\n\n\n\nTransformations allow standard analyses like PCA, regression, correlation.\nChoose transformation depending on the problem: relative abundance, log, CLR, etc."
+  },
+  {
+    "objectID": "transformation.html#relative-abundance",
+    "href": "transformation.html#relative-abundance",
+    "title": "Transformation",
+    "section": "Relative abundance",
+    "text": "Relative abundance\n\nLibrary sizes are arbitrary\n\n\\[\n\\text{X}_{ij} = \\frac{\\text{Count}_{ij}}{\\sum_{k=1}^m \\text{Count}_{ik}}\n\\]\nwhere\n\n\\(i\\) indexes the sample,\n\\(j\\) indexes the taxon,\n\\(m\\) is the total number of taxa.\n\n\nLibrary sizes were arbitrary –&gt; remove their effect.\n\nLibrary sizes differ between samples (sequencing depth varies), so raw counts are not directly comparable.\nRelative abundance converts counts to proportions within each sample, making samples comparable.\nIntuition: a relative abundance of 0.2 means “this taxon makes up 20% of this sample,” independent of total reads."
+  },
+  {
+    "objectID": "transformation.html#log-transformed-relative-abundance",
+    "href": "transformation.html#log-transformed-relative-abundance",
+    "title": "Transformation",
+    "section": "Log-transformed relative abundance",
+    "text": "Log-transformed relative abundance\n\nLibrary sizes are arbitrary and data zero-inflated\n\n\\[\n\\text{X}_{ij} = \\log \\left( \\text{Relative abundance}_{ij} + \\epsilon \\right)\n\\]\nwhere\n\n\\(\\epsilon\\) is a small pseudocount to avoid \\(\\log(0)\\).\n\n\nZero-inflated –&gt; reduce the data skewness\nLog-transform reduces skewness and makes differences among low-abundance taxa more visible, but a pseudocount is required to handle zeros."
+  },
+  {
+    "objectID": "transformation.html#counts-proportions-logs",
+    "href": "transformation.html#counts-proportions-logs",
+    "title": "Transformation",
+    "section": "Counts, proportions, logs",
+    "text": "Counts, proportions, logs\n\n\nThe data is still constrained to relative abundances (0-1), but now in log-scale.\nBecause the total is fixed, the numbers depend on each other.\nIf one goes up, at least one of the others must go down. This is called a constraint."
+  },
+  {
+    "objectID": "transformation.html#centered-log-ratio-clr",
+    "href": "transformation.html#centered-log-ratio-clr",
+    "title": "Transformation",
+    "section": "Centered log-ratio (CLR)",
+    "text": "Centered log-ratio (CLR)\n\nLibrary sizes are arbitrary and values are dependent\n\n\\[\n\\text{CLR}(x_i) = \\log\\left(\\frac{x_i}{g(x)}\\right),\\quad\ng(x) = \\left(\\prod_{j=1}^{D} x_j \\right)^{1/D}\n\\]\n\n\\(x_i\\): abundance of bacteria \\(i\\)\n\\(g(x)\\): geometric mean across all bacteria in the sample\n\n\nCLR is a standard transformation for compositional data. It accounts for dependency between parts and arbitrary library sizes, which simple relative abundance transformations cannot."
+  },
+  {
+    "objectID": "transformation.html#intuition",
+    "href": "transformation.html#intuition",
+    "title": "Transformation",
+    "section": "Intuition",
+    "text": "Intuition\n\nValues dependent, only ratios matter\n\n\nThis is the idea behind CLR transformation.\nWhen we want to compare values in compositional data, only ratios make sense."
+  },
+  {
+    "objectID": "transformation.html#intuition-1",
+    "href": "transformation.html#intuition-1",
+    "title": "Transformation",
+    "section": "Intuition",
+    "text": "Intuition\n\nValues dependent, only ratios matter\nStandard statistics rely on subtraction and distance\n\n\nHowever, most statistical tests rely on subtraction making sense. How to turn ratios into differences?"
+  },
+  {
+    "objectID": "transformation.html#intuition-2",
+    "href": "transformation.html#intuition-2",
+    "title": "Transformation",
+    "section": "Intuition",
+    "text": "Intuition\n\nValues dependent, only ratios matter\nStandard statistics rely on subtraction and distance\n\n\\[\n\\frac{x}{y} \\;\\longrightarrow\\; a - b \\;?\n\\]\n\nThis is the situation."
+  },
+  {
+    "objectID": "transformation.html#intuition-3",
+    "href": "transformation.html#intuition-3",
+    "title": "Transformation",
+    "section": "Intuition",
+    "text": "Intuition\n\nValues dependent, only ratios matter\nStandard statistics rely on subtraction and distance\n\nUse log-scale\n\n\n\\[\n\\log\\left(\\frac{x}{y}\\right) = \\log(x) - \\log(y)\n\\]\n\nTaking the log turns multiplicative relationships (ratios) into additive ones (differences), making subtraction meaningful."
+  },
+  {
+    "objectID": "transformation.html#intuition-4",
+    "href": "transformation.html#intuition-4",
+    "title": "Transformation",
+    "section": "Intuition",
+    "text": "Intuition\n\nValues dependent, only ratios matter\nStandard statistics rely on subtraction and distance\n\nUse log-scale\n\nLibrary sizes are arbitrary\n\n\nLibrary sizes are arbitrary. This means that the scale of values are arbitrary. How to remove the effect of them?"
+  },
+  {
+    "objectID": "transformation.html#intuition-5",
+    "href": "transformation.html#intuition-5",
+    "title": "Transformation",
+    "section": "Intuition",
+    "text": "Intuition\n\nValues dependent, only ratios matter\nStandard statistics rely on subtraction and distance\n\nUse log-scale\n\nLibrary sizes are arbitrary\n\nCenter the data\n\n\n\nBy centering the data, i.e., removing the mean."
+  },
+  {
+    "objectID": "transformation.html#centering",
+    "href": "transformation.html#centering",
+    "title": "Transformation",
+    "section": "Centering",
+    "text": "Centering\n\n\nCentering means that we subtract mean from each value to get the distribution centered to 0. Because we use log-scale, we have to use suitable mean (geometric mean aka arithmetic mean in log-scale)."
+  },
+  {
+    "objectID": "transformation.html#centering-the-logs",
+    "href": "transformation.html#centering-the-logs",
+    "title": "Transformation",
+    "section": "Centering the logs",
+    "text": "Centering the logs\n\\[\n\\begin{aligned}\n\\text{CLR}(x_i) &= \\log\\left(\\frac{x_i}{g(x)}\\right) \\\\[2mm]\n&= \\log(x_i) - \\log(g(x))\n\\end{aligned}\n\\]\n\nWe remove the mean.\nWhy we remove geometric mean?"
+  },
+  {
+    "objectID": "transformation.html#why-the-geometric-mean",
+    "href": "transformation.html#why-the-geometric-mean",
+    "title": "Transformation",
+    "section": "Why the geometric mean?",
+    "text": "Why the geometric mean?\n\\[\n\\text{Arithmetic mean} = \\frac{2 + 8 + 32}{3} = \\frac{42}{3} = 14\n\\]\n\\[\n\\begin{aligned}\n\\text{Geometric mean} &= \\sqrt[3]{2 \\cdot 8 \\cdot 32} \\\\[2mm]\n&= \\exp\\left( \\frac{\\log 2 + \\log 8 + \\log 32}{3} \\right) \\\\[2mm]\n&= 8\n\\end{aligned}\n\\]\n\nThe geometric mean is just the arithmetic mean in log-space. Because now the values are in logarithmic space, we have to use geometric mean."
+  },
+  {
+    "objectID": "transformation.html#intuition-summary",
+    "href": "transformation.html#intuition-summary",
+    "title": "Transformation",
+    "section": "Intuition: summary",
+    "text": "Intuition: summary\n\nValues dependent, only ratios matter\nStandard statistics rely on subtraction and distance\n\nUse log-scale\n\nLibrary sizes are arbitrary\n\nCenter the data\n\n\n\nCLR converts compositional data into a format where subtraction, distances, and correlations make sense. This solves both the dependency and library size issues."
+  },
+  {
+    "objectID": "transformation.html#centered-log-ratio-clr-1",
+    "href": "transformation.html#centered-log-ratio-clr-1",
+    "title": "Transformation",
+    "section": "Centered log-ratio (CLR)",
+    "text": "Centered log-ratio (CLR)\n\\[\n\\begin{aligned}\n\\text{CLR}(x_i) &= \\log\\left(\\frac{x_i}{g(x)}\\right) \\\\[2mm]\n&= \\log(x_i) - \\log(g(x)) \\\\[2mm]\n&= \\log(x_i) - \\frac{1}{D}\\sum_{j=1}^{D}\\log(x_j)\n\\end{aligned}\n\\]\n\n\nTake a logarithm of the values –&gt; ratios become subtraction which is what we want in Euclidean space\nCenter values to mean 0\nCLR values show how each feature compares to the sample’s geometric mean.\nPositive = enriched, Negative = depleted.\nMagnitude gives a fold-change interpretation on a log scale."
+  },
+  {
+    "objectID": "transformation.html#clr-in-practice",
+    "href": "transformation.html#clr-in-practice",
+    "title": "Transformation",
+    "section": "CLR in practice",
+    "text": "CLR in practice\n\nRemoves compositional constraints (constant sum)\nValues centered around zero, symmetric\nAllows standard statistical tools (PCA, correlations)\nDebate on whether it is necessary in DA\n\n\n\nCLR is widely used in microbiome data analysis because it removes compositional constraints and often makes data more normally distributed.\nHowever, recent benchmark studies highlight some limitations in differential abundance (DA) analysis:\n\nCan lack sensitivity\nMay produce paradoxical results in low-diversity microbiomes\n\nCLR values are harder to interpret than relative abundances because each value is dependent on the other features in the sample\n\nDespite this, CLR remains a standard, especially for methods that assume Euclidean space."
+  },
+  {
+    "objectID": "transformation.html#counts-versus-clr",
+    "href": "transformation.html#counts-versus-clr",
+    "title": "Transformation",
+    "section": "Counts versus CLR",
+    "text": "Counts versus CLR\n\n\nMakes the data more normally distributed. Distributed around zero. Without constrains (goes from negative infinity to positive)"
+  },
+  {
+    "objectID": "transformation.html#correct-transformation-depends-on",
+    "href": "transformation.html#correct-transformation-depends-on",
+    "title": "Transformation",
+    "section": "Correct transformation depends on",
+    "text": "Correct transformation depends on\n\nYour research question\nThe analysis method\n\n\nUse the simplest justified approach that works\n\n\nThere is increasing amount of benchmarking literature on this. We combine them to online book.\nThe “best” transformation depends on what you want to learn and the statistical methods you plan to use. Often, a simple, well-justified approach works well in practice."
+  },
+  {
+    "objectID": "transformation.html#demonstration",
+    "href": "transformation.html#demonstration",
+    "title": "Transformation",
+    "section": "Demonstration",
+    "text": "Demonstration\n\nlibrary(mia)\ndata(\"GlobalPatterns\", package = \"mia\")\ntse &lt;- GlobalPatterns\n\ntse &lt;- transformAssay(tse, method = \"relabundance\")\ntse &lt;- transformAssay(tse, method = \"clr\", pseudocount = TRUE)\nassayNames(tse)\n\n[1] \"counts\"       \"relabundance\" \"clr\""
+  },
+  {
+    "objectID": "transformation.html#exercises",
+    "href": "transformation.html#exercises",
+    "title": "Transformation",
+    "section": "Exercises",
+    "text": "Exercises\n\n\n\n\n\n\nOMA online book, Chapter 12: Transformation\n\n\nmicrobiome.github.io/OMA › Transformation\nAll exercises"
+  },
+  {
+    "objectID": "transformation.html#references",
+    "href": "transformation.html#references",
+    "title": "Transformation",
+    "section": "References",
+    "text": "References\n\n\nGloor, Gregory B., Jean M. Macklaim, Vera Pawlowsky-Glahn, and Juan J. Egozcue. 2017. “Microbiome Datasets Are Compositional: And This Is Not Optional.” Frontiers in Microbiology 8: 2224. https://doi.org/10.3389/fmicb.2017.02224."
+  },
+  {
+    "objectID": "transformation.html#absolute-versus-relative",
+    "href": "transformation.html#absolute-versus-relative",
+    "title": "Transformation",
+    "section": "Absolute versus relative",
+    "text": "Absolute versus relative\n\n\nThese plots show the same two samples in two different ways.\nOn the left, we see absolute counts. Taxon A increases in Sample 2, while taxa B and C stay exactly the same.\nOn the right, we see relative abundances, which is what sequencing gives us. Because each sample has a fixed library size, all taxa must share the same total.\nAs taxon A takes up a larger share in Sample 2, the proportions of B and C go down — even though their true counts did not change.\nThis is compositional bias: changes in one taxon can make others appear to change simply because everything is expressed as proportions."
   }
 ]
