@@ -1292,7 +1292,7 @@
     "href": "transformation.html#references",
     "title": "Transformation",
     "section": "References",
-    "text": "References\n\n\nGloor, Gregory B., Jean M. Macklaim, Vera Pawlowsky-Glahn, and Juan J. Egozcue. 2017. “Microbiome Datasets Are Compositional: And This Is Not Optional.” Frontiers in Microbiology 8: 2224. https://doi.org/10.3389/fmicb.2017.02224."
+    "text": "References\n\n\nGloor, Gregory B., Jean M. Macklaim, Vera Pawlowsky-Glahn, and Juan J. Egozcue. 2017. “Microbiome Datasets Are Compositional: And This Is Not Optional.” Frontiers in Microbiology 8: 2224. https://doi.org/10.3389/fmicb.2017.02224.\n\n\nVandeputte, Doris, Gunter Kathagen, Kevin D’hoe, Sara Vieira-Silva, Mireia Valles-Colomer, João Sabino, Jun Wang, et al. 2017. “Quantitative Microbiome Profiling Links Gut Community Variation to Microbial Load.” Nature 551 (7681): 507–11. https://doi.org/10.1038/nature24460."
   },
   {
     "objectID": "transformation.html#absolute-versus-relative",
@@ -1300,5 +1300,26 @@
     "title": "Transformation",
     "section": "Absolute versus relative",
     "text": "Absolute versus relative\n\n\nThese plots show the same two samples in two different ways.\nOn the left, we see absolute counts. Taxon A increases in Sample 2, while taxa B and C stay exactly the same.\nOn the right, we see relative abundances, which is what sequencing gives us. Because each sample has a fixed library size, all taxa must share the same total.\nAs taxon A takes up a larger share in Sample 2, the proportions of B and C go down — even though their true counts did not change.\nThis is compositional bias: changes in one taxon can make others appear to change simply because everything is expressed as proportions."
+  },
+  {
+    "objectID": "transformation.html#relative-versus-quantitative-profiling",
+    "href": "transformation.html#relative-versus-quantitative-profiling",
+    "title": "Transformation",
+    "section": "Relative versus quantitative profiling",
+    "text": "Relative versus quantitative profiling\n\n\n\n\n\n\n\nThe same samples profiled in two ways. On the left, relative abundances (RMP): every sample sums to 100 %. On the right, quantitative abundances (QMP): relative profiles scaled by the microbial cell count per gram, measured with flow cytometry. Microbial load varies several-fold between samples, which the relative profile hides entirely.\n\n\nRMP: relative microbiome profiling; QMP: quantitative microbiome profiling. Vandeputte et al. (2017)"
+  },
+  {
+    "objectID": "transformation.html#rmp-vs.-qmp-conclusions-can-flip",
+    "href": "transformation.html#rmp-vs.-qmp-conclusions-can-flip",
+    "title": "Transformation",
+    "section": "RMP vs. QMP: conclusions can flip",
+    "text": "RMP vs. QMP: conclusions can flip\n\n\n\n\n\n\n\nCrohn’s disease (CD) patients have lower microbial loads (a). With relative profiling, Bacteroides appears enriched in CD; with quantitative profiling, that difference disappears, whereas Prevotella is significantly depleted in CD only under QMP (b).\nPotentially drastic effect on conclusions!\n\n\nVandeputte et al. (2017)"
+  },
+  {
+    "objectID": "transformation.html#relative-vs.-quantitative-profiles",
+    "href": "transformation.html#relative-vs.-quantitative-profiles",
+    "title": "Transformation",
+    "section": "Relative vs. quantitative profiles",
+    "text": "Relative vs. quantitative profiles\n\n\n\n\n\n\n\nThe same samples profiled in two ways. On the left, relative abundances (RMP): every sample sums to 100 %. On the right, quantitative abundances (QMP): relative profiles scaled by the microbial cell count per gram, measured with flow cytometry. Microbial load varies several-fold between samples, which the relative profile hides entirely.\n\n\nRMP / QMP: relative / quantitative microbiome profiling. Vandeputte et al. (2017)"
   }
 ]
