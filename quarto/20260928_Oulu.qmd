@@ -144,6 +144,7 @@ Tämä dia voi mennä muualle, mutta jos muistan oikein, olemme olettaneet edell
 ## Slides
 
 -   [Data containers](https://microbiome.github.io/outreach/data_containers.html){target="_blank"}
+-   [Import](https://microbiome.github.io/outreach/import.html){target="_blank"}
 
 ## Exercises
 
