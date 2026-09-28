@@ -1,7 +1,11 @@
 ---
 title: "Beta diversity"
+subtitle: "Differences between samples"
 format:
   revealjs:
+    theme: [default, bioconductor.scss]
+    transition: fade
+    transition-speed: fast
     self-contained: true
     slide-number: true
     preview-links: auto
@@ -14,18 +18,32 @@ bibliography: references.bib
 
 ## Beta diversity
 
-- Similarity between samples
-- Dissimilarity/distance between samples, clustering, ordination...
-- Identify patterns of **community variation across conditions or treatments**
+-   Similarity between samples
+-   Dissimilarity/distance between samples, clustering, ordination...
+-   Identify patterns of **community variation across conditions or treatments**
 
-::: {.notes}
-
+::: notes
 Umbrella term. Different methods. Goal is to identify patterns from microbial profiles.
-
 :::
 
 ## Ordination
 
-- [Ordination](https://microbiome.github.io/outreach/ordination.html)
+::: columns
+::: {.column width="62%"}
+![](images/paste-206AEE5B.png){fig-alt="PCoA with Bray-Curtis versus PCA with Aitchison distance on gut microbiota data"}
+:::
 
-## References
+::: {.column width="38%"}
+<br><br>
+
+::: {style="font-size: 0.8em;"}
+Different distances and methods highlight different aspects of community variation.
+:::
+
+<br>
+
+::: cta
+[Ordination →](https://microbiome.github.io/outreach/ordination.html)
+:::
+:::
+:::
