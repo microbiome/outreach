@@ -95,7 +95,7 @@ After the course, you will be able to:
 
 - OMA book: <https://bioconductor.org/books/release/OMA/>
 - CSC environment: <https://noppe.rahtiapp.fi/>
-- Google docs for questions
+- Google docs for questions <https://shorturl.at/mePkH>
 
 ## Practicalities
 
