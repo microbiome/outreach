@@ -1,0 +1,103 @@
+/*-- scss:defaults --*/
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;600;700&display=swap");
+
+// Bioconductor brand colours
+$bioc-blue:  #1a81a9;
+$bioc-green: #87b13f;
+$bioc-dark:  #1f2a36;
+$bioc-grey:  #6b7785;
+$bioc-tint:  #f3f7f9;
+
+$font-family-sans-serif: "Open Sans", Helvetica, Arial, sans-serif;
+$presentation-heading-font: "Montserrat", Helvetica, Arial, sans-serif;
+$presentation-heading-color: $bioc-dark;
+$presentation-heading-font-weight: 700;
+$presentation-h2-font-size: 1.5em;
+$body-color: $bioc-dark;
+$link-color: $bioc-blue;
+$callout-color-tip: $bioc-green;
+
+/*-- scss:rules --*/
+
+// Slide titles with a short brand accent bar
+.reveal h2 {
+  letter-spacing: -0.01em;
+  padding-bottom: 0.2em;
+  margin-bottom: 0.6em;
+  position: relative;
+}
+.reveal h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 2.2em;
+  height: 5px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, $bioc-blue, $bioc-green);
+}
+
+// Title slide
+.reveal .slides section#title-slide h1.title {
+  font-size: 2.4em;
+  color: $bioc-dark;
+}
+.reveal .slides section#title-slide .subtitle {
+  color: $bioc-blue;
+  font-weight: 600;
+}
+.reveal .slides section#title-slide .date {
+  color: $bioc-grey;
+  font-size: 0.6em;
+}
+
+// Brand-coloured bullets
+.reveal ul li::marker { color: $bioc-blue; }
+.reveal ol li::marker { color: $bioc-green; font-weight: 700; }
+
+// Images: soft rounded corners, no stray margins
+.reveal .slides img { border-radius: 4px; }
+.reveal .slides .no-round img { border-radius: 0; }
+
+// Quote-style text
+.reveal blockquote {
+  border-left: 5px solid $bioc-green;
+  background: $bioc-tint;
+  box-shadow: none;
+  font-style: normal;
+  padding: 0.4em 0.8em;
+}
+
+// Call-to-action link box (used for "next" pointers)
+.cta a {
+  display: inline-block;
+  background: $bioc-blue;
+  color: #fff !important;
+  border-radius: 999px;
+  padding: 0.25em 1em;
+  font-weight: 600;
+  text-decoration: none;
+}
+.cta a:hover { background: darken($bioc-blue, 8%); }
+
+// Hex-sticker grid
+.sticker-grid p {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.2em;
+  margin: 0;
+}
+.sticker-grid img {
+  width: 100% !important;
+  margin: 0 !important;
+  border-radius: 0;
+}
+
+// Footer and slide number
+.reveal .footer { color: $bioc-grey; font-size: 0.45em; }
+.reveal .footer a { color: $bioc-grey; }
+.reveal .slide-number { color: $bioc-grey; background: transparent; }
+
+// References
+.reveal #refs { font-size: 0.55em; }
