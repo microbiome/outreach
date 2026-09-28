@@ -1,22 +1,33 @@
 ---
 title: "Transformation"
+subtitle: "Making abundances comparable and analysable"
 format:
   revealjs:
+    theme: [default, bioconductor.scss]
+    transition: fade
+    transition-speed: fast
     self-contained: true
     slide-number: true
     preview-links: auto
     logo: images/mia_logo.png
     footer: <https://microbiome.github.io/>
 date: last-modified
-date-format: full  
+date-format: full
 bibliography: references.bib
+execute:
+  echo: false
+  warning: false
+  message: false
+knitr:
+  opts_chunk:
+    dev: ragg_png
 ---
 
 ## Microbiome data
 
-- **High variability** &mdash; feature abundances vary widely across samples
-- **Zero-inflation** &mdash; many taxa absent in most samples
-- **Compositionality** &mdash; only relative abundances observed; total counts per sample are arbitrary
+-   **High variability**: feature abundances vary widely across samples
+-   **Zero-inflation**: many taxa absent in most samples
+-   **Compositionality**: only relative abundances observed; total counts per sample are arbitrary
 
 ::: {.notes}
 
@@ -30,6 +41,8 @@ bibliography: references.bib
 
 ```{r}
 #| label: heteroscedasticity
+#| fig-width: 7
+#| fig-height: 4.2
 
 library(ggplot2)
 
@@ -43,15 +56,15 @@ df1 <- data.frame(x, y)
 
 ggplot(df1, aes(x, y)) +
   geom_point(alpha = 0.6) +
-  geom_smooth(method = "lm", se = FALSE, color = "red") +
-  theme_classic() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "#1a81a9") +
+  theme_classic(base_size = 16) +
   labs(x = "Mean relative abundance", y = "Relative abundance")
 
 ```
 
 ::: {.notes}
 
-heteroscedasticity: the variance increases more than the mean. Abundant taxa have lots of variability.
+Heteroscedasticity: the variance increases with the mean. Abundant taxa have lots of variability.
 
 :::
 
@@ -59,10 +72,13 @@ heteroscedasticity: the variance increases more than the mean. Abundant taxa hav
 
 ```{r}
 #| label: zero_inflation
+#| fig-width: 7
+#| fig-height: 4.2
 
 library(miaViz)
-data(GlobalPatterns)
-plotHistogram(GlobalPatterns, assay.type = "counts")
+data("GlobalPatterns", package = "mia")
+plotHistogram(GlobalPatterns, assay.type = "counts") +
+    xlab("Count")
 ```
 
 ::: {.notes}
@@ -73,10 +89,10 @@ Real microbiome data. Lots of zeroes.
 
 ## Compositionality
 
-- Sequencing measures **relative abundances**, not true microbial counts
-- Values are **parts of a whole**
-- Parts are **linked by a fixed total** (library size)
-    - If one increases, at least one other must decrease
+-   Sequencing measures **relative abundances**, not true microbial counts
+-   Values are **parts of a whole**
+-   Parts are **linked by a fixed total** (library size)
+    -   If one increases, at least one other must decrease
 
 ::: {.notes}
 
@@ -93,50 +109,45 @@ Everyday examples of compositional data include:
 - How you spend 24 hours in a day (more work means less time for something else)
 :::
 
-##
+## Absolute versus relative
 
 ```{r}
 #| label: show_compositional
+#| fig-width: 8
+#| fig-height: 4.5
 
 library(ggplot2)
 library(dplyr)
 library(tidyr)
 library(patchwork)
 
-# Simulate absolute counts for 3 taxa across two samples
-df_absolute <- tibble(
+# Absolute counts for 3 taxa in two samples: A triples, B and C stay constant
+df <- tibble(
     Sample = c("Sample 1", "Sample 2"),
-    `A` = c(50, 150),  # Tribled
-    `B` = c(25, 25),   # Constant
-    `C` = c(25, 25)    # Constant
-)
+    A = c(50, 150),
+    B = c(25, 25),
+    C = c(25, 25)
+) |>
+    pivot_longer(-Sample, names_to = "Taxon", values_to = "Count") |>
+    group_by(Sample) |>
+    mutate(Proportion = Count / sum(Count)) |>
+    ungroup()
 
-# Add relative abundances (simulate sequencing)
-df_relative <- df_absolute %>%
-    mutate(across(starts_with("Bacteria"), ~ .x / rowSums(across(starts_with("Bacteria"))))) %>%
-    pivot_longer(cols = -Sample, names_to = "Bacteria", values_to = "RelativeAbundance")
+pal <- c(A = "#1a81a9", B = "#87b13f", C = "#f2b134")
 
-# Pivot absolute too for comparison
-df_absolute_long <- df_absolute %>%
-    pivot_longer(cols = -Sample, names_to = "Bacteria", values_to = "Count")
+p1 <- ggplot(df, aes(x = Sample, y = Count, fill = Taxon)) +
+    geom_col() +
+    labs(title = "Absolute counts", x = NULL, y = "Count") +
+    scale_fill_manual(values = pal) +
+    theme_minimal(base_size = 16)
 
-# Plot 1: Absolute counts
-p1 <- ggplot(df_absolute_long, aes(x = Sample, y = Count, fill = Bacteria)) +
-    geom_bar(stat = "identity", position = "stack") +
-    labs(title = "Absolute counts", y = "Read count") +
-    theme_minimal() + scale_fill_brewer(palette = "Paired")
+p2 <- ggplot(df, aes(x = Sample, y = Proportion, fill = Taxon)) +
+    geom_col() +
+    labs(title = "Relative abundance", x = NULL, y = "Proportion") +
+    scale_fill_manual(values = pal) +
+    theme_minimal(base_size = 16)
 
-# Plot 2: Relative abundances
-p2 <- ggplot(df_relative, aes(x = Sample, y = RelativeAbundance, fill = Bacteria)) +
-    geom_bar(stat = "identity", position = "fill") +
-    labs(title = "Relative abundance", y = "Proportion") +
-    theme_minimal() + scale_fill_brewer(palette = "Paired")
-
-
-# Combine plots and keep only one legend
 p1 + p2 + plot_layout(guides = "collect") & theme(legend.position = "bottom")
-
-
 ```
 
 ::: {.notes}
@@ -153,32 +164,25 @@ This is compositional bias: changes in one taxon can make others appear to chang
 
 :::
 
-##
+## Compositionality is not optional
 
-```{r}
-#| label: show_ss
-#| fig-width: 15
-#| fig-height: 15
+> "… microbiome datasets generated by HTS are compositional because they have an arbitrary total imposed by the instrument."
 
-library(webshot2)
-library(magick)
+> "… HTS datasets derived from microbiome studies can and should be treated as compositions at all stages of analysis."
 
-# Take the screenshot and save to a temporary file
-tmpfile <- tempfile(fileext = ".png")
+::: aside
+@Gloor2017, *Microbiome datasets are compositional: and this is not optional*
+:::
 
-temp <- webshot(
-    url = "https://www.frontiersin.org/journals/microbiology/articles/10.3389/fmicb.2017.02224/full",
-    file = tmpfile,
-    cliprect = c(0, 480, 1100, 520)
-)
-temp
-```
+::: notes
+Quoted from the abstract of @Gloor2017. HTS = high-throughput sequencing.
+:::
 
 ## Goals of transformation
 
-- Mitigate biases in abundances
-- Make features comparable across samples
-- Meet assumptions of downstream statistical analyses
+-   Mitigate biases in abundances
+-   Make features comparable across samples
+-   Meet assumptions of downstream statistical analyses
 
 ::: {.notes}
 
@@ -197,9 +201,9 @@ $$
 
 *where*
 
-* $i$ indexes the sample,
-* $j$ indexes the taxon,
-* $m$ is the total number of taxa.
+-   $i$ indexes the sample,
+-   $j$ indexes the taxon,
+-   $m$ is the total number of taxa.
 
 ::: {.notes}
 
@@ -221,7 +225,7 @@ $$
 
 *where*
 
-* $\epsilon$ is a small pseudocount to avoid $\log(0)$.
+-   $\epsilon$ is a small pseudocount to avoid $\log(0)$.
 
 ::: {.notes}
 
@@ -231,25 +235,25 @@ Log-transform reduces skewness and makes differences among low-abundance taxa mo
 
 :::
 
-##
+## Counts, proportions, logs
 
 ```{r}
 #| label: relative_abundance
+#| fig-width: 9
+#| fig-height: 3.6
 
 library(mia)
 library(miaViz)
 library(patchwork)
 
-data(GlobalPatterns)
+data("GlobalPatterns", package = "mia")
 tse <- GlobalPatterns
 tse <- transformAssay(tse, method = "relabundance")
-tse <- transformAssay(tse, method = "relabundance", pseudocount = TRUE, name = "relabund")
-tse <- transformAssay(tse, assay.type = "relabund", method = "log10", pseudocount = TRUE)
+tse <- transformAssay(tse, assay.type = "relabundance", method = "log10",
+                      pseudocount = TRUE)
 
-
-# Combine plots side by side
 p1 <- plotHistogram(tse, assay.type = "counts") +
-    xlab("Absolute abundance")
+    xlab("Count")
 p2 <- plotHistogram(tse, assay.type = "relabundance") +
     xlab("Relative abundance")
 p3 <- plotHistogram(tse, assay.type = "log10") +
@@ -276,8 +280,8 @@ $$
 g(x) = \left(\prod_{j=1}^{D} x_j \right)^{1/D}
 $$
 
-- $x_i$: abundance of bacteria $i$  
-- $g(x)$: geometric mean across all bacteria in the sample
+-   $x_i$: abundance of bacteria $i$
+-   $g(x)$: geometric mean across all bacteria in the sample
 
 ::: {.notes}
 
@@ -287,19 +291,13 @@ abundance transformations cannot.
 
 :::
 
-## Intuition
-
-::: {.notes}
-
-This is the idea behind CLR transformation.
-
-:::
-
 ## Intuition {auto-animate="true"}
 
 1. Values dependent, only ratios matter
 
 ::: {.notes}
+
+This is the idea behind CLR transformation.
 
 When we want to compare values in compositional data, only ratios make sense.
 
@@ -313,7 +311,7 @@ When we want to compare values in compositional data, only ratios make sense.
 ::: {.notes}
 
 However, most statistical tests
-rely that substraction make sense. How to make ratios subtractions?
+rely on subtraction making sense. How to turn ratios into differences?
 
 :::
 
@@ -323,7 +321,7 @@ rely that substraction make sense. How to make ratios subtractions?
 2. Standard statistics rely on subtraction and distance
 
 $$
-\frac{x}{y} = a-b
+\frac{x}{y} \;\longrightarrow\; a - b \;?
 $$
 
 ::: {.notes}
@@ -339,7 +337,7 @@ This is the situation.
     - Use log-scale
 
 $$
-log(\frac{x}{y}) = log(x) - log(y)
+\log\left(\frac{x}{y}\right) = \log(x) - \log(y)
 $$
 
 ::: {.notes}
@@ -375,10 +373,12 @@ By centering the data, i.e., removing the mean.
 
 :::
 
-##
+## Centering
 
 ```{r}
 #| label: centering
+#| fig-width: 8
+#| fig-height: 4.2
 
 library(ggplot2)
 
@@ -399,15 +399,17 @@ df_plot <- rbind(
 )
 
 # Plot
-ggplot(df_plot, aes(x = x, y = ..density.., fill = type)) +
-  geom_density(alpha = 0.5, position = "identity", bins = 30, show.legend = FALSE) +
-  geom_vline(xintercept = mean(x), linetype = "dashed", color = "blue") +
-  geom_vline(xintercept = mean(x_centered), linetype = "dashed", color = "red") +
+ggplot(df_plot, aes(x = x, fill = type)) +
+  geom_density(alpha = 0.5, position = "identity", show.legend = FALSE) +
+  geom_vline(xintercept = mean(x), linetype = "dashed", color = "#1a81a9") +
+  geom_vline(xintercept = mean(x_centered), linetype = "dashed", color = "#87b13f") +
+  scale_fill_manual(values = c(Original = "#1a81a9", Centered = "#87b13f")) +
   annotate("segment", x = mean(x), xend = mean(x_centered), y = 0.15, yend = 0.15,
            arrow = arrow(length = unit(0.3,"cm")), color = "black") +
-  annotate("text", x = (mean(x)+mean(x_centered))/2, y = 0.17, label = "Centering", hjust = 0.5) +
+  annotate("text", x = (mean(x)+mean(x_centered))/2, y = 0.17, label = "Centering",
+           hjust = 0.5, size = 5) +
   labs(title = "", x = "x", y = "Density") +
-  theme_minimal() +
+  theme_minimal(base_size = 16) +
   theme(legend.position = "none")
 
 ```
@@ -418,11 +420,13 @@ Centering means that we subtract mean from each value to get the distribution ce
 
 :::
 
-## Centering
+## Centering the logs
 
 $$
-\text{CLR}(x_i) \;=\; \log\left(\frac{x_i}{g(x)}\right) \\[2mm]
-= \log(x_i) - \log(g(x)) \\[2mm]
+\begin{aligned}
+\text{CLR}(x_i) &= \log\left(\frac{x_i}{g(x)}\right) \\[2mm]
+&= \log(x_i) - \log(g(x))
+\end{aligned}
 $$
 
 ::: {.notes}
@@ -433,16 +437,18 @@ Why we remove geometric mean?
 
 :::
 
-##
+## Why the geometric mean?
 
 $$
 \text{Arithmetic mean} = \frac{2 + 8 + 32}{3} = \frac{42}{3} = 14
 $$
 
 $$
-\text{Geometric mean} = \sqrt[3]{2 \cdot 8 \cdot 32} \\[2mm]
-= \exp\Bigg( \frac{\log 2 + \log 8 + \log 32}{3} \Bigg) \\[2mm]
-= 8
+\begin{aligned}
+\text{Geometric mean} &= \sqrt[3]{2 \cdot 8 \cdot 32} \\[2mm]
+&= \exp\left( \frac{\log 2 + \log 8 + \log 32}{3} \right) \\[2mm]
+&= 8
+\end{aligned}
 $$
 
 ::: {.notes}
@@ -452,7 +458,7 @@ values are in logarithmic space, we have to use geometric mean.
 
 :::
 
-## Intuition
+## Intuition: summary
 
 1. Values dependent, only ratios matter
 2. Standard statistics rely on subtraction and distance
@@ -471,9 +477,11 @@ correlations make sense. This solves both the dependency and library size issues
 ## Centered log-ratio (CLR)
 
 $$
-\text{CLR}(x_i) \;=\; \log\left(\frac{x_i}{g(x)}\right) \\[2mm]
-= \log(x_i) - \log(g(x)) \\[2mm]
-= \log(x_i) - \frac{1}{D}\sum_{j=1}^{D}\log(x_j)
+\begin{aligned}
+\text{CLR}(x_i) &= \log\left(\frac{x_i}{g(x)}\right) \\[2mm]
+&= \log(x_i) - \log(g(x)) \\[2mm]
+&= \log(x_i) - \frac{1}{D}\sum_{j=1}^{D}\log(x_j)
+\end{aligned}
 $$
 
 ::: {.notes}
@@ -487,12 +495,12 @@ $$
 
 :::
 
-## Centered log-ratio (CLR)
+## CLR in practice
 
-- Removes compositional constraints (constant sum)
-- Values centered around zero, symmetric
-- Allows standard statistical tools (PCA, correlations)
-- [Debate on whether it is necessary in DA](https://www.biorxiv.org/content/10.1101/2025.02.13.638109v1.full.pdf){preview-link="true"}
+-   Removes compositional constraints (constant sum)
+-   Values centered around zero, symmetric
+-   Allows standard statistical tools (PCA, correlations)
+-   [Debate on whether it is necessary in DA](https://www.biorxiv.org/content/10.1101/2025.02.13.638109v1.full.pdf){preview-link="true"}
 
 ::: {.notes}
 
@@ -507,23 +515,24 @@ Despite this, CLR remains a standard, especially for methods that assume Euclide
 
 :::
 
-##
+## Counts versus CLR
 
 ```{r}
 #| label: clr
+#| fig-width: 8
+#| fig-height: 3.6
 
 library(mia)
 library(miaViz)
 library(patchwork)
 
-data(GlobalPatterns)
+data("GlobalPatterns", package = "mia")
 tse <- GlobalPatterns
-tse <- transformAssay(tse, method = "rclr")
+tse <- transformAssay(tse, method = "clr", pseudocount = TRUE)
 
-# Combine plots side by side
 p1 <- plotHistogram(tse, assay.type = "counts") +
-    xlab("Absolute abundance")
-p2 <- plotHistogram(tse, assay.type = "rclr") +
+    xlab("Count")
+p2 <- plotHistogram(tse, assay.type = "clr") +
     xlab("CLR abundance")
 p1 + p2
 ```
@@ -537,7 +546,7 @@ Makes the data more normally distributed. Distributed around zero. Without const
 ## Correct transformation depends on
 
 1. Your research question
-2. On the analysis method
+2. The analysis method
 
 >_Use the simplest justified approach that works_
 
@@ -557,27 +566,29 @@ practice.
 
 ## Demonstration
 
-```r
-library(mia)
-
-tse <- transformAssay(tse, method = "relabundance")
-print(tse)
-```
-
 ```{r}
 #| label: transformation
-
+#| echo: true
 library(mia)
-data(GlobalPatterns)
+data("GlobalPatterns", package = "mia")
 tse <- GlobalPatterns
+
 tse <- transformAssay(tse, method = "relabundance")
-tse
+tse <- transformAssay(tse, method = "clr", pseudocount = TRUE)
+assayNames(tse)
 ```
 
 ## Exercises
 
-From [OMA online book, Chapter 12: Transformation](https://microbiome.github.io/OMA/docs/devel/pages/agglomeration.html)
+::: callout-tip
+## OMA online book, Chapter 12: Transformation
 
-- All exercises
+[microbiome.github.io/OMA › Transformation](https://microbiome.github.io/OMA/docs/devel/pages/transformation.html)
+
+**All exercises**
+:::
 
 ## References
+
+::: {#refs}
+:::
