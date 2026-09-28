@@ -1,0 +1,175 @@
+/*-- scss:defaults --*/
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800&family=Open+Sans:wght@400;600;700&display=swap");
+
+$navy:  #0b2545;
+$teal:  #13a89e;
+$coral: #f26b5b;
+$gold:  #f2b134;
+$sand:  #f6f4ef;
+$ink:   #1d2433;
+
+$font-family-sans-serif: "Open Sans", Helvetica, Arial, sans-serif;
+$presentation-heading-font: "Montserrat", Helvetica, Arial, sans-serif;
+$presentation-heading-color: $navy;
+$presentation-heading-font-weight: 700;
+$body-bg: #ffffff;
+$body-color: $ink;
+$link-color: $teal;
+$presentation-font-size-root: 36px;
+
+/*-- scss:rules --*/
+
+// Accent bar under every slide title
+.reveal h2 {
+  padding-bottom: 0.25em;
+  margin-bottom: 0.6em;
+  border-bottom: 4px solid transparent;
+  border-image: linear-gradient(90deg, $teal 0%, $coral 60%, transparent 100%) 1;
+}
+
+// Title slide
+.reveal .slides section.title-hero h1,
+.reveal .slides section.title-hero h2 {
+  color: #fff;
+  border: none;
+}
+.title-hero .kicker {
+  color: $gold;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-size: 0.6em;
+}
+.title-hero .big {
+  font-family: $presentation-heading-font;
+  font-size: 1.9em;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #fff;
+  margin: 0.3em 0;
+}
+.title-hero .meta { color: #d7e3f0; font-size: 0.75em; }
+.title-hero .meta strong { color: #fff; }
+
+// Section (day) divider slides
+.reveal .slides section.day-divider h2 {
+  color: #fff;
+  font-size: 2.2em;
+  border: none;
+}
+.day-divider .day-num {
+  font-family: $presentation-heading-font;
+  font-size: 5em;
+  font-weight: 800;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.25);
+}
+.day-divider p { color: #f0f4f8; }
+
+// Cards
+.cards {
+  display: flex;
+  gap: 0.6em;
+  align-items: stretch;
+}
+.card {
+  flex: 1;
+  background: $sand;
+  border-radius: 14px;
+  padding: 0.6em 0.7em;
+  border-top: 8px solid $teal;
+  font-size: 0.72em;
+  box-shadow: 0 4px 14px rgba(11, 37, 69, 0.08);
+}
+.card h3, .card .card-title {
+  margin: 0 0 0.3em 0;
+  font-family: $presentation-heading-font;
+  font-weight: 700;
+  font-size: 1.15em;
+  color: $navy;
+}
+.card .icon { font-size: 1.8em; line-height: 1.2; }
+.card.teal  { border-top-color: $teal; }
+.card.coral { border-top-color: $coral; }
+.card.gold  { border-top-color: $gold; }
+.card.navy  { border-top-color: $navy; }
+
+// Big call-out statement
+.statement {
+  font-family: $presentation-heading-font;
+  font-size: 1.3em;
+  font-weight: 700;
+  color: $navy;
+  border-left: 8px solid $coral;
+  padding-left: 0.6em;
+  margin: 0.8em 0;
+}
+
+// Pills (tags)
+.pill {
+  display: inline-block;
+  background: $teal;
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.05em 0.7em;
+  margin: 0.1em;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+.pill.coral { background: $coral; }
+.pill.navy  { background: $navy; }
+.pill.gold  { background: $gold; color: $navy; }
+
+// Timetables
+.reveal table {
+  font-size: 0.8em;
+  border-collapse: collapse;
+  width: 100%;
+}
+.reveal table thead th {
+  background: $navy;
+  color: #fff;
+  border: none;
+}
+.reveal table td { border-bottom: 1px solid #e3e6ea; }
+.reveal table tbody tr:nth-child(even) { background: $sand; }
+.reveal table td:first-child {
+  font-weight: 600;
+  color: $teal;
+  white-space: nowrap;
+}
+.reveal table tr.break td { color: #8a93a0; font-style: italic; }
+
+// Logo strip
+.logo-strip {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0.8em 1.4em;
+  margin-top: 0.8em;
+}
+.logo-strip img {
+  max-height: 60px;
+  width: auto;
+  margin: 0 !important;
+}
+.logo-strip.on-dark {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 14px;
+  padding: 0.4em 0.8em;
+}
+
+// Footer
+.reveal .footer { color: #8a93a0; }
+.reveal .footer a { color: $teal; }
+
+.day-divider .day-title {
+  display: block;
+  font-family: $presentation-heading-font;
+  font-size: 2.2em;
+  font-weight: 800;
+  color: #fff;
+  margin: 0.1em 0 0.3em 0;
+}

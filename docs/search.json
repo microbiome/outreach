@@ -593,5 +593,201 @@
     "title": "Microbiome data science and multi-omics with R/Bioconductor",
     "section": "Exercises",
     "text": "Exercises\n\nChapter 4, Exercises 1.2-1.7"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#section",
+    "href": "20260928_Oulu_visual.html#section",
+    "title": "",
+    "section": "",
+    "text": "University of Oulu · Sep 28–30, 2026\n\n\nFrom microbesto multi-omics\n\n\nMicrobiome data science with R/Bioconductor Three days · 9:00–16:00 · lectures, demos & hands-on Leo Lahti · Tuomas Borman · Anna Kaisanlahti"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#why-are-we-here",
+    "href": "20260928_Oulu_visual.html#why-are-we-here",
+    "title": "",
+    "section": "Why are we here?",
+    "text": "Why are we here?\n\n\nMicrobiome = community of microbes and their genes in a given habitat. The course is about closing the loop between data and methods."
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#what-you-will-learn",
+    "href": "20260928_Oulu_visual.html#what-you-will-learn",
+    "title": "",
+    "section": "What you will learn",
+    "text": "What you will learn\n\n\n🔁\nReproducible\nTransparent workflows with R and Quarto\n\n\n📦\nStandardized\nShared data containers for single- and multi-omics\n\n\n🧭\nIndependent\nNavigate documentation & existing tools for new tasks\n\n\n\nYou don’t need to know everything —learn the ecosystem and how to navigate it."
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#three-days-at-a-glance",
+    "href": "20260928_Oulu_visual.html#three-days-at-a-glance",
+    "title": "",
+    "section": "Three days at a glance",
+    "text": "Three days at a glance\n\n\nDay 1\nOpen data science\nReproducible workflows with R/Bioconductor and Quarto\n\n\nDay 2\nSingle omics\nTabular data analysis & visualization\n\n\nDay 3\nMulti-omics\nMulti-assay data integration\n\n\n\nEach topic: short lecture + demo, then mostly hands-on exercises — help is always available and materials stay online after the course."
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#whos-who",
+    "href": "20260928_Oulu_visual.html#whos-who",
+    "title": "",
+    "section": "Who’s who",
+    "text": "Who’s who\n\n\nInstructors\nLeo LahtiTuomas Borman\n\n\nCoordinator\nAnna Kaisanlahti\n\n\nOrganizers\nHBS-DP, University of Oulu Graduate School\n\n\nComputing\nCSC cloud services\n\n\n\nFor: MSc students, PhD candidates, postdocs and researchers building skills in R programming omics analysis visualization reproducible reporting"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#materials-links",
+    "href": "20260928_Oulu_visual.html#materials-links",
+    "title": "",
+    "section": "Materials & links",
+    "text": "Materials & links\n\n\n📘 OMA bookhttps://bioconductor.org/books/release/OMA/\n☁️ CSC environmenthttps://noppe.rahtiapp.fi/\n💬 Questionsshared Google doc"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#code-of-conduct",
+    "href": "20260928_Oulu_visual.html#code-of-conduct",
+    "title": "",
+    "section": "Code of Conduct",
+    "text": "Code of Conduct\n\n\n🤝\nSharing ideas, code, software and expertise\n\n\n🧩\nCollaboration\n\n\n🌍\nDiversity and inclusivity\n\n\n💛\nA kind and welcoming environment\n\n\n\nBioconductor CoC: https://bioconductor.github.io/bioc_coc_multilingual/"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#section-1",
+    "href": "20260928_Oulu_visual.html#section-1",
+    "title": "",
+    "section": "",
+    "text": "01\n\nOpen data science\nReproducible workflows with R/Bioconductor and Quarto"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#day-1-schedule",
+    "href": "20260928_Oulu_visual.html#day-1-schedule",
+    "title": "",
+    "section": "Day 1 — Schedule",
+    "text": "Day 1 — Schedule\n\n\n\nTime\nActivity\n\n\n\n\n9:00–10:00\n☕ Coffee, welcome & practicalities\n\n\n10:00–11:00\nIntroduction to CSC RStudio notebook\n\n\n11:00–12:00\nLecture: open & reproducible workflows\n\n\n12:00–13:00\n🍽️ Lunch break\n\n\n13:00–16:00\nWorking with data containers and workflows\n\n\nEvening\nInformal course dinner (own cost)"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#day-1-goals",
+    "href": "20260928_Oulu_visual.html#day-1-goals",
+    "title": "",
+    "section": "Day 1 — Goals",
+    "text": "Day 1 — Goals\n\n\n\nPrinciples of open & reproducible microbiome / omics analysis\nThe Bioconductor ecosystem\nWhy standardized data containers matter"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#microbiome-research",
+    "href": "20260928_Oulu_visual.html#microbiome-research",
+    "title": "",
+    "section": "Microbiome research",
+    "text": "Microbiome research\n\n\n\nMicrobiome: the community of microbes and their genes in a habitat (e.g. human gut)\nVital role in health & environment\nData: sequencing profiles + additional molecular layers\n\n\n\n\n\nKäy nopeasti läpi mikä on mikrobiomi — aiemmilla kursseilla olemme olettaneet, että osallistujat tietävät."
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#one-container-to-hold-it-all",
+    "href": "20260928_Oulu_visual.html#one-container-to-hold-it-all",
+    "title": "",
+    "section": "One container to hold it all",
+    "text": "One container to hold it all\n\n\nTreeSummarizedExperiment — assays, sample & feature data, trees in one object"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#hands-on",
+    "href": "20260928_Oulu_visual.html#hands-on",
+    "title": "",
+    "section": "Hands-on",
+    "text": "Hands-on\n\n\n🖥️ Slides\nData containers\n\n\n✍️ Exercises\nOMA Chapter 4, Exercises 1.2–1.7"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#day-1-take-home",
+    "href": "20260928_Oulu_visual.html#day-1-take-home",
+    "title": "",
+    "section": "Day 1 — Take-home",
+    "text": "Day 1 — Take-home\n\n\nReproducible reporting\nAnalyses become verifiable and easier to reuse, review and extend\n\n\nTreeSE\nTreeSummarizedExperiment is the standard container for microbiome data\n\n\nBioconductor\nInteroperable packages built on shared data infrastructure"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#feedback-day-1",
+    "href": "20260928_Oulu_visual.html#feedback-day-1",
+    "title": "",
+    "section": "Feedback · Day 1",
+    "text": "Feedback · Day 1\n\n\n\n\n\n\n\n\n\n\n\n\n\nTell us what worked — and what didn’t.\n\nhttps://forms.gle/iEkoNdMVp9BUnyqNA"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#section-2",
+    "href": "20260928_Oulu_visual.html#section-2",
+    "title": "",
+    "section": "",
+    "text": "02\n\nSingle omics\nTabular data analysis & visualization"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#day-2-schedule",
+    "href": "20260928_Oulu_visual.html#day-2-schedule",
+    "title": "",
+    "section": "Day 2 — Schedule",
+    "text": "Day 2 — Schedule\n\n\n\n\n\n\n\nTime\nActivity\n\n\n\n\n9:00–10:00\nLecture: analysis & visualization of tabular data (single omics)\n\n\n10:00–12:00\nSubsetting, transformations, and data summaries\n\n\n12:00–13:00\n🍽️ Lunch break\n\n\n13:00–14:00\nUnivariate data analysis and visualization\n\n\n14:00–16:00\nMultivariate data analysis and visualization"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#day-2-goals",
+    "href": "20260928_Oulu_visual.html#day-2-goals",
+    "title": "",
+    "section": "Day 2 — Goals",
+    "text": "Day 2 — Goals\n\nGoals for the day"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#day-2-take-home",
+    "href": "20260928_Oulu_visual.html#day-2-take-home",
+    "title": "",
+    "section": "Day 2 — Take-home",
+    "text": "Day 2 — Take-home\n\nx\nx\nx"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#feedback-day-2",
+    "href": "20260928_Oulu_visual.html#feedback-day-2",
+    "title": "",
+    "section": "Feedback · Day 2",
+    "text": "Feedback · Day 2\n\n\n\n\n\n\n\n\n\n\n\n\n\nTell us what worked — and what didn’t.\n\nhttps://forms.gle/iEkoNdMVp9BUnyqNA"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#section-3",
+    "href": "20260928_Oulu_visual.html#section-3",
+    "title": "",
+    "section": "",
+    "text": "03\n\nMulti-omics\nMulti-assay data integration"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#day-3-schedule",
+    "href": "20260928_Oulu_visual.html#day-3-schedule",
+    "title": "",
+    "section": "Day 3 — Schedule",
+    "text": "Day 3 — Schedule\n\n\n\n\n\n\n\nTime\nActivity\n\n\n\n\n9:00–10:00\nLecture: analysis & visualization of multi-assay data (multi-omics)\n\n\n10:00–12:00\nMulti-assay data analysis and visualization\n\n\n12:00–13:00\n🍽️ Lunch break\n\n\n13:00–15:00\nQ&A and advanced techniques (time series, machine learning, simulation)\n\n\n15:00–16:00\nSummary and wrap-up"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#linking-the-layers",
+    "href": "20260928_Oulu_visual.html#linking-the-layers",
+    "title": "",
+    "section": "Linking the layers",
+    "text": "Linking the layers\n\n\n\n\nMultiAssayExperiment links several omics layers measured on the same subjects.\n\nmicrobiome metabolome transcriptome clinical"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#day-3-goals",
+    "href": "20260928_Oulu_visual.html#day-3-goals",
+    "title": "",
+    "section": "Day 3 — Goals",
+    "text": "Day 3 — Goals\n\nGoals for the day"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#summary",
+    "href": "20260928_Oulu_visual.html#summary",
+    "title": "",
+    "section": "Summary",
+    "text": "Summary\n\nx\nx\nx"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#feedback-day-3",
+    "href": "20260928_Oulu_visual.html#feedback-day-3",
+    "title": "",
+    "section": "Feedback · Day 3",
+    "text": "Feedback · Day 3\n\n\n\n\n\n\n\n\n\n\n\n\n\nTell us what worked — and what didn’t.\n\nhttps://forms.gle/iEkoNdMVp9BUnyqNA"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#thank-you",
+    "href": "20260928_Oulu_visual.html#thank-you",
+    "title": "",
+    "section": "Thank you!",
+    "text": "Thank you!\n\nKeep learning with the OMA book: https://bioconductor.org/books/release/OMA/"
+  },
+  {
+    "objectID": "20260928_Oulu_visual.html#references",
+    "href": "20260928_Oulu_visual.html#references",
+    "title": "",
+    "section": "References",
+    "text": "References"
   }
 ]
