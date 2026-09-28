@@ -28,6 +28,8 @@ This website hosts quarto presentations about microbiome analysis and data integ
     - [Multi-omics](https://microbiome.github.io/outreach/multi-omics.html){target="_blank"}
 - Machine learning
     - [Machine learning](https://microbiome.github.io/outreach/machine_learning.html){target="_blank"}
+- Workflow
+    - [Microbiome data science workflow](https://microbiome.github.io/outreach/workflow.html){target="_blank"}
 
 ### Packages
 

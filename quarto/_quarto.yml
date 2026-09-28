@@ -30,3 +30,4 @@ project:
     - outro.qmd
     - reproducible_reporting.qmd
     - transformation.qmd
+    - workflow.qmd

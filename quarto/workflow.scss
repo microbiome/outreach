@@ -1,0 +1,39 @@
+/*-- scss:defaults --*/
+
+$navy:  #0b2545;
+$teal:  #13a89e;
+$coral: #f26b5b;
+$gold:  #f2b134;
+
+/*-- scss:rules --*/
+
+// Horizontal workflow strip of chevron steps
+.flow {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.25em;
+  margin: 0.4em 0 1em 0;
+}
+.flow .step {
+  flex: 1;
+  padding: 0.5em 0.9em 0.5em 1.3em;
+  color: #fff;
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  font-size: 0.6em;
+  text-align: center;
+  background: $teal;
+  clip-path: polygon(0 0, calc(100% - 0.8em) 0, 100% 50%, calc(100% - 0.8em) 100%, 0 100%, 0.8em 50%);
+}
+.flow .step:first-child {
+  clip-path: polygon(0 0, calc(100% - 0.8em) 0, 100% 50%, calc(100% - 0.8em) 100%, 0 100%);
+}
+.flow .step.navy  { background: $navy; }
+.flow .step.coral { background: $coral; }
+.flow .step.gold  { background: $gold; color: $navy; }
+
+// Section divider slides: white headings on coloured background
+.reveal .slides section.has-dark-background h1 { color: #fff; }
+
+// Keep code readable on dense slides
+.reveal pre code { font-size: 0.8em; line-height: 1.35; max-height: 520px; }

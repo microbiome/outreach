@@ -1,0 +1,312 @@
+---
+title: "Microbiome data science workflow"
+subtitle: "Standard components of a taxonomic profiling study"
+format:
+  revealjs:
+    theme: [default, oulu2026.scss, workflow.scss]
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    transition: slide
+    background-transition: fade
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+date: last-modified
+date-format: full
+bibliography: references.bib
+execute:
+  echo: true
+  eval: false
+---
+
+## A typical workflow
+
+::: flow
+[Import]{.step .navy}
+[Preprocess]{.step .teal}
+[Alpha]{.step .teal}
+[Beta]{.step .coral}
+[Taxa]{.step .coral}
+[Report]{.step .gold}
+:::
+
+-   Key elements of a taxonomic profiling study
+-   Mixed and matched in real case studies
+-   Examples for each step in [OMA](https://microbiome.github.io/OMA/)
+
+::: notes
+This session gives an overview of the key elements of a typical data
+science workflow in a taxonomic profiling study. Real case studies mix
+these in various ways.
+:::
+
+## Your task
+
+::: statement
+Build a clear, compact and reproducible report on your data.
+:::
+
+::: cards
+::: {.card .teal}
+[📓]{.icon}
+
+[Reproducible]{.card-title}
+
+Quarto / R Markdown report that renders from raw data
+:::
+
+::: {.card .coral}
+[🎯]{.icon}
+
+[Selective]{.card-title}
+
+Choose summaries and analyses that answer your question
+:::
+
+::: {.card .gold}
+[📚]{.icon}
+
+[Build on OMA]{.card-title}
+
+Reuse material and examples from the [OMA book](https://microbiome.github.io/OMA/)
+:::
+:::
+
+## Setup
+
+```{r}
+#| label: setup
+library(mia)
+library(miaViz)
+library(scater)
+
+# Example data set: human gut microbiome with sample metadata
+data("peerj13075", package = "mia")
+tse <- peerj13075
+
+# Relative abundances and CLR for downstream steps
+tse <- transformAssay(tse, method = "relabundance")
+tse <- transformAssay(tse, method = "clr", pseudocount = TRUE)
+
+# Genus-level summary
+tse_genus <- agglomerateByRank(tse, rank = "genus")
+```
+
+::: notes
+The workflow operates on a TreeSummarizedExperiment. Replace the
+example data with your own.
+:::
+
+# Alpha diversity {background-color="#13a89e"}
+
+## Alpha diversity: within-sample
+
+::: columns
+::: {.column width="45%"}
+**Tasks**
+
+1.  Estimate alpha diversity per sample
+2.  Draw a histogram
+3.  Compare two or more indices, visually and/or statistically
+:::
+
+::: {.column width="55%"}
+```{r}
+#| label: alpha
+tse <- addAlpha(
+    tse, index = c("shannon", "observed"))
+
+hist(tse$shannon)
+
+plotColData(
+    tse, x = "observed", y = "shannon")
+
+cor.test(tse$observed, tse$shannon,
+         method = "spearman")
+```
+:::
+:::
+
+::: {.callout-tip}
+Richness and evenness capture different things. Do the indices agree?
+:::
+
+# Beta diversity {background-color="#f26b5b"}
+
+## Beta diversity: PCoA
+
+Visualize community variation with **PCoA**, and check how the
+data transformation affects it:
+
+::: cards
+::: {.card .coral}
+[Bray–Curtis]{.card-title}
+
+on compositional (relative abundance) data
+:::
+
+::: {.card .navy}
+[Euclidean]{.card-title}
+
+on CLR-transformed data (Aitchison distance)
+:::
+:::
+
+```{r}
+#| label: pcoa
+tse <- runMDS(tse, FUN = getDissimilarity, method = "bray",
+              assay.type = "relabundance", name = "PCoA_BC")
+tse <- runMDS(tse, FUN = getDissimilarity, method = "euclidean",
+              assay.type = "clr", name = "PCoA_CLR")
+
+plotReducedDim(tse, "PCoA_BC",  colour_by = "Diet")
+plotReducedDim(tse, "PCoA_CLR", colour_by = "Diet")
+```
+
+## Community-level comparisons
+
+Does community composition differ between groups?
+
+::: columns
+::: {.column width="45%"}
+-   **PERMANOVA** tests group differences in composition
+-   Add **covariates** (e.g. age, sex) and see how the results change
+-   Check homogeneity of dispersion
+:::
+
+::: {.column width="55%"}
+```{r}
+#| label: permanova
+res <- getPERMANOVA(
+    tse,
+    assay.type = "relabundance",
+    method = "bray",
+    formula = x ~ Diet + Age,
+    test.homogeneity = TRUE)
+res
+```
+:::
+:::
+
+::: notes
+PERMANOVA is sensitive to differences in group spread (dispersion), not
+only location, so check homogeneity of dispersion alongside the test.
+:::
+
+# Taxa-level analysis {background-color="#0b2545"}
+
+## Prevalence
+
+What is the most **prevalent** genus in the data?
+
+```{r}
+#| label: prevalence
+prev <- getPrevalence(
+    tse_genus, assay.type = "relabundance",
+    detection = 0, sort = TRUE)
+head(prev)
+```
+
+<br>
+
+[prevalence]{.pill} = fraction of samples where a taxon is detected
+above a given abundance threshold
+
+## Core microbiota
+
+Taxa that exceed **0.1 %** relative abundance in **over 50 %** of
+samples [@Salonen2012].
+
+::: columns
+::: {.column width="55%"}
+```{r}
+#| label: core
+core <- getPrevalent(
+    tse_genus,
+    assay.type = "relabundance",
+    detection = 0.1 / 100,
+    prevalence = 50 / 100)
+length(core)
+
+tse_core <- tse_genus[core, ]
+plotAbundanceDensity(
+    tse_core, layout = "jitter",
+    assay.type = "relabundance")
+```
+:::
+
+::: {.column width="45%"}
+-   How many core taxa are there?
+-   How sensitive is the result to the thresholds?
+:::
+:::
+
+## Differential abundance
+
+Which genera are associated with a group difference (e.g. sex)?
+
+```{r}
+#| label: deseq2
+library(DESeq2)
+
+dds <- DESeqDataSet(tse_genus, design = ~ Gender)
+dds <- DESeq(dds)
+res <- results(dds)
+head(res[order(res$padj), ])
+```
+
+-   [DESeq2](https://bioconductor.org/packages/DESeq2) [@Love2014];
+    for alternatives and benchmarks see the
+    [OMA DAA chapter](https://microbiome.github.io/OMA/docs/devel/pages/differential_abundance.html)
+-   Compare several methods: results can differ substantially
+
+## Role of covariates
+
+::: statement
+Key covariates (diet, medication, age, …) can change the interpretation.
+:::
+
+-   Stool consistency, medication and diet explain a considerable part of
+    population-level gut microbiome variation [@Falony2016]
+-   Include relevant covariates in **PERMANOVA** and **differential
+    abundance** models
+-   Compare results with and without covariates
+
+# Wrap-up {background-color="#f2b134"}
+
+## Checklist for your report
+
+::: cards
+::: {.card .teal}
+[Alpha]{.card-title}
+
+Indices, histogram, comparison
+:::
+
+::: {.card .coral}
+[Beta]{.card-title}
+
+PCoA (BC vs CLR), PERMANOVA with covariates
+:::
+
+::: {.card .navy}
+[Taxa]{.card-title}
+
+Prevalence, core microbiota, differential abundance
+:::
+
+::: {.card .gold}
+[Report]{.card-title}
+
+Clear, compact, reproducible
+:::
+:::
+
+## Resources
+
+-   [Orchestrating Microbiome Analysis (OMA)](https://microbiome.github.io/OMA/)
+-   [mia](https://bioconductor.org/packages/mia) and
+    [miaViz](https://bioconductor.org/packages/miaViz) documentation
+-   [DESeq2 vignette](https://bioconductor.org/packages/devel/bioc/vignettes/DESeq2/inst/doc/DESeq2.html)
+
+## References
