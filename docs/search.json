@@ -935,14 +935,14 @@
     "href": "workflow.html#setup",
     "title": "Microbiome data science workflow",
     "section": "Setup",
-    "text": "Setup\n\nlibrary(mia)\nlibrary(miaViz)\nlibrary(scater)\n\n# Example data set: human gut microbiome with sample metadata\ndata(\"peerj13075\", package = \"mia\")\ntse &lt;- peerj13075\n\n# Relative abundances and CLR for downstream steps\ntse &lt;- transformAssay(tse, method = \"relabundance\")\ntse &lt;- transformAssay(tse, method = \"clr\", pseudocount = TRUE)\n\n# Genus-level summary\ntse_genus &lt;- agglomerateByRank(tse, rank = \"genus\")\n\n\nThe workflow operates on a TreeSummarizedExperiment. Replace the example data with your own."
+    "text": "Setup\n\nlibrary(mia)\nlibrary(miaViz)\nlibrary(scater)\nlibrary(patchwork)\nset.seed(1)  # reproducible permutation tests\n\n# Example data set: skin microbiome with sample metadata\ndata(\"peerj13075\", package = \"mia\")\ntse &lt;- peerj13075\n\n# Relative abundances and CLR for downstream steps\ntse &lt;- transformAssay(tse, method = \"relabundance\")\ntse &lt;- transformAssay(tse, method = \"clr\", pseudocount = TRUE)\n\n# Genus-level summary\ntse_genus &lt;- agglomerateByRank(tse, rank = \"genus\")\n\n\nThe workflow operates on a TreeSummarizedExperiment. Replace the example data with your own."
   },
   {
     "objectID": "workflow.html#alpha-diversity-within-sample",
     "href": "workflow.html#alpha-diversity-within-sample",
     "title": "Microbiome data science workflow",
     "section": "Alpha diversity: within-sample",
-    "text": "Alpha diversity: within-sample\n\n\nTasks\n\nEstimate alpha diversity per sample\nDraw a histogram\nCompare two or more indices, visually and/or statistically\n\n\n\ntse &lt;- addAlpha(\n    tse, index = c(\"shannon\", \"observed\"))\n\nhist(tse$shannon)\n\nplotColData(\n    tse, x = \"observed\", y = \"shannon\")\n\ncor.test(tse$observed, tse$shannon,\n         method = \"spearman\")\n\n\n\n\n\n\n\n\nTip\n\n\nRichness and evenness capture different things. Do the indices agree?"
+    "text": "Alpha diversity: within-sample\n\n\nTasks\n\nEstimate alpha diversity per sample\nDraw a histogram\nCompare two or more indices, visually and/or statistically\n\n\n\ntse &lt;- addAlpha(\n    tse, index = c(\"shannon\", \"observed\"))\n\np1 &lt;- plotHistogram(\n    tse, col.var = \"shannon\", bins = 15)\np2 &lt;- plotColData(\n    tse, x = \"observed\", y = \"shannon\")\np1 + p2\n\n\n\n\n\n\n\n\n\nTip\n\n\nDo richness and evenness agree? Here Spearman \\(\\rho\\) = 0.43."
   },
   {
     "objectID": "workflow.html#beta-diversity-community-variation",
@@ -956,28 +956,28 @@
     "href": "workflow.html#community-level-comparisons",
     "title": "Microbiome data science workflow",
     "section": "Community-level comparisons",
-    "text": "Community-level comparisons\nDoes community composition differ between groups?\n\n\n\nPERMANOVA tests group differences in composition\nAdd covariates (e.g. age, sex) and see how the results change\nCheck homogeneity of dispersion\n\n\n\nres &lt;- getPERMANOVA(\n    tse,\n    assay.type = \"relabundance\",\n    method = \"bray\",\n    formula = x ~ Diet + Age,\n    test.homogeneity = TRUE)\nres\n\n\n\nPERMANOVA is sensitive to differences in group spread (dispersion), not only location, so check homogeneity of dispersion alongside the test."
+    "text": "Community-level comparisons\nDoes community composition differ between groups?\n\n\n\nPERMANOVA tests group differences in composition\nAdd covariates (e.g. age, sex) and see how the results change\nCheck homogeneity of dispersion\n\n\n\nres &lt;- getPERMANOVA(\n    tse,\n    assay.type = \"relabundance\",\n    method = \"bray\",\n    formula = x ~ Geographical_location + Gender + Age,\n    test.homogeneity = TRUE)\n\nres$permanova |&gt;\n    knitr::kable(digits = 3)\n\n\n\n\nPERMANOVA is sensitive to differences in group spread (dispersion), not only location, so check homogeneity of dispersion alongside the test (res$homogeneity)."
   },
   {
     "objectID": "workflow.html#prevalence",
     "href": "workflow.html#prevalence",
     "title": "Microbiome data science workflow",
     "section": "Prevalence",
-    "text": "Prevalence\nWhat is the most prevalent genus in the data?\n\nprev &lt;- getPrevalence(\n    tse_genus, assay.type = \"relabundance\",\n    detection = 0, sort = TRUE)\nhead(prev)\n\n\nprevalence = fraction of samples where a taxon is detected above a given abundance threshold"
+    "text": "Prevalence\nWhat is the most prevalent genus in the data?\n\nprev &lt;- getPrevalence(\n    tse_genus, assay.type = \"relabundance\",\n    detection = 0, sort = TRUE)\nround(head(prev, 4), 2)\n\n Staphylococcus   Paenibacillus        Bacillus Corynebacterium \n           1.00            1.00            1.00            0.93 \n\n\nprevalence = fraction of samples where a taxon is detected above a given abundance threshold"
   },
   {
     "objectID": "workflow.html#core-microbiota",
     "href": "workflow.html#core-microbiota",
     "title": "Microbiome data science workflow",
     "section": "Core microbiota",
-    "text": "Core microbiota\nTaxa that exceed 0.1 % relative abundance in over 50 % of samples (Salonen et al. 2012).\n\n\n\ncore &lt;- getPrevalent(\n    tse_genus,\n    assay.type = \"relabundance\",\n    detection = 0.1 / 100,\n    prevalence = 50 / 100)\nlength(core)\n\ntse_core &lt;- tse_genus[core, ]\nplotAbundanceDensity(\n    tse_core, layout = \"jitter\",\n    assay.type = \"relabundance\")\n\n\n\nHow many core taxa are there?\nHow sensitive is the result to the thresholds?"
+    "text": "Core microbiota\nTaxa above 0.1 % relative abundance in over 50 % of samples (Salonen et al. 2012). How sensitive is this to the thresholds?\n\n\ncore &lt;- getPrevalent(\n    tse_genus,\n    assay.type = \"relabundance\",\n    detection = 0.1 / 100,\n    prevalence = 50 / 100)\n\nplotAbundanceDensity(\n    tse_genus[core, ],\n    layout = \"jitter\",\n    assay.type = \"relabundance\")"
   },
   {
     "objectID": "workflow.html#differential-abundance",
     "href": "workflow.html#differential-abundance",
     "title": "Microbiome data science workflow",
     "section": "Differential abundance",
-    "text": "Differential abundance\nWhich genera are associated with a group difference (e.g. sex)?\n\nlibrary(DESeq2)\n\ndds &lt;- DESeqDataSet(tse_genus, design = ~ Gender)\ndds &lt;- DESeq(dds)\nres &lt;- results(dds)\nhead(res[order(res$padj), ])\n\n\nDESeq2 (Love, Huber, and Anders 2014); for alternatives and benchmarks see the OMA DAA chapter\nCompare several methods: results can differ substantially"
+    "text": "Differential abundance\nWhich genera are associated with a group difference (e.g. sex)?\n\nlibrary(DESeq2)\n\ndds &lt;- DESeqDataSet(tse_genus, design = ~ Gender)\ndds &lt;- DESeq(dds)\nres &lt;- results(dds)\n\ntop &lt;- head(res[order(res$padj), ])\ndata.frame(log2FC = round(top$log2FoldChange, 2),\n           padj = signif(top$padj, 2),\n           row.names = rownames(top)) |&gt;\n    knitr::kable()\n\n\n\nDESeq2 (Love, Huber, and Anders 2014); for alternatives and benchmarks see the OMA DAA chapter\nCompare several methods: results can differ substantially"
   },
   {
     "objectID": "workflow.html#role-of-covariates",
@@ -1012,6 +1012,34 @@
     "href": "workflow.html#beta-diversity-pcoa",
     "title": "Microbiome data science workflow",
     "section": "Beta diversity: PCoA",
-    "text": "Beta diversity: PCoA\nVisualize community variation with PCoA, and check how the data transformation affects it:\n\n\nBray–Curtis\non compositional (relative abundance) data\n\n\nEuclidean\non CLR-transformed data (Aitchison distance)\n\n\n\ntse &lt;- runMDS(tse, FUN = getDissimilarity, method = \"bray\",\n              assay.type = \"relabundance\", name = \"PCoA_BC\")\ntse &lt;- runMDS(tse, FUN = getDissimilarity, method = \"euclidean\",\n              assay.type = \"clr\", name = \"PCoA_CLR\")\n\nplotReducedDim(tse, \"PCoA_BC\",  colour_by = \"Diet\")\nplotReducedDim(tse, \"PCoA_CLR\", colour_by = \"Diet\")"
+    "text": "Beta diversity: PCoA\nVisualize community variation with PCoA, and check how the data transformation affects it:\n\n\nBray–Curtis\non compositional (relative abundance) data\n\n\nEuclidean\non CLR-transformed data (Aitchison distance)\n\n\n\ntse &lt;- runMDS(tse, FUN = getDissimilarity, method = \"bray\",\n              assay.type = \"relabundance\", name = \"PCoA_BC\")\ntse &lt;- runMDS(tse, FUN = getDissimilarity, method = \"euclidean\",\n              assay.type = \"clr\", name = \"PCoA_CLR\")\n\nplotReducedDim(tse, \"PCoA_BC\",  colour_by = \"Geographical_location\") +\nplotReducedDim(tse, \"PCoA_CLR\", colour_by = \"Geographical_location\") +\n    plot_layout(guides = \"collect\")"
+  },
+  {
+    "objectID": "workflow.html#alpha-diversity-within-sample-output",
+    "href": "workflow.html#alpha-diversity-within-sample-output",
+    "title": "Microbiome data science workflow",
+    "section": "Alpha diversity: within-sample",
+    "text": "Alpha diversity: within-sample"
+  },
+  {
+    "objectID": "workflow.html#beta-diversity-pcoa-output",
+    "href": "workflow.html#beta-diversity-pcoa-output",
+    "title": "Microbiome data science workflow",
+    "section": "Beta diversity: PCoA",
+    "text": "Beta diversity: PCoA"
+  },
+  {
+    "objectID": "workflow.html#community-level-comparisons-output",
+    "href": "workflow.html#community-level-comparisons-output",
+    "title": "Microbiome data science workflow",
+    "section": "Community-level comparisons",
+    "text": "Community-level comparisons\n\n\n\n\n\nDf\nSumOfSqs\nR2\nF\nPr(&gt;F)\n\n\n\n\nGeographical_location\n2\n1.956\n0.093\n2.887\n0.001\n\n\nGender\n1\n0.238\n0.011\n0.702\n0.698\n\n\nAge\n2\n0.872\n0.041\n1.287\n0.199\n\n\nResidual\n52\n17.616\n0.836\nNA\nNA\n\n\nTotal\n57\n21.079\n1.000\nNA\nNA"
+  },
+  {
+    "objectID": "workflow.html#differential-abundance-output",
+    "href": "workflow.html#differential-abundance-output",
+    "title": "Microbiome data science workflow",
+    "section": "Differential abundance",
+    "text": "Differential abundance\n\n\n\n\n\nlog2FC\npadj\n\n\n\n\nClostridium\n4.16\n4.2e-06\n\n\nPseudomonas\n5.06\n4.2e-06\n\n\nFinegoldia\n5.93\n2.1e-04\n\n\nOrientia\n4.23\n6.1e-03\n\n\nKocuria\n-4.51\n9.7e-03\n\n\nAmphritea\n5.42\n1.4e-02"
   }
 ]

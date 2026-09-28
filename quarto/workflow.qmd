@@ -14,9 +14,14 @@ format:
 date: last-modified
 date-format: full
 bibliography: references.bib
+knitr:
+  opts_chunk:
+    dev: ragg_png
+    dpi: 150
 execute:
   echo: true
-  eval: false
+  warning: false
+  message: false
 ---
 
 ## A typical workflow
@@ -79,8 +84,10 @@ Reuse material and examples from the [OMA book](https://microbiome.github.io/OMA
 library(mia)
 library(miaViz)
 library(scater)
+library(patchwork)
+set.seed(1)  # reproducible permutation tests
 
-# Example data set: human gut microbiome with sample metadata
+# Example data set: skin microbiome with sample metadata
 data("peerj13075", package = "mia")
 tse <- peerj13075
 
@@ -113,22 +120,29 @@ example data with your own.
 ::: {.column width="55%"}
 ```{r}
 #| label: alpha
+#| output-location: slide
+#| fig-width: 8
+#| fig-height: 3.6
 tse <- addAlpha(
     tse, index = c("shannon", "observed"))
 
-hist(tse$shannon)
-
-plotColData(
+p1 <- plotHistogram(
+    tse, col.var = "shannon", bins = 15)
+p2 <- plotColData(
     tse, x = "observed", y = "shannon")
-
-cor.test(tse$observed, tse$shannon,
-         method = "spearman")
+p1 + p2
 ```
 :::
 :::
 
+```{r}
+#| label: alpha_cor
+#| echo: false
+rho <- cor(tse$observed, tse$shannon, method = "spearman")
+```
+
 ::: {.callout-tip}
-Richness and evenness capture different things. Do the indices agree?
+Do richness and evenness agree? Here Spearman $\rho$ = `r round(rho, 2)`.
 :::
 
 # Beta diversity {background-color="#f26b5b"}
@@ -154,13 +168,17 @@ on CLR-transformed data (Aitchison distance)
 
 ```{r}
 #| label: pcoa
+#| output-location: slide
+#| fig-width: 9
+#| fig-height: 3.8
 tse <- runMDS(tse, FUN = getDissimilarity, method = "bray",
               assay.type = "relabundance", name = "PCoA_BC")
 tse <- runMDS(tse, FUN = getDissimilarity, method = "euclidean",
               assay.type = "clr", name = "PCoA_CLR")
 
-plotReducedDim(tse, "PCoA_BC",  colour_by = "Diet")
-plotReducedDim(tse, "PCoA_CLR", colour_by = "Diet")
+plotReducedDim(tse, "PCoA_BC",  colour_by = "Geographical_location") +
+plotReducedDim(tse, "PCoA_CLR", colour_by = "Geographical_location") +
+    plot_layout(guides = "collect")
 ```
 
 ## Community-level comparisons
@@ -177,20 +195,24 @@ Does community composition differ between groups?
 ::: {.column width="55%"}
 ```{r}
 #| label: permanova
+#| output-location: slide
 res <- getPERMANOVA(
     tse,
     assay.type = "relabundance",
     method = "bray",
-    formula = x ~ Diet + Age,
+    formula = x ~ Geographical_location + Gender + Age,
     test.homogeneity = TRUE)
-res
+
+res$permanova |>
+    knitr::kable(digits = 3)
 ```
 :::
 :::
 
 ::: notes
 PERMANOVA is sensitive to differences in group spread (dispersion), not
-only location, so check homogeneity of dispersion alongside the test.
+only location, so check homogeneity of dispersion alongside the test
+(`res$homogeneity`).
 :::
 
 # Taxa-level analysis {background-color="#0b2545"}
@@ -204,42 +226,33 @@ What is the most **prevalent** genus in the data?
 prev <- getPrevalence(
     tse_genus, assay.type = "relabundance",
     detection = 0, sort = TRUE)
-head(prev)
+round(head(prev, 4), 2)
 ```
-
-<br>
 
 [prevalence]{.pill} = fraction of samples where a taxon is detected
 above a given abundance threshold
 
 ## Core microbiota
 
-Taxa that exceed **0.1 %** relative abundance in **over 50 %** of
-samples [@Salonen2012].
+Taxa above **0.1 %** relative abundance in **over 50 %** of
+samples [@Salonen2012]. How sensitive is this to the thresholds?
 
-::: columns
-::: {.column width="55%"}
 ```{r}
 #| label: core
+#| output-location: column
+#| fig-width: 4.5
+#| fig-height: 3.4
 core <- getPrevalent(
     tse_genus,
     assay.type = "relabundance",
     detection = 0.1 / 100,
     prevalence = 50 / 100)
-length(core)
 
-tse_core <- tse_genus[core, ]
 plotAbundanceDensity(
-    tse_core, layout = "jitter",
+    tse_genus[core, ],
+    layout = "jitter",
     assay.type = "relabundance")
 ```
-:::
-
-::: {.column width="45%"}
--   How many core taxa are there?
--   How sensitive is the result to the thresholds?
-:::
-:::
 
 ## Differential abundance
 
@@ -247,12 +260,18 @@ Which genera are associated with a group difference (e.g. sex)?
 
 ```{r}
 #| label: deseq2
+#| output-location: slide
 library(DESeq2)
 
 dds <- DESeqDataSet(tse_genus, design = ~ Gender)
 dds <- DESeq(dds)
 res <- results(dds)
-head(res[order(res$padj), ])
+
+top <- head(res[order(res$padj), ])
+data.frame(log2FC = round(top$log2FoldChange, 2),
+           padj = signif(top$padj, 2),
+           row.names = rownames(top)) |>
+    knitr::kable()
 ```
 
 -   [DESeq2](https://bioconductor.org/packages/DESeq2) [@Love2014];
