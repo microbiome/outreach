@@ -1,0 +1,147 @@
+---
+title: "GuptaA_2019"
+subtitle: "Example data: colorectal cancer gut metagenomes from India"
+format:
+  revealjs:
+    theme: [default, bioconductor.scss]
+    transition: fade
+    transition-speed: fast
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+date: last-modified
+date-format: full
+bibliography: references.bib
+execute:
+  echo: false
+  warning: false
+  message: false
+knitr:
+  opts_chunk:
+    dev: ragg_png
+---
+
+## The study
+
+Gut microbiome of colorectal cancer (CRC) patients in India [@Gupta2019]
+
+-   **30 CRC patients** and **30 healthy controls** from Bhopal and Kerala
+-   Controls from an earlier study of healthy Indians [@Dhakan2019]
+-   Stool shotgun metagenomes, profiles from
+    [curatedMetagenomicData](https://bioconductor.org/packages/curatedMetagenomicData)
+
+::: notes
+Gupta et al. associated the flavonoid-degrading bacterium Flavonifractor plautii with colorectal cancer in Indian patients. This data set is useful for teaching because it is small (60 samples), has a clear case–control design, and includes a phylogenetic tree.
+:::
+
+## Import the data
+
+Files and import script: [github.com/microbiome/data › GuptaA_2019](https://github.com/microbiome/data/tree/main/GuptaA_2019)
+
+```{r}
+#| label: import
+#| echo: true
+library(mia)
+library(ape)
+
+url <- "https://raw.githubusercontent.com/microbiome/data/main/GuptaA_2019"
+read <- function(f) read.csv(file.path(url, f), row.names = 1)
+
+tse <- TreeSummarizedExperiment(
+    assays  = list(counts = as.matrix(read("taxonomy_abundance.csv"))),
+    rowData = read("taxonomy_table.csv"),
+    colData = read("sample_metadata.csv"),
+    rowTree = read.tree(file.path(url, "phylogeny.tree"))
+)
+```
+
+::: notes
+The same files can be downloaded and read from a local folder. The repository's import.R also reads pathway abundances into a MultiAssayExperiment.
+:::
+
+## The data object {.smaller}
+
+```{r}
+#| label: object
+#| echo: true
+tse
+```
+
+## Samples
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| label: tab-cohort
+tab <- table(tse$study_condition, tse$location)
+rownames(tab) <- c("Control", "CRC")
+knitr::kable(tab)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| label: tab-sex
+tab <- table(tse$study_condition, tse$gender)
+rownames(tab) <- c("Control", "CRC")
+colnames(tab) <- c("Female", "Male")
+knitr::kable(tab)
+```
+:::
+:::
+
+Age `r min(tse$age)`–`r max(tse$age)` years (median `r median(tse$age)`);
+CRC stage, location and TNM available for patients.
+
+::: callout-warning
+Location and study are partly confounded with disease status: most controls come from Bhopal, and controls and patients come from different studies.
+:::
+
+## Composition at a glance
+
+```{r}
+#| label: phyla
+#| fig-width: 9
+#| fig-height: 4.2
+library(ggplot2)
+
+tse_phylum <- agglomerateByRank(tse, rank = "phylum")
+tse_phylum <- transformAssay(tse_phylum, method = "relabundance")
+
+df <- meltSE(tse_phylum, assay.type = "relabundance",
+             add.col = "study_condition")
+top <- names(sort(rowMeans(assay(tse_phylum, "relabundance")),
+                  decreasing = TRUE))[1:5]
+df$phylum <- ifelse(df$FeatureID %in% top, as.character(df$FeatureID), "Other")
+df$phylum <- factor(df$phylum, levels = c(top, "Other"))
+df$study_condition <- factor(df$study_condition,
+                             levels = c("control", "CRC"),
+                             labels = c("Control", "CRC"))
+
+ggplot(df, aes(x = SampleID, y = relabundance, fill = phylum)) +
+    geom_col(width = 1) +
+    facet_grid(~ study_condition, scales = "free_x", space = "free_x") +
+    scale_fill_manual(values = c("#1a81a9", "#87b13f", "#f2b134",
+                                 "#e76f51", "#6a4c93", "grey75")) +
+    scale_y_continuous(labels = scales::percent, expand = c(0, 0)) +
+    labs(x = "Samples", y = "Relative abundance", fill = "Phylum") +
+    theme_minimal(base_size = 15) +
+    theme(axis.text.x = element_blank(), panel.grid = element_blank())
+```
+
+## Try it
+
+Practise the workflow on this data set:
+
+-   [Agglomeration](https://microbiome.github.io/outreach/agglomeration.html)
+-   [Transformation](https://microbiome.github.io/outreach/transformation.html)
+-   [Alpha diversity](https://microbiome.github.io/outreach/alpha_diversity.html)
+    and [beta diversity](https://microbiome.github.io/outreach/beta_diversity.html):
+    do CRC patients and controls differ?
+
+## References
+
+::: {#refs}
+:::
