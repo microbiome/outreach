@@ -20,7 +20,7 @@ This website hosts quarto presentations about microbiome analysis and data integ
 - Diversity
     - [Alpha diversity](https://microbiome.github.io/outreach/alpha_diversity.html){target="_blank"}
     - [Beta diversity](https://microbiome.github.io/outreach/beta_diversity.html){target="_blank"}
-        - [Ordination](https://microbiome.github.io/outreach/ordination.html){target="_blank"}
+        - [Ordination](https://microbiome.github.io/outreach/beta_diversity.html#/ordination){target="_blank"}
 - Association
     - [Differential abundance analysis](https://microbiome.github.io/outreach/daa.html){target="_blank"}
     - [Functional analysis](https://microbiome.github.io/outreach/functional_analysis.html){target="_blank"}
