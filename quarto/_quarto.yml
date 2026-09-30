@@ -21,6 +21,7 @@ project:
     - import.qmd
     - intro.qmd
     - jointrpca.qmd
+    - multitable.qmd
     - ismb_eccb2025.qmd
     - machine_learning.qmd
     - mgnifyr.qmd

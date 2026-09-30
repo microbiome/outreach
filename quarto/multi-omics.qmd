@@ -138,6 +138,19 @@ _Joint robust PCA (Joint-RPCA)_ [@CordazzoVargas2026]
 Joint-RPCA estimates one set of sample loadings shared by all omics and separate feature loadings for each omic. Zeros are treated as missing values, so no pseudocounts are needed. The separate deck covers the method, benchmarks and applications in more detail.
 :::
 
+## Classical multi-table methods
+
+- **Mantel test, RV coefficient, co-inertia:** are two tables associated?
+- **Sparse CCA:** which features drive the association?
+- **STATIS, multiple factor analysis:** combine more than two tables
+- **DPCoA:** use the phylogenetic tree as prior knowledge
+
+➡️ [Multi-table methods slides](https://microbiome.github.io/outreach/multitable.html){target="_blank"}
+
+::: {.notes}
+Fast, interpretable classical alternatives and first steps before latent factor models. Adapted from Holmes & Huber (2019) Modern Statistics for Modern Biology, Ch. 9.
+:::
+
 ## Supervised ML
 
 _IntegratedLearner_

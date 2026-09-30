@@ -1,0 +1,243 @@
+---
+title: "Multi-table methods"
+subtitle: "Classical approaches for integrating multiple data tables"
+format:
+  revealjs:
+    theme: [default, bioconductor.scss]
+    transition: fade
+    transition-speed: fast
+    self-contained: true
+    slide-number: true
+    smaller: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+date: last-modified
+date-format: full
+bibliography: references.bib
+execute:
+  echo: true
+  eval: false
+  warning: false
+  message: false
+---
+
+<!--
+Content adapted from S. Holmes, "Multidomain methods: using the data,
+all the data", lecture at the Statistics for Microbiome Data workshop,
+Pune, December 2019, and from Holmes & Huber (2019) Modern Statistics
+for Modern Biology, Chapter 9. Code rewritten for mia and
+MultiAssayExperiment. Code chunks are not evaluated when rendering;
+the reported results were obtained by running the code with mia 1.20.
+-->
+
+## Overview
+
+Multi-omics studies measure **several tables on the same samples**
+(taxa, metabolites, host markers, ...).
+
+Before fitting latent factor models such as MOFA2 or Joint-RPCA, classical
+multivariate statistics offers simple tools to
+
+- test whether two tables are **associated at all**
+- select the **features** that drive the association
+- combine **more than two tables** into a common view
+- use **prior structure**, such as the phylogenetic tree
+
+Adapted from @Holmes2019lecture and @Holmes2019msmb [Ch. 9].
+
+::: {.notes}
+These methods come from the French school of multivariate analysis and from ecology. They are fast, easy to interpret and a good first step before more complex models.
+:::
+
+## Example data
+
+Rat cecum samples with microbiota, metabolites and biomarkers
+(`HintikkaXOData` in mia)
+
+```{r}
+library(mia)
+library(MultiAssayExperiment)
+
+data("HintikkaXOData", package = "mia")
+mae <- HintikkaXOData
+
+# Microbiota: genus level, clr
+mae[[1]] <- agglomerateByRank(mae[[1]], rank = "Genus")
+mae[[1]] <- transformAssay(mae[[1]], method = "clr", pseudocount = TRUE)
+
+# Metabolites: log10 NMR signals
+mae[[2]] <- transformAssay(mae[[2]], assay.type = "nmr", method = "log10")
+
+# Sample x feature matrices with matching samples
+x <- t(assay(mae[[1]], "clr"))
+y <- t(assay(mae[[2]], "log10"))
+y <- y[, colSums(is.na(y)) == 0]   # drop metabolites with missing values
+```
+
+40 samples; 262 genera; 30 metabolites
+
+::: {.notes}
+All methods on the following slides need the same samples, in the same order, in both tables. In a MultiAssayExperiment the sample map takes care of this; here the column names of the two experiments are identical.
+:::
+
+# Are two tables associated?
+
+## Global association between tables
+
+Test the tables as a whole before looking at feature pairs.
+
+- **Mantel test** [@Mantel1967]: correlation between the two sample distance
+  matrices; significance by permutation
+- **RV coefficient** [@Robert1976]: a "correlation between tables",
+  between 0 and 1
+
+$$
+RV(X, Y) = \frac{\mathrm{tr}(XX^\top YY^\top)}
+{\sqrt{\mathrm{tr}\big((XX^\top)^2\big)\,\mathrm{tr}\big((YY^\top)^2\big)}}
+$$
+
+- **Co-inertia analysis** [@Doledec1994]: shared axes of co-variation
+  between two tables measured on the same samples
+
+Review: @Josse2016
+
+::: {.notes}
+X and Y are column-centred. The RV coefficient generalizes the squared correlation coefficient from two variables to two tables. It is sensitive to the number of features, so compare it with its permutation distribution rather than reading the raw value alone. Co-inertia analysis is implemented in ade4 (coinertia).
+:::
+
+## Global association in R
+
+```{r}
+# Mantel test: Euclidean distances on clr / log10 data
+vegan::mantel(dist(x), dist(y), permutations = 999)
+
+# RV coefficient with a permutation test
+ade4::RV.rtest(as.data.frame(x), as.data.frame(y), nrepet = 999)
+```
+
+In this data:
+
+- Mantel r = 0.23 (p = 0.001)
+- RV = 0.48 (p = 0.001; expected under permutation 0.20)
+
+➡️ Microbiota and metabolite profiles are associated, but **which
+features** drive this?
+
+# Sparse CCA
+
+## Many more features than samples
+
+- **Canonical correlation analysis (CCA)** finds linear combinations of the
+  features in each table that are maximally correlated
+- Classical CCA needs more samples than features: it overfits omics data
+- **Sparse CCA** adds an L1 penalty and keeps only a few features from each
+  table [@Witten2009]
+- Use it as a **screening** step, then visualize the selected features
+  (e.g. PCA biplot)
+
+::: {.notes}
+The selected features are one good explanation of the covariation, not necessarily the only one. Choose the penalties by permutation (PMA::CCA.permute) or cross-validation.
+:::
+
+## Example: microbiota and metabolites
+
+Mouse gut, two diets, wild type vs. knockout [@Kashyap2013]:
+
+- 12 samples; 637 metabolite features; 20,609 taxa (filtered first)
+- Sparse CCA selected **5 taxa and 15 metabolites**
+- Correlation between the two selected combinations: **0.97**
+- PCA of the 20 selected features separated the **two diets**
+
+Analysis from @Holmes2019msmb [Ch. 9].
+
+## Sparse CCA in R
+
+```{r}
+cc <- PMA::CCA(x, y,
+               typex = "standard", typez = "standard",
+               penaltyx = 0.15, penaltyz = 0.15)
+
+# Selected features
+colnames(x)[cc$u[, 1] != 0]
+colnames(y)[cc$v[, 1] != 0]
+cc$cors
+
+# PCA of the selected features only
+selected <- cbind(x[, cc$u[, 1] != 0], y[, cc$v[, 1] != 0])
+pca <- prcomp(selected, scale. = TRUE)
+```
+
+In `HintikkaXOData`: 10 genera and **butyrate** selected;
+correlation 0.88
+
+::: {.notes}
+Penalty values between 0 and 1; smaller values give sparser solutions. The values here are for illustration.
+:::
+
+# More than two tables
+
+## A "compromise" across tables
+
+- Compute the RV coefficient between **every pair of tables**
+- Weight each table by how well it agrees with the others
+- The weighted combination is the **compromise**: ordinate it and project
+  each table onto it to see where tables agree or differ
+- Classical methods: **STATIS** [@Lavit1994; @Abdi2012],
+  **multiple factor analysis** [@Escofier1994],
+  **multiple co-inertia analysis** [@Chessel1996]
+- Latent factor models (MOFA2, Joint-RPCA) pursue a related goal in a
+  probabilistic or robust low-rank framework
+
+::: {.notes}
+R implementations: ade4 (statis, mcoa) and FactoMineR (MFA). With the three HintikkaXOData experiments, the compromise would combine microbiota, metabolites and biomarkers.
+:::
+
+# Prior knowledge
+
+## The phylogenetic tree
+
+- Taxa are not independent features: related taxa often behave alike
+- **DPCoA** (double principal coordinate analysis) uses phylogenetic
+  distances between taxa in the ordination [@Pavoine2004; @Purdom2011]
+- **Adaptive generalized PCA** tunes how strongly the tree is used, from
+  ignoring it (PCA) to relying on it fully (DPCoA) [@Fukuyama2019]
+- Example: repeated antibiotic courses in three adults
+  [@Dethlefsen2011]; tree-aware ordination separated disturbed from
+  undisturbed samples in some subjects [@Fukuyama2017]
+
+::: {.notes}
+Adaptive gPCA is available in the R package adaptiveGPCA.
+:::
+
+## DPCoA in mia
+
+```{r}
+data("GlobalPatterns", package = "mia")
+tse <- agglomerateByRank(GlobalPatterns, rank = "Genus", update.tree = TRUE)
+tse <- tse[rowSums(assay(tse, "counts")) > 0, ]
+
+# Uses the phylogenetic tree stored in rowTree(tse)
+tse <- addDPCoA(tse, name = "DPCoA")
+
+scater::plotReducedDim(tse, "DPCoA", colour_by = "SampleType")
+```
+
+::: {.notes}
+Taxa with zero total counts must be removed: DPCoA weights taxa by their abundance.
+:::
+
+## Summary
+
+- **Global tests** (Mantel, RV, co-inertia): are two tables associated?
+- **Sparse CCA**: which features drive the association?
+- **Compromise methods** (STATIS, MFA, MCIA): more than two tables
+- **Tree-aware ordination** (DPCoA, adaptive gPCA): use prior knowledge
+
+➡️ [Multi-omics slides](https://microbiome.github.io/outreach/multi-omics.html){target="_blank"}
+· [Joint-RPCA slides](https://microbiome.github.io/outreach/jointrpca.html){target="_blank"}
+
+## References {.smaller .scrollable}
+
+::: {#refs}
+:::
