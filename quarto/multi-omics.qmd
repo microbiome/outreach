@@ -38,7 +38,7 @@ Using well-defined containers makes multi-omics workflows reproducible and inter
 ## Methods
 
 - **Association:** detect cross-omics correlations
-- **Ordination:** reduce dimensionality, e.g., **MOFA2**
+- **Ordination:** reduce dimensionality, e.g., **MOFA2**, **Joint-RPCA**
 - **Supervised machine learning:** predict outcomes, e.g., **IntegratedLearner**
 
 ::: {.notes}
@@ -121,6 +121,21 @@ _Multi-omics Factor Analysis (MOFA2)_
 
 ::: {.notes}
 MOFA2 is a popular unsupervised multi-omics ordination method. Latent factors can be used for visualization or downstream analyses.
+:::
+
+## Ordination
+
+_Joint robust PCA (Joint-RPCA)_ [@CordazzoVargas2026]
+
+- Shared sample space across any number of omics, with feature loadings per omic
+- Robust clr and matrix completion handle sparse, compositional data
+- Cross-omic feature covariances for network analysis
+- In mia: `getJointRPCA()`, `addJointRPCA()`
+
+➡️ [Joint-RPCA overview slides](https://microbiome.github.io/outreach/jointrpca.html){target="_blank"}
+
+::: {.notes}
+Joint-RPCA estimates one set of sample loadings shared by all omics and separate feature loadings for each omic. Zeros are treated as missing values, so no pseudocounts are needed. The separate deck covers the method, benchmarks and applications in more detail.
 :::
 
 ## Supervised ML
