@@ -20,6 +20,7 @@ project:
     - gbcc2025.qmd
     - import.qmd
     - intro.qmd
+    - jointrpca.qmd
     - ismb_eccb2025.qmd
     - machine_learning.qmd
     - mgnifyr.qmd

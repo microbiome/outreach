@@ -143,17 +143,18 @@ Tämä dia voi mennä muualle, mutta jos muistan oikein, olemme olettaneet edell
 
 ## Slides
 
--   [Data containers](https://microbiome.github.io/outreach/data_containers.html){target="_blank"}
--   [Import](https://microbiome.github.io/outreach/import.html){target="_blank"}
+- [Data containers](https://microbiome.github.io/outreach/data_containers.html){target="_blank"}
+- [Import](https://microbiome.github.io/outreach/import.html){target="_blank"}
 
 ## Exercises
 
 - [Chapter 4, Exercises 1.2-1.7](https://bioconductor.org/books/release/OMA/pages/import.html)
+- [Chapter 11, all exercises](https://bioconductor.org/books/release/OMA/pages/transformation.html)
+- [Chapter 10, all exercises](https://bioconductor.org/books/release/OMA/pages/agglomeration.html)
 
 <!--
 - [Chapter 8, all exercises](https://bioconductor.org/books/release/OMA/pages/quality_control.html)
-- [Chapter 10, all exercises](https://bioconductor.org/books/release/OMA/pages/agglomeration.html)
-- [Chapter 11, all exercises](https://bioconductor.org/books/release/OMA/pages/transformation.html)
+
 - [Chapter 12, all exercises](https://bioconductor.org/books/release/OMA/pages/composition.html)
 -->
 
@@ -190,13 +191,34 @@ qrcode::qr_code("https://forms.gle/iEkoNdMVp9BUnyqNA") |> plot()
 
 ## Learning goals
 
-- Goals for the day
+Calculate, visualize, and interpret
+
+- alpha diversity
+- beta diversity
+- differential abundance/prevalence
+
+## Slides
+
+- [Alpha diversity](https://microbiome.github.io/outreach/alpha_diversity.html){target="_blank"}
+- [Beta diversity ordination](https://microbiome.github.io/outreach/ordination.html){target="_blank"}
+- [Differential abundance analysis](https://microbiome.github.io/outreach/daa.html){target="_blank"}
+
+## Exercises
+
+- [Chapter 13, all exercises](https://bioconductor.org/books/release/OMA/pages/alpha_diversity.html)
+
+<!--
+- [Chapter 14, Exercises 1.2-1.8, 3.1-3.6 exercises](https://bioconductor.org/books/release/OMA/pages/community_similarity.html)
+- [Chapter 14, all exercises](https://bioconductor.org/books/release/OMA/pages/community_similarity.html)
+- [Chapter 16, all exercises](https://bioconductor.org/books/release/OMA/pages/differential_abundance.html)
+
+-->
 
 ## Day 2 — Wrap-up
 
-- x
-- x
-- x
+- Alpha diversity: `mia::addAlpha()` + `miaViz::plotBoxplot()`
+- Beta diversity ordination: `mia::addMDS()`/`mia::addRDA()` + `miaViz::plotOrdination()`/`miaViz::plotRDA()`
+- Differential abundance analysis: `maaslin3::maaslin3()`
 
 ## Feedback
 

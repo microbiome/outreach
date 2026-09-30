@@ -18,7 +18,7 @@
     "href": "index.html#topics",
     "title": "Quarto presentations",
     "section": "Topics",
-    "text": "Topics\n\nIntroduction\n\nBioconductor\nReproducible reporting\nData containers\nImport data\n\nPreprocessing\n\nAgglomeration\nTransformation\n\nDiversity\n\nAlpha diversity\nBeta diversity\n\nOrdination\n\n\nAssociation\n\nDifferential abundance analysis\nFunctional analysis\n\nMulti-omics\n\nMulti-omics\n\nMachine learning\n\nMachine learning\n\nWorkflow\n\nMicrobiome data science workflow\n\n\n\nPackages\n\nMGnifyR: An R package for accessing MGnify microbiome data\nmiaDash: Microbiome Analysis Dashboard\nmiaSim: Microbiome simulation\n\n\n\nData sets\n\nGuptaA_2019: colorectal cancer gut metagenomes\nHintikkaXO\nTengeler2020\n\n\n\nConference and seminar presentations\n\nOrchestrating microbiome multi-omics (BioC2023)\nOrchestrating Microbiome Analysis with Bioconductor (OH-BOOST, Microbiota Data Analysis and Statistics, webinar)\nOrchestrating Microbiome Analysis with Bioconductor (GBCC2025)\nOrchestrating Microbiome Analysis with Bioconductor (ISMB/ECCB 2025)\nOrchestrating Microbiome Analysis with Bioconductor (Bioconductor Africa Seminar Series, May 2026)\nOrchestrating Microbiome Analysis with Bioconductor (EuroBioC2026)\n\n\n\nCourses and workshops\n\nIntroduction\nOutro\nOrchestrating Hologenome Analysis with Bioconductor (ECCB2026)\nMicrobiome data science and multi-omics with R/Bioconductor (Oulu, September 2026)"
+    "text": "Topics\n\nIntroduction\n\nBioconductor\nReproducible reporting\nData containers\nImport data\n\nPreprocessing\n\nAgglomeration\nTransformation\n\nDiversity\n\nAlpha diversity\nBeta diversity\n\nOrdination\n\n\nAssociation\n\nDifferential abundance analysis\nFunctional analysis\n\nMulti-omics\n\nMulti-omics\n\nMachine learning\n\nMachine learning\n\nWorkflow\n\nMicrobiome data science workflow\n\n\n\nPackages\n\nMGnifyR: An R package for accessing MGnify microbiome data\nmiaDash: Microbiome Analysis Dashboard\nmiaSim: Microbiome simulation\n\n\n\nData sets\n\nHintikkaXO\nTengeler2020\n\n\n\nConference and seminar presentations\n\nOrchestrating microbiome multi-omics (BioC2023)\nOrchestrating Microbiome Analysis with Bioconductor (OH-BOOST, Microbiota Data Analysis and Statistics, webinar)\nOrchestrating Microbiome Analysis with Bioconductor (GBCC2025)\nOrchestrating Microbiome Analysis with Bioconductor (ISMB/ECCB 2025)\nOrchestrating Microbiome Analysis with Bioconductor (Bioconductor Africa Seminar Series, May 2026)\nOrchestrating Microbiome Analysis with Bioconductor (EuroBioC2026)\n\n\n\nCourses and workshops\n\nIntroduction\nOutro\nOrchestrating Hologenome Analysis with Bioconductor (ECCB2026)\nMicrobiome data science and multi-omics with R/Bioconductor (Oulu, September 2026)"
   },
   {
     "objectID": "index.html#contributions",
@@ -487,7 +487,7 @@
     "href": "20260928_Oulu.html#day-2-wrap-up",
     "title": "Microbiome data science and multi-omics with R/Bioconductor",
     "section": "Day 2 — Wrap-up",
-    "text": "Day 2 — Wrap-up\n\nx\nx\nx"
+    "text": "Day 2 — Wrap-up\n\nAlpha diversity: mia::addAlpha() + miaViz::plotBoxplot()\nBeta diversity ordination: mia::addMDS()/mia::addRDA() + miaViz::plotOrdination()/miaViz::plotRDA()\nDifferential abundance analysis: maaslin3::maaslin3()"
   },
   {
     "objectID": "20260928_Oulu.html#day-3-multi-assay-data-integration-1",
@@ -543,7 +543,7 @@
     "href": "20260928_Oulu.html#learning-goals-2",
     "title": "Microbiome data science and multi-omics with R/Bioconductor",
     "section": "Learning goals",
-    "text": "Learning goals\n\nGoals for the day"
+    "text": "Learning goals\nCalculate, visualize, and interpret\n\nalpha diversity\nbeta diversity\ndifferential abundance/prevalence"
   },
   {
     "objectID": "20260928_Oulu.html#learning-goals-3",
@@ -592,6 +592,23 @@
     "href": "20260928_Oulu.html#exercises",
     "title": "Microbiome data science and multi-omics with R/Bioconductor",
     "section": "Exercises",
+<<<<<<< HEAD
+    "text": "Exercises\n\nChapter 4, Exercises 1.2-1.7\nChapter 11, all exercises\nChapter 10, all exercises"
+  },
+  {
+    "objectID": "20260928_Oulu.html#slides-1",
+    "href": "20260928_Oulu.html#slides-1",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Slides",
+    "text": "Slides\n\nAlpha diversity\nBeta diversity ordination\nDifferential abundance analysis"
+  },
+  {
+    "objectID": "20260928_Oulu.html#exercises-1",
+    "href": "20260928_Oulu.html#exercises-1",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Exercises",
+    "text": "Exercises\n\nChapter 13, all exercises"
+=======
     "text": "Exercises\n\nChapter 4, Exercises 1.2-1.7"
   },
   {
@@ -1089,14 +1106,14 @@
     "href": "agglomeration.html#exercises",
     "title": "Agglomeration",
     "section": "Exercises",
-    "text": "Exercises\n\n\n\n\n\n\nOMA online book, Chapter 10: Agglomeration\n\n\nmicrobiome.github.io/OMA › Agglomeration\nExercises 1.2, 1.3, 1.4, 1.5, 1.6\n\n\n\nTry it on real data: GuptaA_2019 example data"
+    "text": "Exercises\n\n\n\n\n\n\nOMA online book, Chapter 10: Agglomeration\n\n\nmicrobiome.github.io/OMA › Agglomeration\nExercises 1.2, 1.3, 1.4, 1.5, 1.6"
   },
   {
     "objectID": "agglomeration.html#references",
     "href": "agglomeration.html#references",
     "title": "Agglomeration",
     "section": "References",
-    "text": "References"
+    "text": "References\n\n\nGupta, Ankit, Darshan B. Dhakan, Abhijit Maji, Rituja Saxena, Vishnu Prasoodanan P. K., Shruti Mahajan, Joby Pulikkan, et al. 2019. “Association of Flavonifractor plautii, a Flavonoid-Degrading Bacterium, with the Gut Microbiome of Colorectal Cancer Patients in India.” mSystems 4 (6): e00438–19. https://doi.org/10.1128/msystems.00438-19."
   },
   {
     "objectID": "transformation.html#microbiome-data",
@@ -1321,54 +1338,6 @@
     "title": "Transformation",
     "section": "Relative vs. quantitative profiles",
     "text": "Relative vs. quantitative profiles\n\n\n\n\n\n\n\nThe same samples profiled in two ways. On the left, relative abundances (RMP): every sample sums to 100 %. On the right, quantitative abundances (QMP): relative profiles scaled by the microbial cell count per gram, measured with flow cytometry. Microbial load varies several-fold between samples, which the relative profile hides entirely.\n\n\nRMP / QMP: relative / quantitative microbiome profiling. Vandeputte et al. (2017)"
-  },
-  {
-    "objectID": "gupta2019.html#the-study",
-    "href": "gupta2019.html#the-study",
-    "title": "GuptaA_2019",
-    "section": "The study",
-    "text": "The study\nGut microbiome of colorectal cancer (CRC) patients in India (Gupta et al. 2019)\n\n30 CRC patients and 30 healthy controls from Bhopal and Kerala\nControls from an earlier study of healthy Indians (Dhakan et al. 2019)\nStool shotgun metagenomes, profiles from curatedMetagenomicData\n\n\nGupta et al. associated the flavonoid-degrading bacterium Flavonifractor plautii with colorectal cancer in Indian patients. This data set is useful for teaching because it is small (60 samples), has a clear case–control design, and includes a phylogenetic tree."
-  },
-  {
-    "objectID": "gupta2019.html#import-the-data",
-    "href": "gupta2019.html#import-the-data",
-    "title": "GuptaA_2019",
-    "section": "Import the data",
-    "text": "Import the data\nFiles and import script: github.com/microbiome/data › GuptaA_2019\n\nlibrary(mia)\nlibrary(ape)\n\nurl &lt;- \"https://raw.githubusercontent.com/microbiome/data/main/GuptaA_2019\"\nread &lt;- function(f) read.csv(file.path(url, f), row.names = 1)\n\ntse &lt;- TreeSummarizedExperiment(\n    assays  = list(counts = as.matrix(read(\"taxonomy_abundance.csv\"))),\n    rowData = read(\"taxonomy_table.csv\"),\n    colData = read(\"sample_metadata.csv\"),\n    rowTree = read.tree(file.path(url, \"phylogeny.tree\"))\n)\n\n\nThe same files can be downloaded and read from a local folder. The repository’s import.R also reads pathway abundances into a MultiAssayExperiment."
-  },
-  {
-    "objectID": "gupta2019.html#the-data-object",
-    "href": "gupta2019.html#the-data-object",
-    "title": "GuptaA_2019",
-    "section": "The data object",
-    "text": "The data object\n\ntse\n\nclass: TreeSummarizedExperiment \ndim: 308 60 \nmetadata(0):\nassays(1): counts\nrownames(308): species-Escherichia_coli species-Alistipes_putredinis\n  ... species-Campylobacter_ureolyticus\n  species-Prevotella_sp._oral_taxon_376\nrowData names(7): superkingdom phylum ... genus species\ncolnames(60): GupDM_A_11 GupDM_A_15 ... GupDM_JO GupDM_JP\ncolData names(27): study_name subject_id ... disease_stage\n  disease_location\nreducedDimNames(0):\nmainExpName: NULL\naltExpNames(0):\nrowLinks: a LinkDataFrame (308 rows)\nrowTree: 1 phylo tree(s) (10430 leaves)\ncolLinks: NULL\ncolTree: NULL"
-  },
-  {
-    "objectID": "gupta2019.html#samples",
-    "href": "gupta2019.html#samples",
-    "title": "GuptaA_2019",
-    "section": "Samples",
-    "text": "Samples\n\n\n\n\n\n\n\n\nBhopal\nKerala\n\n\n\n\nControl\n26\n4\n\n\nCRC\n15\n15\n\n\n\n\n\n\n\n\n\n\n\n\nFemale\nMale\n\n\n\n\nControl\n18\n12\n\n\nCRC\n12\n18\n\n\n\n\n\n\nAge 22–75 years (median 57); CRC stage, location and TNM available for patients.\n\n\n\n\n\n\nWarning\n\n\nLocation and study are partly confounded with disease status: most controls come from Bhopal, and controls and patients come from different studies."
-  },
-  {
-    "objectID": "gupta2019.html#composition-at-a-glance",
-    "href": "gupta2019.html#composition-at-a-glance",
-    "title": "GuptaA_2019",
-    "section": "Composition at a glance",
-    "text": "Composition at a glance"
-  },
-  {
-    "objectID": "gupta2019.html#try-it",
-    "href": "gupta2019.html#try-it",
-    "title": "GuptaA_2019",
-    "section": "Try it",
-    "text": "Try it\nPractise the workflow on this data set:\n\nAgglomeration\nTransformation\nAlpha diversity and beta diversity: do CRC patients and controls differ?"
-  },
-  {
-    "objectID": "gupta2019.html#references",
-    "href": "gupta2019.html#references",
-    "title": "GuptaA_2019",
-    "section": "References",
-    "text": "References\n\n\nDhakan, D. B., A. Maji, A. K. Sharma, R. Saxena, J. Pulikkan, T. Grace, A. Gomez, J. Scaria, K. R. Amato, and V. K. Sharma. 2019. “The Unique Composition of Indian Gut Microbiome, Gene Catalogue, and Associated Fecal Metabolome Deciphered Using Multi-Omics Approaches.” GigaScience 8 (3): giz004. https://doi.org/10.1093/gigascience/giz004.\n\n\nGupta, Ankit, Darshan B. Dhakan, Abhijit Maji, Rituja Saxena, Vishnu Prasoodanan P. K., Shruti Mahajan, Joby Pulikkan, et al. 2019. “Association of Flavonifractor plautii, a Flavonoid-Degrading Bacterium, with the Gut Microbiome of Colorectal Cancer Patients in India.” mSystems 4 (6): e00438–19. https://doi.org/10.1128/msystems.00438-19."
+>>>>>>> 5742cfe0b113a21a2d7dafd0e83ad678037fa5d5
   }
 ]
