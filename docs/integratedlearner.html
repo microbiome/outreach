@@ -1515,6 +1515,7 @@ valid        0.72    0.71    0.71         0.84</code></pre>
 <li>In cross-validation all models reach AUC ≈ 0.9</li>
 <li>The meta-learner puts <strong>nearly all weight on species</strong>, echoing the paper: the smaller layer carries more signal</li>
 <li>On the <strong>independent cohort</strong> AUC drops for the single layers and the stacked model; in this run the concatenated model generalizes best</li>
+<li>With <strong>random forests</strong> (same settings) external AUC is similar or lower (stacked 0.64); weights shift to species 0.60, metabolites 0.40</li>
 <li>The packaged PRISM data are a reduced version (1500 metabolites) without the paper’s residualization of confounders; results also vary slightly between runs (MCMC)</li>
 </ul>
 <div class="fragment">
