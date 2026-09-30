@@ -487,7 +487,7 @@
     "href": "20260928_Oulu.html#day-2-wrap-up",
     "title": "Microbiome data science and multi-omics with R/Bioconductor",
     "section": "Day 2 — Wrap-up",
-    "text": "Day 2 — Wrap-up\n\nx\nx\nx"
+    "text": "Day 2 — Wrap-up\n\nAlpha diversity: mia::addAlpha() + miaViz::plotBoxplot()\nBeta diversity ordination: mia::addMDS()/mia::addRDA() + miaViz::plotOrdination()/miaViz::plotRDA()\nDifferential abundance analysis: maaslin3::maaslin3()"
   },
   {
     "objectID": "20260928_Oulu.html#day-3-multi-assay-data-integration-1",
@@ -543,7 +543,7 @@
     "href": "20260928_Oulu.html#learning-goals-2",
     "title": "Microbiome data science and multi-omics with R/Bioconductor",
     "section": "Learning goals",
-    "text": "Learning goals\n\nGoals for the day"
+    "text": "Learning goals\nCalculate, visualize, and interpret\n\nalpha diversity\nbeta diversity\ndifferential abundance/prevalence"
   },
   {
     "objectID": "20260928_Oulu.html#learning-goals-3",
@@ -592,6 +592,23 @@
     "href": "20260928_Oulu.html#exercises",
     "title": "Microbiome data science and multi-omics with R/Bioconductor",
     "section": "Exercises",
+<<<<<<< HEAD
+    "text": "Exercises\n\nChapter 4, Exercises 1.2-1.7\nChapter 11, all exercises\nChapter 10, all exercises"
+  },
+  {
+    "objectID": "20260928_Oulu.html#slides-1",
+    "href": "20260928_Oulu.html#slides-1",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Slides",
+    "text": "Slides\n\nAlpha diversity\nBeta diversity ordination\nDifferential abundance analysis"
+  },
+  {
+    "objectID": "20260928_Oulu.html#exercises-1",
+    "href": "20260928_Oulu.html#exercises-1",
+    "title": "Microbiome data science and multi-omics with R/Bioconductor",
+    "section": "Exercises",
+    "text": "Exercises\n\nChapter 13, all exercises"
+=======
     "text": "Exercises\n\nChapter 4, Exercises 1.2-1.7"
   },
   {
@@ -1005,7 +1022,7 @@
     "href": "workflow.html#references",
     "title": "Microbiome data science workflow",
     "section": "References",
-    "text": "References\n\n\n\n\nFalony, Gwen, Marie Joossens, Sara Vieira-Silva, Jun Wang, Youssef Darzi, Karoline Faust, Alexander Kurilshikov, et al. 2016. “Population-Level Analysis of Gut Microbiome Variation.” Science 352 (6285): 560–64. https://doi.org/10.1126/science.aad3503.\n\n\nLove, Michael I., Wolfgang Huber, and Simon Anders. 2014. “Moderated Estimation of Fold Change and Dispersion for RNA-seq Data with DESeq2.” Genome Biology 15 (12): 550. https://doi.org/10.1186/s13059-014-0550-8.\n\n\nSalonen, A., J. Salojärvi, L. Lahti, and W. M. de Vos. 2012. “The Adult Intestinal Core Microbiota Is Determined by Analysis Depth and Health Status.” Clinical Microbiology and Infection 18 (s4): 16–20. https://doi.org/10.1111/j.1469-0691.2012.03855.x.\n\n\nWickham, Hadley, Mine Çetinkaya-Rundel, and Garrett Grolemund. 2023. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. 2nd ed. O’Reilly Media. https://r4ds.hadley.nz."
+    "text": "References\n\n\n\n\nFalony, Gwen, Marie Joossens, Sara Vieira-Silva, Jun Wang, Youssef Darzi, Karoline Faust, Alexander Kurilshikov, et al. 2016. “Population-Level Analysis of Gut Microbiome Variation.” Science 352 (6285): 560–64. https://doi.org/10.1126/science.aad3503.\n\n\nLove, Michael I., Wolfgang Huber, and Simon Anders. 2014. “Moderated Estimation of Fold Change and Dispersion for RNA-seq Data with DESeq2.” Genome Biology 15 (12): 550. https://doi.org/10.1186/s13059-014-0550-8.\n\n\nSalonen, A., J. Salojärvi, L. Lahti, and W. M. de Vos. 2012. “The Adult Intestinal Core Microbiota Is Determined by Analysis Depth and Health Status.” Clinical Microbiology and Infection 18 (s4): 16–20. https://doi.org/10.1111/j.1469-0691.2012.03855.x."
   },
   {
     "objectID": "workflow.html#beta-diversity-pcoa",
@@ -1321,12 +1338,6 @@
     "title": "Transformation",
     "section": "Relative vs. quantitative profiles",
     "text": "Relative vs. quantitative profiles\n\n\n\n\n\n\n\nThe same samples profiled in two ways. On the left, relative abundances (RMP): every sample sums to 100 %. On the right, quantitative abundances (QMP): relative profiles scaled by the microbial cell count per gram, measured with flow cytometry. Microbial load varies several-fold between samples, which the relative profile hides entirely.\n\n\nRMP / QMP: relative / quantitative microbiome profiling. Vandeputte et al. (2017)"
-  },
-  {
-    "objectID": "workflow.html#the-data-science-workflow",
-    "href": "workflow.html#the-data-science-workflow",
-    "title": "Microbiome data science workflow",
-    "section": "The data science workflow",
-    "text": "The data science workflow\n\n\n\n\n\n\n\nThe general data science cycle from R for Data Science. Data are imported and tidied, then understood by iterating between transforming, visualizing and modelling, and finally the results are communicated. Programming surrounds every step and ties it together into a reproducible whole. The microbiome workflow on the next slide follows the same pattern.\n\n\nR for Data Science (Wickham, Çetinkaya-Rundel, and Grolemund 2023), CC BY-NC-ND 3.0"
+>>>>>>> 5742cfe0b113a21a2d7dafd0e83ad678037fa5d5
   }
 ]
