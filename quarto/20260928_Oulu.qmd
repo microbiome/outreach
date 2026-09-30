@@ -206,12 +206,10 @@ Calculate, visualize, and interpret
 ## Exercises
 
 - [Chapter 13, all exercises](https://bioconductor.org/books/release/OMA/pages/alpha_diversity.html)
+- [Chapter 14, all exercises](https://bioconductor.org/books/release/OMA/pages/community_similarity.html)
 
 <!--
-- [Chapter 14, Exercises 1.2-1.8, 3.1-3.6 exercises](https://bioconductor.org/books/release/OMA/pages/community_similarity.html)
-- [Chapter 14, all exercises](https://bioconductor.org/books/release/OMA/pages/community_similarity.html)
 - [Chapter 16, all exercises](https://bioconductor.org/books/release/OMA/pages/differential_abundance.html)
-
 -->
 
 ## Day 2 — Wrap-up
@@ -242,21 +240,43 @@ qrcode::qr_code("https://forms.gle/iEkoNdMVp9BUnyqNA") |> plot()
 
 ## Learning goals
 
-- Goals for the day
-
-## Summary
-
-- x
-- x
-- x
+- Import multiomics data into `MultiAssayExperiment`
+- Analyse and visualize multiomics data 
 
 ## Feedback
 
 ```{r}
 #| label: feedback_qr3
-#| fig-cap: "https://forms.gle/iEkoNdMVp9BUnyqNA"
-qrcode::qr_code("https://forms.gle/iEkoNdMVp9BUnyqNA") |> plot()
+#| fig-cap: "https://forms.gle/rHTTNqvr9jsRQkRg6"
+qrcode::qr_code("https://forms.gle/rHTTNqvr9jsRQkRg6") |> plot()
 ```
+
+## Channels
+
+- Bioconductor community chat Zulip
+- GitHub issues
+- Email?
+
+## Finnish Society for Bioinformatics
+
+- Bioinformatics community in Finland
+- Biobeers, events, webinars, ...
+- Bioinformatics day in May-June 2027
+
+::: {layout-ncol=2}
+
+```{r}
+#| label: society_linkedin
+#| fig-cap: "www.linkedin.com/company/finnish-society-for-bioinformatics"
+#| fig-align: center
+#| fig-width: 2.5
+#| fig-height: 2.5
+qrcode::qr_code("https://www.linkedin.com/company/finnish-society-for-bioinformatics") |> plot()
+```
+
+![](images/bioinfo_society.jpg){fig-alt="Bioinformatics society logo" width="70%"}
+
+:::
 
 ## Acknowledgements
 
