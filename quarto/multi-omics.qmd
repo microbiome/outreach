@@ -102,7 +102,9 @@ Denominator: scales by standard deviations to get a normalized correlation coeff
 
 - Focus on feature pairs with found relationships
 - Avoids computing all pairwise correlations
-- Implemented in [anansi](github.com/thomazbastiaanssen/anansi/tree/devel)
+- Implemented in [anansi](https://github.com/thomazbastiaanssen/anansi) [@bastiaanssen2023]
+
+➡️ [anansi slides](https://microbiome.github.io/outreach/anansi.html){target="_blank"}
 
 ![](https://raw.githubusercontent.com/thomazbastiaanssen/anansi/refs/heads/devel/man/figures/anansi_hex.png){fig-alt="anansi logo" width=10% fig-align="right"}
 

@@ -8,6 +8,7 @@ project:
     - 20260928_Oulu.qmd
     - 20260928_Oulu_visual.qmd
     - agglomeration.qmd
+    - anansi.qmd
     - alpha_diversity.qmd
     - beta_diversity.qmd
     - bioc2023.qmd
