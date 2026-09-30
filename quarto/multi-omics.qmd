@@ -158,6 +158,8 @@ _IntegratedLearner_
 - Predict phenotypes from multiple omics
 - Ensemble learning combining base learners per omics
 
+➡️ [IntegratedLearner slides](https://microbiome.github.io/outreach/integratedlearner.html){target="_blank"}
+
 ::: {.notes}
 IntegratedLearner is suitable for multi-omics prediction tasks, combining results from each data layer efficiently.
 :::
