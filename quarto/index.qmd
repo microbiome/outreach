@@ -26,6 +26,9 @@ This website hosts quarto presentations about microbiome analysis and data integ
     - [Functional analysis](https://microbiome.github.io/outreach/functional_analysis.html){target="_blank"}
 - Multi-omics
     - [Multi-omics](https://microbiome.github.io/outreach/multi-omics.html){target="_blank"}
+    - [Joint-RPCA](https://microbiome.github.io/outreach/jointrpca.html){target="_blank"}
+    - [IntegratedLearner](https://microbiome.github.io/outreach/integratedlearner.html){target="_blank"}
+    - [Multi-table methods](https://microbiome.github.io/outreach/multitable.html){target="_blank"}
 - Machine learning
     - [Machine learning](https://microbiome.github.io/outreach/machine_learning.html){target="_blank"}
 - Workflow
@@ -39,6 +42,7 @@ This website hosts quarto presentations about microbiome analysis and data integ
 
 ### Data sets
 
+- [GuptaA_2019: colorectal cancer gut metagenomes](https://microbiome.github.io/outreach/gupta2019.html){target="_blank"}
 - HintikkaXO
 - Tengeler2020
 
@@ -57,6 +61,7 @@ This website hosts quarto presentations about microbiome analysis and data integ
 - [Outro](https://microbiome.github.io/outreach/outro.html){target="_blank"}
 - [Orchestrating Hologenome Analysis with Bioconductor (ECCB2026)](https://microbiome.github.io/outreach/20260903_ECCB2026.html){target="_blank"}
 - [Microbiome data science and multi-omics with R/Bioconductor (Oulu, September 2026)](https://microbiome.github.io/outreach/20260928_Oulu.html){target="_blank"}
+    - [Visual version](https://microbiome.github.io/outreach/20260928_Oulu_visual.html){target="_blank"}
 
 ## Contributions
 
