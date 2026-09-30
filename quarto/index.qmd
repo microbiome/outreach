@@ -40,6 +40,7 @@ This website hosts quarto presentations about microbiome analysis and data integ
 
 ### Data sets
 
+- [GuptaA_2019: colorectal cancer gut metagenomes](https://microbiome.github.io/outreach/gupta2019.html){target="_blank"}
 - HintikkaXO
 - Tengeler2020
 

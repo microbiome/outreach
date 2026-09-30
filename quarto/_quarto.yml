@@ -16,6 +16,7 @@ project:
     - data_containers.qmd
     - eurobioc2026.qmd
     - functional_analysis.qmd
+    - gupta2019.qmd
     - gbcc2025.qmd
     - import.qmd
     - intro.qmd
