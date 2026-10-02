@@ -1,0 +1,229 @@
+---
+title: "Orchestrating Microbiome Analysis with Bioconductor"
+subtitle: "Leiden, October 2026"
+author: "Leo Lahti, Tuomas Borman"
+format:
+  revealjs:
+    self-contained: true
+    slide-number: true
+    preview-links: auto
+    logo: images/mia_logo.png
+    footer: <https://microbiome.github.io/>
+date: last-modified
+bibliography: references.bib
+---
+
+Orchestrating Microbiome Analysis with Bioconductor
+
+**TNO, Leiden**, **Oct 5–7, 2026 (Mon–Wed)**  
+Daily: ~**9:00–16:00** (lectures + demos + hands-on)
+
+![](images/mia_logo.png){fig-alt="mia logo" width=10%}
+![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo" width=35%}
+
+## Code of Conduct
+
+Bioconductor community values:
+
+- sharing of ideas, code, software, and expertise
+- collaboration
+- diversity and inclusivity
+- a kind and welcoming environment
+
+Full CoC: <https://bioconductor.github.io/bioc_coc_multilingual/>
+
+## Course overview
+
+The course provides a gentle introduction to **microbiome and multi-omic data science**
+with **R/Bioconductor**, focusing on:
+
+- reproducible data analysis workflows
+- standardized data containers for biomedical data integration
+- how to approach new analysis tasks using documentation + existing tools
+
+::: notes
+Emphasize: you don't need to know everything—learn the ecosystem and how to navigate.
+:::
+
+## Learning goals
+
+After the course, you will be able to:
+
+- use **Bioconductor** data infrastructure for omics data analysis
+- work with standardized containers for **single-omics** and **multi-omics**
+- build **reproducible workflows** with Quarto
+- continue learning independently using the OMA documentation
+
+## Materials & links
+
+- OMA book: <https://bioconductor.org/books/release/OMA/>
+- [https://orchestraplatform.org/](https://orchestraplatform.org/) (by Sean Davis)
+
+![](images/nci.png){fig-alt="NCI logo." fig-align="right" width=20%}
+
+## Practicalities
+
+- Each topic: **short lecture + demonstration**
+- Majority of time: **hands-on exercises**
+- Help available during exercises
+- Materials remain available after the course
+
+## Schedule overview
+
+**Day 1:** Reproducible workflows with R/Bioconductor and Quarto  
+**Day 2:** Tabular data analysis (working with single 'omics)  
+**Day 3:** Multi-assay data integration (multi-omics methods)
+
+# Day 1 — Open data science
+
+## Day 1 — Open data science {.smaller}
+
+| Time | Activity |
+|-------------|----------|
+| 9:00–10:00  | Coffee, welcome & practicalities |
+| 10:00–11:00 | Introduction to CSC RStudio notebook |
+| 11:00–12:00 | Lecture: open & reproducible workflows |
+| 12:00–13:00 | Lunch break |
+| 13:00–16:00 | Working with data containers and workflows |
+
+## Learning goals
+
+- Understand principles of open & reproducible microbiome/omics analysis
+- Become familiar with the Bioconductor ecosystem
+- Learn the role of standardized data containers for omics data
+
+## Microbiome research
+
+- Microbiome: community of microbes and their genes in certain habitat (e.g., human gut)
+- Vital role
+- Data typically sequencing profiles, along with additional molecular layers
+
+![](images/paste-DD45BC4A.png){fig-align="right"}
+
+::: notes
+Tämä dia voi mennä muualle, mutta jos muistan oikein, olemme olettaneet edellisillä kursseilla, että ihmiset tietää, mikä on mikrobiomi. Se kannattaa käydä nopeasti alussa läpi.
+:::
+
+## Slides
+
+- [Data containers](https://microbiome.github.io/outreach/data_containers.html){target="_blank"}
+- [Import](https://microbiome.github.io/outreach/import.html){target="_blank"}
+
+## Exercises
+
+- [Chapter 4, Exercises 1.2-1.7](https://bioconductor.org/books/release/OMA/pages/import.html)
+- [Chapter 11, all exercises](https://bioconductor.org/books/release/OMA/pages/transformation.html)
+- [Chapter 10, all exercises](https://bioconductor.org/books/release/OMA/pages/agglomeration.html)
+
+<!--
+- [Chapter 8, all exercises](https://bioconductor.org/books/release/OMA/pages/quality_control.html)
+
+- [Chapter 12, all exercises](https://bioconductor.org/books/release/OMA/pages/composition.html)
+-->
+
+## Day 1 — Wrap-up
+
+- **Reproducible & transparent reporting**: makes analyses verifiable and easier to reuse, review, and extend (for you and others)
+- `TreeSummarizedExperiment`: standard container for microbiome data
+- **Bioconductor** provides interoperable packages built on shared data infrastructure
+
+::: notes
+
+:::
+
+## Feedback
+
+```{r}
+#| label: feedback_qr
+#| fig-cap: "https://forms.gle/iEkoNdMVp9BUnyqNA"
+qrcode::qr_code("https://forms.gle/iEkoNdMVp9BUnyqNA") |> plot()
+```
+
+
+# Day 2 — Tabular data analysis
+
+## Day 2 — Tabular data analysis {.smaller}
+
+| Time | Activity |
+|-------------|----------|
+| 9:00–10:00  | Lecture: analysis & visualization of tabular data (single omics) |
+| 10:00–12:00 | Subsetting, transformations, and data summaries |
+| 12:00–13:00 | Lunch break |
+| 13:00–14:00 | Univariate data analysis and visualization |
+| 14:00–16:00 | Multivariate data analysis and visualization |
+
+## Learning goals
+
+Calculate, visualize, and interpret
+
+- alpha diversity
+- beta diversity
+- differential abundance/prevalence
+
+## Slides
+
+- [Alpha diversity](https://microbiome.github.io/outreach/alpha_diversity.html){target="_blank"}
+- [Beta diversity ordination](https://microbiome.github.io/outreach/ordination.html){target="_blank"}
+- [Differential abundance analysis](https://microbiome.github.io/outreach/daa.html){target="_blank"}
+
+## Exercises
+
+- [Chapter 13, all exercises](https://bioconductor.org/books/release/OMA/pages/alpha_diversity.html)
+- [Chapter 14, all exercises](https://bioconductor.org/books/release/OMA/pages/community_similarity.html)
+
+<!--
+- [Chapter 16, all exercises](https://bioconductor.org/books/release/OMA/pages/differential_abundance.html)
+-->
+
+## Day 2 — Wrap-up
+
+- Alpha diversity: `mia::addAlpha()` + `miaViz::plotBoxplot()`
+- Beta diversity ordination: `mia::addMDS()`/`mia::addRDA()` + `miaViz::plotOrdination()`/`miaViz::plotRDA()`
+- Differential abundance analysis: `maaslin3::maaslin3()`
+
+## Feedback
+
+```{r}
+#| label: feedback_qr2
+#| fig-cap: "https://forms.gle/iEkoNdMVp9BUnyqNA"
+qrcode::qr_code("https://forms.gle/iEkoNdMVp9BUnyqNA") |> plot()
+```
+
+# Day 3 — Multi-assay data integration
+
+## Day 3 — Multi-assay data integration {.smaller}
+
+| Time | Activity |
+|-------------|----------|
+| 9:00–10:00  | Lecture: analysis & visualization of multi-assay data (multi-omics) |
+| 10:00–12:00 | Multi-assay data analysis and visualization |
+| 12:00–13:00 | Lunch break |
+| 13:00–15:00 | Q&A and advanced techniques (time series, machine learning, simulation) |
+| 15:00–16:00 | Summary and wrap-up |
+
+## Learning goals
+
+- Import multiomics data into `MultiAssayExperiment`
+- Analyse and visualize multiomics data 
+
+## Feedback
+
+```{r}
+#| label: feedback_qr3
+#| fig-cap: "https://forms.gle/rHTTNqvr9jsRQkRg6"
+qrcode::qr_code("https://forms.gle/rHTTNqvr9jsRQkRg6") |> plot()
+```
+
+## Channels
+
+- Bioconductor community chat Zulip
+- GitHub issues
+- Email?
+
+## Acknowledgements
+
+![](images/University_of_Turku.png){fig-alt="UTU logo" width=30%}
+![](images/mia_logo.png){fig-alt="mia logo" width=10%}
+![](images/bioconductor_logo_rgb.jpg){fig-alt="Bioconductor logo" width=35%}
+
+## References

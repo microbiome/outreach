@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Leo Lahti, Tuomas Borman">
+<meta name="dcterms.date" content="2026-10-02">
 
-<title>Quarto presentations</title>
+<title>Orchestrating Microbiome Analysis with Bioconductor</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -76,27 +78,42 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="fullcontent quarto-light">
+<body class="quarto-light">
 
 <div id="quarto-search-results"></div>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="20261005_Leiden.html"><i class="bi bi-file-slides"></i>RevealJS</a></li></ul></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Quarto presentations</h1>
+<h1 class="title">Orchestrating Microbiome Analysis with Bioconductor</h1>
+<p class="subtitle lead">Leiden, October 2026</p>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Leo Lahti, Tuomas Borman </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 2, 2026</p>
+    </div>
+  </div>
   
     
   </div>
@@ -106,112 +123,379 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="overview" class="level2">
-<h2 class="anchored" data-anchor-id="overview">Overview</h2>
-<p>This website hosts quarto presentations about microbiome analysis and data integration with mia and other related packages. Our presentations were prepared for past courses and conferences and cover a broad range of topics in the scope of biological data science. Currently, you can find the following subjects:</p>
+<p>Orchestrating Microbiome Analysis with Bioconductor</p>
+<p><strong>TNO, Leiden</strong>, <strong>Oct 5–7, 2026 (Mon–Wed)</strong><br>
+Daily: ~<strong>9:00–16:00</strong> (lectures + demos + hands-on)</p>
+<p><img src="images/mia_logo.png" class="img-fluid" style="width:10.0%" alt="mia logo"> <img src="images/bioconductor_logo_rgb.jpg" class="img-fluid" style="width:35.0%" alt="Bioconductor logo"></p>
+<section id="code-of-conduct" class="level2">
+<h2 class="anchored" data-anchor-id="code-of-conduct">Code of Conduct</h2>
+<p>Bioconductor community values:</p>
+<ul>
+<li>sharing of ideas, code, software, and expertise</li>
+<li>collaboration</li>
+<li>diversity and inclusivity</li>
+<li>a kind and welcoming environment</li>
+</ul>
+<p>Full CoC: <a href="https://bioconductor.github.io/bioc_coc_multilingual/" class="uri">https://bioconductor.github.io/bioc_coc_multilingual/</a></p>
 </section>
-<section id="topics" class="level2">
-<h2 class="anchored" data-anchor-id="topics">Topics</h2>
+<section id="course-overview" class="level2">
+<h2 class="anchored" data-anchor-id="course-overview">Course overview</h2>
+<p>The course provides a gentle introduction to <strong>microbiome and multi-omic data science</strong> with <strong>R/Bioconductor</strong>, focusing on:</p>
 <ul>
-<li>Introduction
+<li>reproducible data analysis workflows</li>
+<li>standardized data containers for biomedical data integration</li>
+<li>how to approach new analysis tasks using documentation + existing tools</li>
+</ul>
+<div class="notes">
+<p>Emphasize: you don’t need to know everything—learn the ecosystem and how to navigate.</p>
+</div>
+</section>
+<section id="learning-goals" class="level2">
+<h2 class="anchored" data-anchor-id="learning-goals">Learning goals</h2>
+<p>After the course, you will be able to:</p>
 <ul>
-<li><a href="https://microbiome.github.io/outreach/bioconductor.html" target="_blank">Bioconductor</a></li>
-<li><a href="https://microbiome.github.io/outreach/reproducible_reporting.html" target="_blank">Reproducible reporting</a></li>
+<li>use <strong>Bioconductor</strong> data infrastructure for omics data analysis</li>
+<li>work with standardized containers for <strong>single-omics</strong> and <strong>multi-omics</strong></li>
+<li>build <strong>reproducible workflows</strong> with Quarto</li>
+<li>continue learning independently using the OMA documentation</li>
+</ul>
+</section>
+<section id="materials-links" class="level2">
+<h2 class="anchored" data-anchor-id="materials-links">Materials &amp; links</h2>
+<ul>
+<li>OMA book: <a href="https://bioconductor.org/books/release/OMA/" class="uri">https://bioconductor.org/books/release/OMA/</a></li>
+<li><a href="https://orchestraplatform.org/">https://orchestraplatform.org/</a> (by Sean Davis)</li>
+</ul>
+<div class="quarto-figure quarto-figure-right">
+<figure class="figure">
+<p><img src="images/nci.png" class="img-fluid quarto-figure quarto-figure-right figure-img" style="width:20.0%" alt="NCI logo."></p>
+</figure>
+</div>
+</section>
+<section id="practicalities" class="level2">
+<h2 class="anchored" data-anchor-id="practicalities">Practicalities</h2>
+<ul>
+<li>Each topic: <strong>short lecture + demonstration</strong></li>
+<li>Majority of time: <strong>hands-on exercises</strong></li>
+<li>Help available during exercises</li>
+<li>Materials remain available after the course</li>
+</ul>
+</section>
+<section id="schedule-overview" class="level2">
+<h2 class="anchored" data-anchor-id="schedule-overview">Schedule overview</h2>
+<p><strong>Day 1:</strong> Reproducible workflows with R/Bioconductor and Quarto<br>
+<strong>Day 2:</strong> Tabular data analysis (working with single ’omics)<br>
+<strong>Day 3:</strong> Multi-assay data integration (multi-omics methods)</p>
+</section>
+<section id="day-1-open-data-science" class="level1">
+<h1>Day 1 — Open data science</h1>
+<section id="day-1-open-data-science-1" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="day-1-open-data-science-1">Day 1 — Open data science</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Time</th>
+<th>Activity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>9:00–10:00</td>
+<td>Coffee, welcome &amp; practicalities</td>
+</tr>
+<tr class="even">
+<td>10:00–11:00</td>
+<td>Introduction to CSC RStudio notebook</td>
+</tr>
+<tr class="odd">
+<td>11:00–12:00</td>
+<td>Lecture: open &amp; reproducible workflows</td>
+</tr>
+<tr class="even">
+<td>12:00–13:00</td>
+<td>Lunch break</td>
+</tr>
+<tr class="odd">
+<td>13:00–16:00</td>
+<td>Working with data containers and workflows</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="learning-goals-1" class="level2">
+<h2 class="anchored" data-anchor-id="learning-goals-1">Learning goals</h2>
+<ul>
+<li>Understand principles of open &amp; reproducible microbiome/omics analysis</li>
+<li>Become familiar with the Bioconductor ecosystem</li>
+<li>Learn the role of standardized data containers for omics data</li>
+</ul>
+</section>
+<section id="microbiome-research" class="level2">
+<h2 class="anchored" data-anchor-id="microbiome-research">Microbiome research</h2>
+<ul>
+<li>Microbiome: community of microbes and their genes in certain habitat (e.g., human gut)</li>
+<li>Vital role</li>
+<li>Data typically sequencing profiles, along with additional molecular layers</li>
+</ul>
+<div class="quarto-figure quarto-figure-right">
+<figure class="figure">
+<p><img src="images/paste-DD45BC4A.png" class="img-fluid quarto-figure quarto-figure-right figure-img"></p>
+</figure>
+</div>
+<div class="notes">
+<p>Tämä dia voi mennä muualle, mutta jos muistan oikein, olemme olettaneet edellisillä kursseilla, että ihmiset tietää, mikä on mikrobiomi. Se kannattaa käydä nopeasti alussa läpi.</p>
+</div>
+</section>
+<section id="slides" class="level2">
+<h2 class="anchored" data-anchor-id="slides">Slides</h2>
+<ul>
 <li><a href="https://microbiome.github.io/outreach/data_containers.html" target="_blank">Data containers</a></li>
-<li><a href="https://microbiome.github.io/outreach/import.html" target="_blank">Import data</a></li>
-</ul></li>
-<li>Preprocessing
+<li><a href="https://microbiome.github.io/outreach/import.html" target="_blank">Import</a></li>
+</ul>
+</section>
+<section id="exercises" class="level2">
+<h2 class="anchored" data-anchor-id="exercises">Exercises</h2>
 <ul>
-<li><a href="https://microbiome.github.io/outreach/agglomeration.html" target="_blank">Agglomeration</a></li>
-<li><a href="https://microbiome.github.io/outreach/transformation.html" target="_blank">Transformation</a></li>
-</ul></li>
-<li>Diversity
+<li><a href="https://bioconductor.org/books/release/OMA/pages/import.html">Chapter 4, Exercises 1.2-1.7</a></li>
+<li><a href="https://bioconductor.org/books/release/OMA/pages/transformation.html">Chapter 11, all exercises</a></li>
+<li><a href="https://bioconductor.org/books/release/OMA/pages/agglomeration.html">Chapter 10, all exercises</a></li>
+</ul>
+<!--
+- [Chapter 8, all exercises](https://bioconductor.org/books/release/OMA/pages/quality_control.html)
+
+- [Chapter 12, all exercises](https://bioconductor.org/books/release/OMA/pages/composition.html)
+-->
+</section>
+<section id="day-1-wrap-up" class="level2">
+<h2 class="anchored" data-anchor-id="day-1-wrap-up">Day 1 — Wrap-up</h2>
+<ul>
+<li><strong>Reproducible &amp; transparent reporting</strong>: makes analyses verifiable and easier to reuse, review, and extend (for you and others)</li>
+<li><code>TreeSummarizedExperiment</code>: standard container for microbiome data</li>
+<li><strong>Bioconductor</strong> provides interoperable packages built on shared data infrastructure</li>
+</ul>
+<div class="notes">
+
+</div>
+</section>
+<section id="feedback" class="level2">
+<h2 class="anchored" data-anchor-id="feedback">Feedback</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="20261005_Leiden_files/figure-revealjs/feedback_qr-1.png" class="img-fluid figure-img" width="960"></p>
+<figcaption>https://forms.gle/iEkoNdMVp9BUnyqNA</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="day-2-tabular-data-analysis" class="level1">
+<h1>Day 2 — Tabular data analysis</h1>
+<section id="day-2-tabular-data-analysis-1" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="day-2-tabular-data-analysis-1">Day 2 — Tabular data analysis</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 56%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Time</th>
+<th>Activity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>9:00–10:00</td>
+<td>Lecture: analysis &amp; visualization of tabular data (single omics)</td>
+</tr>
+<tr class="even">
+<td>10:00–12:00</td>
+<td>Subsetting, transformations, and data summaries</td>
+</tr>
+<tr class="odd">
+<td>12:00–13:00</td>
+<td>Lunch break</td>
+</tr>
+<tr class="even">
+<td>13:00–14:00</td>
+<td>Univariate data analysis and visualization</td>
+</tr>
+<tr class="odd">
+<td>14:00–16:00</td>
+<td>Multivariate data analysis and visualization</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="learning-goals-2" class="level2">
+<h2 class="anchored" data-anchor-id="learning-goals-2">Learning goals</h2>
+<p>Calculate, visualize, and interpret</p>
+<ul>
+<li>alpha diversity</li>
+<li>beta diversity</li>
+<li>differential abundance/prevalence</li>
+</ul>
+</section>
+<section id="slides-1" class="level2">
+<h2 class="anchored" data-anchor-id="slides-1">Slides</h2>
 <ul>
 <li><a href="https://microbiome.github.io/outreach/alpha_diversity.html" target="_blank">Alpha diversity</a></li>
-<li><a href="https://microbiome.github.io/outreach/beta_diversity.html" target="_blank">Beta diversity</a>
-<ul>
-<li><a href="https://microbiome.github.io/outreach/beta_diversity.html#/ordination" target="_blank">Ordination</a></li>
-</ul></li>
-</ul></li>
-<li>Association
-<ul>
+<li><a href="https://microbiome.github.io/outreach/ordination.html" target="_blank">Beta diversity ordination</a></li>
 <li><a href="https://microbiome.github.io/outreach/daa.html" target="_blank">Differential abundance analysis</a></li>
-<li><a href="https://microbiome.github.io/outreach/functional_analysis.html" target="_blank">Functional analysis</a></li>
-</ul></li>
-<li>Multi-omics
-<ul>
-<li><a href="https://microbiome.github.io/outreach/multi-omics.html" target="_blank">Multi-omics</a></li>
-<li><a href="https://microbiome.github.io/outreach/jointrpca.html" target="_blank">Joint-RPCA</a></li>
-<li><a href="https://microbiome.github.io/outreach/integratedlearner.html" target="_blank">IntegratedLearner</a></li>
-<li><a href="https://microbiome.github.io/outreach/multitable.html" target="_blank">Multi-table methods</a></li>
-</ul></li>
-<li>Machine learning
-<ul>
-<li><a href="https://microbiome.github.io/outreach/machine_learning.html" target="_blank">Machine learning</a></li>
-</ul></li>
-<li>Workflow
-<ul>
-<li><a href="https://microbiome.github.io/outreach/workflow.html" target="_blank">Microbiome data science workflow</a></li>
-</ul></li>
-</ul>
-<section id="packages" class="level3">
-<h3 class="anchored" data-anchor-id="packages">Packages</h3>
-<ul>
-<li><a href="https://microbiome.github.io/outreach/mgnifyr.html" target="_blank">MGnifyR: An R package for accessing MGnify microbiome data</a></li>
-<li><a href="https://microbiome.github.io/outreach/miadash.html" target="_blank">miaDash: Microbiome Analysis Dashboard</a></li>
-<li><a href="https://microbiome.github.io/outreach/miasim.html" target="_blank">miaSim: Microbiome simulation</a></li>
 </ul>
 </section>
-<section id="data-sets" class="level3">
-<h3 class="anchored" data-anchor-id="data-sets">Data sets</h3>
+<section id="exercises-1" class="level2">
+<h2 class="anchored" data-anchor-id="exercises-1">Exercises</h2>
 <ul>
-<li><a href="https://microbiome.github.io/outreach/gupta2019.html" target="_blank">GuptaA_2019: colorectal cancer gut metagenomes</a></li>
-<li>HintikkaXO</li>
-<li>Tengeler2020</li>
+<li><a href="https://bioconductor.org/books/release/OMA/pages/alpha_diversity.html">Chapter 13, all exercises</a></li>
+<li><a href="https://bioconductor.org/books/release/OMA/pages/community_similarity.html">Chapter 14, all exercises</a></li>
+</ul>
+<!--
+- [Chapter 16, all exercises](https://bioconductor.org/books/release/OMA/pages/differential_abundance.html)
+-->
+</section>
+<section id="day-2-wrap-up" class="level2">
+<h2 class="anchored" data-anchor-id="day-2-wrap-up">Day 2 — Wrap-up</h2>
+<ul>
+<li>Alpha diversity: <code>mia::addAlpha()</code> + <code>miaViz::plotBoxplot()</code></li>
+<li>Beta diversity ordination: <code>mia::addMDS()</code>/<code>mia::addRDA()</code> + <code>miaViz::plotOrdination()</code>/<code>miaViz::plotRDA()</code></li>
+<li>Differential abundance analysis: <code>maaslin3::maaslin3()</code></li>
 </ul>
 </section>
-<section id="conference-and-seminar-presentations" class="level3">
-<h3 class="anchored" data-anchor-id="conference-and-seminar-presentations">Conference and seminar presentations</h3>
+<section id="feedback-1" class="level2">
+<h2 class="anchored" data-anchor-id="feedback-1">Feedback</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="20261005_Leiden_files/figure-revealjs/feedback_qr2-1.png" class="img-fluid figure-img" width="960"></p>
+<figcaption>https://forms.gle/iEkoNdMVp9BUnyqNA</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="day-3-multi-assay-data-integration" class="level1">
+<h1>Day 3 — Multi-assay data integration</h1>
+<section id="day-3-multi-assay-data-integration-1" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="day-3-multi-assay-data-integration-1">Day 3 — Multi-assay data integration</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 56%">
+<col style="width: 43%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Time</th>
+<th>Activity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>9:00–10:00</td>
+<td>Lecture: analysis &amp; visualization of multi-assay data (multi-omics)</td>
+</tr>
+<tr class="even">
+<td>10:00–12:00</td>
+<td>Multi-assay data analysis and visualization</td>
+</tr>
+<tr class="odd">
+<td>12:00–13:00</td>
+<td>Lunch break</td>
+</tr>
+<tr class="even">
+<td>13:00–15:00</td>
+<td>Q&amp;A and advanced techniques (time series, machine learning, simulation)</td>
+</tr>
+<tr class="odd">
+<td>15:00–16:00</td>
+<td>Summary and wrap-up</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="learning-goals-3" class="level2">
+<h2 class="anchored" data-anchor-id="learning-goals-3">Learning goals</h2>
 <ul>
-<li><a href="https://microbiome.github.io/outreach/bioc2023.html" target="_blank">Orchestrating microbiome multi-omics (BioC2023)</a></li>
-<li><a href="https://microbiome.github.io/outreach/oh-boost_webinar2024.html" target="_blank">Orchestrating Microbiome Analysis with Bioconductor (OH-BOOST, Microbiota Data Analysis and Statistics, webinar)</a></li>
-<li><a href="https://microbiome.github.io/outreach/gbcc2025.html" target="_blank">Orchestrating Microbiome Analysis with Bioconductor (GBCC2025)</a></li>
-<li><a href="https://microbiome.github.io/outreach/ismb_eccb2025.html" target="_blank">Orchestrating Microbiome Analysis with Bioconductor (ISMB/ECCB 2025)</a></li>
-<li><a href="https://microbiome.github.io/outreach/20260506_bioc_africa.html" target="_blank">Orchestrating Microbiome Analysis with Bioconductor (Bioconductor Africa Seminar Series, May 2026)</a></li>
-<li><a href="https://microbiome.github.io/outreach/eurobioc2026.html" target="_blank">Orchestrating Microbiome Analysis with Bioconductor (EuroBioC2026)</a></li>
+<li>Import multiomics data into <code>MultiAssayExperiment</code></li>
+<li>Analyse and visualize multiomics data</li>
 </ul>
 </section>
-<section id="courses-and-workshops" class="level3">
-<h3 class="anchored" data-anchor-id="courses-and-workshops">Courses and workshops</h3>
+<section id="feedback-2" class="level2">
+<h2 class="anchored" data-anchor-id="feedback-2">Feedback</h2>
+<div class="cell">
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="20261005_Leiden_files/figure-revealjs/feedback_qr3-1.png" class="img-fluid figure-img" width="960"></p>
+<figcaption>https://forms.gle/rHTTNqvr9jsRQkRg6</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="channels" class="level2">
+<h2 class="anchored" data-anchor-id="channels">Channels</h2>
 <ul>
-<li><a href="https://microbiome.github.io/outreach/intro.html" target="_blank">Introduction</a></li>
-<li><a href="https://microbiome.github.io/outreach/outro.html" target="_blank">Outro</a></li>
-<li><a href="https://microbiome.github.io/outreach/20260903_ECCB2026.html" target="_blank">Orchestrating Hologenome Analysis with Bioconductor (ECCB2026)</a></li>
-<li><a href="https://microbiome.github.io/outreach/20260928_Oulu.html" target="_blank">Microbiome data science and multi-omics with R/Bioconductor (Oulu, September 2026)</a>
-<ul>
-<li><a href="https://microbiome.github.io/outreach/20260928_Oulu_visual.html" target="_blank">Visual version</a></li>
-</ul></li>
-<li><a href="https://microbiome.github.io/outreach/20261005_Leiden.html" target="_blank">Orchestrating Microbiome Analysis with Bioconductor (ECCB2026)</a></li>
+<li>Bioconductor community chat Zulip</li>
+<li>GitHub issues</li>
+<li>Email?</li>
 </ul>
 </section>
+<section id="acknowledgements" class="level2">
+<h2 class="anchored" data-anchor-id="acknowledgements">Acknowledgements</h2>
+<p><img src="images/University_of_Turku.png" class="img-fluid" style="width:30.0%" alt="UTU logo"> <img src="images/mia_logo.png" class="img-fluid" style="width:10.0%" alt="mia logo"> <img src="images/bioconductor_logo_rgb.jpg" class="img-fluid" style="width:35.0%" alt="Bioconductor logo"></p>
 </section>
-<section id="contributions" class="level2">
-<h2 class="anchored" data-anchor-id="contributions">Contributions</h2>
-<p>You are welcome to add new presentations or improve the current ones. The guidelines for contributors are explained <a href="https://github.com/microbiome/OMA#development-and-contributions">here</a>. The presentations are deployed from the <a href="https://github.com/microbiome/outreach/blob/main/quarto/">quarto sub-directory</a>, so you need to make the respective changes there and run <code>cd quarto/; quarto render</code>.</p>
-<p>The following is a quick workflow for contributions:</p>
-<ol type="1">
-<li><p>fork the repository</p></li>
-<li><p>add your qmd file(s) to the <a href="https://github.com/microbiome/outreach/blob/main/quarto/">quarto sub-directory</a></p></li>
-<li><p>update the <a href="https://github.com/microbiome/outreach/blob/main/quarto/_quarto.yml">_quarto.yml file</a> and the list of presentations in the <a href="https://github.com/microbiome/outreach/blob/main/quarto/index.qmd">website</a> with the name of the qmd file(s) with your presentation(s)</p></li>
-<li><p>run <code>quarto render</code>, or in R <code>quarto::quarto_render(myfilename)</code> from your terminal from within the quarto sub-directory</p></li>
-<li><p>and make a pull request to the master branch</p></li>
-</ol>
-<p><a href="https://quarto.org/docs/publishing/github-pages.html#publish-command">This documentation</a> provides more details about publishing quarto presentations with GitHub Pages.</p>
+<section id="references" class="level2">
+<h2 class="anchored" data-anchor-id="references">References</h2>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
+
+<script>
+  // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+  // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+  // slide changes (different for each slide format).
+  (function () {
+    // dispatch for htmlwidgets
+    function fireSlideEnter() {
+      const event = window.document.createEvent("Event");
+      event.initEvent("slideenter", true, true);
+      window.document.dispatchEvent(event);
+    }
+
+    function fireSlideChanged(previousSlide, currentSlide) {
+      fireSlideEnter();
+
+      // dispatch for shiny
+      if (window.jQuery) {
+        if (previousSlide) {
+          window.jQuery(previousSlide).trigger("hidden");
+        }
+        if (currentSlide) {
+          window.jQuery(currentSlide).trigger("shown");
+        }
+      }
+    }
+
+    // hookup for slidy
+    if (window.w3c_slidy) {
+      window.w3c_slidy.add_observer(function (slide_num) {
+        // slide_num starts at position 1
+        fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+      });
+    }
+
+  })();
+</script>
+
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
     const icon = "";
