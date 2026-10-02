@@ -28,6 +28,7 @@ This website hosts quarto presentations about microbiome analysis and data integ
     - [Multi-omics](https://microbiome.github.io/outreach/multi-omics.html){target="_blank"}
     - [Joint-RPCA](https://microbiome.github.io/outreach/jointrpca.html){target="_blank"}
     - [IntegratedLearner](https://microbiome.github.io/outreach/integratedlearner.html){target="_blank"}
+    - [anansi](https://microbiome.github.io/outreach/anansi.html){target="_blank"}
     - [Multi-table methods](https://microbiome.github.io/outreach/multitable.html){target="_blank"}
 - Machine learning
     - [Machine learning](https://microbiome.github.io/outreach/machine_learning.html){target="_blank"}

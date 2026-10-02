@@ -9,6 +9,7 @@ project:
     - 20260928_Oulu_visual.qmd
     - 20261005_Leiden.qmd
     - agglomeration.qmd
+    - anansi.qmd
     - alpha_diversity.qmd
     - beta_diversity.qmd
     - bioc2023.qmd

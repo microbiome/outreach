@@ -388,6 +388,8 @@ IntegratedLearner:::plot.learner(fit_bin)$plot
     paper: the smaller layer carries more signal
 -   On the **independent cohort** AUC drops for the single layers and the
     stacked model; in this run the concatenated model generalizes best
+-   With **random forests** (same settings) external AUC is similar or
+    lower (stacked 0.64); weights shift to species 0.60, metabolites 0.40
 -   The packaged PRISM data are a reduced version (1500 metabolites)
     without the paper's residualization of confounders; results also
     vary slightly between runs (MCMC)
