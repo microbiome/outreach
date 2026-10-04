@@ -13,7 +13,7 @@ date: last-modified
 bibliography: references.bib
 ---
 
-Orchestrating Microbiome Analysis with Bioconductor
+## Orchestrating Microbiome Analysis with Bioconductor
 
 **TNO, Leiden**, **Oct 5–7, 2026 (Mon–Wed)**  
 Daily: ~**9:00–16:00** (lectures + demos + hands-on)
@@ -58,7 +58,7 @@ After the course, you will be able to:
 
 - OMA book: <https://bioconductor.org/books/release/OMA/>
 - [https://orchestraplatform.org/](https://orchestraplatform.org/) (by Sean Davis)
-- [Google Docs for questions](https://tinyurl.com/leiden-workshop)
+- Google Docs for questions: [https://tinyurl.com/leiden-workshop](https://tinyurl.com/leiden-workshop)
 
 ![](images/nci.png){fig-alt="NCI logo." fig-align="right" width=20%}
 
