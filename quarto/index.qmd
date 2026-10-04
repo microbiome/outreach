@@ -63,7 +63,7 @@ This website hosts quarto presentations about microbiome analysis and data integ
 - [Orchestrating Hologenome Analysis with Bioconductor (ECCB2026)](https://microbiome.github.io/outreach/20260903_ECCB2026.html){target="_blank"}
 - [Microbiome data science and multi-omics with R/Bioconductor (Oulu, September 2026)](https://microbiome.github.io/outreach/20260928_Oulu.html){target="_blank"}
     - [Visual version](https://microbiome.github.io/outreach/20260928_Oulu_visual.html){target="_blank"}
-- [Orchestrating Microbiome Analysis with Bioconductor (ECCB2026)](https://microbiome.github.io/outreach/20261005_Leiden.html){target="_blank"}
+- [Orchestrating Microbiome Analysis with Bioconductor (Leiden, October 2026)](https://microbiome.github.io/outreach/20261005_Leiden.html){target="_blank"}
 
 ## Contributions
 
