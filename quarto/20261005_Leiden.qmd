@@ -58,6 +58,7 @@ After the course, you will be able to:
 
 - OMA book: <https://bioconductor.org/books/release/OMA/>
 - [https://orchestraplatform.org/](https://orchestraplatform.org/) (by Sean Davis)
+- [Google Docs for questions](https://tinyurl.com/leiden-workshop)
 
 ![](images/nci.png){fig-alt="NCI logo." fig-align="right" width=20%}
 
@@ -81,7 +82,7 @@ After the course, you will be able to:
 | Time | Activity |
 |-------------|----------|
 | 9:00–10:00  | Coffee, welcome & practicalities |
-| 10:00–11:00 | Introduction to CSC RStudio notebook |
+| 10:00–11:00 | Introduction to Quarto notebook |
 | 11:00–12:00 | Lecture: open & reproducible workflows |
 | 12:00–13:00 | Lunch break |
 | 13:00–16:00 | Working with data containers and workflows |
@@ -91,18 +92,6 @@ After the course, you will be able to:
 - Understand principles of open & reproducible microbiome/omics analysis
 - Become familiar with the Bioconductor ecosystem
 - Learn the role of standardized data containers for omics data
-
-## Microbiome research
-
-- Microbiome: community of microbes and their genes in certain habitat (e.g., human gut)
-- Vital role
-- Data typically sequencing profiles, along with additional molecular layers
-
-![](images/paste-DD45BC4A.png){fig-align="right"}
-
-::: notes
-Tämä dia voi mennä muualle, mutta jos muistan oikein, olemme olettaneet edellisillä kursseilla, että ihmiset tietää, mikä on mikrobiomi. Se kannattaa käydä nopeasti alussa läpi.
-:::
 
 ## Slides
 
