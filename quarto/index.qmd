@@ -34,6 +34,7 @@ This website hosts quarto presentations about microbiome analysis and data integ
     - [Machine learning](https://microbiome.github.io/outreach/machine_learning.html){target="_blank"}
 - Workflow
     - [Microbiome data science workflow](https://microbiome.github.io/outreach/workflow.html){target="_blank"}
+    - [Microbiome data science workflow (lecture slides)](https://microbiome.github.io/outreach/microbiome_data_science.html){target="_blank"}
 
 ### Packages
 

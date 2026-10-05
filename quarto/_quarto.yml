@@ -28,6 +28,7 @@ project:
     - ismb_eccb2025.qmd
     - machine_learning.qmd
     - mgnifyr.qmd
+    - microbiome_data_science.qmd
     - miadash.qmd
     - miasim.qmd
     - multi-omics.qmd

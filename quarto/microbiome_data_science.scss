@@ -1,0 +1,6 @@
+/*-- scss:rules --*/
+
+// Full-slide image slides have an empty title; hide it and its accent bar
+.reveal .slides section h2:empty {
+  display: none;
+}
